@@ -18,3 +18,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+=======
+use App\Http\Controllers\FrontpageController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [FrontpageController::class, 'index'])->name('frontpage.index');
