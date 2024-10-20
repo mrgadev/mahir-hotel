@@ -1,4 +1,4 @@
-@extends('layout.frontpage')
+@extends('layouts.frontpage')
 @push('addons-style')
 <style>
     #mainNavbar.scrolled {
@@ -74,8 +74,8 @@
         </div>
         <ion-icon name="menu-outline" class="lg:hidden text-4xl" id="openMobileMenu"></ion-icon>
         <div class=" items-center gap-3 auth-button hidden lg:flex">
-            <a href="#" class="bg-white text-primary-500 px-5 py-2 rounded-full hover:bg-white transition-all">Daftar</a>
-            <a href="#" class="px-5 py-2 border border-white text-white rounded-full hover:bg-white hover:text-primary-500 transition-all">Masuk</a>
+            <a href="{{route('register')}}" class="bg-white text-primary-500 px-5 py-2 rounded-full hover:bg-white transition-all">Daftar</a>
+            <a href="{{route('login')}}" class="px-5 py-2 border border-white text-white rounded-full hover:bg-white hover:text-primary-500 transition-all">Masuk</a>
         </div>
         
     </nav>
