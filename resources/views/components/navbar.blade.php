@@ -16,18 +16,24 @@
                 </li> -->
                 <li class="flex items-center">                    
                     <div class="relative">
-                        <button onclick="document.getElementById('dropdownAvatar').classList.toggle('hidden')" class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-300" type="button">
+                        <button onclick="document.getElementById('dropdownAvatar').classList.toggle('hidden')" 
+                                class="flex items-center gap-3 px-3 py-1.5 text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-300" 
+                                type="button">
                             <span class="sr-only">Open user menu</span>
-                            <div class="w-8 h-8 flex shrink-0 rounded-full overflow-hidden">
-                                <img src="/assets/img/user.png" class="w-full h-full object-cover" alt="icon">
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="/assets/img/user.png" 
+                                    class="w-full h-full object-cover" 
+                                    alt="User avatar">
                             </div>
+                            <span class="text-gray-700 pe-2">Bonnie Green</span>
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div id="dropdownAvatar" class="absolute right-0 mt-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                        <div id="dropdownAvatar" 
+                            class="absolute right-0 mt-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                             <div class="px-4 py-3 text-sm text-gray-900">
-                                <div>Bonnie Green</div>
-                                <div class="font-medium truncate">name@flowbite.com</div>
+                                <div class="font-medium">Bonnie Green</div>
+                                <div class="text-gray-500 truncate">name@flowbite.com</div>
                             </div>
                             <ul class="py-2 text-sm text-gray-700">
                                 <li>
@@ -45,7 +51,7 @@
                             </div>
                         </div>
                     </div>
-               </li>
+                </li>
                 <li class="flex items-center pl-4 xl:hidden">
                 <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" sidenav-trigger>
                     <div class="w-4.5 overflow-hidden">
