@@ -72,8 +72,8 @@
     <nav class=" duration-500 transition-all flex items-center justify-between py-6 text-white" id="mainNavbar">
         <p class="text-lg font-medium">Mahir Hotel</p>
         <div class="lg:flex gap-8 font-light hidden">
-            <a href="#" class="hover:font-medium">Beranda</a>
-            <a href="#" class="hover:font-medium">Promo</a>
+            <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
+            <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
             <a href="#" class="hover:font-medium">Layanan Lainnya </a>
             <a href="#" class="hover:font-medium">Kontak</a>
             <a href="#" class="hover:font-medium">Tentang Kami</a>
@@ -92,8 +92,8 @@
         </div>
 
         <div class="flex flex-col gap-8 mt-8 font-light">
-            <a href="#" class="hover:font-medium">Beranda</a>
-            <a href="#" class="hover:font-medium">Promo</a>
+            <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
+            <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
             <a href="#" class="hover:font-medium">Layanan Lainnya </a>
             <a href="#" class="hover:font-medium">Kontak</a>
             <a href="#" class="hover:font-medium">Tentang Kami</a>

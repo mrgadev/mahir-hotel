@@ -22,3 +22,4 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/', [FrontpageController::class, 'index'])->name('frontpage.index');
+Route::get('/promo', [FrontpageController::class, 'promo'])->name('frontpage.promo');
