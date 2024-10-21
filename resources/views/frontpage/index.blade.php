@@ -48,6 +48,12 @@
         padding: 2rem;
     }
 
+    .cta-card {
+        background: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        background-position: center;
+        background-size: cover;
+    }
+
     @media (max-width: 1024px) {
         #mainNavbar.scrolled {
             padding: 1.5rem 3rem;
@@ -272,6 +278,71 @@
             </div>   
 
         </div>
+        {{-- <div class="flex flex-nowrap gap-10">
+            <div class="w-[250px] lg:w-[350px] bg-white rounded-xl grid grid-rows-2 gap-5 border border-primary-300">
+                <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?q=80&w=1916&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-t-xl h-36" alt="">
+                <div class="p-5 flex flex-col gap-5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-col gap-2">
+                            <p>Standard Room</p>
+                            Amenities here
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="bi bi-star-fill"></i>
+                            4.8
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[250px] lg:w-[350px] bg-white rounded-xl grid grid-rows-2 gap-5 border border-primary-300">
+                <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?q=80&w=1916&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <div class="p-5 flex flex-col gap-5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-col gap-2">
+                            <p>Standard Room</p>
+                            Amenities here
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="bi bi-star-fill"></i>
+                            4.8
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[250px] lg:w-[350px] bg-white rounded-xl grid grid-rows-2 gap-5 border border-primary-300">
+                <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?q=80&w=1916&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <div class="p-5 flex flex-col gap-5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-col gap-2">
+                            <p>Standard Room</p>
+                            Amenities here
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="bi bi-star-fill"></i>
+                            4.8
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[250px] lg:w-[350px] bg-white rounded-xl grid grid-rows-2 gap-5 border border-primary-300">
+                <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?q=80&w=1916&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <div class="p-5 flex flex-col gap-5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-col gap-2">
+                            <p>Standard Room</p>
+                            Amenities here
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="bi bi-star-fill"></i>
+                            4.8
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
     </div>
 
     {{-- <div class="flex flex-col items-center justify-center gap-1 my-10">
@@ -433,7 +504,281 @@
         <p class="font-medium text-primary-400">Fasilitas Kami</p>
         <h2 class="text-3xl font-medium text-primary-700">Siap Memanjakan Anda</h2>
     </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-10">
+        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
+            <span class="material-symbols-rounded text-primary-100 scale-[150%]">prayer_times</span> 
+            <p>Mushalla</p>
+        </div>
+
+        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
+            <span class="material-symbols-rounded text-primary-100 scale-[150%]">pool</span> 
+            <p>Kolam Renang</p>
+        </div>
+
+        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
+            <span class="material-symbols-rounded text-primary-100 scale-[150%]">restaurant</span> 
+            <p>Restoran Kelas Dunia</p>
+        </div>
+
+        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
+            <span class="material-symbols-rounded text-primary-100 scale-[150%]">ramen_dining</span> 
+            <p>Gratis Sarapan</p>
+        </div>
+
+        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
+            <span class="material-symbols-rounded text-primary-100 scale-[150%]">wifi</span> 
+            <p>WiFi Berkecepatan Tinggi</p>
+        </div>
+
+        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
+            <span class="material-symbols-rounded text-primary-100 scale-[150%]">child_care</span> 
+            <p>Taman Bermain</p>
+        </div>
+
+        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
+            <span class="material-symbols-rounded text-primary-100 scale-[150%]">local_taxi</span> 
+            <p>Antar Jemput</p>
+        </div>
+
+        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
+            <span class="material-symbols-rounded text-primary-100 scale-[150%]">child_care</span> 
+            <p>Taman Bermain</p>
+        </div>
+    </div>
 </div>
+
+{{-- Testimonial Section --}}
+<div class="px-12 lg:px-36 my-14">
+    <div class="flex flex-col gap-1 items-center justify-center">
+        <p class="font-medium text-primary-400">Testimonial</p>
+        <h2 class="text-3xl font-medium text-primary-700">Apa Kata Mereka Tentang Kami?</h2> 
+    </div>
+
+    <div class="mt-10 grid lg:grid-cols-4 gap-5">
+        <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
+            {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
+            <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt="">
+            <p class="text-sm text-primary-800">Ultricies scelerisque netus maximus sodales facilisis orci neque. Magnis feugiat quam sociosqu ante facilisi justo vulputate pretium maximus. Class potenti velit tellus cubilia et ipsum accumsan fusce.</p>
+            <div class="flex items-center gap-3">
+                <img src="{{asset('assets/img/team-1.jpg')}}" class="w-14 h-14 rounded-full" alt="">
+                <div class="flex flex-col">
+                    <p class="font-medium text-primary-700">Fufufafa</p>
+                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>4.9</p>
+                </div> 
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
+            {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
+            <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt="">
+            <p class="text-sm text-primary-800">Ultricies scelerisque netus maximus sodales facilisis orci neque. Magnis feugiat quam sociosqu ante facilisi justo vulputate pretium maximus. Class potenti velit tellus cubilia et ipsum accumsan fusce.</p>
+            <div class="flex items-center gap-3">
+                <img src="{{asset('assets/img/team-1.jpg')}}" class="w-14 h-14 rounded-full" alt="">
+                <div class="flex flex-col">
+                    <p class="font-medium text-primary-700">Fufufafa</p>
+                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>4.9</p>
+                </div> 
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
+            {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
+            <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt="">
+            <p class="text-sm text-primary-800">Ultricies scelerisque netus maximus sodales facilisis orci neque. Magnis feugiat quam sociosqu ante facilisi justo vulputate pretium maximus. Class potenti velit tellus cubilia et ipsum accumsan fusce.</p>
+            <div class="flex items-center gap-3">
+                <img src="{{asset('assets/img/team-1.jpg')}}" class="w-14 h-14 rounded-full" alt="">
+                <div class="flex flex-col">
+                    <p class="font-medium text-primary-700">Fufufafa</p>
+                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>4.9</p>
+                </div> 
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
+            {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
+            <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt="">
+            <p class="text-sm text-primary-800">Ultricies scelerisque netus maximus sodales facilisis orci neque. Magnis feugiat quam sociosqu ante facilisi justo vulputate pretium maximus. Class potenti velit tellus cubilia et ipsum accumsan fusce.</p>
+            <div class="flex items-center gap-3">
+                <img src="{{asset('assets/img/team-1.jpg')}}" class="w-14 h-14 rounded-full" alt="">
+                <div class="flex flex-col">
+                    <p class="font-medium text-primary-700">Fufufafa</p>
+                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>4.9</p>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="px-12 lg:px-36 my-28">
+    <div class="flex flex-col gap-1 items-center justify-center">
+        <h2 class="text-3xl font-medium text-primary-700">Terimakasih atas Kepercayaan Anda</h2> 
+        <p class=" text-primary-800">Kepercayaan Anda telah menghantarkan kami untuk mendapatkan berbagai penghargaan.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 my-10">
+        <div class="flex items-center gap-3">
+            <img src="{{asset('images/2017_COE_Logos_white-bkg_translations_en-US-UK.png')}}" class="w-24" alt="">
+            <div class="flex flex-col gap-1">
+                <p>Trip Advisor</p>
+                <p>Certificate of Excellence (2017)</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <img src="{{asset('images/6539a819440457af5afd1282_badge tripadvisor best of the best 2023.png')}}" class="w-24" alt="">
+            <div class="flex flex-col gap-1">
+                <p>Trip Advisor</p>
+                <p>Best of the Best (2023)</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <img src="{{asset('images/agoda_2022.png')}}" class="w-24" alt="">
+            <div class="flex flex-col gap-1">
+                <p>Agoda</p>
+                <p>Best Review Awards (2022)</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <img src="{{asset('images/TC_green_winner-gif_LL_2024.gif')}}" class="w-24" alt="">
+            <div class="flex flex-col gap-1">
+                <p>Trip Advisor</p>
+                <p>Travellers' Choice Awards (2024)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- FAQ Section --}}
+<div class="px-12 lg:px-36 my-28">
+    <div class="flex flex-col gap-1 justify-center items-center">
+        <p class="font-medium text-primary-500">Frequently Asked Questions</p>
+        <h2 class="text-3xl font-medium text-primary-700">Pertanyaan yang Sering Diajukan</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-5 mt-10">
+        <img src="{{asset('images/Questions-bro 1.png')}}" alt="">
+        
+        <div id="accordion-collapse" data-accordion="collapse">
+            <h2 id="accordion-collapse-heading-1">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+                <span>What is Flowbite?</span>
+                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                </svg>
+            </button>
+            </h2>
+            <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+            <div class="p-5 border border-b-0 border-gray-200 ">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
+                <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+            </div>
+            </div>
+            <h2 id="accordion-collapse-heading-2">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
+                <span>Is there a Figma file available?</span>
+                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                </svg>
+            </button>
+            </h2>
+            <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+            <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.</p>
+                <p class="text-gray-500 dark:text-gray-400">Check out the <a href="https://flowbite.com/figma/" class="text-blue-600 dark:text-blue-500 hover:underline">Figma design system</a> based on the utility classes from Tailwind CSS and components from Flowbite.</p>
+            </div>
+            </div>
+            <h2 id="accordion-collapse-heading-3">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-3" aria-expanded="false" aria-controls="accordion-collapse-body-3">
+                <span>What are the differences between Flowbite and Tailwind UI?</span>
+                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                </svg>
+            </button>
+            </h2>
+            <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
+            <div class="p-5 border border-t-0 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.</p>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">Learn more about these technologies:</p>
+                <ul class="ps-5 text-gray-500 list-disc dark:text-gray-400">
+                <li><a href="https://flowbite.com/pro/" class="text-blue-600 dark:text-blue-500 hover:underline">Flowbite Pro</a></li>
+                <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600 dark:text-blue-500 hover:underline">Tailwind UI</a></li>
+                </ul>
+            </div>
+            </div>
+        </div>
+  
+    </div>
+</div>
+
+{{-- Featured by --}}
+<div class="px-12 lg:px-36 my-28 flex flex-col gap-16">
+    <h2 class="text-3xl font-medium text-primary-700 text-center">Partner Kami</h2>
+    <div class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+        <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+            <li><img src="{{asset('images/1200px-Tiket.com_logo.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/agoda-logo-8C565D040A-seeklogo.com.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/Traveloka-Logo-Vector.svg-.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/TripAdvisor_Logo.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/Airbnb_Logo_Bélo.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/garuda-indonesia.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/All_Nippon_Airways_Logo.svg.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+    
+        </ul>
+    
+        <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+            <li><img src="{{asset('images/1200px-Tiket.com_logo.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/agoda-logo-8C565D040A-seeklogo.com.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/Traveloka-Logo-Vector.svg-.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/TripAdvisor_Logo.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/Airbnb_Logo_Bélo.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/garuda-indonesia.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/All_Nippon_Airways_Logo.svg.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+    
+        </ul>
+    </div>
+</div>
+
+<div class="mx-12 lg:mx-36 my-28">
+    <div class="cta-card w-full rounded-xl h-60 px-14 flex flex-col justify-center gap-5 relative">
+        <div class="absolute w-full h-full bg-primary-500 left-0 top-0 rounded-xl opacity-60">
+
+        </div>
+        <div class="flex flex-col gap-5 z-10">
+            <h1 class="text-3xl text-white">Rasakan pengalaman menginap terbaik bersama kami</h1>
+            <a href="#" class="text-lg px-8 rounded-full bg-white text-primary-500 py-4 w-fit">Pesan sekarang!</a>
+        </div>
+    </div>
+</div>
+
+<footer class="w-screen bg-primary-100 flex  justify-between px-12 lg:px-36 py-14">
+    <div class="flex flex-col gap-5">
+        <h2 class="text-3xl text-primary-500">Mahir Hotel</h2>
+        <p class="text-primary-800">Jl. H. R. Rasuna Said No.4 Blok Kav. B<br> Kuningan, Setia Budi, Kota Jakarta Selatan<br>DKI Jakarta 12910</p>
+        <div class="flex items-center gap-5 text-2xl text-primary-800">
+            <a href="#" class=""><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-8">
+        <div class="flex flex-col gap-5">
+            <h2 class="text-primary-700 text-xl font-medium">Perusahaan</h2>
+            <div class="flex flex-col gap-1">
+                <a href="#">Tentang Kami</a>
+                <a href="#">Karir</a>
+                <a href="#">Kontak</a>
+                <a href="#"></a>
+                <a href=""></a>
+            </div>
+        </div>
+    </div>
+</footer>
 @endsection
 @push('addons-script')
     <script>

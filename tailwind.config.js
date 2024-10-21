@@ -31,6 +31,16 @@ export default {
                     800: '#3c2614',
                     900: '#1e130a',
                 },
+            },
+
+            animation: {
+                'infinite-scroll': 'infinite-scroll 25s linear infinite',
+            },
+            keyframes: {
+                'infinite-scroll': {
+                    from: {transform: 'translateX(0)'},
+                    to: {transform: 'translateX(-100%)'},
+                }
             }
         },
        
