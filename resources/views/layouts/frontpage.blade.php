@@ -27,7 +27,7 @@
 
     @stack('addons-style')
 </head>
-<body class="font-sora overflow-x-hidden">
+<body class="font-sora overflow-x-hidden scroll-smooth">
     @yield('main')
 
     @stack('addons-script')

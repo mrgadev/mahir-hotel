@@ -19,7 +19,7 @@
         color: #976033;
     }
     #mainNavbar.scrolled a {
-        color: #333;
+        color: #976033;
         transition: all 0.4s ease;
     }
     #mainNavbar.scrolled a:hover {
@@ -72,8 +72,8 @@
     <nav class=" duration-500 transition-all flex items-center justify-between py-6 text-white" id="mainNavbar">
         <p class="text-lg font-medium">Mahir Hotel</p>
         <div class="lg:flex gap-8 font-light hidden">
-            <a href="#" class="hover:font-medium">Beranda</a>
-            <a href="#" class="hover:font-medium">Promo</a>
+            <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
+            <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
             <a href="#" class="hover:font-medium">Layanan Lainnya </a>
             <a href="#" class="hover:font-medium">Kontak</a>
             <a href="#" class="hover:font-medium">Tentang Kami</a>
@@ -92,8 +92,8 @@
         </div>
 
         <div class="flex flex-col gap-8 mt-8 font-light">
-            <a href="#" class="hover:font-medium">Beranda</a>
-            <a href="#" class="hover:font-medium">Promo</a>
+            <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
+            <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
             <a href="#" class="hover:font-medium">Layanan Lainnya </a>
             <a href="#" class="hover:font-medium">Kontak</a>
             <a href="#" class="hover:font-medium">Tentang Kami</a>
@@ -152,7 +152,7 @@
 
         {{-- Mobile booking form --}}
         <button class="text-white bg-primary-500 w-fit px-5 py-3 rounded-full block lg:hidden" id="openBookingForm">Pesan sekarang</button>
-        <div class="inset-0 z-50 bg-gray-500 bg-opacity-75 fixed lg:hidden hidden min-h-screen w-screen" id="bookingForm">
+        <div class="inset-0 z-20 bg-gray-500 bg-opacity-65 fixed flex items-center justify-center lg:hidden hidden min-h-screen w-screen " id="bookingForm">
             <form class="flex flex-col items-center justify-center bg-white w-[90%] rounded-xl p-5">
                 <h2 class="text-xl font-semibold mb-3 text-primary-500">Booking sekarang!</h2>
                 <div class="grid grid-cols-1 gap-2 w-full rounded border border-gray-400 p-2">
@@ -181,15 +181,15 @@
             <p class="text-sm  text-primary-500">Temukan</p>
             <p class="text-2xl lg:text-5xl">Kamar Terbaik Kami</p>
         </div>
-        {{-- <a href="#" class="px-5 py-3 rounded-full text-white bg-primary-500 transition-all hover:bg-primary-700">Lihat semua</a> --}}
-        <div class="hidden lg:flex items-center gap-3">
+        <a href="{{route('frontpage.rooms')}}" class="px-5 py-3 rounded-full text-white bg-primary-500 transition-all hover:bg-primary-700">Lihat semua</a>
+        {{-- <div class="hidden lg:flex items-center gap-3">
             <button class="text-primary-500 bg-primary-100 flex items-center justify-center p-3 rounded-full transition-all hover:shadow-2xl" id="roomButtonLeft"><span class="material-symbols-rounded">chevron_left</span></button>
             <button class="text-primary-500 bg-primary-100 flex items-center justify-center p-3 rounded-full transition-all hover:shadow-2xl" id="roomButtonRight"><span class="material-symbols-rounded">chevron_right</span></button>
-        </div>
+        </div> --}}
     </div>
 
-    <div class="flex overflow-x-scroll no-scrollbar" id="roomsContainer">
-        <div class="flex flex-nowrap gap-10 ">
+    <div class="" id="roomsContainer">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             
             <div class="w-[250px] lg:w-[350px] h-[450px] bg-white rounded-xl bg-[url('https://images.unsplash.com/photo-1531835551805-16d864c8d311?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover relative">
                 <div class="bg-white absolute bottom-3 left-3 right-3 w-[225px] lg:w-[325px] flex items-end justify-between p-5 rounded-xl">
@@ -260,22 +260,7 @@
                     </div>
                     <a href="#" class="items-end text-primary-400 font-medium">Pesan</a>
                 </div>
-            </div>   
-
-            <div class="w-[250px] lg:w-[350px] h-[450px] bg-white rounded-xl bg-[url('https://images.unsplash.com/photo-1531835551805-16d864c8d311?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover relative">
-                <div class="bg-white absolute bottom-3 left-3 right-3 w-[225px] lg:w-[325px] flex items-end justify-between p-5 rounded-xl">
-                    <div>
-                        <h2 class="font-medium text-gray-600">Standard Room</h2>
-                        <div class="flex items-center gap-2 text-xs my-3 text-primary-300">
-                            <span class="material-symbols-rounded scale-75">restaurant</span>
-                            <span class="material-symbols-rounded scale-75">bathtub</span>
-                            <span class="material-symbols-rounded scale-75 leading-none">wifi</span>
-                        </div>
-                        <p class="text-xl text-primary-400 font-medium">IDR 500K</p>
-                    </div>
-                    <a href="#" class="items-end text-primary-400 font-medium">Pesan</a>
-                </div>
-            </div>   
+            </div>  
 
         </div>
         {{-- <div class="flex flex-nowrap gap-10">
@@ -358,39 +343,10 @@
     </div> --}}
 
 </div>
-<div class="grid lg:grid-cols-2 gap-5 items-center my-16 px-12 lg:px-36 py-6">
-    <div class="flex flex-col gap-5">
-        <h2 class="text-3xl font-medium lg:text-5xl text-primary-700">Kepuasan Saat Menginap<br> di Hotel Kami</h2>
-        <p>Mahir Hotel menawarkan berbagai fasilitas dan kemudahan<br> yang membuat liburan Anda menjadi semakin berkesan.</p>
-    </div>
 
-    <div class="flex flex-col gap-3">
-        <div class="grid lg:grid-cols-2 gap-3">
-            <img src="https://images.unsplash.com/photo-1577076095300-b8b1f2813cc3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-            <div class="flex flex-col gap-2">
-                <h3 class="text-2xl">Interior yang elegan dan modern</h3>
-                <p class="text-sm">Kami menghadirkan keindahan interior yang elegan dan modern untuk memenuhi selera para tamu yang menghargai sentuhan keanggunan dan kemewahan. </p>
-            </div>
-        </div>
-        <div class="grid lg:grid-cols-2 gap-3">
-            <img src="https://images.unsplash.com/photo-1577076095300-b8b1f2813cc3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-            <div class="flex flex-col gap-2">
-                <h3 class="text-2xl">Interior yang elegan dan modern</h3>
-                <p class="text-sm">Kami menghadirkan keindahan interior yang elegan dan modern untuk memenuhi selera para tamu yang menghargai sentuhan keanggunan dan kemewahan. </p>
-            </div>
-        </div>
-        <div class="grid lg:grid-cols-2 gap-3">
-            <img src="https://images.unsplash.com/photo-1577076095300-b8b1f2813cc3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-            <div class="flex flex-col gap-2">
-                <h3 class="text-2xl">Interior yang elegan dan modern</h3>
-                <p class="text-sm">Kami menghadirkan keindahan interior yang elegan dan modern untuk memenuhi selera para tamu yang menghargai sentuhan keanggunan dan kemewahan. </p>
-            </div>
-        </div>
-    </div>
-</div>
 
 {{-- Our Services Section --}}
-<div class="px-12 lg:px-36 py-6">
+<div class="px-12 lg:px-36 py-12">
     <div class="flex flex-col gap-1 justify-center items-center">
         <p class="font-medium text-primary-400">Kenali</p>
         <h2 class="text-3xl font-medium text-primary-700">Layanan Kami</h2>
@@ -719,24 +675,24 @@
     <h2 class="text-3xl font-medium text-primary-700 text-center">Partner Kami</h2>
     <div class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
         <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-            <li><img src="{{asset('images/1200px-Tiket.com_logo.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/agoda-logo-8C565D040A-seeklogo.com.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/Traveloka-Logo-Vector.svg-.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/TripAdvisor_Logo.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/Airbnb_Logo_Bélo.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/garuda-indonesia.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/All_Nippon_Airways_Logo.svg.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/1200px-Tiket.com_logo.png')}}" class="h-10 grayscale" alt=""></li>
+            <li><img src="{{asset('images/agoda-logo-8C565D040A-seeklogo.com.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/Traveloka-Logo-Vector.svg-.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/TripAdvisor_Logo.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/Airbnb_Logo_Bélo.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/garuda-indonesia.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/All_Nippon_Airways_Logo.svg.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
     
         </ul>
     
         <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-            <li><img src="{{asset('images/1200px-Tiket.com_logo.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/agoda-logo-8C565D040A-seeklogo.com.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/Traveloka-Logo-Vector.svg-.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/TripAdvisor_Logo.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/Airbnb_Logo_Bélo.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/garuda-indonesia.svg')}}" class="h-10 backdrop-grayscale" alt=""></li>
-            <li><img src="{{asset('images/All_Nippon_Airways_Logo.svg.png')}}" class="h-10 backdrop-grayscale" alt=""></li>
+            <li><img src="{{asset('images/1200px-Tiket.com_logo.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/agoda-logo-8C565D040A-seeklogo.com.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/Traveloka-Logo-Vector.svg-.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/TripAdvisor_Logo.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/Airbnb_Logo_Bélo.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/garuda-indonesia.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
+            <li><img src="{{asset('images/All_Nippon_Airways_Logo.svg.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
     
         </ul>
     </div>
@@ -754,7 +710,7 @@
     </div>
 </div>
 
-<footer class="w-screen bg-primary-100 flex  justify-between px-12 lg:px-36 py-14">
+<footer class="w-screen bg-primary-100 flex flex-col lg:flex-row gap-5 justify-between px-12 lg:px-36 py-14">
     <div class="flex flex-col gap-5">
         <h2 class="text-3xl text-primary-500">Mahir Hotel</h2>
         <p class="text-primary-800">Jl. H. R. Rasuna Said No.4 Blok Kav. B<br> Kuningan, Setia Budi, Kota Jakarta Selatan<br>DKI Jakarta 12910</p>
