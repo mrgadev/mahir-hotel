@@ -57,7 +57,7 @@
     }
 </style> --}}
 @endpush
-@section('title', 'Promo')
+@section('title', 'Daftar Kamar')
 @section('main')
 <nav class="fixed w-full px-12 lg:px-36 z-20 bg-white border-b border-primary-300 duration-500 transition-all flex items-center justify-between py-6 text-primary-500" id="mainNavbar">
     <p class="text-lg font-medium">Mahir Hotel</p>
@@ -90,43 +90,78 @@
         <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
     </div>
 </nav>
-<header class="lg:px-36 px-12 w-screen lg:h-[65vh] pt-36">
+<header class="lg:px-36 px-12 w-screen lg:h-[60vh] pt-36">
     {{-- <div class="absolute h-screen w-full bg-[#162034] opacity-70 z-10"></div> --}}
     <div class="flex items-center gap-1 text-primary-700">
         <a href="{{route('frontpage.index')}}" class="flex items-center">
             <span class="material-symbols-rounded">home</span>
         </a>
         <span class="material-symbols-rounded">chevron_right</span>
-        <p>Promo</p>
+        <p>Daftar Kamar</p>
     </div>
-    <div class="flex flex-col gap-8 h-[90%] justify-center">
-        <h1 class="text-4xl lg:text-6xl text-primary-700">Nikmati Promo Spesial Kami!</h1>
+    <div class="flex flex-col gap-8 h-[70%] justify-center">
+        <h1 class="text-4xl lg:text-6xl text-primary-700">Jelajahi Kamar Terbaik Kami</h1>
         <p class=" text-primary-500">Dapatkan perjalanan sempurna dan pengalaman baru bersama Mahir Hotel!<br> Tambahkan kesenangan ke dalamnya dengan promo kami. Jadikan liburan Anda momen yang tak terlupakan.</p>
     </div>
 </header>
 
 {{-- Promo List Container --}}
-<div class="mx-12 lg:mx-36 my-8 " id="promos">
+<div class="mx-12 lg:mx-36  " id="promos">
     {{-- <div class="flex flex-col gap-1 my-5 justify-center items-center">
         <p class="text-2xl lg:text-5xl font-medium text-primary-700">Promo Terbaru Kami</p>
         <p class="text-sm text-center text-gray-600">Temukan penawaran eksklusif dan penginapan mewah yang dirancang khusus untuk Anda di hotel kami.<br> Pesan sekarang dan nikmati kenyamanan serta penghematan yang tak tertandingi</p>
     </div> --}}
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="flex flex-col gap-5">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 my-12">
+        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
             <div class="relative">
-                <img src="https://images.pexels.com/photos/6373176/pexels-photo-6373176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="w-full h-48 object-cover rounded-xl relative">
-                <div id="copyPromoCode" class="absolute bottom-5 left-5 flex items-center gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                    <input type="text" id="promoCode" value="PAYDAY" class="bg-transparent border-none outline-none text-sm w-20">
-                    <button class="" id="copyPromoCodeBtn"><span class="material-symbols-rounded scale-75">file_copy</span></button>
-                </div>
+                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
+                   <span class="text-lg">IDR 500K</span>/malam 
+                </p>
             </div>
             <div class="flex flex-col gap-2">
-                <p class="text-sm flex items-center gap-1 text-primary-500"><span class="material-symbols-rounded">calendar_month</span>13 Okt 2024 - 20 Okt 2024</p>
-                <h3 class="text-xl text-primary-700">Promo Gajian: 25%</h3>
+                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
+                <div class="text-sm flex items-center gap-2 text-primary-500">
+                    <span class="material-symbols-rounded scale-75">bed</span>
+                    <span class="material-symbols-rounded scale-75">wifi</span>
+                    <span class="material-symbols-rounded scale-75">group</span> 1
+                </div>
             </div>
-        </div>
-
+        </a>
         
+        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
+                   <span class="text-lg">IDR 500K</span>/malam 
+                </p>
+            </div>
+            <div class="flex flex-col gap-2">
+                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
+                <div class="text-sm flex items-center gap-2 text-primary-500">
+                    <span class="material-symbols-rounded scale-75">bed</span>
+                    <span class="material-symbols-rounded scale-75">wifi</span>
+                    <span class="material-symbols-rounded scale-75">group</span> 1
+                </div>
+            </div>
+        </a>
+
+        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
+                   <span class="text-lg">IDR 500K</span>/malam 
+                </p>
+            </div>
+            <div class="flex flex-col gap-2">
+                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
+                <div class="text-sm flex items-center gap-2 text-primary-500">
+                    <span class="material-symbols-rounded scale-75">bed</span>
+                    <span class="material-symbols-rounded scale-75">wifi</span>
+                    <span class="material-symbols-rounded scale-75">group</span> 1
+                </div>
+            </div>
+        </a>
     </div>
 
    
@@ -160,15 +195,6 @@
 @endsection
 @push('addons-script')
     <script>
-        document.addEventListener('scroll', function() {
-            const mainNavbar = document.getElementById('mainNavbar');
-            if(window.scrollY > 0) {
-                mainNavbar.classList.add('scrolled');
-            } else {
-                mainNavbar.classList.remove('scrolled');
-            }
-        });
-
         const openMobileMenu = document.getElementById('openMobileMenu');
         const closeMobileMenu = document.getElementById('closeMobileMenu');
         const mobileMenu = document.getElementById('mobileMenu');
@@ -179,17 +205,6 @@
 
         closeMobileMenu.addEventListener('click', function() {
             mobileMenu.classList.add('hidden');
-        });
-
-        
-
-        const copyPromoCode = document.getElementById('copyPromoCode');
-        const promoCode = document.getElementById('promoCode');
-        const copyPromoCodeBtn = document.getElementById('copyPromoCodeBtn');
-
-        copyPromoCodeBtn.addEventListener('click', function() {
-            promoCode.select();
-            document.execCommand("copy");
         });
     </script>
 @endpush
