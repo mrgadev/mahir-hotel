@@ -28,7 +28,8 @@ class User extends Authenticatable
         'id_number',
         'id_photo',
         'avatar',
-        'birth'
+        'birth',
+        'regency_id'
     ];
 
     /**
@@ -53,4 +54,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function regency() {
+        return $this->belongsTo(Regency::class);
+    }    
 }

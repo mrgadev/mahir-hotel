@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('breadcrumbs')
-    <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+    <ol class="flex flex-wrap pt-1 mr-12 bg-transparent text-white rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
             <a class=" opacity-50" href="javascript:;">Pages</a>
             </li>
@@ -13,6 +13,9 @@
 @endsection
 
 @section('content')
+    <h1 class="w-full p-6 text-white text-4xl font-medium">
+        Halo, {{Auth::user()->name}}
+    </h1>
     <div class="w-full px-6 py-6 mx-auto">
         <!-- row 1 -->
         <div class="flex flex-wrap -mx-3">
@@ -23,7 +26,7 @@
                 <div class="flex flex-row -mx-3">
                 <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                    <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Today's Money</p>
+                    <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Jumlah Kamar</p>
                     <h5 class="mb-2 font-bold">$53,000</h5>
                     <p class="mb-0">
                         <span class="text-sm font-bold leading-normal text-emerald-500">+55%</span>
@@ -48,7 +51,7 @@
                 <div class="flex flex-row -mx-3">
                 <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                    <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Today's Users</p>
+                    <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Jumlah Pengunjung</p>
                     <h5 class="mb-2 font-bold">2,300</h5>
                     <p class="mb-0">
                         <span class="text-sm font-bold leading-normal text-emerald-500">+3%</span>

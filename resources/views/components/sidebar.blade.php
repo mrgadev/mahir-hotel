@@ -13,25 +13,26 @@
     <div class="items-center block w-auto max-h-screen overflow-auto grow basis-full">
     <ul class="flex flex-col pl-0 mb-0">
         <li class="mt-0.5 w-full">
-            <a class="py-2.7 bg-primary-500 text-white  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium text-slate-700 transition-colors" href="./pages/dashboard.html">
+            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="{{route('admin.dashboard')}}">
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                     <span class="material-symbols-rounded">home</span>
+                    
                 </div>
                 <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Beranda</span>
             </a>
         </li>
 
         <li class="mt-0.5 w-full">
-            <a class="py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="./pages/tables.html">
+            <a class="py-2.7 text-sm text-primary-700 ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 rounded-lg transition-all hover:bg-primary-500 hover:text-white" href="./pages/tables.html">
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                     <i class="relative top-0 text-base leading-normal bi bi-percent"></i>
                 </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Promos</span>
+                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Promo</span>
             </a>
         </li>
         
         <li class="mt-0.5 w-full">
-            <a class="  py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="./pages/billing.html">
+            <a class="  py-2.7 text-sm text-primary-700 ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 rounded-lg transition-all hover:bg-primary-500 hover:text-white" href="./pages/billing.html">
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
                     <i class="relative top-0 text-sm leading-normal ni ni-credit-card"></i>
                 </div>
@@ -40,7 +41,7 @@
         </li>
         
         <li class="mt-0.5 w-full">
-            <a class="py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="./pages/sign-up.html">
+            <a class="py-2.7 text-sm text-primary-700 ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 rounded-lg transition-all hover:bg-primary-500 hover:text-white" href="./pages/sign-up.html">
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                     <i class="relative top-0 text-sm leading-normal ni ni-collection"></i>
                 </div>
@@ -49,7 +50,7 @@
         </li>
         
         <li class="mt-0.5 w-full">  
-            <a class=" py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center rounded-lg px-4 text-slate-700 transition-colors" href="#">
+            <a class=" py-2.7 text-sm text-primary-700 ease-nav-brand my-0 mx-2 flex items-center rounded-lg px-4 transition-all hover:bg-primary-500 hover:text-white" href="#">
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                     <i class="relative top-0 text-base leading-normal bi bi-sliders"></i>
                 </div>
@@ -63,7 +64,7 @@
         </li>
         
         <li class="mt-0.5 w-full">
-            <a class="py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="./pages/profile.html">
+            <a class="py-2.7 text-sm text-primary-700 ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 rounded-lg transition-all hover:bg-primary-500 hover:text-white" href="./pages/profile.html">
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                     <i class="relative top-0 text-sm leading-normal text-slate-700 ni ni-single-02"></i>
                 </div>

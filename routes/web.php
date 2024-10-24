@@ -9,12 +9,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('/admin')->name('admin.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [AdminDashboardController::class, 'editProfile'])->name('profile.edit');
 });
 
 Route::middleware('auth')->group(function () {

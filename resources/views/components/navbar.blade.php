@@ -1,5 +1,8 @@
 <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
     <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+        <div class="hidden lg:flex items-center gap-3">
+            @yield('breadcrumb')
+        </div>
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
             <div class="flex items-center md:ml-auto md:pr-4">
                 <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
@@ -17,7 +20,7 @@
                 <li class="flex items-center">                    
                     <div class="relative">
                         <button onclick="document.getElementById('dropdownAvatar').classList.toggle('hidden')" 
-                                class="flex items-center gap-3 px-3 py-1.5 text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-300" 
+                                class="flex items-center gap-3 px-3 py-1.5 text-sm bg-primary-100 text-primary-700 font-medium rounded-full focus:ring-4 focus:ring-gray-300" 
                                 type="button">
                             <span class="sr-only">Open user menu</span>
                             <div class="w-8 h-8 rounded-full overflow-hidden">
@@ -25,29 +28,24 @@
                                     class="w-full h-full object-cover" 
                                     alt="User avatar">
                             </div>
-                            <span class="text-gray-700 pe-2">Bonnie Green</span>
+                            <span class="pe-2">{{Auth::user()->name}}</span>
                         </button>
 
                         <!-- Dropdown menu -->
                         <div id="dropdownAvatar" 
                             class="absolute right-0 mt-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                             <div class="px-4 py-3 text-sm text-gray-900">
-                                <div class="font-medium">Bonnie Green</div>
-                                <div class="text-gray-500 truncate">name@flowbite.com</div>
+                                <div class="font-medium">{{Auth::user()->name}}</div>
+                                <div class="text-gray-500 truncate">{{Auth::user()->email}}</div>
                             </div>
                             <ul class="py-2 text-sm text-gray-700">
+                     
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Earnings</a>
+                                    <a href="{{route('admin.profile.edit')}}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
                                 </li>
                             </ul>
                             <div class="py-2">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100">Keluar</a>
                             </div>
                         </div>
                     </div>
