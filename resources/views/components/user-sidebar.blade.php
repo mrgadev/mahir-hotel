@@ -1,10 +1,10 @@
-<aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-primary-100 border-2 border-primary-700 shadow-xl :shadow-none max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
+<aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl :shadow-none max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
     <div class="h-19">
     <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times  text-slate-400 xl:hidden" sidenav-close></i>
-    <a class="block px-8 py-6 m-0 whitespace-nowrap  text-primary-700" href="https://demos.creative-tim.com/argon-dashboard-tailwind/pages/dashboard.html" target="_blank">
+    <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap  tedarkxt-slate-700" href="https://demos.creative-tim.com/argon-dashboard-tailwind/pages/dashboard.html" target="_blank">
         <img src="/assets/img/logo-ct-dark.png" class="inline h-full max-w-full transition-all duration-200  ease-nav-brand max-h-8" alt="main_logo" />
         <img src="/assets/img/logo-ct.png" class="hidden h-full max-w-full transition-all duration-200  ease-nav-brand max-h-8" alt="main_logo" />
-        <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Mahir Hotel</span>
+        <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Argon Dashboard 2</span>
     </a>
     </div>
 
@@ -13,11 +13,11 @@
     <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
     <ul class="flex flex-col pl-0 mb-0">
         <li class="mt-0.5 w-full">
-            <a class="py-2.7 bg-primary-500 text-white  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium text-slate-700 transition-colors" href="./pages/dashboard.html">
+            <a class="py-2.7 bg-blue-500/13  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="./pages/dashboard.html">
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                    <span class="material-symbols-rounded">home</span>
+                <i class="relative top-0 text-sm leading-normal text-blue-500 ni ni-tv-2"></i>
                 </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Beranda</span>
+                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dashboard</span>
             </a>
         </li>
 

@@ -5,16 +5,16 @@
 	@include('components.style')
   </head>
 
-  <body class="m-0 font-sora text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+  <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
     <div class="absolute w-full bg-[#976033] min-h-75"></div>
     <!-- sidenav  -->
-    @include('components.sidebar')
+    @include('components.user-sidebar')
 
     <!-- end sidenav -->
 
     <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
       <!-- Navbar -->
-      @include('components.navbar')
+      @include('components.user-navbar')
 
       <!-- end Navbar -->
 
