@@ -9,7 +9,10 @@ class FrontpageController extends Controller
     public function index() {
         return view('frontpage.index');
     }
-
+    public function checkout(){
+        return view('frontpage.checkout');
+    }
+    
     public function promo() {
         return view('frontpage.promo');
     }
