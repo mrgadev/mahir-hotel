@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use  HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -22,14 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'otp',
-        'access',
         'phone',
+        'birth',
+        'regency_id',
+        'avatar',
         'id_number',
         'id_photo',
-        'avatar',
-        'birth',
-        'regency_id'
     ];
 
     /**
@@ -43,19 +40,12 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    public function regency() {
-        return $this->belongsTo(Regency::class);
-    }    
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'birth' => 'date',
+    ];
 }

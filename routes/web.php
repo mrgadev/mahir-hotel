@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontpageController;
+use App\Http\Controllers\HotelFacilitiesController;
+use App\Models\HotelFacilities;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,11 +15,13 @@ Route::get('/', function () {
 Route::prefix('/admin')->name('admin.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [AdminDashboardController::class, 'editProfile'])->name('profile.edit');
+    Route::resource('/hotel_facilities', HotelFacilitiesController::class);
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
