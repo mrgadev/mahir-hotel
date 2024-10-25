@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 class AdminDashboardController extends Controller
 {
     public function index() {
-        return view('dashboard.admin.dashboard');
+        return view('dashboard.dashboard');
     }
 
     public function editProfile() {
         $regencies = Regency::all();
-        return view('dashboard.admin.profile.edit', compact('regencies'));
+        return view('dashboard.profile.edit', compact('regencies'));
     }
 
     public function updateProfile(Request $request, User $user) {

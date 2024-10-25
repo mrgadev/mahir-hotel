@@ -112,7 +112,7 @@
         <p class="text-sm text-center text-gray-600">Temukan penawaran eksklusif dan penginapan mewah yang dirancang khusus untuk Anda di hotel kami.<br> Pesan sekarang dan nikmati kenyamanan serta penghematan yang tak tertandingi</p>
     </div> --}}
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 my-12">
-        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
+        <a href="{{route('frontpage.rooms.detail')}}" class="flex flex-col gap-5">
             <div class="relative">
                 <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
@@ -129,7 +129,7 @@
             </div>
         </a>
         
-        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
+        <a href="{{route('frontpage.rooms.detail')}}" class="flex flex-col gap-5">
             <div class="relative">
                 <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
@@ -146,7 +146,7 @@
             </div>
         </a>
 
-        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
+        <a href="{{route('frontpage.rooms.detail')}}" class="flex flex-col gap-5">
             <div class="relative">
                 <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">

@@ -13,7 +13,7 @@
     <div class="items-center block w-auto max-h-screen overflow-auto grow basis-full">
     <ul class="flex flex-col pl-0 mb-0">
         <li class="mt-0.5 w-full">
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white {{Route::is('admin.dashboard') ? 'bg-primary-500 text-white' : ''}}" href="{{route('admin.dashboard')}}">
+            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.home') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.home')}}">
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                 <i class="relative top-0 text-sm leading-normal ni ni-tv-2"></i>
                 </div>
@@ -71,7 +71,7 @@
             </li>
             
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href=".{{route('profile.edit')}}">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href=".{{route('dashboard.profile.edit')}}">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-sm leading-normal text-slate-700 ni ni-single-02"></i>
                     </div>
@@ -104,7 +104,7 @@
             </li>
             
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="{{route('profile.edit')}}">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="{{route('dashboard.profile.edit')}}">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-sm leading-normal text-slate-700 ni ni-single-02"></i>
                     </div>

@@ -34,7 +34,7 @@
                             <ul class="py-2 text-sm text-gray-700">
                      
                                 <li>
-                                    <a href="{{route('admin.profile.edit')}}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
+                                    <a href="{{route('dashboard.profile.edit')}}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
                                 </li>
                             </ul>
                             <div class="py-2">

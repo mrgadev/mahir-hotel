@@ -57,7 +57,7 @@
     }
 </style> --}}
 @endpush
-@section('title', 'Detail Kamar')
+@section('title', 'Paket Pernikahan')
 @section('main')
 <nav class="fixed w-full px-12 lg:px-36 z-20 bg-white border-b border-primary-300 duration-500 transition-all flex items-center justify-between py-6 text-primary-500" id="mainNavbar">
     <a href="{{route('frontpage.index')}}" class="text-lg font-medium">Mahir Hotel</a>
@@ -96,57 +96,36 @@
     </a>
     <span class="material-symbols-rounded text-primary-500">chevron_right</span>
     <a href="{{route('frontpage.rooms')}}" class="flex items-center text-primary-500">
-        Daftar Kamar
+        Layanan Lainnya
     </a>
     <span class="material-symbols-rounded text-primary-500">chevron_right</span>
-    <p class="text-primary-700">Detail Kamar</p>
+    <p class="text-primary-700">Detail</p>
 </div>
 <header class="lg:px-36 px-12 py-11 w-screen grid lg:grid-cols-2 gap-8">
     <div class="grid gap-3">
         <div class="relative">
             <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-2xl" alt="">
-            <button class="absolute bottom-5 left-5 bg-primary-100 px-5 py-2 rounded-full border border-primary-700 flex items-center gap-1 text-primary-700 transition-all hover:bg-primary-700 hover:text-primary-100" id="galleryBtn"><ion-icon name="images-outline"></ion-icon> Lihat foto lainnya</button>
-
-            <div class="flex flex-col justify-center items-center gap-8 px-12 lg:px-36 w-screen h-screen hidden fixed bg-gray-800/75 z-20  top-0 left-0" id="gallery">
-                <button class="top-14 absolute right-14 text-white" id="closeGallery">
-                    <span class="material-symbols-rounded">close</span>
-                </button>
-                <h1 class="text-3xl text-white">Galeri Kamar</h1>
-                <div class="image-container-wrapper flex items-center gap-8 ">
-                    <button class="text-primary-700 bg-primary-100 flex items-center justify-center p-3 rounded-full slider-button" id="galleryBack">
-                        <span class="material-symbols-rounded">arrow_back</span>
-                    </button>
-
-                    <div class="image-container max-h-lvh max-w-2xl w-full">
-                        <div class="carousel flex overflow-hidden transition-all">
-                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
-                            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
-                            <img src="https://images.unsplash.com/photo-1505692795793-20f543407193?q=80&w=2039&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
-                            <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
-                        </div>
-                    </div>
-
-                    <button class="text-primary-700 bg-primary-100 flex items-center justify-center p-3 rounded-full slider-button" id="galleryForward">
-                        <span class="material-symbols-rounded">arrow_forward</span>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
-    <div class="flex flex-col gap-5">
+
+    <div class="grid grid-cols-2 gap-5">
+        <img src="https://images.unsplash.com/photo-1522058171200-e61f77c7353d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl" alt="">
+        <img src="https://images.unsplash.com/photo-1571268373914-e888c6dafeff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl" alt="">
+        <img src="https://images.unsplash.com/photo-1571268373914-e888c6dafeff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl" alt="">
+        <img src="https://images.unsplash.com/photo-1524479967500-c3a0bf56d080?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl" alt="">
+    </div>
+    {{-- <div class="flex flex-col gap-5">
         <div class="flex items-center justify-between">
             <div class="flex flex-col gap-1.5">
                 <div class="flex items-center gap-1 font-light text-gray-700">
                     <i class="bi bi-star-fill text-primary-500"></i>
                     4.6 (120 Ulasan)
                 </div>
-                <h1 class="text-4xl text-primary-700">Standard Room</h1>
-                <p class="text-2xl text-primary-500">Rp. 650.000 <span class="text-sm">/malam</span>
+                <h1 class="text-4xl text-primary-700">Royal Wedding Package</h1>
+                <p class="text-2xl text-primary-500">Mulai dari IDR 88jt</p>
             </div>
-            {{-- <a href="#" class="text-lg px-5 py-2 bg-primary-700 rounded-full text-white">Pesan sekarang</a> --}}
         </div>
         </p>
-        {{-- <p class="text-lg text-primary-700">Fasilitas Kamar</p> --}}
         <div class="flex flex-col lg:flex-row lg:items-center gap-5 font-light text-primary-700">
             <p class="flex flex-col gap-1">
                 <span class="material-symbols-rounded">bed</span>
@@ -163,9 +142,7 @@
                 1 Dewasa
             </p>
         </div>
-        {{-- <p class="font-light text-gray-700">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis harum provident ratione odit hic sequi. Libero nostrum necessitatibus eos nobis eaque quisquam minus omnis commodi, sint laborum! 
-        </p> --}}
+
         <p class="font-medium p-2 rounded-lg bg-red-100 w-fit text-red-700 border border-red-700">Tersisa 10 kamar lagi!</p>
         <form action="" class="hidden mt-5 py-3 ps-10 w-fit pe-3 lg:flex items-center gap-8 bg-primary-100 border border-primary-700 text-primary-700 rounded-full">
             <div class="flex items-center gap-3">
@@ -183,7 +160,7 @@
             </button>
         </form>
         <a href="#" class="lg:hidden text-white bg-primary-500 w-fit px-5 py-3 rounded-full">Pesan sekarang</a>
-    </div>
+    </div> --}}
 </header>
 
 
@@ -191,15 +168,57 @@
 </section>
 
 <div class="mx-12 lg:mx-36">
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-col gap-1.5">
+            {{-- <div class="flex items-center gap-1 font-light text-gray-700">
+                <i class="bi bi-star-fill text-primary-500"></i>
+                4.6 (120 Ulasan)
+            </div> --}}
+            <h1 class="text-4xl text-primary-700">Royal Wedding Package</h1>
+            <p class="text-xl text-primary-500">Mulai dari IDR 88jt</p>
+        </div>
+
+        <a href="#" class="px-7 py-3 rounded-full bg-primary-700 text-white">Pesan sekarang</a>
+    </div>
+
     <div class="flex flex-col gap-2">
-        <h1 class="text-xl text-primary-700">Deskripsi</h1>
         <div class="text-gray-600 font-light">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis laudantium accusantium enim alias. Debitis, doloremque illo cumque nostrum sunt vel? Asperiores omnis corporis voluptate. Molestiae eum est vel. Sint magni blanditiis atque consectetur molestiae sed eligendi fugit, labore, in dolores amet. Nobis voluptatibus repellendus incidunt nemo numquam voluptate nihil ad suscipit minus quas repellat velit deleniti, fuga explicabo aspernatur obcaecati. Necessitatibus obcaecati expedita accusamus!</p>
             <p>Aspernatur dolorum cupiditate, voluptatibus perferendis tempore amet explicabo accusamus enim saepe repellendus aperiam tempora, magni accusantium sit molestias ut quaerat rem, ipsam consequuntur debitis. Voluptatem facere quasi porro maiores incidunt temporibus? Dolores corporis magnam quidem cum in animi at nisi quas ipsam nam sint dicta accusamus nostrum modi id minus autem, perferendis ipsum quis natus adipisci.</p> 
-            <p>Inventore, soluta accusamus. Expedita laborum libero explicabo inventore eligendi iste debitis rerum, nihil nemo vel, iusto nisi ipsum aspernatur! Tenetur, temporibus? Illo optio aliquam earum enim totam impedit dolorem repellat facere quod sapiente soluta quibusdam molestiae delectus saepe aut voluptate, eos quidem culpa adipisci qui nemo similique alias! Nesciunt velit itaque, quibusdam, error repudiandae voluptates similique ab atque voluptatum recusandae ullam rerum harum quasi eos voluptate dolorum iusto doloribus amet rem perspiciatis voluptatibus maiores laboriosam placeat. Eveniet corporis quia esse.</p>
+        </div>
+        <h2 class="my-5 text-xl text-primary-700 font-medium">Fasilitas yang Didapatkan</h2>
+        <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-3">
+                <h2 class="text-primary-700 text-lg">Pre-Wedding</h2>
+                <ul class="text-gray-600 font-light flex flex-col gap-3">
+                    <li>Food Testing for 8 persons</li>
+                    <li>Coffee Break on Technical Meeting for 15 Persons</li>
+                    <li>Venue for Pre-Wedding Photo Shoot or Video Shoot</li>  
+                </ul>
+            </div>
+            
+            <div class="flex flex-col gap-3">
+                <h2 class="text-primary-700 text-lg">On The Wedding Day</h2>
+                <ul class="text-gray-600 font-light flex flex-col gap-3">
+                    <li>Best quality dishes of buffet menu for 300 pax</li>
+                    <li>Free welcome drink</li>
+                    <li>Free flow mineral water, soft drinks/chilled juice</li>  
+                    <li>Light decoration (Flower arrangement for VIP table)</li>  
+                    <li>Free flow mineral water, soft drinks/chilled juice</li>  
+                    <li>1 Executive Suite for 1 night stay with honeymoon decorations  (Include breakfast at SamaZana Restaurant)</li>  
+                    <li>Free make up room for family</li>  
+                    <li>Hospitality room on the day of event</li>  
+                </ul>
+            </div>
+            
+            <div class="flex flex-col gap-3">
+                <h2 class="text-primary-700 text-lg">Post Wedding</h2>
+                <ul class="text-gray-600 font-light flex flex-col gap-3">
+                    <li>90 Minutes Traditional Honeymoon Spa Treatment (Couple)</li>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="my-12 flex flex-col lg:flex-row justify-between">
+    {{-- <div class="my-12 flex flex-col lg:flex-row justify-between">
         <div class="flex flex-col gap-8 w-3/4">
             <div class="flex flex-col gap-3">
                 <h2 class="text-2xl text-primary-700">Ulasan</h2>
@@ -209,7 +228,6 @@
                 </p>
             </div>
 
-            {{-- Review Section --}}
             <div class="flex flex-col lg:flex-row gap-5">
                 <img src="{{asset('assets/img/marie.jpg')}}" alt="" class="w-20 h-20 rounded-full">
                 <div class="flex flex-col gap-3">
@@ -225,7 +243,7 @@
         <div class="w-1/4">
             <h1>Kamar lainnya</h1>
         </div>
-    </div>
+    </div> --}}
 
    
 </div>
