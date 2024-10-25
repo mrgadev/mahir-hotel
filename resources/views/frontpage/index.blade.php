@@ -15,7 +15,8 @@
         transition: all 0.5s ease;
     }
 
-    #mainNavbar.scrolled p {
+    #mainNavbar.scrolled p,
+    #mainNavbar.scrolled button {
         color: #976033;
     }
     #mainNavbar.scrolled a {
@@ -79,10 +80,23 @@
             <a href="#" class="hover:font-medium">Tentang Kami</a>
         </div>
         <ion-icon name="menu-outline" class="lg:hidden text-4xl" id="openMobileMenu"></ion-icon>
+        @auth
+            <div class="flex items-center gap-2">
+                @if(Storage::url(Auth::user()->avatar))
+                <img src="{{Auth::user()->avatar}}" alt="">
+                @else
+                <span class="material-symbols-rounded">account_circle</span>
+                @endif
+                <button>{{Auth::user()->name}}</button>
+            </div>
+        @endauth
+        @guest
+            
         <div class=" items-center gap-3 auth-button hidden lg:flex">
             <a href="{{route('register')}}" class="bg-white text-primary-500 px-5 py-2 rounded-full hover:bg-white transition-all">Daftar</a>
             <a href="{{route('login')}}" class="px-5 py-2 border border-white text-white rounded-full hover:bg-white hover:text-primary-500 transition-all">Masuk</a>
         </div>
+        @endguest
         
     </nav>
     <nav class="duration-500 bg-white w-screen h-screen fixed hidden top-0 left-0 right-0 z-10 px-12" id="mobileMenu">

@@ -10,9 +10,10 @@ Route::get('/', function () {
 });
 
 
-Route::prefix('/admin')->name('admin.')->group(function(){
+Route::prefix('/dashboard')->name('admin.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [AdminDashboardController::class, 'editProfile'])->name('profile.edit');
+    Route::put('/profile/{user}/update', [AdminDashboardController::class, 'updateProfile'])->name('profile.update');
 });
 
 Route::middleware('auth')->group(function () {

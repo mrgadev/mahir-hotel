@@ -105,12 +105,15 @@
     <div class="grid gap-3">
         <div class="relative">
             <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-2xl" alt="">
-            <button class="absolute bottom-5 left-5 bg-primary-100 px-5 py-2 rounded-full border border-primary-700 flex items-center gap-1 text-primary-700 transition-all hover:bg-primary-700 hover:text-primary-100"><ion-icon name="images-outline"></ion-icon> Lihat foto lainnya</button>
+            <button class="absolute bottom-5 left-5 bg-primary-100 px-5 py-2 rounded-full border border-primary-700 flex items-center gap-1 text-primary-700 transition-all hover:bg-primary-700 hover:text-primary-100" id="galleryBtn"><ion-icon name="images-outline"></ion-icon> Lihat foto lainnya</button>
 
-            <div class="flex flex-col justify-center items-center gap-8 px-12 lg:px-36 w-screen h-screen hidden fixed bg-gray-800/75 z-20  top-0 left-0">
+            <div class="flex flex-col justify-center items-center gap-8 px-12 lg:px-36 w-screen h-screen hidden fixed bg-gray-800/75 z-20  top-0 left-0" id="gallery">
+                <button class="top-14 absolute right-14 text-white" id="closeGallery">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
                 <h1 class="text-3xl text-white">Galeri Kamar</h1>
                 <div class="image-container-wrapper flex items-center gap-8 ">
-                    <button class="text-primary-700 bg-primary-100 flex items-center justify-center p-3 rounded-full slider-button">
+                    <button class="text-primary-700 bg-primary-100 flex items-center justify-center p-3 rounded-full slider-button" id="galleryBack">
                         <span class="material-symbols-rounded">arrow_back</span>
                     </button>
 
@@ -123,24 +126,12 @@
                         </div>
                     </div>
 
-                    <button class="text-primary-700 bg-primary-100 flex items-center justify-center p-3 rounded-full slider-button" id="nextPhoto">
+                    <button class="text-primary-700 bg-primary-100 flex items-center justify-center p-3 rounded-full slider-button" id="galleryForward">
                         <span class="material-symbols-rounded">arrow_forward</span>
                     </button>
                 </div>
             </div>
         </div>
-        {{-- <div class="grid grid-cols-4 gap-3">
-            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-        </div> --}}
-        {{-- <div class="inset-0 z-50 bg-[rgba(107, 114, 128, 0.8)] fixed  min-h-screen w-screen lg:px-36 flex flex-col justify-center" id="bookingForm">
-            <h1 class="text-4xl text-white">Galeri Kamar</h1>
-            <div class="flex gap-5 items-center">
-                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-2xl h-96" alt="">
-            </div>
-        </div> --}}
     </div>
     <div class="flex flex-col gap-5">
         <div class="flex items-center justify-between">
@@ -263,33 +254,35 @@
             mobileMenu.classList.add('hidden');
         });
 
-        const imageContainerWrapper = document.querySelector('.image-container-wrapper');
-            //   imageContainer        = document.querySelectorAll('.image-container'); 
-              carousel              = document.querySelector('.carousel');
-              images                = document.querySelectorAll('.img');
-              buttons               = document.querySelectorAll('.slider-button');
+        const galleryBtn = document.getElementById('galleryBtn');
+        const galleryContainer = document.getElementById('gallery');
+        galleryBtn.addEventListener('click', function() {
+            galleryContainer.classList.remove('hidden');
+        });
+
+        const galleryBack = document.getElementById('galleryBack');
+        const galleryForward = document.getElementById('galleryForward');
+        const gallery = document.querySelector('.carousel');
+        const closeGallery = document.getElementById('closeGallery');
+        galleryBack.addEventListener('click', function() {
+            gallery.scrollLeft -= 672;
+            // gallery.style.transition = 'all 0.4s ease';
+        });
         
-        let imageIndex = 1,
-            intervalId; 
+        galleryForward.addEventListener('click', function() {
+            gallery.scrollLeft += 672;
+            // gallery.style.transition = 'all 0.4s ease';
+        });
 
-        const autoSlide = () => {
-            intervalId = setInterval(() => slideImage(++imageIndex), 2000);
-        }
+        closeGallery.addEventListener('click', function() {
+            galleryContainer.classList.add('hidden');
+        });
 
-        autoSlide();
-        
-        const slideImage = () => {
-            imageIndex = imageIndex === images.length ? 0 : imageIndex < 0 ? images.length - 1 : imageIndex;
-            carousel.style.transform = `translate(-${imageIndex * 100}%)`;
-        }
-
-        const updateClick = (e) => {
-            // console.log("clicked");
-            clearInterval(intervalId);
-            imageIndex += e.target.id === "nextPhoto" ? 1 : -1;
-            slideImage(imageIndex);
-        }
-
-        buttons.forEach((button) => button.addEventListener("click", updateClick))
+        // document.onclick = function(e){
+        //     if (!galleryContainer.contains(e.target)) {
+        //         galleryContainer.classList.add("hidden");
+        //         // box.classList.remove("active_box");
+        //     }
+        // }
     </script>
 @endpush
