@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
+use Storage;
 
 class RegisteredUserController extends Controller
 {
@@ -43,7 +44,7 @@ class RegisteredUserController extends Controller
         if($request->hasFile('avatar')){
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
         }else{
-            $avatarPath = 'images/user.png';
+            $avatarPath = 'storage/default/user.png';
         }
 
         $otp = rand(111111,999999);
