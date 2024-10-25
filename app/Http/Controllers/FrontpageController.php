@@ -28,4 +28,12 @@ class FrontpageController extends Controller
     public function services() {
         return view('frontpage.services');
     }
+
+    public function services_detail() {
+        return view('frontpage.services-detail');
+    }
+
+    public function contact() {
+        return view('frontpage.contact');
+    }
 }

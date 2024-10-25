@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
 @section('title', 'My Account')
-
+{{-- 
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -10,27 +10,31 @@
             <li class="text-sm pl-2 text-white capitalize leading-normal  before:float-left before:pr-2 before: before:content-['/']" aria-current="page">Profile</li>
         </ol>
     <h6 class="mb-0 font-bold text-white capitalize">My Account</h6>
-@endsection
+@endsection --}}
 
 @section('content')
     <main class="h-full overflow-y-auto">
         <div class="container mx-auto">
-            <div class="grid w-full gap-5 px-10 mx-auto md:grid-cols-12">
-                <div class="col-span-12">
-                    <h2 class="mt-8 mb-1 text-2xl font-semibold text-white">
-                        Edit My Profile
-                    </h2>
-                    <p class="text-sm text-white">
-                        Enter your data Correctly & Properly
-                    </p>
+            <div class="flex flex-col gap-5 w-full p-6">
+                <div class="flex items-center gap-1 bg-primary-100 p-2 text-primary-700 rounded-lg w-fit text-sm">
+                    <a href="{{route('dashboard.home')}}" class="flex items-center">
+                        <span class="material-symbols-rounded scale-75">home</span>
+                    </a>
+                    <span class="material-symbols-rounded">chevron_right</span>
+                    <p>My Profile</p>
                 </div>
+        
+                <h1 class="text-white text-4xl font-medium">
+                    My Profile
+                </h1>
             </div>
+            
         </div>
         <section class="container px-6 mx-auto mt-5">
             <div class="grid gap-5 md:grid-cols-12">
                 <main class="col-span-12 p-4 md:pt-0">
                     <div class="px-2 py-2 mt-2 bg-white rounded-xl">
-                        <form action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('dashboard.profile.update')}}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="">
@@ -40,7 +44,7 @@
                                             <div class="flex items-center mt-1">
                                                 <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="photo profile" class="rounded-full w-16 h-16 object-cover object-center">
 
-                                                <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Choose File</label>
+                                                <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Pilih Berkas</label>
 
                                                 <input type="file" id="choose" name="avatar" hidden>
                                             </div>
@@ -51,7 +55,7 @@
 
                                         </div>
                                         <div class="md:col-span-6 lg:col-span-3">
-                                            <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Full Name</label>
+                                            <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Lengkap</label>
                                             <input placeholder="Your Name" type="text" name="name" id="name" autocomplete="name" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->name}}">
 
                                             @if ($errors->has('name'))
@@ -60,7 +64,7 @@
 
                                         </div>
                                         <div class="md:col-span-6 lg:col-span-3">
-                                            <label for="email" class="block mb-3 font-medium text-gray-700 text-md">Email Address</label>
+                                            <label for="email" class="block mb-3 font-medium text-gray-700 text-md">Alamat Email</label>
                                             <input placeholder="Your Email" type="email" name="email" id="email" autocomplete="email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->email}}">
 
                                             @if ($errors->has('email'))
@@ -69,7 +73,7 @@
 
                                         </div>
                                         <div class="md:col-span-6 lg:col-span-3">
-                                            <label for="phone" class="block mb-3 font-medium text-gray-700 text-md">Contact Number</label>
+                                            <label for="phone" class="block mb-3 font-medium text-gray-700 text-md">Nomor Telepon</label>
                                             <input placeholder="Your Number" type="number" name="phone" id="phone" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->phone}}">
 
                                             @if ($errors->has('phone'))
@@ -77,8 +81,14 @@
                                             @endif
                                         </div>
                                         <div class="md:col-span-6 lg:col-span-3">
+<<<<<<< HEAD:resources/views/profile/edit.blade.php
                                             <label for="birth" class="block mb-3 font-medium text-gray-700 text-md">Birthday</label>
                                             <input placeholder="Your Number" type="date" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
+=======
+                                            <label for="birth" class="block mb-3 font-medium text-gray-700 text-md">Tanggal Lahir</label>
+                                            <input placeholder="Your Number" type="datetime-local" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
+
+>>>>>>> 85de2e5a1d265be47fdcd51bfc2b65bc5b05adc8:resources/views/dashboard/profile/edit.blade.php
                                             @if ($errors->has('birth'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('birth')}}</p>
                                             @endif
@@ -92,7 +102,7 @@
                                             </select>
                                         </div>
                                         <div class="md:col-span-6 lg:col-span-3">
-                                            <label for="id_number" class="block mb-3 font-medium text-gray-700 text-md">Nomor Ktp</label>
+                                            <label for="id_number" class="block mb-3 font-medium text-gray-700 text-md">Nomor KTP</label>
                                             <input placeholder="Your Ktp Number" type="number" name="id_number" id="id_number" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->id_number}}">
 
                                             @if ($errors->has('id_number'))
@@ -108,7 +118,7 @@
                                                     />
                                                 </a>
                                             </div>
-                                            <label for="id_photo" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Nomor Ktp</label>
+                                            <label for="id_photo" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Scan KTP</label>
                                             <input placeholder="Your Number" type="file" name="id_photo" id="" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->id_photo}}">
 
                                             @if ($errors->has('id_photo'))
@@ -131,20 +141,20 @@
                     </div>
 
                     <div class="px-2 py-2 mt-10 bg-white rounded-xl">
-                        <form action="{{route('profile.updatePassword')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('dashboard.profile.updatePassword')}}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="">
                                 <div class="px-4 py-5 sm:p-6">
                                     <div class="col-span-12">
                                         <h2 class="mt-8 mb-1 text-2xl font-bold text-gray-700">
-                                            Change Password
+                                            Ubah Password
                                         </h2>
                                     </div>
                                     <div class="mt-10">
                                         <div class="grid grid-cols-6 gap-6">
                                             <div class="md:col-span-6 lg:col-span-3">
-                                                <label for="current_password" class="block mb-3 font-medium text-gray-700 text-md">Current Password</label>
+                                                <label for="current_password" class="block mb-3 font-medium text-gray-700 text-md">Password Saat Ini</label>
                                                 <input placeholder="Your Current Password" type="password" name="current_password" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                                 @if ($errors->has('password'))
@@ -152,7 +162,7 @@
                                                 @endif
                                             </div>
                                             <div class="md:col-span-6 lg:col-span-3">
-                                                <label for="new_password" class="block mb-3 font-medium text-gray-700 text-md">New Password</label>
+                                                <label for="new_password" class="block mb-3 font-medium text-gray-700 text-md"> Password Baru</label>
                                                 <input placeholder="Your New Password" type="password" name="new_password" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                                 @if ($errors->has('new_password'))

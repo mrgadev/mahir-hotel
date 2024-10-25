@@ -84,7 +84,7 @@
     <div class="flex flex-col gap-8 mt-8 font-light">
         <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
         <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
-        <a href="#" class="hover:font-medium">Layanan Lainnya </a>
+        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
         <a href="#" class="hover:font-medium">Kontak</a>
         <a href="#" class="hover:font-medium">Tentang Kami</a>
         <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
@@ -97,7 +97,7 @@
             <span class="material-symbols-rounded">home</span>
         </a>
         <span class="material-symbols-rounded">chevron_right</span>
-        <p>Daftar Kamar</p>
+        <p>Layanan Lainnya</p>
     </div>
     <div class="flex flex-col gap-8 h-[70%] justify-center">
         <h1 class="text-4xl lg:text-6xl text-primary-700">Layanan Lainnya</h1>
@@ -112,59 +112,65 @@
         <p class="text-sm text-center text-gray-600">Temukan penawaran eksklusif dan penginapan mewah yang dirancang khusus untuk Anda di hotel kami.<br> Pesan sekarang dan nikmati kenyamanan serta penghematan yang tak tertandingi</p>
     </div> --}}
     <div class="flex items-center gap-3">
-        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700">Semua</button>
-        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700">Pernikahan</button>
-        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700">Ballroom</button>
-        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700">Event</button>
+        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white">Semua</button>
+        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white">Pernikahan</button>
+        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white">Ballroom</button>
+        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white">Event</button>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 my-12">
-        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
+        <a href="{{route('frontpage.services.detail')}}" class="flex flex-col gap-5">
             <div class="relative">
-                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                   <span class="text-lg">IDR 500K</span>/malam 
+                   <span class="text-lg">IDR 275 JT</span>
                 </p>
             </div>
             <div class="flex flex-col gap-2">
-                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
-                <div class="text-sm flex items-center gap-2 text-primary-500">
-                    <span class="material-symbols-rounded scale-75">bed</span>
-                    <span class="material-symbols-rounded scale-75">wifi</span>
-                    <span class="material-symbols-rounded scale-75">group</span> 1
+                <h3 class="text-xl text-primary-700 hover:underline">Classic Wedding Package</h3>
+                <div class="text-sm flex items-center gap-1 text-primary-500">
+                    {{-- <span class="material-symbols-rounded scale-75">bed</span> --}}
+                    <span class="material-symbols-rounded scale-75">restaurant</span>
+                    <span class="material-symbols-rounded scale-75">photo_camera</span>
+                    <span class="material-symbols-rounded scale-75">directions_car</span>
+                    <span class="material-symbols-rounded scale-75">group</span> 300 pax
                 </div>
             </div>
         </a>
         
-        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
+        <a href="{{route('frontpage.services.detail')}}" class="flex flex-col gap-5">
             <div class="relative">
-                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                   <span class="text-lg">IDR 500K</span>/malam 
+                   <span class="text-lg">IDR 165 JT</span>
                 </p>
             </div>
             <div class="flex flex-col gap-2">
-                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
-                <div class="text-sm flex items-center gap-2 text-primary-500">
+                <h3 class="text-xl text-primary-700 hover:underline">Royal Wedding Package</h3>
+                <div class="text-sm flex items-center gap-1 text-primary-500">
                     <span class="material-symbols-rounded scale-75">bed</span>
-                    <span class="material-symbols-rounded scale-75">wifi</span>
-                    <span class="material-symbols-rounded scale-75">group</span> 1
+                    <span class="material-symbols-rounded scale-75">restaurant</span>
+                    <span class="material-symbols-rounded scale-75">photo_camera</span>
+                    <span class="material-symbols-rounded scale-75">directions_car</span>
+                    <span class="material-symbols-rounded scale-75">group</span> 200 pax
                 </div>
             </div>
         </a>
 
-        <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
+        <a href="{{route('frontpage.services.detail')}}" class="flex flex-col gap-5">
             <div class="relative">
-                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                   <span class="text-lg">IDR 500K</span>/malam 
+                   <span class="text-lg">IDR 85 JT</span>
                 </p>
             </div>
             <div class="flex flex-col gap-2">
-                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
-                <div class="text-sm flex items-center gap-2 text-primary-500">
+                <h3 class="text-xl text-primary-700 hover:underline">Intimate Wedding Package</h3>
+                <div class="text-sm flex items-center gap-1 text-primary-500">
                     <span class="material-symbols-rounded scale-75">bed</span>
-                    <span class="material-symbols-rounded scale-75">wifi</span>
-                    <span class="material-symbols-rounded scale-75">group</span> 1
+                    <span class="material-symbols-rounded scale-75">restaurant</span>
+                    <span class="material-symbols-rounded scale-75">photo_camera</span>
+                    <span class="material-symbols-rounded scale-75">directions_car</span>
+                    <span class="material-symbols-rounded scale-75">group</span> 100 pax
                 </div>
             </div>
         </a>
