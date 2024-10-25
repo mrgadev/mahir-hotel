@@ -78,8 +78,7 @@
                                         </div>
                                         <div class="md:col-span-6 lg:col-span-3">
                                             <label for="birth" class="block mb-3 font-medium text-gray-700 text-md">Birthday</label>
-                                            <input placeholder="Your Number" type="datetime-local" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
-
+                                            <input placeholder="Your Number" type="date" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
                                             @if ($errors->has('birth'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('birth')}}</p>
                                             @endif
@@ -186,7 +185,7 @@
             <div>
                 <img
                     class="w-full max-h-[80vh] object-contain"
-                    src="https://plus.unsplash.com/premium_photo-1684445035187-c4bc7c96bc5d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src="{{asset($user->id_photo)}}"
                 />
             </div>
         </div>

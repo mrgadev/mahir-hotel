@@ -21,7 +21,7 @@
                             <div class="w-8 h-8 rounded-full overflow-hidden">
                                 <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-full h-full object-cover" alt="User avatar">
                             </div>
-                            <span class="text-gray-700 pe-2">Bonnie Green</span>
+                            <span class="text-gray-700 pe-2">{{Auth::user()->name}}</span>
                         </button>
 
                         <!-- Dropdown menu -->

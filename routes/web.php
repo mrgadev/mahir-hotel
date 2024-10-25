@@ -13,7 +13,7 @@ Route::get('/', function () {
 
 
 Route::prefix('/admin')->name('admin.')->group(function(){
-    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [AdminDashboardController::class, 'editProfile'])->name('profile.edit');
     Route::resource('/hotel_facilities', HotelFacilitiesController::class);
 });

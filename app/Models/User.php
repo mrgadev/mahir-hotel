@@ -23,6 +23,8 @@ class User extends Authenticatable
         'password',
         'phone',
         'birth',
+        'otp',
+        'access',
         'regency_id',
         'avatar',
         'id_number',
