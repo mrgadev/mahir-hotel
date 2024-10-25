@@ -1,8 +1,5 @@
 <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
     <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
-        <div class="hidden lg:flex items-center gap-3">
-            @yield('breadcrumb')
-        </div>
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
             <div class="flex items-center md:ml-auto md:pr-4">
                 <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
@@ -24,11 +21,9 @@
                                 type="button">
                             <span class="sr-only">Open user menu</span>
                             <div class="w-8 h-8 rounded-full overflow-hidden">
-                                <img src="/assets/img/user.png" 
-                                    class="w-full h-full object-cover" 
-                                    alt="User avatar">
+                                <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-full h-full object-cover" alt="User avatar">
                             </div>
-                            <span class="pe-2">{{Auth::user()->name}}</span>
+                            <span class="text-gray-700 pe-2">Bonnie Green</span>
                         </button>
 
                         <!-- Dropdown menu -->
