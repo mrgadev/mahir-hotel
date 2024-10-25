@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Regency;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
@@ -11,6 +12,7 @@ class AdminDashboardController extends Controller
     }
 
     public function editProfile() {
-        return view('dashboard.admin.profile.index');
+        $regencies = Regency::all();
+        return view('dashboard.admin.profile.index', compact('regencies'));
     }
 }

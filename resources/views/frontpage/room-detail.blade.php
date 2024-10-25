@@ -60,11 +60,11 @@
 @section('title', 'Detail Kamar')
 @section('main')
 <nav class="fixed w-full px-12 lg:px-36 z-20 bg-white border-b border-primary-300 duration-500 transition-all flex items-center justify-between py-6 text-primary-500" id="mainNavbar">
-    <p class="text-lg font-medium">Mahir Hotel</p>
+    <a href="{{route('frontpage.index')}}" class="text-lg font-medium">Mahir Hotel</a>
     <div class="lg:flex gap-8 font-light hidden">
         <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
         <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
-        <a href="#" class="hover:font-medium">Layanan Lainnya </a>
+        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}>Layanan Lainnya </a>
         <a href="#" class="hover:font-medium">Kontak</a>
         <a href="#" class="hover:font-medium">Tentang Kami</a>
     </div>
@@ -77,14 +77,14 @@
 </nav>
 <nav class="duration-500 bg-white w-screen h-screen fixed hidden top-0 left-0 right-0 z-30 px-12" id="mobileMenu">
     <div class="flex items-center justify-between py-6 text-primary-500">
-        <p class="text-lg font-medium">Mahir Hotel</p>
+        <a href="{{route('frontpage.index')}}" class="text-lg font-medium">Mahir Hotel</a>
         <span class="material-symbols-rounded cursor-pointer" id="closeMobileMenu">close</span>
     </div>
 
     <div class="flex flex-col gap-8 mt-8 font-light">
         <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
         <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
-        <a href="#" class="hover:font-medium">Layanan Lainnya </a>
+        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}>Layanan Lainnya </a>
         <a href="#" class="hover:font-medium">Kontak</a>
         <a href="#" class="hover:font-medium">Tentang Kami</a>
         <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
@@ -105,7 +105,7 @@
     <div class="grid gap-3">
         <div class="relative">
             <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-2xl" alt="">
-            <button class="absolute bottom-5 left-5 bg-primary-100 px-5 py-2 rounded-full border border-primary-700 flex items-center gap-1 text-primary-700"><ion-icon name="images-outline"></ion-icon> Lihat foto lainnya</button>
+            <button class="absolute bottom-5 left-5 bg-primary-100 px-5 py-2 rounded-full border border-primary-700 flex items-center gap-1 text-primary-700 transition-all hover:bg-primary-700 hover:text-primary-100"><ion-icon name="images-outline"></ion-icon> Lihat foto lainnya</button>
 
             <div class="flex flex-col justify-center items-center gap-8 px-12 lg:px-36 w-screen h-screen hidden fixed bg-gray-800/75 z-20  top-0 left-0">
                 <h1 class="text-3xl text-white">Galeri Kamar</h1>

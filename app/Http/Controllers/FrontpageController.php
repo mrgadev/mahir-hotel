@@ -24,4 +24,8 @@ class FrontpageController extends Controller
     public function room_detail() {
         return view('frontpage.room-detail');
     }
+
+    public function services() {
+        return view('frontpage.services');
+    }
 }

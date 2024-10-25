@@ -70,11 +70,11 @@
 <header class="lg:px-36 px-12 bg-hero-bg bg-fixed bg-cover relative w-screen h-screen">
     {{-- <div class="absolute h-screen w-full bg-[#162034] opacity-70 z-10"></div> --}}
     <nav class=" duration-500 transition-all flex items-center justify-between py-6 text-white" id="mainNavbar">
-        <p class="text-lg font-medium">Mahir Hotel</p>
+        <a href="{{route('frontpage.index')}}"  class="text-lg font-medium">Mahir Hotel</a>
         <div class="lg:flex gap-8 font-light hidden">
             <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
             <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
-            <a href="#" class="hover:font-medium">Layanan Lainnya </a>
+            <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
             <a href="#" class="hover:font-medium">Kontak</a>
             <a href="#" class="hover:font-medium">Tentang Kami</a>
         </div>
@@ -87,14 +87,14 @@
     </nav>
     <nav class="duration-500 bg-white w-screen h-screen fixed hidden top-0 left-0 right-0 z-10 px-12" id="mobileMenu">
         <div class="flex items-center justify-between py-6 text-primary-500">
-            <p class="text-lg font-medium">Mahir Hotel</p>
+            <a href="{{route('frontpage.index')}}"  class="text-lg font-medium">Mahir Hotel</a>
             <span class="material-symbols-rounded" id="closeMobileMenu">close</span>
         </div>
 
         <div class="flex flex-col gap-8 mt-8 font-light">
             <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
             <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
-            <a href="#" class="hover:font-medium">Layanan Lainnya </a>
+            <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}>Layanan Lainnya </a>
             <a href="#" class="hover:font-medium">Kontak</a>
             <a href="#" class="hover:font-medium">Tentang Kami</a>
             <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>

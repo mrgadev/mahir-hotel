@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
-    <title>Argon Dashboard 2 Tailwind by Creative Tim</title>
+    <title>Mahir Hotel | Login</title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
@@ -37,7 +37,7 @@
               <div class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
                 <div class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none lg:py4 rounded-2xl bg-clip-border">
                   <div class="p-6 pb-0 mb-0">
-                    <h4 class="font-bold text-3xl mb-5x text-[#976033]">login</h4>
+                    <h4 class="font-bold text-3xl mb-5x text-[#976033]">Masuk</h4>
                     <p class="mb-0 text-lg text-[#976033]">Enter your email and password to sign in</p>
                   </div>
                   <div class="flex-auto p-6">
@@ -61,9 +61,7 @@
               </div>
               <div class="absolute top-0 right-0 flex-col justify-center hidden w-6/12 h-full max-w-full px-3 pr-0 my-auto text-center flex-0 lg:flex">
                 <div class="relative flex flex-col justify-center h-full bg-cover px-24 m-4 overflow-hidden bg-[url('https://images.unsplash.com/photo-1549294413-26f195200c16?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] rounded-xl">
-                  <span class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-[#976033] to-[#976033] opacity-60"></span>
-                  <h4 class="z-20 mt-12 font-bold text-white text-3xl">"Attention is the new currency"</h4>
-                  <p class="z-20 text-white text-lg">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+                  
                 </div>
               </div>
             </div>
@@ -71,48 +69,7 @@
         </div>
       </section>
     </main>
-    <footer class="py-12">
-      <div class="container">
-        <div class="flex flex-wrap -mx-3">
-          <div class="flex-shrink-0 w-full max-w-full mx-auto mb-6 text-center lg:flex-0 lg:w-8/12">
-            <a href="javascript:;" target="_blank" class="mb-2 mr-4 text-slate-400 sm:mb-0 xl:mr-12"> Company </a>
-            <a href="javascript:;" target="_blank" class="mb-2 mr-4 text-slate-400 sm:mb-0 xl:mr-12"> About Us </a>
-            <a href="javascript:;" target="_blank" class="mb-2 mr-4 text-slate-400 sm:mb-0 xl:mr-12"> Team </a>
-            <a href="javascript:;" target="_blank" class="mb-2 mr-4 text-slate-400 sm:mb-0 xl:mr-12"> Products </a>
-            <a href="javascript:;" target="_blank" class="mb-2 mr-4 text-slate-400 sm:mb-0 xl:mr-12"> Blog </a>
-            <a href="javascript:;" target="_blank" class="mb-2 mr-4 text-slate-400 sm:mb-0 xl:mr-12"> Pricing </a>
-          </div>
-          <div class="flex-shrink-0 w-full max-w-full mx-auto mt-2 mb-6 text-center lg:flex-0 lg:w-8/12">
-            <a href="javascript:;" target="_blank" class="mr-6 text-slate-400">
-              <span class="text-lg fab fa-dribbble"></span>
-            </a>
-            <a href="javascript:;" target="_blank" class="mr-6 text-slate-400">
-              <span class="text-lg fab fa-twitter"></span>
-            </a>
-            <a href="javascript:;" target="_blank" class="mr-6 text-slate-400">
-              <span class="text-lg fab fa-instagram"></span>
-            </a>
-            <a href="javascript:;" target="_blank" class="mr-6 text-slate-400">
-              <span class="text-lg fab fa-pinterest"></span>
-            </a>
-            <a href="javascript:;" target="_blank" class="mr-6 text-slate-400">
-              <span class="text-lg fab fa-github"></span>
-            </a>
-          </div>
-        </div>
-        <div class="flex flex-wrap -mx-3">
-          <div class="w-8/12 max-w-full px-3 mx-auto mt-1 text-center flex-0">
-            <p class="mb-0 text-slate-400">
-              Copyright ©
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-              Argon Dashboard 2 by Creative Tim.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
+
   </body>
   <!-- plugin for scrollbar  -->
   <script src="assets/js/plugins/perfect-scrollbar.min.js" async></script>

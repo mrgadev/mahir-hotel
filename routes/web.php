@@ -25,7 +25,8 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/', [FrontpageController::class, 'index'])->name('frontpage.index');
-Route::get('/checkout', [FrontpageController::class, 'checkout'])->name('frontpage.index');
+Route::get('/checkout', [FrontpageController::class, 'checkout'])->name('frontpage.checkout');
 Route::get('/promo', [FrontpageController::class, 'promo'])->name('frontpage.promo');
 Route::get('/daftar-kamar', [FrontpageController::class, 'rooms'])->name('frontpage.rooms');
 Route::get('/detail/nama-kamar', [FrontpageController::class, 'room_detail'])->name('frontpage.room-detail');
+Route::get('/layanan-lainnya', [FrontpageController::class, 'services'])->name('frontpage.services');

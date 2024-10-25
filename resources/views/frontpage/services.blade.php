@@ -57,14 +57,14 @@
     }
 </style> --}}
 @endpush
-@section('title', 'Daftar Kamar')
+@section('title', 'Daftar Layanan')
 @section('main')
 <nav class="fixed w-full px-12 lg:px-36 z-20 bg-white border-b border-primary-300 duration-500 transition-all flex items-center justify-between py-6 text-primary-500" id="mainNavbar">
     <a href="{{route('frontpage.index')}}" class="text-lg font-medium">Mahir Hotel</a>
     <div class="lg:flex gap-8 font-light hidden">
         <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
         <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
-        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}>Layanan Lainnya </a>
+        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
         <a href="#" class="hover:font-medium">Kontak</a>
         <a href="#" class="hover:font-medium">Tentang Kami</a>
     </div>
@@ -84,7 +84,7 @@
     <div class="flex flex-col gap-8 mt-8 font-light">
         <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
         <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
-        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}>Layanan Lainnya </a>
+        <a href="#" class="hover:font-medium">Layanan Lainnya </a>
         <a href="#" class="hover:font-medium">Kontak</a>
         <a href="#" class="hover:font-medium">Tentang Kami</a>
         <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
@@ -100,8 +100,8 @@
         <p>Daftar Kamar</p>
     </div>
     <div class="flex flex-col gap-8 h-[70%] justify-center">
-        <h1 class="text-4xl lg:text-6xl text-primary-700">Jelajahi Kamar Terbaik Kami</h1>
-        <p class=" text-primary-500">Dapatkan perjalanan sempurna dan pengalaman baru bersama Mahir Hotel!<br> Tambahkan kesenangan ke dalamnya dengan promo kami. Jadikan liburan Anda momen yang tak terlupakan.</p>
+        <h1 class="text-4xl lg:text-6xl text-primary-700">Layanan Lainnya</h1>
+        <p class=" text-primary-500">Selain kamar hotel, kami juga menyediakan layanan tambahan lain seperti acara pernikahan, ballroom untuk pertemuan, event dan lainnya.</p>
     </div>
 </header>
 
@@ -111,6 +111,12 @@
         <p class="text-2xl lg:text-5xl font-medium text-primary-700">Promo Terbaru Kami</p>
         <p class="text-sm text-center text-gray-600">Temukan penawaran eksklusif dan penginapan mewah yang dirancang khusus untuk Anda di hotel kami.<br> Pesan sekarang dan nikmati kenyamanan serta penghematan yang tak tertandingi</p>
     </div> --}}
+    <div class="flex items-center gap-3">
+        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700">Semua</button>
+        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700">Pernikahan</button>
+        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700">Ballroom</button>
+        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700">Event</button>
+    </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 my-12">
         <a href="{{route('frontpage.room-detail')}}" class="flex flex-col gap-5">
             <div class="relative">
