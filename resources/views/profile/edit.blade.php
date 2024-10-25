@@ -30,7 +30,7 @@
             <div class="grid gap-5 md:grid-cols-12">
                 <main class="col-span-12 p-4 md:pt-0">
                     <div class="px-2 py-2 mt-2 bg-white rounded-xl">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="">
@@ -38,19 +38,15 @@
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6">
                                             <div class="flex items-center mt-1">
-                                                <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="photo profile" class="rounded-full w-16 h-16">
+                                                <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="photo profile" class="rounded-full w-16 h-16 object-cover object-center">
 
                                                 <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Choose File</label>
 
-                                                <input type="file" accept="image/*" id="choose" name="photo" hidden>
-
-                                                <a href="" type="button" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-red-700 bg-transparent rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you sure?')">
-                                                    Delete
-                                                </a>
+                                                <input type="file" id="choose" name="avatar" hidden>
                                             </div>
 
-                                            @if ($errors->has('photo'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('photo')}}</p>
+                                            @if ($errors->has('avatar'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('avatar')}}</p>
                                             @endif
 
                                         </div>
@@ -79,14 +75,45 @@
                                             @if ($errors->has('phone'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('phone')}}</p>
                                             @endif
-
                                         </div>
                                         <div class="md:col-span-6 lg:col-span-3">
                                             <label for="birth" class="block mb-3 font-medium text-gray-700 text-md">Birthday</label>
-                                            <input placeholder="Your Number" type="date" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
+                                            <input placeholder="Your Number" type="datetime-local" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
 
                                             @if ($errors->has('birth'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('birth')}}</p>
+                                            @endif
+                                        </div>
+                                        <div class="md:col-span-6 lg:col-span-3">
+                                            <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Tempat Lahir</label>
+                                            <select name="regency_id" id="regency_id" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                                @foreach ($regencies as $regency)
+                                                    <option value="{{$regency->id}}">{{$regency->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="md:col-span-6 lg:col-span-3">
+                                            <label for="id_number" class="block mb-3 font-medium text-gray-700 text-md">Nomor Ktp</label>
+                                            <input placeholder="Your Ktp Number" type="number" name="id_number" id="id_number" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->id_number}}">
+
+                                            @if ($errors->has('id_number'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('id_number')}}</p>
+                                            @endif
+                                        </div>
+                                        <div class="md:col-span-6 lg:col-span-3">
+                                            <div class="relative flex h-52 w-auto cursor-pointer">
+                                                <a href="#image-modal" class="block w-full">
+                                                    <img
+                                                    class="h-full w-full object-cover object-center rounded-xl"
+                                                    src="{{asset($user->id_photo)}}"
+                                                    />
+                                                </a>
+                                            </div>
+                                            <label for="id_photo" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Nomor Ktp</label>
+                                            <input placeholder="Your Number" type="file" name="id_photo" id="" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->id_photo}}">
+
+                                            @if ($errors->has('id_photo'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('id_photo')}}</p>
                                             @endif
 
                                         </div>
@@ -105,7 +132,7 @@
                     </div>
 
                     <div class="px-2 py-2 mt-10 bg-white rounded-xl">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('profile.updatePassword')}}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="">
@@ -151,4 +178,18 @@
             </div>
         </section>
     </main>
+
+<div id="image-modal" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+    <!-- Link pembungkus untuk close saat klik anywhere -->
+    <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+        <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+            <div>
+                <img
+                    class="w-full max-h-[80vh] object-contain"
+                    src="https://plus.unsplash.com/premium_photo-1684445035187-c4bc7c96bc5d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                />
+            </div>
+        </div>
+    </a>
+</div>
 @endsection
