@@ -95,7 +95,7 @@
         <span class="material-symbols-rounded">home</span>
     </a>
     <span class="material-symbols-rounded text-primary-500">chevron_right</span>
-    <a href="{{route('frontpage.rooms')}}" class="flex items-center text-primary-500">
+    <a href="{{route('frontpage.services')}}" class="flex items-center text-primary-500">
         Layanan Lainnya
     </a>
     <span class="material-symbols-rounded text-primary-500">chevron_right</span>

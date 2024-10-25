@@ -59,7 +59,108 @@
 @endpush
 @section('title', 'Kontak Kami')
 @section('main')
+<nav class="fixed w-full px-12 lg:px-36 z-20 bg-white border-b border-primary-300 duration-500 transition-all flex items-center justify-between py-6 text-primary-500" id="mainNavbar">
+    <a href="{{route('frontpage.index')}}" class="text-lg font-medium">Mahir Hotel</a>
+    <div class="lg:flex gap-8 font-light hidden">
+        <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
+        <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
+        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
+        <a href="{{route('frontpage.contact')}}" class="hover:font-medium {{(Route::is('frontpage.contact') ? 'font-medium' : '')}}">Kontak</a>
+        <a href="#" class="hover:font-medium">Tentang Kami</a>
+    </div>
+    <ion-icon name="menu-outline" class="lg:hidden text-4xl" id="openMobileMenu"></ion-icon>
+    <div class=" items-center gap-3 auth-button hidden lg:flex">
+        <a href="{{route('register')}}" class="bg-primary-500 text-white px-5 py-2 rounded-full hover:bg-white transition-all">Daftar</a>
+        <a href="{{route('login')}}" class="px-5 py-2 border border-primary-500 text-primary-500 rounded-full hover:bg-primary-500 hover:text-white transition-all">Masuk</a>
+    </div>
+    
+</nav>
+<nav class="duration-500 bg-white w-screen h-screen fixed hidden top-0 left-0 right-0 z-30 px-12" id="mobileMenu">
+    <div class="flex items-center justify-between py-6 text-primary-500">
+        <a href="{{route('frontpage.index')}}" class="text-lg font-medium">Mahir Hotel</a>
+        <span class="material-symbols-rounded cursor-pointer" id="closeMobileMenu">close</span>
+    </div>
 
+    <div class="flex flex-col gap-8 mt-8 font-light">
+        <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
+        <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
+        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
+        <a href="{{route('frontpage.contact')}}" class="hover:font-medium {{(Route::is('frontpage.contact') ? 'font-medium' : '')}}">Kontak</a>
+        <a href="#" class="hover:font-medium">Tentang Kami</a>
+        <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
+    </div>
+</nav>
+<header class="lg:px-36 px-12 w-screen lg:h-[60vh] pt-36">
+    {{-- <div class="absolute h-screen w-full bg-[#162034] opacity-70 z-10"></div> --}}
+    <div class="flex items-center gap-1 text-primary-700">
+        <a href="{{route('frontpage.index')}}" class="flex items-center">
+            <span class="material-symbols-rounded">home</span>
+        </a>
+        <span class="material-symbols-rounded">chevron_right</span>
+        <p>Kontak</p>
+    </div>
+    <div class="flex flex-col gap-8 h-[70%] justify-center">
+        <h1 class="text-4xl lg:text-6xl text-primary-700">Kontak Kami</h1>
+        <p class=" text-primary-500">Punya pertanyaan tentang produk atau penskalaan di platform kami? Kami siap membantu.<br> Ngobrol dengan tim kami yang ramah 24/7 dan bergabunglah dalam waktu kurang dari 5 menit.</p>
+    </div>
+</header>
+
+
+<div class="mx-12 mb-16 lg:mx-36 flex flex-col lg:flex-row lg:justify-between">
+    <form action="#" class="">
+        <h2 class="mb-5 text-2xl text-primary-700">Kirim Pesan</h2>
+        <div class="grid lg:grid-cols-2 gap-5 text-gray-800 font-light">
+            <div class="flex flex-col gap-2">
+                <label for="firstName">Nama depan</label>
+                <input type="text" class="rounded-lg">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="lastName">Nama belakang</label>
+                <input type="text" class="rounded-lg">
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-5 my-5 text-gray-800 font-light">
+            <div class="flex flex-col gap-2">
+                <label for="email">Email</label>
+                <input type="email" class="rounded-lg">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="phone">Nomor telepon</label>
+                <input type="text" class="rounded-lg">
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2 text-gray-800 font-light">
+            <label for="message">Pesan</label>
+            <textarea name="" id="" cols="30" rows="10" class="rounded-lg"></textarea>
+        </div>
+
+        <button type="submit" class="px-7 py-3 rounded-full bg-primary-100 text-white">Kirim Pesan</button>
+    </form>
+
+    <div class="">
+        <div class="">
+
+        </div>
+        <h2 class="mb-5 text-2xl text-primary-700">Mengobrol dengan Kami</h2>
+        <p class="font-light text-gray-700 mb-5">Bertanya ke tim kami via kanal berikut ini</p>
+        <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3 text-lg">
+                <i class="bi bi-whatsapp text-primary-500 scale-125"></i>
+                <a href="#" class="text-gray-800 underline">Mulai chat via WhatsApp</a>
+            </div>
+            <div class="flex items-center gap-3 text-lg">
+                <i class="bi bi-envelope text-primary-500 scale-125"></i>
+                <a href="#" class="text-gray-800 underline">Kirim Email</a>
+            </div>
+            <div class="flex items-center gap-3 text-lg">
+                <i class="bi bi-twitter-x text-primary-500 scale-125"></i>
+                <a href="#" class="text-gray-800 underline">Kirim pesan via Twitter (X)</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <footer class="w-screen bg-primary-100 flex justify-between px-12 lg:px-36 py-14">
     <div class="flex flex-col gap-5">
