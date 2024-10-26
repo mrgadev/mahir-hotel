@@ -1,61 +1,6 @@
 @extends('layouts.frontpage')
 @push('addons-style')
-{{-- <style>
-    #mainNavbar.scrolled {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index:1;
-        background-color: white;
-        /* border-radius: 25px; */
-        /* border: 2px solid #976033; */
-        width: 100%;
-        padding: 1.5rem 9rem;
-        transition: all 0.5s ease;
-    }
 
-    #mainNavbar.scrolled p {
-        color: #976033;
-    }
-    #mainNavbar.scrolled a {
-        color: #333;
-        transition: all 0.4s ease;
-    }
-    #mainNavbar.scrolled a:hover {
-        color: #976033;
-        transition: all 0.4s ease;
-    }
-
-    #mainNavbar.scrolled .auth-button a:first-child {
-        background-color: #976033;
-        color: #fff
-    }
-
-    #mainNavbar.scrolled .auth-button a:nth-child(2) {
-        border: 2px solid #976033;
-        color: #976033;
-        transition: all 0.4s ease;
-    }
-
-    #mainNavbar.scrolled .auth-button a:nth-child(2):hover {
-        background-color: #976033;
-        color: #fff;
-        transition: all 0.4s ease;
-    } 
-    
-    
-
-    @media (max-width: 1024px) {
-        #mainNavbar.scrolled {
-            padding: 1.5rem 3rem;
-        }
-
-        #mainNavbar.scrolled [name="menu-outline"] {
-            color: #976033;
-        }
-    }
-</style> --}}
 @endpush
 @section('title', 'Tentang Kami')
 @section('main')
@@ -94,73 +39,77 @@
     </div>
 </header>
 
+<div class="mx-12 lg:mx-36 mb-16 flex flex-col lg:flex-row lg:justify-between">
+
+</div>
+
 
 <div class="mx-12 mb-16 lg:mx-36 flex flex-col lg:flex-row lg:justify-between">
     <form action="#" class="">
-        <h2 class="mb-5 text-2xl text-primary-700">Kirim Pesan</h2>
+        <h2 class="mb-5 text-xl text-primary-700 font-medium">Kirim Pesan</h2>
         <div class="grid lg:grid-cols-2 gap-5 text-gray-800 font-light">
             <div class="flex flex-col gap-2">
-                <label for="firstName">Nama depan</label>
+                <label for="firstName" class="text-sm">Nama depan</label>
                 <input type="text" class="rounded-lg">
             </div>
             <div class="flex flex-col gap-2">
-                <label for="lastName">Nama belakang</label>
+                <label for="lastName" class="text-sm">Nama belakang</label>
                 <input type="text" class="rounded-lg">
             </div>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-5 my-5 text-gray-800 font-light">
             <div class="flex flex-col gap-2">
-                <label for="email">Email</label>
+                <label for="email" class="text-sm">Email</label>
                 <input type="email" class="rounded-lg">
             </div>
             <div class="flex flex-col gap-2">
-                <label for="phone">Nomor telepon</label>
+                <label for="phone" class="text-sm">Nomor telepon</label>
                 <input type="text" class="rounded-lg">
             </div>
         </div>
 
         <div class="flex flex-col gap-2 text-gray-800 font-light">
-            <label for="message">Pesan</label>
+            <label for="message" class="text-sm">Pesan</label>
             <textarea name="" id="" cols="30" rows="10" class="rounded-lg"></textarea>
         </div>
 
-        <button type="submit" class="px-7 py-3 rounded-full bg-primary-100 text-white">Kirim Pesan</button>
+        <button type="submit" class="px-7 py-3 rounded-full border border-primary-700 mt-8 text-primary-700 w-full transition-all hover:bg-primary-700 hover:text-white">Kirim Pesan</button>
     </form>
 
     <div class="flex flex-col gap-8">
         <div class="flex flex-col gap-3">
-            <h3 class="text-xl">Hubungi Kami</h3>
-            <p>Hubungi tim kami setiap hari dari 08:00 sampai 16:00</p>
+            <h3 class="text-xl text-primary-700 font-medium">Hubungi Kami</h3>
+            <p class="text-gray-800">Hubungi tim kami setiap hari dari 08:00 sampai 16:00</p>
             <div class="flex items-center gap-2">
-                <span class="material-symbols-rounded">call</span>
-                <a href="tel:02190675444" class="underline">(021) 9067 5444</a>
+                <span class="material-symbols-rounded text-primary-500">call</span>
+                <a href="tel:02190675444" class="underline text-gray-700">(021) 9067 5444</a>
             </div>
         </div>
 
         <div class="flex flex-col gap-3">
-            <h3 class="text-xl">Mengobrol dengan Kami</h3>
-            <p>Ngobrol dengan tim kami yang ramah via live chat</p>
+            <h3 class="text-xl text-primary-700 font-medium">Mengobrol dengan Kami</h3>
+            <p class="text-gray-800">Ngobrol dengan tim kami yang ramah via live chat</p>
             <div class="flex items-center gap-2">
-                <span class="material-symbols-rounded">call</span>
-                <a href="tel:02190675444" class="underline">(021) 9067 5444</a>
+                <i class="bi bi-whatsapp text-primary-500"></i>
+                <a href="tel:wa.me/6281398848566" class="underline text-gray-700">Hubungi via WhatsApp</a>
             </div>
             <div class="flex items-center gap-2">
-                <span class="material-symbols-rounded">call</span>
-                <a href="tel:02190675444" class="underline">(021) 9067 5444</a>
+                <i class="bi bi-envelope-at-fill text-primary-500"></i>
+                <a href="mailto:cs@mahirhotel.com" class="underline text-gray-700">Kirim Email</a>
             </div>
             <div class="flex items-center gap-2">
-                <span class="material-symbols-rounded">call</span>
-                <a href="tel:02190675444" class="underline">(021) 9067 5444</a>
+                <i class="bi bi-twitter text-primary-500"></i>
+                <a href="https://x.com/mrizqighana" class="underline text-gray-700">Kirim Pesan Twitter</a>
             </div>
         </div>
 
         <div class="flex flex-col gap-3">
-            <h3 class="text-xl">Hubungi Kami</h3>
-            <p>Hubungi tim kami setiap hari dari 08:00 sampai 16:00</p>
+            <h3 class="text-xl text-primary-700 font-medium">Alamat Kami</h3>
+            <p class="text-gray-800">Ingin menyampaikan secara personal? Bisa langsung ke kantor kami</p>
             <div class="flex items-center gap-2">
-                <span class="material-symbols-rounded">call</span>
-                <a href="tel:02190675444" class="underline">(021) 9067 5444</a>
+                <span class="material-symbols-rounded text-primary-500">corporate_fare</span>
+                <a href="#" class="underline text-gray-700">Jl. Jendral Sudirman, Bendungan Hilir, Jakarta</a>
             </div>
         </div>
     </div>

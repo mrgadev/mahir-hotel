@@ -4,7 +4,6 @@
         <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
         <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
         <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
-        <a href="{{route('frontpage.contact')}}" class="hover:font-medium {{(Route::is('frontpage.contact') ? 'font-medium' : '')}}">Kontak</a>
         <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
     </div>
     <ion-icon name="menu-outline" class="lg:hidden text-4xl" id="openMobileMenu"></ion-icon>
@@ -18,6 +17,10 @@
     @auth
     <div class=" items-center gap-3 auth-button hidden lg:flex">
         <button class="flex gap-1 items-center"><span class="material-symbols-rounded">account_circle</span> {{Auth::user()->name}}</button>
+        <div class="absolute top-10">
+            <p>{{Auth::user()->name}}</p>
+            <p>{{Auth::user()->roles}}</p>
+        </div>
     </div>
     @endauth
 </nav>
@@ -31,7 +34,6 @@
         <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
         <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
         <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
-        <a href="{{route('frontpage.contact')}}" class="hover:font-medium {{(Route::is('frontpage.contact') ? 'font-medium' : '')}}">Kontak</a>
         <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
         <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
     </div>
