@@ -35,3 +35,4 @@ Route::get('/detail/nama-kamar', [FrontpageController::class, 'room_detail'])->n
 Route::get('/layanan-lainnya', [FrontpageController::class, 'services'])->name('frontpage.services');
 Route::get('/layanan-lainnya/nama', [FrontpageController::class, 'services_detail'])->name('frontpage.services.detail');
 Route::get('/kontak', [FrontpageController::class, 'contact'])->name('frontpage.contact');
+Route::get('/tentang-kami', [FrontpageController::class, 'about'])->name('frontpage.about');

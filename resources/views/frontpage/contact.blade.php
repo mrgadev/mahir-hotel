@@ -59,37 +59,7 @@
 @endpush
 @section('title', 'Kontak Kami')
 @section('main')
-<nav class="fixed w-full px-12 lg:px-36 z-20 bg-white border-b border-primary-300 duration-500 transition-all flex items-center justify-between py-6 text-primary-500" id="mainNavbar">
-    <a href="{{route('frontpage.index')}}" class="text-lg font-medium">Mahir Hotel</a>
-    <div class="lg:flex gap-8 font-light hidden">
-        <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
-        <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
-        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
-        <a href="{{route('frontpage.contact')}}" class="hover:font-medium {{(Route::is('frontpage.contact') ? 'font-medium' : '')}}">Kontak</a>
-        <a href="#" class="hover:font-medium">Tentang Kami</a>
-    </div>
-    <ion-icon name="menu-outline" class="lg:hidden text-4xl" id="openMobileMenu"></ion-icon>
-    <div class=" items-center gap-3 auth-button hidden lg:flex">
-        <a href="{{route('register')}}" class="bg-primary-500 text-white px-5 py-2 rounded-full hover:bg-white transition-all">Daftar</a>
-        <a href="{{route('login')}}" class="px-5 py-2 border border-primary-500 text-primary-500 rounded-full hover:bg-primary-500 hover:text-white transition-all">Masuk</a>
-    </div>
-    
-</nav>
-<nav class="duration-500 bg-white w-screen h-screen fixed hidden top-0 left-0 right-0 z-30 px-12" id="mobileMenu">
-    <div class="flex items-center justify-between py-6 text-primary-500">
-        <a href="{{route('frontpage.index')}}" class="text-lg font-medium">Mahir Hotel</a>
-        <span class="material-symbols-rounded cursor-pointer" id="closeMobileMenu">close</span>
-    </div>
-
-    <div class="flex flex-col gap-8 mt-8 font-light">
-        <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
-        <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
-        <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
-        <a href="{{route('frontpage.contact')}}" class="hover:font-medium {{(Route::is('frontpage.contact') ? 'font-medium' : '')}}">Kontak</a>
-        <a href="#" class="hover:font-medium">Tentang Kami</a>
-        <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
-    </div>
-</nav>
+@include('components.frontpage-navbar')
 <header class="lg:px-36 px-12 w-screen lg:h-[60vh] pt-36">
     {{-- <div class="absolute h-screen w-full bg-[#162034] opacity-70 z-10"></div> --}}
     <div class="flex items-center gap-1 text-primary-700">
