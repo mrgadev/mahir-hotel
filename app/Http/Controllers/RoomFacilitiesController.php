@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RoomFacilities;
 use Illuminate\Http\Request;
+use App\Models\RoomFacilities;
+use Illuminate\Support\Facades\Storage;
 
 class RoomFacilitiesController extends Controller
 {
@@ -102,6 +103,11 @@ class RoomFacilitiesController extends Controller
      */
     public function destroy(RoomFacilities $room_facility)
     {
-        //
+        $icon = $room_facility->icon;
+        Storage::disk('public')->delete($icon);
+        $room_facility->delete();
+
+        return view('dashboard.admin.room-facilities.index')->with('success', 'Fasilitas hotel berhasil dihapus!');
+        
     }
 }
