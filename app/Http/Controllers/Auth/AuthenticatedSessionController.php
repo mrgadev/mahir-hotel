@@ -33,8 +33,10 @@ class AuthenticatedSessionController extends Controller
         // dd($user);
         if($user->hasRole('admin') || $user->hasRole('staff')) {
             return redirect()->intended(route('dashboard.home'));
-        } else {
+        } elseif($user->hasRole('user')) {
             return redirect()->route('frontpage.index');
+        } else {
+            return redirect()->back()->with('error', 'Password atau email salah!');
         }
 
     }

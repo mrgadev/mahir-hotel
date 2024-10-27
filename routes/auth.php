@@ -43,6 +43,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/forgot-password/phone', [ForgotPasswordController::class, 'forgotPasswordFormPhone'])->name('forgot.password.phone');
     Route::post('/forgot-password/process', [ForgotPasswordController::class, 'forgotPasswordProcess'])->name('forgot.password.process');
     Route::get('/forgot-password/verify/{phone}/{random_url}', [ForgotPasswordController::class, 'forgotPasswordVerify'])->name('forgot.password.verify');
+    Route::post('/forgot-password/verify/process', [ForgotPasswordController::class, 'forgotPasswordVerifyProcess'])->name('forgot.password.verify.process');
+    Route::get('/forgot-password/reset/{phone}/', [ForgotPasswordController::class, 'forgotPasswordReset'])->name('forgot.password.reset');
+    Route::post('/forgot-password/reset/process', [ForgotPasswordController::class, 'forgotPasswordResetProcess'])->name('forgot.password.reset.process');
 });
 
 Route::middleware('auth')->group(function () {

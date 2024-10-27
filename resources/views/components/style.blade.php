@@ -38,4 +38,7 @@
 
 <!-- Include Select2 JS CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+{{-- SweetAlert --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @vite(['resources/css/app.css','resources/css/app.js'])
