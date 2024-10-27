@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Traits\Fonnte;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Traits\Fonnte;
+use Illuminate\Support\Facades\Hash;
 
 class ForgotPasswordController extends Controller
 {
@@ -40,5 +41,44 @@ class ForgotPasswordController extends Controller
             $user = User::where('phone', $phone);
         }
         return view('auth.forgot-password.verify', compact('user'));
+    }
+
+    public function forgotPasswordVerifyProcess(Request $request) {
+        $otp = $request->otp;
+        $user = user::where('otp', $otp)->first();
+        if($user) {
+            return redirect()->route('forgot.password.reset', ['phone' => $user->phone]);
+        } else {
+            return redirect()->back()->with('error', 'Kode OTP yang Anda masukkan salah.');
+        }
+    }
+
+    public function forgotPasswordReset(Request $request) {
+        // dd($request->phone);
+        $phone = $request->phone;
+        if(session('user')) {
+            $user = session('user');
+        } else {
+            $user = User::where('phone', $phone)->first();
+        }
+        $user = User::where('phone', $phone)->first();
+
+        return view('auth.forgot-password.reset-password', ['user' => $user]);
+    }
+
+    public function forgotPasswordResetProcess(Request $request) {
+        $data = $request->validate([
+            'password' => 'min:6|required|confirmed',
+        ]);
+        $phone = $request->phone;
+        if(session('user')) {
+            $user = session('user');
+        } else {
+            $user = User::where('phone', $phone)->first();
+        }
+        $data['password'] = Hash::make($data['password']);
+        $user->password = $data['password'];
+        $user->save();
+        return redirect()->route('login')->with('success', 'Password berhasil diubah!');
     }
 }
