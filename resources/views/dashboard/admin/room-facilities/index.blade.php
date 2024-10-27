@@ -1,15 +1,15 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'My Hotel Facilities')
+@section('title', 'Fasilitas Kamar')
 
 {{-- @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
             <a class="text-white opacity-90" href="javascript:;">Dashboard</a>
             </li>
-            <li class="text-sm pl-2 text-white capitalize leading-normal  before:float-left before:pr-2 before: before:content-['/']" aria-current="page">Hotel Facilities</li>
+            <li class="text-sm pl-2 text-white capitalize leading-normal  before:float-left before:pr-2 before: before:content-['/']" aria-current="page">Kamar Facilities</li>
         </ol>
-    <h6 class="mb-0 font-bold text-white capitalize">Data Fasilitas Hotel</h6>
+    <h6 class="mb-0 font-bold text-white capitalize">Data Fasilitas Kamar</h6>
 @endsection --}}
 
 @section('content')
@@ -22,13 +22,13 @@
                             <span class="material-symbols-rounded scale-75">home</span>
                         </a>
                         <span class="material-symbols-rounded">chevron_right</span>
-                        <p>Data Fasilitas Hotel</p>
+                        <p>Data Fasilitas Kamar</p>
                     </div>
                     <h1 class="text-white text-4xl font-medium">
-                        Data Fasilitas Hotel
+                        Data Fasilitas Kamar
                     </h1>
                 </div>
-                <a href="{{route('dashboard.hotel_facilities.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
+                <a href="{{route('dashboard.room_facilities.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
                     <i class="bi bi-plus-square mr-2"></i>
                     <p>Tambah</p>
                 </a>
@@ -70,20 +70,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($hotel_facilities as $hotel_facility)
+                            @forelse ($room_facilities as $room_facility)
                                 <tr class="cursor-pointer">
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$hotel_facility->id}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$room_facility->id}}</td>
                                     <td class="">
-                                        <img src="{{Storage::url($hotel_facility->icon)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
+                                        <img src="{{Storage::url($room_facility->icon)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
                                     </td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$hotel_facility->name}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$room_facility->name}}</td>
                                     <td class="flex items-center">
                                         <div class="mr-2">
-                                            <a href="{{route('dashboard.hotel_facilities.edit', $hotel_facility)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                            <a href="{{route('dashboard.room_facilities.edit', $room_facility)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                         </div>
-                                        <form action="{{route('dashboard.hotel_facilities.destroy', $hotel_facility)}}" class="" method="POST">
+                                        <form action="{{route('dashboard.room_facilities.destroy', $room_facility)}}" class="" method="POST">
                                             @method('DELETE')
                                             @csrf
                                             <button tyoe="submit" class="py-1 px-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white">

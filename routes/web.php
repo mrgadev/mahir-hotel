@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontpageController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\UsersManagementController;
+use App\Http\Controllers\RoomFacilitiesController;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('home');
@@ -19,6 +20,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::resource('/hotel_facilities', HotelFacilitiesController::class);
     Route::resource('/users_management', UsersManagementController::class);
     Route::resource('/accomodation_plan', AccomdationPlanController::class);
+    Route::resource('/room_facilities', RoomFacilitiesController::class);
 });
 
 Route::middleware('auth')->group(function () {

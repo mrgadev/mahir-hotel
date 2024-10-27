@@ -29,11 +29,17 @@ class HotelFacilitiesController extends Controller
      */
     public function store(Request $request)
     {
+        $message = [
+            'name.required' => 'Nama fasilitas wajib diisi!',
+            'icon.required' => 'Icon fasilitas wajib diupload!',
+            'icon.mimes' => 'File harus bertipe: png,jpg,svg'
+        ];
+
         $data = $request->validate([
             'name' => 'required',
             'icon' => 'required',
-            'description' => 'required',
-        ]);
+            'description' => 'nullable',
+        ], $message);
 
         if($request->hasFile('icon')){
             $iconPath = $request->file('icon')->store('icons', 'public');
@@ -45,7 +51,7 @@ class HotelFacilitiesController extends Controller
             'description' => $data['description'],
         ]);
 
-        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Hotel Facility created successfully.');
+        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Fasilitas hotel berhasil ditambahkan.');
     }
 
     /**
@@ -69,11 +75,17 @@ class HotelFacilitiesController extends Controller
      */
     public function update(Request $request, HotelFacilities $hotel_facility)
     {
+        $message = [
+            'name.required' => 'Nama fasilitas wajib diisi!',
+            'icon.required' => 'Icon fasilitas wajib diupload!',
+            'icon.mimes' => 'File harus bertipe: png,jpg,svg'
+        ];
+
         $data = $request->validate([
             'name' => 'required',
             'icon' => 'nullable',
             'description' => 'required',
-        ]);
+        ], $message);
 
         if($request->hasFile('icon')){
             $iconPath = $request->file('icon')->store('icons', 'public');
@@ -88,7 +100,7 @@ class HotelFacilitiesController extends Controller
             'description' => $data['description'],
         ]);
 
-        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Hotel Facility updated successfully.');
+        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Fasilitas hotel berhasil diubah.');
     }
 
     /**
@@ -97,6 +109,6 @@ class HotelFacilitiesController extends Controller
     public function destroy(HotelFacilities $hotel_facility)
     {
         $hotel_facility->delete();
-        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Hotel Facility deleted successfully.');
+        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Fasilitas hotel berhasil dihapus.');
     }
 }

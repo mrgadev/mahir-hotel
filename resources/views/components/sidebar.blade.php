@@ -154,3 +154,13 @@
         </ul>
     </div>
 </aside>
+@push('addon-script')
+    <script>
+        const facilityToggle = document.getElementById('facilityToggle');
+        const facilitySubmenu = document.getElementById('facilitySubmenu');
+
+        facilityToggle.addEventListener('click', function(){
+            facilitySubmenu.classList.toggle('hidden');
+        })
+    </script>
+@endpush
