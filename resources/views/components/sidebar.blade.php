@@ -17,7 +17,7 @@
                 <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                 <i class="relative top-0 text-sm leading-normal ni ni-tv-2"></i>
                 </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dashboard</span>
+                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Beranda</span>
             </a>
         </li>
         @role('admin')
@@ -26,8 +26,35 @@
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Room</span>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Kamar</span>
                 </a>
+            </li>
+
+            <li class="mt-0.5 w-full">  
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.hotel_facilities.*') || Route::is('dashboard.room_facilities.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="facilityToggle">
+                    <div class="flex items-center">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas</span>
+                    </div>
+                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                </a>
+                <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="facilitySubmenu">
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.room_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room_facilities.index')}}">
+                            
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Kamar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.hotel_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.hotel_facilities.index')}}">
+                            
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Hotel</span>
+                        </a>
+                    </li>
+                </ul>
+
             </li>
 
             <li class="mt-0.5 w-full">  
@@ -35,7 +62,7 @@
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-base leading-normal bi bi-percent"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Promos</span>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Promo</span>
                 </a>
             </li>
             
@@ -44,7 +71,7 @@
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-sm leading-normal ni ni-credit-card"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">History Transaction</span>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Riwayat Transaksi</span>
                 </a>
             </li>
             
@@ -53,7 +80,7 @@
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-sm leading-normal ni ni-collection"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Manage Reports</span>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Laporan Keuangan</span>
                 </a>
             </li>
             
@@ -62,7 +89,7 @@
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-base leading-normal bi bi-sliders"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Manage Sites</span>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Situs</span>
                 </a>
             </li>
         
@@ -126,3 +153,13 @@
         </li>
     </ul>
 </aside>
+@push('addon-script')
+    <script>
+        const facilityToggle = document.getElementById('facilityToggle');
+        const facilitySubmenu = document.getElementById('facilitySubmenu');
+
+        facilityToggle.addEventListener('click', function(){
+            facilitySubmenu.classList.toggle('hidden');
+        })
+    </script>
+@endpush
