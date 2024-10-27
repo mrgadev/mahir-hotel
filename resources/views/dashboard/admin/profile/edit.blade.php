@@ -22,7 +22,7 @@
         </div>
         <section class="container px-6 mx-auto mt-5">
             <div class="grid gap-5 md:grid-cols-12">
-                <form class="col-span-12 p-4 md:pt-0" action="{{route('admin.profile.update', Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
+                <form class="col-span-12 p-4 md:pt-0" action="{{route('dashboard.profile.update', Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="px-2 py-2 mt-2 bg-white rounded-xl shadow-2xl">
