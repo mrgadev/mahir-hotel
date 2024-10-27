@@ -12,7 +12,8 @@ class HotelFacilitiesController extends Controller
      */
     public function index()
     {
-        return view('dashboard.admin.hotel-facilities.index');
+        $hotel_facilities = HotelFacilities::all();
+        return view('dashboard.admin.hotel-facilities.index', compact('hotel_facilities'));
     }
 
     /**
@@ -20,7 +21,7 @@ class HotelFacilitiesController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.admin.hotel-facilities.create');
     }
 
     /**
@@ -28,13 +29,29 @@ class HotelFacilitiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'icon' => 'required',
+            'description' => 'required',
+        ]);
+
+        if($request->hasFile('icon')){
+            $iconPath = $request->file('icon')->store('icons', 'public');
+        }
+
+        HotelFacilities::create([
+            'name' => $data['name'],
+            'icon' => $iconPath,
+            'description' => $data['description'],
+        ]);
+
+        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Hotel Facility created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(HotelFacilities $hotelFacilities)
+    public function show(HotelFacilities $hotel_facility)
     {
         //
     }
@@ -42,24 +59,44 @@ class HotelFacilitiesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(HotelFacilities $hotelFacilities)
+    public function edit(HotelFacilities $hotel_facility)
     {
-        //
+        return view('dashboard.admin.hotel-facilities.edit', compact('hotel_facility'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HotelFacilities $hotelFacilities)
+    public function update(Request $request, HotelFacilities $hotel_facility)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'icon' => 'nullable',
+            'description' => 'required',
+        ]);
+
+        if($request->hasFile('icon')){
+            $iconPath = $request->file('icon')->store('icons', 'public');
+            $hotel_facility->icon = $iconPath;
+        }else{
+            $iconPath = $hotel_facility->icon;
+        }
+
+        $hotel_facility->update([
+            'name' => $data['name'],
+            'icon' => $iconPath,
+            'description' => $data['description'],
+        ]);
+
+        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Hotel Facility updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HotelFacilities $hotelFacilities)
+    public function destroy(HotelFacilities $hotel_facility)
     {
-        //
+        $hotel_facility->delete();
+        return redirect()->route('dashboard.hotel_facilities.index')->with('success', 'Hotel Facility deleted successfully.');
     }
 }

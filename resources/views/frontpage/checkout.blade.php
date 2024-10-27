@@ -182,9 +182,6 @@
                 </div>
             </div>
         </div>
-
-
-
         <div>
           <label for="voucher" class="mb-2 block text-sm font-medium text-gray-900"> Enter a gift card, voucher or promotional code </label>
           <div class="flex max-w-md items-center gap-4">

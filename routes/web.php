@@ -19,6 +19,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password', [DashboardController::class, 'updatePassword'])->name('profile.updatePassword');
     Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('/hotel_facilities', HotelFacilitiesController::class);
 });
 
 Route::middleware('auth')->group(function () {

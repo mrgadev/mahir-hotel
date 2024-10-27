@@ -23,17 +23,15 @@
                     <span class="material-symbols-rounded">chevron_right</span>
                     <p>My Profile</p>
                 </div>
-        
                 <h1 class="text-white text-4xl font-medium">
                     My Profile
                 </h1>
             </div>
-            
         </div>
-        <section class="container px-6 mx-auto mt-5">
-            <div class="grid gap-5 md:grid-cols-12">
-                <main class="col-span-12 p-4 md:pt-0">
-                    <div class="px-2 py-2 mt-2 bg-white rounded-xl">
+        <section class="container px-6 mx-auto">
+            <section class="container px-6 mx-auto">
+                <main class="col-span-12 md:pt-0">
+                    <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
                         <form action="{{route('dashboard.profile.update')}}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
@@ -81,14 +79,8 @@
                                             @endif
                                         </div>
                                         <div class="md:col-span-6 lg:col-span-3">
-<<<<<<< HEAD:resources/views/profile/edit.blade.php
                                             <label for="birth" class="block mb-3 font-medium text-gray-700 text-md">Birthday</label>
                                             <input placeholder="Your Number" type="date" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
-=======
-                                            <label for="birth" class="block mb-3 font-medium text-gray-700 text-md">Tanggal Lahir</label>
-                                            <input placeholder="Your Number" type="datetime-local" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
-
->>>>>>> 85de2e5a1d265be47fdcd51bfc2b65bc5b05adc8:resources/views/dashboard/profile/edit.blade.php
                                             @if ($errors->has('birth'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('birth')}}</p>
                                             @endif
