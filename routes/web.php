@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccomdationPlanController;
 use App\Models\HotelFacilities;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +18,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/hotel_facilities', HotelFacilitiesController::class);
     Route::resource('/users_management', UsersManagementController::class);
+    Route::resource('/accomodation_plan', AccomdationPlanController::class);
 });
 
 Route::middleware('auth')->group(function () {
