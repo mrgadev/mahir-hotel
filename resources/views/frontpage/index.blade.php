@@ -44,6 +44,11 @@
         color: #fff;
         transition: all 0.4s ease;
     } 
+
+    #mainNavbar.scrolled p.user-role { 
+        background: #976033;
+        color: white;
+    }
     
     option {
         padding: 2rem;
@@ -76,19 +81,33 @@
             <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
             <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
             <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
-            <a href="#" class="hover:font-medium">Kontak</a>
-            <a href="#" class="hover:font-medium">Tentang Kami</a>
+            <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
         </div>
         <ion-icon name="menu-outline" class="lg:hidden text-4xl" id="openMobileMenu"></ion-icon>
         @auth
-            <div class="flex items-center gap-2">
+            <div class="hidden lg:flex items-center gap-2">
                 @if(Storage::url(Auth::user()->avatar))
                 <img src="{{Auth::user()->avatar}}" alt="">
                 @else
                 <span class="material-symbols-rounded">account_circle</span>
                 @endif
-                <button>{{Auth::user()->name}}</button>
+                <div class="flex flex-col gap-1">
+                    <button class="text-lg" id="toggleUserMenu">{{Auth::user()->name}}</button>
+                    <p class="user-role text-xs px-2 py-1 bg-white text-primary-700 rounded-md w-fit">{{ucfirst(Auth::user()->roles->first()->name)}}</p>
+                </div>
+                <div id="userMenu" class="bg-white absolute right-28 top-28 border border-primary-700 rounded-xl p-3 hidden">
+                    <div class="flex flex-col gap-2">
+                        <a href="{{route('dashboard.home')}}" class="text-primary-700">Dashboard</a>
+                        <hr>
+                        <form action="{{route('logout')}}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" class="text-red-600 z-20">Keluar</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+
         @endauth
         @guest
             
@@ -113,9 +132,8 @@
         <div class="flex flex-col gap-8 mt-8 font-light">
             <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
             <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
-            <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}>Layanan Lainnya </a>
-            <a href="#" class="hover:font-medium">Kontak</a>
-            <a href="#" class="hover:font-medium">Tentang Kami</a>
+            <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
+            <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
             <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
         </div>
     </nav>
@@ -791,18 +809,25 @@
         });
 
 
-        const roomButtonLeft = document.getElementById('roomButtonLeft');
-        const roomButtonRight = document.getElementById('roomButtonRight');
-        const roomsContainer = document.getElementById('roomsContainer');
+        // const roomButtonLeft = document.getElementById('roomButtonLeft');
+        // const roomButtonRight = document.getElementById('roomButtonRight');
+        // const roomsContainer = document.getElementById('roomsContainer');
 
-        roomButtonLeft.addEventListener('click', function() {
-            roomsContainer.scrollLeft -= 250;
-            roomsContainer.style.transition = 'all 0.4s ease';
-        });
+        // roomButtonLeft.addEventListener('click', function() {
+        //     roomsContainer.scrollLeft -= 250;
+        //     roomsContainer.style.transition = 'all 0.4s ease';
+        // });
         
-        roomButtonRight.addEventListener('click', function() {
-            roomsContainer.scrollLeft += 250;
-            roomsContainer.style.transition = 'all 0.4s ease';
-        });
+        // roomButtonRight.addEventListener('click', function() {
+        //     roomsContainer.scrollLeft += 250;
+        //     roomsContainer.style.transition = 'all 0.4s ease';
+        // });
+
+        const toggleUserMenu = document.getElementById('toggleUserMenu');
+        const userMenu = document.getElementById('userMenu');
+
+        toggleUserMenu.addEventListener('click', function() {
+            userMenu.classList.toggle('hidden');
+        })
     </script>
 @endpush

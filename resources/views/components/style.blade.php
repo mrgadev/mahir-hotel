@@ -1,6 +1,5 @@
 <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png" />
-<link rel="icon" type="image/png" href="/assets/img/favicon.png" />
-<title>Argon Dashboard 2 Tailwind by Creative Tim</title>
+{{-- <link rel="icon" type="image/png" href="/assets/img/favicon.png" /> --}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Sora:wght@100..800&display=swap" rel="stylesheet">

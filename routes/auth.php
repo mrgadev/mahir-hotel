@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -31,14 +32,17 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/verify/resend',[RegisteredUserController::class,'resend'])->name('resend');
 
-    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-        ->name('password.email');
+    // Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+    //     ->name('password.email');
 
-    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-        ->name('password.reset');
+    // Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
+    //     ->name('password.reset');
 
-    Route::post('reset-password', [NewPasswordController::class, 'store'])
-        ->name('password.store');
+    // Route::post('reset-password', [NewPasswordController::class, 'store'])
+    //     ->name('password.store');
+    Route::get('/forgot-password/phone', [ForgotPasswordController::class, 'forgotPasswordFormPhone'])->name('forgot.password.phone');
+    Route::post('/forgot-password/process', [ForgotPasswordController::class, 'forgotPasswordProcess'])->name('forgot.password.process');
+    Route::get('/forgot-password/verify/{phone}/{random_url}', [ForgotPasswordController::class, 'forgotPasswordVerify'])->name('forgot.password.verify');
 });
 
 Route::middleware('auth')->group(function () {

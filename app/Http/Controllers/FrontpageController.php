@@ -36,4 +36,8 @@ class FrontpageController extends Controller
     public function contact() {
         return view('frontpage.contact');
     }
+
+    public function about() {
+        return view('frontpage.about');
+    }
 }
