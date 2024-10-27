@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontpageController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\HotelFacilitiesController;
+use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
@@ -16,6 +17,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::put('/profile/password', [DashboardController::class, 'updatePassword'])->name('profile.updatePassword');
     Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/hotel_facilities', HotelFacilitiesController::class);
+    Route::resource('/users_management', UsersManagementController::class);
     Route::resource('/room_facilities', RoomFacilitiesController::class);
 });
 
