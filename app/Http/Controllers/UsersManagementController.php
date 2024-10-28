@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersManagementController extends Controller
 {
@@ -125,5 +126,29 @@ class UsersManagementController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect()->route('dashboard.users_management.index')->with('success', 'User deleted successfully');
+    }
+
+    public function updatePassword(Request $request, string $id){
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|different:current_password'
+        ]);
+
+        // Ambil user yang sedang login
+        $user = User::find($id);
+
+        // Cek apakah current_password cocok dengan password di database
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors([
+                'current_password' => 'Password lama tidak sesuai'
+            ]);
+        }
+
+        // Update password baru
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('dashboard.users_management.index');  
     }
 }

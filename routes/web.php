@@ -16,17 +16,26 @@ use App\Http\Controllers\ServiceController;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('home');
+
     Route::get('/profile', [DashboardController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password', [DashboardController::class, 'updatePassword'])->name('profile.updatePassword');
     Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('/hotel_facilities', HotelFacilitiesController::class);
-    Route::resource('/users_management', UsersManagementController::class);
-    Route::resource('/accomodation_plan', AccomdationPlanController::class);
-    Route::resource('/room_facilities', RoomFacilitiesController::class);
-    Route::resource('/nearby_location', NearbyLocationController::class);
-    Route::resource('/promo', PromoController::class);
-    Route::resource('/service', ServiceController::class);
+
+    Route::resource('/hotel_facilities', HotelFacilitiesController::class)->middleware('role:admin');
+
+    Route::resource('/users_management', UsersManagementController::class)->middleware('role:admin');
+    Route::put('/users_management/{users_management}/password', [UsersManagementController::class, 'updatePassword'])->name('users_management.updatePassword')->middleware('role:admin');
+
+    Route::resource('/accomodation_plan', AccomdationPlanController::class)->middleware('role:admin');
+
+    Route::resource('/room_facilities', RoomFacilitiesController::class)->middleware('role:admin');
+
+    Route::resource('/nearby_location', NearbyLocationController::class)->middleware('role:admin');
+
+    Route::resource('/promo', PromoController::class)->middleware('role:admin');
+
+    Route::resource('/service', ServiceController::class)->middleware('role:admin');
 });
 
 Route::middleware('auth')->group(function () {
