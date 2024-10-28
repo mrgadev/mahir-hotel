@@ -37,8 +37,8 @@
                             @csrf
                             <div class="">
                                 <div class="px-4 py-5 sm:p-6">
-                                    <div class="grid grid-cols-6 gap-6">
-                                        <div class="col-span-6">
+                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-cente">
+                                        <div class="">
                                             <div class="flex items-center mt-1">
                                                 <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="photo profile" class="rounded-full w-16 h-16 object-cover object-center">
 
@@ -52,7 +52,7 @@
                                             @endif
 
                                         </div>
-                                        <div class="md:col-span-6 lg:col-span-3">
+                                        <div class="">
                                             <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Lengkap</label>
                                             <input placeholder="Your Name" type="text" name="name" id="name" autocomplete="name" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->name}}">
 
@@ -61,7 +61,7 @@
                                             @endif
 
                                         </div>
-                                        <div class="md:col-span-6 lg:col-span-3">
+                                        <div class="">
                                             <label for="email" class="block mb-3 font-medium text-gray-700 text-md">Alamat Email</label>
                                             <input placeholder="Your Email" type="email" name="email" id="email" autocomplete="email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->email}}">
 
@@ -70,7 +70,7 @@
                                             @endif
 
                                         </div>
-                                        <div class="md:col-span-6 lg:col-span-3">
+                                        <div class="">
                                             <label for="phone" class="block mb-3 font-medium text-gray-700 text-md">Nomor Telepon</label>
                                             <input placeholder="Your Number" type="number" name="phone" id="phone" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->phone}}">
 
@@ -78,14 +78,14 @@
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('phone')}}</p>
                                             @endif
                                         </div>
-                                        <div class="md:col-span-6 lg:col-span-3">
+                                        <div class="">
                                             <label for="birth" class="block mb-3 font-medium text-gray-700 text-md">Birthday</label>
                                             <input placeholder="Your Number" type="date" name="birth" id="birth" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->birth}}">
                                             @if ($errors->has('birth'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('birth')}}</p>
                                             @endif
                                         </div>
-                                        <div class="md:col-span-6 lg:col-span-3">
+                                        <div class="">
                                             <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Tempat Lahir</label>
                                             <select name="regency_id" id="regency_id" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                                                 @foreach ($regencies as $regency)
@@ -93,7 +93,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="md:col-span-6 lg:col-span-3">
+                                        <div class="">
                                             <label for="id_number" class="block mb-3 font-medium text-gray-700 text-md">Nomor KTP</label>
                                             <input placeholder="Your Ktp Number" type="number" name="id_number" id="id_number" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->id_number}}">
 
@@ -101,7 +101,7 @@
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('id_number')}}</p>
                                             @endif
                                         </div>
-                                        <div class="md:col-span-6 lg:col-span-3">
+                                        <div class="">
                                             <div class="relative flex h-52 w-auto cursor-pointer">
                                                 <a href="#image-modal" class="block w-full">
                                                     <img
@@ -144,8 +144,8 @@
                                         </h2>
                                     </div>
                                     <div class="mt-10">
-                                        <div class="grid grid-cols-6 gap-6">
-                                            <div class="md:col-span-6 lg:col-span-3">
+                                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-cente">
+                                            <div class="">
                                                 <label for="current_password" class="block mb-3 font-medium text-gray-700 text-md">Password Saat Ini</label>
                                                 <input placeholder="Your Current Password" type="password" name="current_password" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
@@ -153,7 +153,7 @@
                                                     <p class="text-red-500 mb-3 text-sm">{{$errors->first('current_password')}}</p>
                                                 @endif
                                             </div>
-                                            <div class="md:col-span-6 lg:col-span-3">
+                                            <div class="">
                                                 <label for="new_password" class="block mb-3 font-medium text-gray-700 text-md"> Password Baru</label>
                                                 <input placeholder="Your New Password" type="password" name="new_password" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 

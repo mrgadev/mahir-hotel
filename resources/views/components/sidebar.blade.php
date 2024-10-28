@@ -10,161 +10,128 @@
 
     <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
 
-    <div class="items-center block w-auto max-h-screen overflow-auto grow basis-full">
-    <ul class="flex flex-col pl-0 mb-0">
-        <li class="mt-0.5 w-full">
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.home') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.home')}}">
-                <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                <i class="relative top-0 text-sm leading-normal ni ni-tv-2"></i>
-                </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Beranda</span>
-            </a>
-        </li>
-        @role('admin')
-        {{-- Hotel Menu --}}
-        <li class="mt-0.5 w-full">  
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.hotel_facilities.*') || Route::is('dashboard.nearby_location.*') || Route::is('dashboard.faq.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="hotelToggle">
-                <div class="flex items-center">
+    <div class="items-center block w-auto overflow-auto grow basis-full">
+        <ul class="flex flex-col pl-0 mb-0">
+            <li class="mt-0.5 w-full">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.home') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.home')}}">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="bi bi-buildings-fill"></i>
+                    <i class="relative top-0 text-sm leading-normal ni ni-tv-2"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Hotel</span>
-                </div>
-                <span class="material-symbols-rounded">keyboard_arrow_down</span>
-            </a>
-            <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="hotelSubmenu">
-                <li>
-                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.hotel_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.hotel_facilities.index')}}">
-                        <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Hotel</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.nearby_location.*') ? 'font-medium' : ''}}" href="{{route('dashboard.nearby_location.index')}}">
-                        
-                        <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lokasi Terdekat</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.faq.*') ? 'font-medium' : ''}}" href="{{route('dashboard.faq.index')}}">
-                        
-                        <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">FAQ</span>
-                    </a>
-                </li>
-            </ul>
-
-        </li>
-
-        {{-- Menu Kamar --}}
-        <li class="mt-0.5 w-full">  
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.room_facilities.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="roomToggle">
-                <div class="flex items-center">
-                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Beranda</span>
+                </a>
+            </li>
+            @role('admin')
+            {{-- Hotel Menu --}}
+            <li class="mt-0.5 w-full">  
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.hotel_facilities.*') || Route::is('dashboard.nearby_location.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="hotelToggle">
+                    <div class="flex items-center">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="bi bi-buildings-fill"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Hotel</span>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Kamar</span>
-                </div>
-                <span class="material-symbols-rounded">keyboard_arrow_down</span>
-            </a>
-            <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="roomSubmenu">
-                <li>
-                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.room.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room.index')}}">
-                        <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lihat Semua</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.room_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room_facilities.index')}}">
-                        
-                        <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Kamar</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.hotel_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.hotel_facilities.index')}}">
-                        
-                        <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Rencana Penginapan</span>
-                    </a>
-                </li>
-            </ul>
+                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                </a>
+                <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="hotelSubmenu">
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.hotel_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.hotel_facilities.index')}}">
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Hotel</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.nearby_location.*') ? 'font-medium' : ''}}" href="{{route('dashboard.nearby_location.index')}}">
+                            
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lokasi Terdekat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white" href="#">
+                            
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">FAQ</span>
+                        </a>
+                    </li>
+                </ul>
 
-        </li>
+            </li>
 
-        <li class="mt-0.5 w-full">  
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="#">
-                <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                    <i class="relative top-0 text-base leading-normal bi bi-percent"></i>
-                </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Promo</span>
-            </a>
-        </li>
-        
-        <li class="mt-0.5 w-full">
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="./pages/billing.html">
-                <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
-                    <i class="relative top-0 text-sm leading-normal ni ni-credit-card"></i>
-                </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Riwayat Transaksi</span>
-            </a>
-        </li>
-        
-        <li class="mt-0.5 w-full">
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="./pages/sign-up.html">
-                <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                    <i class="relative top-0 text-sm leading-normal ni ni-collection"></i>
-                </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Laporan Keuangan</span>
-            </a>
-        </li>
-        
-        <li class="mt-0.5 w-full">  
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.users_management.*') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.users_management.index')}}">
-                <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                    <i class="relative top-0 text-base leading-normal bi bi-people"></i>
-                </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Kelola Pengguna</span>
-            </a>
-        </li>
+            {{-- Menu Kamar --}}
+            <li class="mt-0.5 w-full">  
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.room_facilities.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="roomToggle">
+                    <div class="flex items-center">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Kamar</span>
+                    </div>
+                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                </a>
+                <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="roomSubmenu">
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.room_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room_facilities.index')}}">
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lihat Semua</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.room_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room_facilities.index')}}">
+                            
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Kamar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.hotel_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.hotel_facilities.index')}}">
+                            
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Rencana Penginapan</span>
+                        </a>
+                    </li>
+                </ul>
 
-        <li class="mt-0.5 w-full">  
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="#">
-                <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                    <i class="relative top-0 text-base leading-normal bi bi-sliders"></i>
-                </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Situs</span>
-            </a>
-        </li>
-    
-        <li class="w-full mt-4">
-            <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
-        </li>
-        
-        <li class="mt-0.5 w-full">
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="{{route('dashboard.profile.edit')}}">
-                <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                    <i class="relative top-0 text-sm leading-normal text-slate-700 ni ni-single-02"></i>
-                </div>
-                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Profile</span>
-            </a>
-        </li>
-        @endrole
+            </li>
 
-        @role('user')
             <li class="mt-0.5 w-full">  
                 <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="#">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
+                        <i class="relative top-0 text-base leading-normal bi bi-percent"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Bookings</span>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Promo</span>
+                </a>
+            </li>
+            
+            <li class="mt-0.5 w-full">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="./pages/billing.html">
+                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
+                        <i class="relative top-0 text-sm leading-normal ni ni-credit-card"></i>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Riwayat Transaksi</span>
+                </a>
+            </li>
+            
+            <li class="mt-0.5 w-full">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="./pages/sign-up.html">
+                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                        <i class="relative top-0 text-sm leading-normal ni ni-collection"></i>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Laporan Keuangan</span>
+                </a>
+            </li>
+            
+            <li class="mt-0.5 w-full">  
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.users_management.*') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.users_management.index')}}">
+                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                        <i class="relative top-0 text-base leading-normal bi bi-people"></i>
+                    </div>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Kelola Pengguna</span>
                 </a>
             </li>
 
             <li class="mt-0.5 w-full">  
                 <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="#">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="relative top-0 text-base leading-normal bi bi-clock-history"></i>
+                        <i class="relative top-0 text-base leading-normal bi bi-sliders"></i>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">History</span>
+                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Situs</span>
                 </a>
             </li>
-
+        
             <li class="w-full mt-4">
                 <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
             </li>
@@ -177,20 +144,54 @@
                     <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Profile</span>
                 </a>
             </li>
-        @endrole
+            @endrole
 
-        <li class="mt-0.5 w-full ">
-          <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class=" py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700 transition-colors">
-              <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                <i class="relative top-0 text-lg leading-normal bi bi-box-arrow-right"></i>
-              </div>
-              <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Logout</span>
-            </button>
-          </form>
-        </li>
-    </ul>
+            @role('user')
+                <li class="mt-0.5 w-full">  
+                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="#">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Bookings</span>
+                    </a>
+                </li>
+
+                <li class="mt-0.5 w-full">  
+                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="#">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 text-base leading-normal bi bi-clock-history"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">History</span>
+                    </a>
+                </li>
+
+                <li class="w-full mt-4">
+                    <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
+                </li>
+                
+                <li class="mt-0.5 w-full">
+                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-mediumtransition-colors transition-all hover:bg-primary-500 hover:text-white" href="{{route('dashboard.profile.edit')}}">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 text-sm leading-normal text-slate-700 ni ni-single-02"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Profile</span>
+                    </a>
+                </li>
+            @endrole
+
+            <li class="mt-0.5 w-full ">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class=" py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700 transition-colors">
+                <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                    <i class="relative top-0 text-lg leading-normal bi bi-box-arrow-right"></i>
+                </div>
+                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Logout</span>
+                </button>
+            </form>
+            </li>
+        </ul>
+    </div>
 </aside>
 @push('addon-script')
     <script>
