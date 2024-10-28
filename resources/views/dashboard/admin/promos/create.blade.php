@@ -64,7 +64,7 @@
 
                                         <div>
                                             <label for="code" class="block mb-3 font-medium text-gray-700 text-md">Kode</label>
-                                            <input placeholder="Promo" type="number" name="code" id="code" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <input placeholder="Promo" type="text" name="code" id="code" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                             @if ($errors->has('code'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('code')}}</p>

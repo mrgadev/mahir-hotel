@@ -73,7 +73,7 @@
                                 <tr class="cursor-pointer">
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$accomdation_plan->id}}</td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$accomdation_plan->name}}</td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$accomdation_plan->price}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($accomdation_plan->price,0,',','.')}}</td>
                                     <td class="flex items-center">
                                         <div class="mr-2">
                                             <a href="{{route('dashboard.accomodation_plan.edit', $accomdation_plan)}}" class="py-2 px-2 border-2 rounded-md border-yellow-600 text-yellow-600 text-center">

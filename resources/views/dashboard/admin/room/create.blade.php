@@ -54,31 +54,31 @@
                                         </div>
                                         
                                         <div>
-                                            <label for="icon" class="block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
-                                            <input placeholder="" type="file" name="icon" id="icon" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <label for="cover" class="block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
+                                            <input placeholder="" type="file" name="cover" id="cover" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
-                                            @if ($errors->has('icon'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('icon')}}</p>
+                                            @if ($errors->has('cover'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('cover')}}</p>
                                             @endif
                                         </div>
                                     </div>
 
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center my-5">
                                         <div>
-                                            <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Harga per Malam</label>
-                                            <input placeholder="Harga per Malam" type="text" name="name" id="name" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <label for="price" class="block mb-3 font-medium text-gray-700 text-md">Harga per Malam</label>
+                                            <input placeholder="Harga per Malam" type="number" name="price" id="price" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
-                                            @if ($errors->has('name'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('name')}}</p>
+                                            @if ($errors->has('price'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('price')}}</p>
                                             @endif
                                         </div>
                                         
                                         <div>
-                                            <label for="icon" class="block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
-                                            <input placeholder="" type="file" name="icon" id="icon" autocomplete="off" class="block border w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <label for="photos" class="block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
+                                            <input placeholder="" type="file" name="photos" id="photos" autocomplete="off" class="block border w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
-                                            @if ($errors->has('icon'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('icon')}}</p>
+                                            @if ($errors->has('photos'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('photos')}}</p>
                                             @endif
                                         </div>
                                     </div>
