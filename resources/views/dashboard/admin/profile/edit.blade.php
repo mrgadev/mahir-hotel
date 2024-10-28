@@ -137,3 +137,10 @@
         </section>
     </main>
 @endsection
+@push('addon-script')
+    <script>
+        $(document).ready(function() {
+            $('#regency_id').select2();
+        })
+    </script>
+@endpush

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faq;
+use App\Models\Promo;
 use Illuminate\Http\Request;
 
 class FrontpageController extends Controller
@@ -16,7 +17,8 @@ class FrontpageController extends Controller
     }
     
     public function promo() {
-        return view('frontpage.promo');
+        $promos = Promo::all();
+        return view('frontpage.promo', compact('promos'));
     }
 
     public function rooms() {

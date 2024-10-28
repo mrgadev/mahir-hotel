@@ -1,6 +1,6 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'My Account')
+@section('title', 'Layanan Lainnya')
 {{-- 
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">

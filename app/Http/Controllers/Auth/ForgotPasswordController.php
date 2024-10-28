@@ -16,10 +16,12 @@ class ForgotPasswordController extends Controller
         return view('auth.forgot-password.forgot-password');
     }
 
+    public function forgotPasswordFormEmail() {
+        return view('auth.forgot-password.forgot-password-email');
+    }
+
     public function forgotPasswordProcess(Request $request) {
         $phone = $request->phone;
-        
-
         $user = User::where('phone', $phone)->first();
         if($user) {
             $otp = rand(000000,999999);
@@ -30,7 +32,7 @@ class ForgotPasswordController extends Controller
             $message = "Halo *$user->name*,\n\nSilahkan masukkan kode OTP berikut ini untuk mereset kata sandi Anda, \n\n*$otp*";
             $this->send_message($phone, $message);
             session(['user' => $user]);
-            return redirect()->route('forgot.password.verify', ['phone' => $phone, 'random_url' => $random_url]);
+            return redirect()->route('forgot.password.verify', ['phone' => $phone, 'random_url' => $random_url])->with('success', 'Kode OTP berhasil dikirim');
         }
     }
 

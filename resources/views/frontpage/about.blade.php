@@ -115,31 +115,8 @@
     </div>
 </div>
 
-<footer class="w-screen bg-primary-100 flex justify-between px-12 lg:px-36 py-14">
-    <div class="flex flex-col gap-5">
-        <h2 class="text-3xl text-primary-500">Mahir Hotel</h2>
-        <p class="text-primary-800">Jl. H. R. Rasuna Said No.4 Blok Kav. B<br> Kuningan, Setia Budi, Kota Jakarta Selatan<br>DKI Jakarta 12910</p>
-        <div class="flex items-center gap-5 text-2xl text-primary-800">
-            <a href="#" class=""><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-twitter"></i></a>
-            <a href="#"><i class="bi bi-tiktok"></i></a>
-        </div>
-    </div>
+@include('components.frontpage-footer')
 
-    <div class="grid grid-cols-2 gap-8">
-        <div class="flex flex-col gap-5">
-            <h2 class="text-primary-700 text-xl font-medium">Perusahaan</h2>
-            <div class="flex flex-col gap-1">
-                <a href="#">Tentang Kami</a>
-                <a href="#">Karir</a>
-                <a href="#">Kontak</a>
-                <a href="#"></a>
-                <a href=""></a>
-            </div>
-        </div>
-    </div>
-</footer>
 @endsection
 @push('addons-script')
     <script>
@@ -154,5 +131,12 @@
         closeMobileMenu.addEventListener('click', function() {
             mobileMenu.classList.add('hidden');
         });
+
+        const toggleUserMenu = document.getElementById('toggleUserMenu');
+        const userMenu = document.getElementById('userMenu');
+
+        toggleUserMenu.addEventListener('click', function() {
+            userMenu.classList.toggle('hidden');
+        })
     </script>
 @endpush

@@ -15,14 +15,30 @@
     @endguest
     
     @auth
-    <div class=" items-center gap-3 auth-button hidden lg:flex">
-        <button class="flex gap-1 items-center"><span class="material-symbols-rounded">account_circle</span> {{Auth::user()->name}}</button>
-        <div class="absolute top-10">
-            <p>{{Auth::user()->name}}</p>
-            <p>{{Auth::user()->roles}}</p>
-        </div>
-    </div>
-    @endauth
+            <div class="hidden lg:flex items-center gap-2">
+                @if(Storage::url(Auth::user()->avatar))
+                <img src="{{Auth::user()->avatar}}" alt="">
+                @else
+                <span class="material-symbols-rounded">account_circle</span>
+                @endif
+                <div class="flex flex-col gap-1">
+                    <button class="text-lg" id="toggleUserMenu">{{Auth::user()->name}}</button>
+                    <p class="user-role text-xs px-2 py-1 bg-primary-700 text-white rounded-md w-fit">{{ucfirst(Auth::user()->roles->first()->name)}}</p>
+                </div>
+                <div id="userMenu" class="bg-white absolute right-28 top-28 border border-primary-700 rounded-xl p-3 hidden">
+                    <div class="flex flex-col gap-2">
+                        <a href="{{route('dashboard.home')}}" class="text-primary-700">Dashboard</a>
+                        <hr>
+                        <form action="{{route('logout')}}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" class="text-red-600 z-20">Keluar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        @endauth
 </nav>
 <nav class="duration-500 bg-white w-screen h-screen fixed hidden top-0 left-0 right-0 z-30 px-12" id="mobileMenu">
     <div class="flex items-center justify-between py-6 text-primary-500">

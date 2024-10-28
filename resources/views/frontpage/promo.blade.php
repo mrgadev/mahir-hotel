@@ -82,19 +82,21 @@
         <p class="text-sm text-center text-gray-600">Temukan penawaran eksklusif dan penginapan mewah yang dirancang khusus untuk Anda di hotel kami.<br> Pesan sekarang dan nikmati kenyamanan serta penghematan yang tak tertandingi</p>
     </div> --}}
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        @foreach ($promos as $promo)    
         <div class="flex flex-col gap-5">
             <div class="relative">
-                <img src="https://images.pexels.com/photos/6373176/pexels-photo-6373176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="w-full h-48 object-cover rounded-xl relative">
+                <img src="{{Storage::url($promo->cover)}}" alt="" class="w-full h-48 object-cover rounded-xl relative">
                 <div id="copyPromoCode" class="absolute bottom-5 left-5 flex items-center gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                    <input type="text" id="promoCode" value="PAYDAY" class="bg-transparent border-none outline-none text-sm w-20">
+                    <input type="text" id="promoCode" value="{{$promo->code}}" class="bg-transparent border-none outline-none text-sm w-20">
                     <button class="" id="copyPromoCodeBtn"><span class="material-symbols-rounded scale-75">file_copy</span></button>
                 </div>
             </div>
             <div class="flex flex-col gap-2">
-                <p class="text-sm flex items-center gap-1 text-primary-500"><span class="material-symbols-rounded">calendar_month</span>13 Okt 2024 - 20 Okt 2024</p>
-                <h3 class="text-xl text-primary-700">Promo Gajian: 25%</h3>
+                <p class="text-sm flex items-center gap-1 text-primary-500"><span class="material-symbols-rounded">calendar_month</span>{{date('j F Y', strtotime($promo->start_date))}} - {{date('j F Y', strtotime($promo->start_date))}}</p>
+                <h3 class="text-xl text-primary-700">{{$promo->name}}</h3>
             </div>
         </div>
+        @endforeach
 
         
     </div>
@@ -102,31 +104,8 @@
    
 </div>
 
-<footer class="w-screen bg-primary-100 flex justify-between px-12 lg:px-36 py-14">
-    <div class="flex flex-col gap-5">
-        <h2 class="text-3xl text-primary-500">Mahir Hotel</h2>
-        <p class="text-primary-800">Jl. H. R. Rasuna Said No.4 Blok Kav. B<br> Kuningan, Setia Budi, Kota Jakarta Selatan<br>DKI Jakarta 12910</p>
-        <div class="flex items-center gap-5 text-2xl text-primary-800">
-            <a href="#" class=""><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-twitter"></i></a>
-            <a href="#"><i class="bi bi-tiktok"></i></a>
-        </div>
-    </div>
+@include('components.frontpage-footer')
 
-    <div class="grid grid-cols-2 gap-8">
-        <div class="flex flex-col gap-5">
-            <h2 class="text-primary-700 text-xl font-medium">Perusahaan</h2>
-            <div class="flex flex-col gap-1">
-                <a href="#">Tentang Kami</a>
-                <a href="#">Karir</a>
-                <a href="#">Kontak</a>
-                <a href="#"></a>
-                <a href=""></a>
-            </div>
-        </div>
-    </div>
-</footer>
 @endsection
 @push('addons-script')
     <script>
@@ -161,5 +140,12 @@
             promoCode.select();
             document.execCommand("copy");
         });
+
+        const toggleUserMenu = document.getElementById('toggleUserMenu');
+        const userMenu = document.getElementById('userMenu');
+
+        toggleUserMenu.addEventListener('click', function() {
+            userMenu.classList.toggle('hidden');
+        })
     </script>
 @endpush
