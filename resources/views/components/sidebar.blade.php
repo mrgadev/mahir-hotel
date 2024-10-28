@@ -23,7 +23,7 @@
         @role('admin')
         {{-- Hotel Menu --}}
         <li class="mt-0.5 w-full">  
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.hotel_facilities.*') || Route::is('dashboard.nearby_location.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="hotelToggle">
+            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.hotel_facilities.*') || Route::is('dashboard.nearby_location.*') || Route::is('dashboard.faq.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="hotelToggle">
                 <div class="flex items-center">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="bi bi-buildings-fill"></i>
@@ -44,13 +44,19 @@
                         <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lokasi Terdekat</span>
                     </a>
                 </li>
+                <li>
+                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.faq.*') ? 'font-medium' : ''}}" href="{{route('dashboard.faq.index')}}">
+                        
+                        <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">FAQ</span>
+                    </a>
+                </li>
             </ul>
 
         </li>
 
         {{-- Menu Kamar --}}
         <li class="mt-0.5 w-full">  
-            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.hotel_facilities.*') || Route::is('dashboard.room_facilities.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="roomToggle">
+            <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.room_facilities.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="roomToggle">
                 <div class="flex items-center">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
@@ -61,12 +67,12 @@
             </a>
             <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="roomSubmenu">
                 <li>
-                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.room_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room_facilities.index')}}">
+                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.room.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room.index')}}">
                         <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lihat Semua</span>
                     </a>
                 </li>
                 <li>
-                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.hotel_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.hotel_facilities.index')}}">
+                    <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-mediumtransition-colors transition-all text-white {{Route::is('dashboard.room_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room_facilities.index')}}">
                         
                         <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Kamar</span>
                     </a>

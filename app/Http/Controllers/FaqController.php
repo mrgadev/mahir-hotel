@@ -12,7 +12,8 @@ class FaqController extends Controller
      */
     public function index()
     {
-        //
+        $faqs = Faq::all();
+        return view('dashboard.admin.faq.index', compact('faqs'));
     }
 
     /**
@@ -20,7 +21,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.admin.faq.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = [
+            'question.required' => 'Pertanyaan wajib diisi',
+            'answer.required' => 'Jawaban wajib diisi'
+        ];
+
+        $data = $request->validate([
+            'question' => 'required',
+            'answer' => 'required'
+        ], $message);
+
+        Faq::create($data);
+        return redirect()->route('dashboard.faq.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -36,7 +48,7 @@ class FaqController extends Controller
      */
     public function show(Faq $faq)
     {
-        //
+        // return view('')
     }
 
     /**
@@ -44,7 +56,7 @@ class FaqController extends Controller
      */
     public function edit(Faq $faq)
     {
-        //
+        return view('dashboard.admin.faq.edit', compact('faq'));
     }
 
     /**
@@ -52,7 +64,18 @@ class FaqController extends Controller
      */
     public function update(Request $request, Faq $faq)
     {
-        //
+        $message = [
+            'question.required' => 'Pertanyaan wajib diisi',
+            'answer.required' => 'Jawaban wajib diisi'
+        ];
+
+        $data = $request->validate([
+            'quesiton' => 'required',
+            'answer' => 'required'
+        ]);
+
+        $faq->update($data);
+        return redirect()->route('dashboard.faq.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -60,6 +83,7 @@ class FaqController extends Controller
      */
     public function destroy(Faq $faq)
     {
-        //
+        $faq->delete();
+        return redirect()->route('dashboard.faq.index')->with('success', 'Data berhasil dihapus!');
     }
 }
