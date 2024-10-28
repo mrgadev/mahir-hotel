@@ -27,9 +27,9 @@
                         <!-- Dropdown menu -->
                         <div id="dropdownAvatar" 
                             class="absolute right-0 mt-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                            <div class="px-4 py-3 text-sm text-gray-900">
-                                <div class="font-medium">{{Auth::user()->name}}</div>
-                                <div class="text-gray-500 truncate">{{Auth::user()->email}}</div>
+                            <div class="px-4 py-3 text-sm text-gray-900 flex flex-col gap-2">
+                                <div class="font-medium truncate">{{Auth::user()->email}}</div>
+                                <div class="text-xs px-2 py-1 rounded-md bg-primary-500 text-white w-fit">{{ucfirst(Auth::user()->roles->first()->name)}}</div>
                             </div>
                             <ul class="py-2 text-sm text-gray-700">
                      

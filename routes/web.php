@@ -7,8 +7,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontpageController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\NearbyLocationController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
@@ -32,6 +34,10 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::resource('/room_facilities', RoomFacilitiesController::class)->middleware('role:admin');
 
     Route::resource('/nearby_location', NearbyLocationController::class)->middleware('role:admin');
+
+    Route::resource('/faq', FaqController::class)->middleware('role:admin');
+
+    Route::resource('/room', RoomController::class)->middleware('role:admin|staff');
 
     Route::resource('/promo', PromoController::class)->middleware('role:admin');
 

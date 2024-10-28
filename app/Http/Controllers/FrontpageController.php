@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use Illuminate\Http\Request;
 
 class FrontpageController extends Controller
 {
     public function index() {
-        return view('frontpage.index');
+        $faqs = Faq::all();
+        return view('frontpage.index', compact('faqs'));
     }
     public function checkout(){
         return view('frontpage.checkout');

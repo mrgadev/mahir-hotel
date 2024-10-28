@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\RoomFacilities;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -12,7 +13,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        $rooms = Room::all();
+        return view('dashboard.admin.room.index', compact('rooms'));
     }
 
     /**
@@ -20,7 +22,8 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        $room_facilities = RoomFacilities::all();
+        return view('dashboard.admin.room.create', compact('room_facilities'));
     }
 
     /**
