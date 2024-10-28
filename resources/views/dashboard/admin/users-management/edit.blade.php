@@ -1,16 +1,6 @@
 @extends('layouts.dahboard_layout')
 
 @section('title', 'My Account')
-{{-- 
-@section('breadcrumb')
-    <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
-            <li class="text-sm leading-normal">
-            <a class="text-white opacity-90" href="javascript:;">Dashboard</a>
-            </li>
-            <li class="text-sm pl-2 text-white capitalize leading-normal  before:float-left before:pr-2 before: before:content-['/']" aria-current="page">Profile</li>
-        </ol>
-    <h6 class="mb-0 font-bold text-white capitalize">My Account</h6>
-@endsection --}}
 
 @section('content')
     <main class="h-full overflow-y-auto">
@@ -32,126 +22,137 @@
                 </h1>
             </div>
         </div>
+        
         <section class="container px-6 mx-auto">
-            <section class="container px-6 mx-auto">
-                <main class="col-span-12 md:pt-0">
-                    <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
-                        <form action="{{route('dashboard.users_management.update', $user->id)}}" method="POST" enctype="multipart/form-data">
-                            @method('PUT')
-                            @csrf
-                            <div class="">
-                                <div class="px-4 py-5 sm:p-6">
-                                    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2">
-                                        <div class="">
-                                            <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Lengkap</label>
-                                            <input placeholder="Name" type="text" name="name" id="name" autocomplete="name" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->name}}">
+            <div class="grid gap-8">
+                <!-- Profile Update Form -->
+                <div class="bg-white rounded-xl shadow-lg">
+                    <div class="p-6 border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-800">Informasi Akun</h2>
+                    </div>
+                    
+                    <form id="profile-form" action="{{route('dashboard.users_management.update', $user->id)}}" method="POST" enctype="multipart/form-data" class="p-6">
+                        @method('PUT')
+                        @csrf
+                        <div class="grid grid-cols-1 gap-10 sm:grid-cols-2">
+                            <div>
+                                <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Lengkap</label>
+                                <input placeholder="Name" type="text" name="name" id="name" autocomplete="name" 
+                                    class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                    value="{{$user->name}}">
+                                @error('name')
+                                    <p class="text-red-500 text-sm mt-1">{{$message}}</p>
+                                @enderror
+                            </div>
 
-                                            @if ($errors->has('name'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('name')}}</p>
-                                            @endif
+                            <div>
+                                <label for="role" class="block mb-3 font-medium text-gray-700 text-md">Role</label>
+                                <select name="role" id="role" 
+                                    class="block w-full py-3 px-5 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                    @foreach($user->roles as $role)
+                                        <option value="{{ $role->name }}" class="capitalize">Tidak Diubah ({{ $role->name }})</option>
+                                    @endforeach
+                                    <option value="admin">Admin</option>
+                                    <option value="staff">Staff</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
 
-                                        </div>
-                                        <div class="">
-                                            <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Role</label>
-                                            <select name="role" id="role" class="block w-full py-3 px-5 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
-                                                @foreach($user->roles as $role)
-                                                    <option value="{{ $role->name }}" class="capitalize">Tidak Diubah ({{ $role->name }})</option>
-                                                @endforeach
-                                                <option value="admin">Admin</option>
-                                                <option value="staff">Staff</option>
-                                                <option value="user">User</option>
-                                            </select>
-                                        </div>
-                                        <div class="">
-                                            <label for="email" class="block mb-3 font-medium text-gray-700 text-md">Alamat Email</label>
-                                            <input placeholder="Email" type="email" name="email" id="email" autocomplete="email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->email}}">
+                            <div>
+                                <label for="email" class="block mb-3 font-medium text-gray-700 text-md">Alamat Email</label>
+                                <input placeholder="Email" type="email" name="email" id="email" autocomplete="email" 
+                                    class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                    value="{{$user->email}}">
+                                @error('email')
+                                    <p class="text-red-500 text-sm mt-1">{{$message}}</p>
+                                @enderror
+                            </div>
 
-                                            @if ($errors->has('email'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('email')}}</p>
-                                            @endif
+                            <div>
+                                <label for="phone" class="block mb-3 font-medium text-gray-700 text-md">Nomor Telepon</label>
+                                <input placeholder="Phone Number" type="number" name="phone" id="phone" autocomplete="off" 
+                                    class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                    value="{{$user->phone}}">
+                                @error('phone')
+                                    <p class="text-red-500 text-sm mt-1">{{$message}}</p>
+                                @enderror
+                            </div>
 
-                                        </div>
-                                        <div class="">
-                                            <label for="phone" class="block mb-3 font-medium text-gray-700 text-md">Nomor Telepon</label>
-                                            <input placeholder="Phone Number" type="number" name="phone" id="phone" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->phone}}">
-
-                                            @if ($errors->has('phone'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('phone')}}</p>
-                                            @endif
-                                        </div>
-                                        <div>
-                                            <label for="access" class="block mb-3 font-medium text-gray-700 text-md">Access</label>
-                                            <div class="flex items-center space-x-4">
-                                                <label class="flex items-center">
-                                                    <input type="radio" name="access" value="Yes" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2" 
-                                                        {{ $user->access === 'yes' ? 'checked' : '' }}>
-                                                    <span class="ml-2">Yes</span>
-                                                </label>
-                                                <label class="flex items-center">
-                                                    <input type="radio" name="access" value="No" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2" 
-                                                        {{ $user->access === 'no' ? 'checked' : '' }}>
-                                                    <span class="ml-2">No</span>
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="px-4 py-3 text-right sm:px-6">
-                                    <a href="" type="button" class="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-white border border-gray-600 rounded-lg shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300" onclick="return confirm('are you want to cancel?')">
-                                        Cancel
-                                    </a>
-                                    <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
-                                        Save Changes
-                                    </button>
+                            <div>
+                                <label for="access" class="block mb-3 font-medium text-gray-700 text-md">Access</label>
+                                <div class="flex items-center space-x-4">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="access" value="Yes" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2" 
+                                            {{ $user->access === 'yes' ? 'checked' : '' }}>
+                                        <span class="ml-2">Yes</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="access" value="No" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2" 
+                                            {{ $user->access === 'no' ? 'checked' : '' }}>
+                                        <span class="ml-2">No</span>
+                                    </label>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+
+                        <div class="flex justify-end mt-6 space-x-4">
+                            <button type="button" 
+                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-600 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+                                onclick="return confirm('Are you sure you want to cancel?')">
+                                Cancel
+                            </button>
+                            <button type="submit" 
+                                class="px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                                onclick="return confirm('Are you sure you want to save these changes?')">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Password Update Form -->
+                <div class="bg-white rounded-xl shadow-lg">
+                    <div class="p-6 border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-800">Ubah Password</h2>
                     </div>
-                    <div class="px-2 py-2 mt-10 bg-white rounded-xl shadow-lg">
-                        <form action="{{route('dashboard.profile.updatePassword')}}" method="POST" enctype="multipart/form-data">
-                            @method('PUT')
-                            @csrf
-                            <div class="">
-                                <div class="px-4 py-5 sm:p-6">
-                                    <div class="col-span-12">
-                                        <h2 class="mt-8 mb-1 text-2xl font-bold text-gray-700">
-                                            Ubah Password
-                                        </h2>
-                                    </div>
-                                    <div class="mt-10">
-                                        <div class="grid grid-cols-6 gap-6">
-                                            <div class="md:col-span-6 lg:col-span-3">
-                                                <label for="current_password" class="block mb-3 font-medium text-gray-700 text-md">Password Saat Ini</label>
-                                                <input placeholder="Your Current Password" type="password" name="current_password" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
-                                                @if ($errors->has('password'))
-                                                    <p class="text-red-500 mb-3 text-sm">{{$errors->first('current_password')}}</p>
-                                                @endif
-                                            </div>
-                                            <div class="md:col-span-6 lg:col-span-3">
-                                                <label for="new_password" class="block mb-3 font-medium text-gray-700 text-md"> Password Baru</label>
-                                                <input placeholder="Your New Password" type="password" name="new_password" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
-
-                                                @if ($errors->has('new_password'))
-                                                    <p class="text-red-500 mb-3 text-sm">{{$errors->first('password')}}</p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="px-4 py-3 text-right sm:px-6">
-                                    <a href="" type="button" class="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-white border border-gray-600 rounded-lg shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300" onclick="return confirm('are you want to cancel?')">
-                                        Cancel
-                                    </a>
-                                    <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
-                                        Save Changes
-                                    </button>
-                                </div>
+                    <form id="password-form" action="{{route('dashboard.users_management.updatePassword', $user->id)}}" method="POST" class="p-6">
+                        @method('PUT')
+                        @csrf
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                            <div>
+                                <label for="current_password" class="block mb-3 font-medium text-gray-700 text-md">Password Saat Ini</label>
+                                <input placeholder="Your Current Password" type="password" name="current_password" id="current_password" 
+                                    class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                @error('current_password')
+                                    <p class="text-red-500 text-sm mt-1">{{$message}}</p>
+                                @enderror
                             </div>
-                        </form>
-                    </div>
-                </main>
+
+                            <div>
+                                <label for="new_password" class="block mb-3 font-medium text-gray-700 text-md">Password Baru</label>
+                                <input placeholder="Your New Password" type="password" name="new_password" id="new_password" 
+                                    class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                @error('new_password')
+                                    <p class="text-red-500 text-sm mt-1">{{$message}}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-6 space-x-4">
+                            <button type="button" 
+                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-600 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+                                onclick="return confirm('Are you sure you want to cancel?')">
+                                Cancel
+                            </button>
+                            <button type="submit" 
+                                class="px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                                onclick="return confirm('Are you sure you want to change your password?')">
+                                Update Password
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
