@@ -9,8 +9,10 @@ use App\Http\Controllers\FrontpageController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\NearbyLocationController;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
+use App\Http\Controllers\ServiceController;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('home');
@@ -23,6 +25,8 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::resource('/accomodation_plan', AccomdationPlanController::class);
     Route::resource('/room_facilities', RoomFacilitiesController::class);
     Route::resource('/nearby_location', NearbyLocationController::class);
+    Route::resource('/promo', PromoController::class);
+    Route::resource('/service', ServiceController::class);
 });
 
 Route::middleware('auth')->group(function () {
