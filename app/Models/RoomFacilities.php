@@ -9,6 +9,6 @@ class RoomFacilities extends Model
     protected $fillable = ['icon', 'name', 'description'];
 
     public function rooms() {
-        return $this->hasMany(Room::class);
+        return $this->belongsToMany(Room::class);
     }
 }

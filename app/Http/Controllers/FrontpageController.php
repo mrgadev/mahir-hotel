@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faq;
+use App\Models\HotelFacilities;
+use App\Models\NearbyLocation;
 use App\Models\Promo;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class FrontpageController extends Controller
 {
     public function index() {
         $faqs = Faq::all();
-        return view('frontpage.index', compact('faqs'));
+        $nearby_locations = NearbyLocation::all();
+        $hotel_facilities = HotelFacilities::all();
+        $rooms = Room::all();
+        return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms'));
     }
     public function checkout(){
         return view('frontpage.checkout');
@@ -22,11 +28,14 @@ class FrontpageController extends Controller
     }
 
     public function rooms() {
-        return view('frontpage.rooms');
+        $rooms = Room::all();
+        return view('frontpage.rooms', compact('rooms'));
     }
 
-    public function room_detail() {
-        return view('frontpage.room-detail');
+    public function room_detail(string $id) {
+        $room = Room::with('room_facility')->findOrFail($id);
+        // dd($room->id);
+        return view('frontpage.room-detail', compact('room'));
     }
 
     public function services() {

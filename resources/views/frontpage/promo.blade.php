@@ -86,13 +86,13 @@
         <div class="flex flex-col gap-5">
             <div class="relative">
                 <img src="{{Storage::url($promo->cover)}}" alt="" class="w-full h-48 object-cover rounded-xl relative">
-                <div id="copyPromoCode" class="absolute bottom-5 left-5 flex items-center gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                    <input type="text" id="promoCode" value="{{$promo->code}}" class="bg-transparent border-none outline-none text-sm w-20">
+                <div id="copyPromoCode" class="absolute bottom-5 left-5 flex items-center gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 w-fit text-sm">
+                    <input type="text" id="promoCode" value="{{$promo->code}}" class="bg-transparent border-none outline-none text-sm ">
                     <button class="" id="copyPromoCodeBtn"><span class="material-symbols-rounded scale-75">file_copy</span></button>
                 </div>
             </div>
             <div class="flex flex-col gap-2">
-                <p class="text-sm flex items-center gap-1 text-primary-500"><span class="material-symbols-rounded">calendar_month</span>{{date('j F Y', strtotime($promo->start_date))}} - {{date('j F Y', strtotime($promo->start_date))}}</p>
+                <p class="text-sm flex items-center gap-1 text-primary-500"><span class="material-symbols-rounded">calendar_month</span>{{date('j F Y', strtotime($promo->start_date))}} - {{date('j F Y', strtotime($promo->end_date))}}</p>
                 <h3 class="text-xl text-primary-700">{{$promo->name}}</h3>
             </div>
         </div>

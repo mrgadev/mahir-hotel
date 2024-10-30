@@ -82,56 +82,27 @@
         <p class="text-sm text-center text-gray-600">Temukan penawaran eksklusif dan penginapan mewah yang dirancang khusus untuk Anda di hotel kami.<br> Pesan sekarang dan nikmati kenyamanan serta penghematan yang tak tertandingi</p>
     </div> --}}
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 my-12">
-        <a href="{{route('frontpage.rooms.detail')}}" class="flex flex-col gap-5">
+        @foreach ($rooms as $room)
+        <a href="{{route('frontpage.rooms.detail', $room->id)}}" class="flex flex-col gap-5">
             <div class="relative">
-                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                <img src="{{url($room->cover)}}" alt="" class="w-full h-64 object-cover rounded-xl relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                   <span class="text-lg">IDR 500K</span>/malam 
+                   <span class="text-lg">IDR {{number_format($room->price,0,',','.')}}</span>/malam 
                 </p>
             </div>
             <div class="flex flex-col gap-2">
-                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
+                <h3 class="text-xl text-primary-700 hover:underline">{{$room->name}}</h3>
                 <div class="text-sm flex items-center gap-2 text-primary-500">
+                    {{-- @foreach ($room->room_facility->icon as $facility)
+                        <img src="{{Storage::url($facility->icon)}}" alt="">
+                    @endforeach --}}
                     <span class="material-symbols-rounded scale-75">bed</span>
                     <span class="material-symbols-rounded scale-75">wifi</span>
                     <span class="material-symbols-rounded scale-75">group</span> 1
                 </div>
             </div>
         </a>
-        
-        <a href="{{route('frontpage.rooms.detail')}}" class="flex flex-col gap-5">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
-                <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                   <span class="text-lg">IDR 500K</span>/malam 
-                </p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
-                <div class="text-sm flex items-center gap-2 text-primary-500">
-                    <span class="material-symbols-rounded scale-75">bed</span>
-                    <span class="material-symbols-rounded scale-75">wifi</span>
-                    <span class="material-symbols-rounded scale-75">group</span> 1
-                </div>
-            </div>
-        </a>
-
-        <a href="{{route('frontpage.rooms.detail')}}" class="flex flex-col gap-5">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="w-full h-64 object-cover rounded-xl relative">
-                <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                   <span class="text-lg">IDR 500K</span>/malam 
-                </p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <h3 class="text-xl text-primary-700 hover:underline">Kamar Standard</h3>
-                <div class="text-sm flex items-center gap-2 text-primary-500">
-                    <span class="material-symbols-rounded scale-75">bed</span>
-                    <span class="material-symbols-rounded scale-75">wifi</span>
-                    <span class="material-symbols-rounded scale-75">group</span> 1
-                </div>
-            </div>
-        </a>
+        @endforeach
     </div>
 
    

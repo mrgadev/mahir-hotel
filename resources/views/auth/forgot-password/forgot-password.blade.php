@@ -32,7 +32,7 @@
                   </form>
                 </div>
                 <div class="border-black/12.5 rounded-b-2xl border-t-0 border-solid p-6 pt-0 px-1 sm:px-6">
-                  <p class="mx-auto mb-6 leading-normal text-sm">Lupa Nomor Telepon? <a href="{{route('register')}}" class="text-[#976033] font-medium underline bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500]">Gunakan Email</a></p>
+                  {{-- <p class="mx-auto mb-6 leading-normal text-sm">Lupa Nomor Telepon? <a href="{{route('register')}}" class="text-[#976033] font-medium underline bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500]">Gunakan Email</a></p> --}}
                 </div>
               </div>
             </div>

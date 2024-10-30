@@ -128,13 +128,37 @@
                 </a>
             </li>
 
+            {{-- Menu Pengaturan Situs --}}
             <li class="mt-0.5 w-full">  
-                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium transition-all hover:bg-primary-500 hover:text-white" href="#">
-                    <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                        <i class="relative top-0 text-base leading-normal bi bi-sliders"></i>
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.room_facilities.*') || Route::is('dashboard.room.*') || Route::is('dashboard.accomodation_plan.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="siteSettingsToggle">
+                    <div class="flex items-center">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Situs</span>
                     </div>
-                    <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Situs</span>
+                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
                 </a>
+                <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="siteSettingsSubmenu">
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.room.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room.index')}}">
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lihat Semua</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.room_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room_facilities.index')}}">
+                            
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Kamar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium  transition-all text-white {{Route::is('dashboard.accomodation_plan.*') ? 'font-medium' : ''}}" href="{{route('dashboard.accomodation_plan.index')}}">
+                            
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Rencana Penginapan</span>
+                        </a>
+                    </li>
+                </ul>
+
             </li>
         
             <li class="w-full mt-4">
@@ -212,6 +236,13 @@
 
         hotelToggle.addEventListener('click', function(){
             hotelSubmenu.classList.toggle('hidden');
+        });
+
+        const siteSettingsToggle = document.getElementById('siteSettingsToggle');
+        const siteSettingsSubmenu = document.getElementById('siteSettingsSubmenu');
+
+        siteSettingsToggle.addEventListener('click', function(){
+            siteSettingsSubmenu.classList.toggle('hidden');
         });
     </script>
 @endpush

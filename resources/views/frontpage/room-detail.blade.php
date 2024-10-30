@@ -74,7 +74,7 @@
 <header class="lg:px-36 px-12 py-11 w-screen grid lg:grid-cols-2 gap-8">
     <div class="grid gap-3">
         <div class="relative">
-            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-2xl" alt="">
+            <img src="{{url($room->cover)}}" class="rounded-2xl" alt="">
             <button class="absolute bottom-5 left-5 bg-primary-100 px-5 py-2 rounded-full border border-primary-700 flex items-center gap-1 text-primary-700 transition-all hover:bg-primary-700 hover:text-primary-100" id="galleryBtn"><ion-icon name="images-outline"></ion-icon> Lihat foto lainnya</button>
 
             <div class="flex flex-col justify-center items-center gap-8 px-12 lg:px-36 w-screen h-screen hidden fixed bg-gray-800/75 z-20  top-0 left-0" id="gallery">
@@ -89,10 +89,15 @@
 
                     <div class="image-container max-h-lvh max-w-2xl w-full">
                         <div class="carousel flex overflow-hidden transition-all">
-                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
-                            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
-                            <img src="https://images.unsplash.com/photo-1505692795793-20f543407193?q=80&w=2039&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
-                            <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
+                            @php
+                                $photos = explode('|',$room->photos);
+                            @endphp
+                            @foreach ($photos as $photo)    
+                            <img src="{{url($photo)}}" class="rounded-xl img" alt="">
+                            @endforeach
+                        {{-- <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
+                        <img src="https://images.unsplash.com/photo-1505692795793-20f543407193?q=80&w=2039&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt="">
+                        <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl img" alt=""> --}}
                         </div>
                     </div>
 
@@ -110,28 +115,20 @@
                     <i class="bi bi-star-fill text-primary-500"></i>
                     4.6 (120 Ulasan)
                 </div>
-                <h1 class="text-4xl text-primary-700">Standard Room</h1>
-                <p class="text-2xl text-primary-500">Rp. 650.000 <span class="text-sm">/malam</span>
+                <h1 class="text-4xl text-primary-700">{{$room->name}}</h1>
+                <p class="text-2xl text-primary-500">Rp. {{number_format($room->price,0,',','.')}} <span class="text-sm">/malam</span>
             </div>
             {{-- <a href="#" class="text-lg px-5 py-2 bg-primary-700 rounded-full text-white">Pesan sekarang</a> --}}
         </div>
         </p>
         {{-- <p class="text-lg text-primary-700">Fasilitas Kamar</p> --}}
         <div class="flex flex-col lg:flex-row lg:items-center gap-5 font-light text-primary-700">
+            @foreach ($room->room_facility as $facility)    
             <p class="flex flex-col gap-1">
-                <span class="material-symbols-rounded">bed</span>
-                1 Tempat tidur
+                <img src="{{Storage::url($facility->icon)}}" class="w-7 h-7" alt="">
+                {{$facility->name}}
             </p>
-            
-            <p class="flex flex-col gap-1">
-                <span class="material-symbols-rounded">live_tv</span>
-                Video on-demand
-            </p>
-            
-            <p class="flex flex-col gap-1">
-                <span class="material-symbols-rounded">group</span>
-                1 Dewasa
-            </p>
+            @endforeach
         </div>
         {{-- <p class="font-light text-gray-700">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis harum provident ratione odit hic sequi. Libero nostrum necessitatibus eos nobis eaque quisquam minus omnis commodi, sint laborum! 
@@ -164,9 +161,7 @@
     <div class="flex flex-col gap-2">
         <h1 class="text-xl text-primary-700">Deskripsi</h1>
         <div class="text-gray-600 font-light">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis laudantium accusantium enim alias. Debitis, doloremque illo cumque nostrum sunt vel? Asperiores omnis corporis voluptate. Molestiae eum est vel. Sint magni blanditiis atque consectetur molestiae sed eligendi fugit, labore, in dolores amet. Nobis voluptatibus repellendus incidunt nemo numquam voluptate nihil ad suscipit minus quas repellat velit deleniti, fuga explicabo aspernatur obcaecati. Necessitatibus obcaecati expedita accusamus!</p>
-            <p>Aspernatur dolorum cupiditate, voluptatibus perferendis tempore amet explicabo accusamus enim saepe repellendus aperiam tempora, magni accusantium sit molestias ut quaerat rem, ipsam consequuntur debitis. Voluptatem facere quasi porro maiores incidunt temporibus? Dolores corporis magnam quidem cum in animi at nisi quas ipsam nam sint dicta accusamus nostrum modi id minus autem, perferendis ipsum quis natus adipisci.</p> 
-            <p>Inventore, soluta accusamus. Expedita laborum libero explicabo inventore eligendi iste debitis rerum, nihil nemo vel, iusto nisi ipsum aspernatur! Tenetur, temporibus? Illo optio aliquam earum enim totam impedit dolorem repellat facere quod sapiente soluta quibusdam molestiae delectus saepe aut voluptate, eos quidem culpa adipisci qui nemo similique alias! Nesciunt velit itaque, quibusdam, error repudiandae voluptates similique ab atque voluptatum recusandae ullam rerum harum quasi eos voluptate dolorum iusto doloribus amet rem perspiciatis voluptatibus maiores laboriosam placeat. Eveniet corporis quia esse.</p>
+            {!!$room->description!!}
         </div>
     </div>
     <div class="my-12 flex flex-col lg:flex-row justify-between">
@@ -192,9 +187,9 @@
             </div>
         </div>
 
-        <div class="w-1/4">
+        {{-- <div class="w-1/4">
             <h1>Kamar lainnya</h1>
-        </div>
+        </div> --}}
     </div>
 
    

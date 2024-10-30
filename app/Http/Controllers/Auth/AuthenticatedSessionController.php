@@ -29,14 +29,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('phone', $request->phone)->first();
         // dd($user);
         if($user->hasRole('admin') || $user->hasRole('staff')) {
             return redirect()->intended(route('dashboard.home'));
         } elseif($user->hasRole('user')) {
             return redirect()->route('frontpage.index');
         } else {
-            return redirect()->back()->with('error', 'Password atau email salah!');
+            return redirect()->back()->with('error', 'Password atau nomor telepon salah!');
         }
 
     }

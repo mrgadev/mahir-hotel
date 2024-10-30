@@ -70,9 +70,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($rooms as $room)
+                            @forelse ($rooms as $key => $room)
                                 <tr class="cursor-pointer">
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$room->id}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
                                     <td class="">
                                         <img src="{{url($room->cover)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
                                     </td>

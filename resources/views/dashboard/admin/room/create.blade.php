@@ -46,7 +46,7 @@
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center">
                                         <div>
                                             <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Kamar</label>
-                                            <input placeholder="Nama Fasilitas Kamar" type="text" name="name" id="name" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <input placeholder="Nama Kamar" type="text" name="name" id="name" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                             @if ($errors->has('name'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('name')}}</p>

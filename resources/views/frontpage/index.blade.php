@@ -438,53 +438,18 @@
             <p class="my-5">Mahir Hotel menawarkan akses mudah ke destinasi wisata utama 
                 dan pusat perbelanjaan. Nikmati kenyamanan dan kemudahan selama menginap bersama kami!</p>
             <div class="grid lg:grid-cols-2 gap-8">
+                @foreach ($nearby_locations as $nearby_location)
                 <div class="flex items-center gap-5">
-                    <span class="material-symbols-rounded text-primary-400 scale-[150%]">subway</span>
+                    {{-- <span class="material-symbols-rounded text-primary-400 scale-[150%]">subway</span> --}}
+                    <img src="{{Storage::url($nearby_location->icon)}}" alt="">
                     <div class="flex flex-col">
-                        <p class="text-lg text-gray-700">Stasiun MRT Dukuh Atas</p>
-                        <p class="text-primary-400">100 M</p>
+                        <p class="text-lg text-gray-700">{{$nearby_location->name}}</p>
+                        <p class="text-primary-400">{{$nearby_location->distance}} M</p>
                     </div>
                 </div>
+                @endforeach
 
-                <div class="flex items-center gap-5">
-                    <span class="material-symbols-rounded text-primary-400 scale-[150%]">train</span>
-                    <div class="flex flex-col">
-                        <p class="text-lg text-gray-700">Stasiun KRL Sudirman</p>
-                        <p class="text-primary-400">50 M</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-5">
-                    <span class="material-symbols-rounded text-primary-400 scale-[150%]">shopping_bag</span>
-                    <div class="flex flex-col">
-                        <p class="text-lg text-gray-700">Thamrin Nine</p>
-                        <p class="text-primary-400">300 M</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-5">
-                    <span class="material-symbols-rounded text-primary-400 scale-[150%]">tram</span>
-                    <div class="flex flex-col">
-                        <p class="text-lg text-gray-700">Stasiun LRT Dukuh Atas</p>
-                        <p class="text-primary-400">350 M</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-5">
-                    <span class="material-symbols-rounded text-primary-400 scale-[150%]">corporate_fare</span>
-                    <div class="flex flex-col">
-                        <p class="text-lg text-gray-700">Wisma 46 BNI</p>
-                        <p class="text-primary-400">200 M</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-5">
-                    <span class="material-symbols-rounded text-primary-400 scale-[150%]">shopping_bag</span>
-                    <div class="flex flex-col">
-                        <p class="text-lg text-gray-700">Plaza Indonesia</p>
-                        <p class="text-primary-400">100 M</p>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4138.804388321211!2d106.82896076951583!3d-6.205752381880911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f41ace344be7%3A0x7ca9fc55e762b09e!2sThe%20St.%20Regis%20Jakarta!5e1!3m2!1sid!2sid!4v1729430801393!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -499,45 +464,13 @@
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-10">
-        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
-            <span class="material-symbols-rounded text-primary-100 scale-[150%]">prayer_times</span> 
-            <p>Mushalla</p>
+        @foreach ($hotel_facilities as $hotel_facility)    
+        <div class="flex items-center justify-center px-5 py-2 rounded-xl border border-primary-500 gap-5 bg-primary-100 text-primary-500">
+            {{-- <span class="material-symbols-rounded text-primary-100 scale-[150%]">prayer_times</span>  --}}
+            <img src="{{Storage::url($hotel_facility->icon)}}" alt="">
+            <p>{{$hotel_facility->name}}</p>
         </div>
-
-        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
-            <span class="material-symbols-rounded text-primary-100 scale-[150%]">pool</span> 
-            <p>Kolam Renang</p>
-        </div>
-
-        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
-            <span class="material-symbols-rounded text-primary-100 scale-[150%]">restaurant</span> 
-            <p>Restoran Kelas Dunia</p>
-        </div>
-
-        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
-            <span class="material-symbols-rounded text-primary-100 scale-[150%]">ramen_dining</span> 
-            <p>Gratis Sarapan</p>
-        </div>
-
-        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
-            <span class="material-symbols-rounded text-primary-100 scale-[150%]">wifi</span> 
-            <p>WiFi Berkecepatan Tinggi</p>
-        </div>
-
-        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
-            <span class="material-symbols-rounded text-primary-100 scale-[150%]">child_care</span> 
-            <p>Taman Bermain</p>
-        </div>
-
-        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
-            <span class="material-symbols-rounded text-primary-100 scale-[150%]">local_taxi</span> 
-            <p>Antar Jemput</p>
-        </div>
-
-        <div class="flex items-center justify-center p-5 gap-5 bg-primary-500 text-white">
-            <span class="material-symbols-rounded text-primary-100 scale-[150%]">child_care</span> 
-            <p>Taman Bermain</p>
-        </div>
+        @endforeach
     </div>
 </div>
 
