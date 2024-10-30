@@ -44,6 +44,82 @@
                             <div class="px-4 py-5 sm:p-6">
                                 <div class="mt-10">
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center">
+                                        {{-- <div>
+                                            <label for="photos" class="block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
+                                            <input placeholder="" type="file" name="photos[]" id="photos" multiple autocomplete="off" class="block border w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+
+                                            @if ($errors->has('photos'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('photos')}}</p>
+                                            @endif
+                                        </div> --}}
+
+                                        <div class="">
+                                            <label for="photos" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
+                                            <div>
+                                                <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                                    @php
+                                                        $photos = explode("|", $room->photos); // Decode dengan array true
+                                                    @endphp
+                                                    @if (is_array($photos) && !empty($photos))
+                                                        @foreach ($photos as $photo)
+                                                            <div class="relative flex h-40 cursor-pointer">
+                                                                <a href="#image-modal-{{$photo}}" class="block h-full w-full">
+                                                                    <img
+                                                                        class="h-full w-full object-cover object-center rounded-xl"
+                                                                        src="{{ url($photo) }}"
+                                                                    />
+                                                                </a>
+                                                            </div>
+                                                        @endforeach
+                                                    @else
+                                                        <p class="text-gray-500">Tidak ada gambar tersedia.</p>
+                                                    @endif
+                                                </div>
+                                                <div class="mt-4">
+                                                    <label for="photos" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">
+                                                        Pilih Berkas
+                                                    </label>
+                                                    <input type="file" id="photos" name="photos[]" hidden multiple>
+                                                </div>
+                                            </div>
+    
+                                            @if ($errors->has('photos'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('photos')}}</p>
+                                            @endif
+                                        </div>
+                                        
+                                        <div class="">
+                                            <label for="cover" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
+                                            <div>
+                                                <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                                    @if($room->cover)
+                                                    <div class="relative flex h-40 cursor-pointer">
+                                                        <a href="#image-modal-{{$room->cover}}" class="block h-full w-full">
+                                                            <img
+                                                                class="h-full w-full object-cover object-center rounded-xl"
+                                                                src="{{ url($room->cover) }}"
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                    @else
+                                                        <p class="text-gray-500">Tidak ada gambar tersedia.</p>
+                                                    @endif
+                                                </div>
+                                                <div class="mt-4">
+                                                    <label for="cover" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">
+                                                        Pilih Berkas
+                                                    </label>
+                                                    <input type="file" id="cover" name="cover" hidden multiple>
+                                                </div>
+                                            </div>
+    
+                                            @if ($errors->has('cover'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('cover')}}</p>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center my-5">
                                         <div>
                                             <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Kamar</label>
                                             <input placeholder="Nama Kamar" type="text" name="name" id="name" value="{{$room->name}}" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
@@ -52,18 +128,7 @@
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('name')}}</p>
                                             @endif
                                         </div>
-                                        
-                                        <div>
-                                            <label for="cover" class="block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
-                                            <input placeholder="" type="file" name="cover" id="cover" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
-                                            @if ($errors->has('cover'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('cover')}}</p>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center my-5">
                                         <div>
                                             <label for="price" class="block mb-3 font-medium text-gray-700 text-md">Harga per Malam</label>
                                             <input placeholder="Harga per Malam" type="number" name="price" value="{{$room->price}}" id="price" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
@@ -73,14 +138,7 @@
                                             @endif
                                         </div>
                                         
-                                        <div>
-                                            <label for="photos" class="block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
-                                            <input placeholder="" type="file" name="photos[]" id="photos" multiple autocomplete="off" class="block border w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
-
-                                            @if ($errors->has('photos'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('photos')}}</p>
-                                            @endif
-                                        </div>
+                                        
                                     </div>
 
                                     <div class="grid grid-cols-1 gap-5 my-5">
@@ -125,7 +183,53 @@
             </main>
         </section>
     </main>
+    @if (is_array($photos) && !empty($photos))
+    @foreach ($photos as $photo)
+        <div id="image-modal-{{$photo}}" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+            <!-- Link pembungkus untuk close saat klik anywhere -->
+            <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+                <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+                    <div>
+                        <img
+                            class="w-full max-h-[80vh] object-contain"
+                            src="{{ url($photo) }}"
+                        />
+                    </div>
+                </div>
+            </a>
+        </div>
+    @endforeach
+    @else
+        <p class="text-gray-500">Tidak ada gambar tersedia.</p>
+    @endif
+
+    @if($room->cover)
+    <div id="image-modal-{{$room->cover}}" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+        <!-- Link pembungkus untuk close saat klik anywhere -->
+        <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+                <div>
+                    <img
+                        class="w-full max-h-[80vh] object-contain"
+                        src="{{ url($room->cover) }}"
+                    />
+                </div>
+            </div>
+        </a>
+    </div>
+    @endif
 @endsection
+{{-- @push('addon-script')
+    <!-- Panggil CKEditor versi 5 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endpush --}}
 @push('addon-script')
     <!-- Panggil CKEditor versi 5 -->
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>

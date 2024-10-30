@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faq;
-use App\Models\HotelFacilities;
-use App\Models\NearbyLocation;
-use App\Models\Promo;
 use App\Models\Room;
+use App\Models\Promo;
+use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Models\NearbyLocation;
+use App\Models\HotelFacilities;
+use App\Models\ServiceCategory;
 
 class FrontpageController extends Controller
 {
@@ -39,11 +41,13 @@ class FrontpageController extends Controller
     }
 
     public function services() {
-        return view('frontpage.services');
+        $services = Service::all();
+        $service_categories = ServiceCategory::all();
+        return view('frontpage.services', compact('services', 'service_categories'));
     }
 
-    public function services_detail() {
-        return view('frontpage.services-detail');
+    public function services_detail(Service $service) {
+        return view('frontpage.services-detail', compact('service'));
     }
 
     public function contact() {

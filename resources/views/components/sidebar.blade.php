@@ -251,5 +251,12 @@
         siteSettingsToggle.addEventListener('click', function(){
             siteSettingsSubmenu.classList.toggle('hidden');
         });
+
+        const servicesToggle = document.getElementById('serviceToggle');
+        const servicesSubmenu = document.getElementById('serviceSubmenu');
+
+        servicesToggle.addEventListener('click', function(){
+            servicesSubmenu.classList.toggle('hidden');
+        });
     </script>
 @endpush
