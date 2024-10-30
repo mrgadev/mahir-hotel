@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -13,7 +14,8 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::all();
-        return view('dashboard.admin.services.index', compact('services'));
+        $service_categories = ServiceCategory::all();
+        return view('dashboard.admin.services.index', compact('services', 'service_categories'));
     }
 
     /**
@@ -21,7 +23,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.services.create');
+        $service_categories = ServiceCategory::all();
+        return view('dashboard.admin.services.create', compact('service_categories'));
     }
 
     /**
@@ -32,6 +35,7 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
+            'service_category_id' => 'required',
             'image' => 'required',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'price' => 'required',
@@ -47,6 +51,7 @@ class ServiceController extends Controller
         Service::create([
             'name' => $data['name'],
             'description' => $data['description'],
+            'service_categories_id' => $data['service_category_id'],
             'image' => json_encode($imagePaths),
             'price' => $data['price'],
         ]);
@@ -68,7 +73,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('dashboard.admin.services.edit', compact('service'));
+        $service_categories = ServiceCategory::all();
+        return view('dashboard.admin.services.edit', compact('service', 'service_categories'));
     }
 
     /**
@@ -79,7 +85,8 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'required',
+            'service_category_id' => 'required',
+            'image' => 'nullable',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
         ]);
@@ -100,6 +107,7 @@ class ServiceController extends Controller
         $service->update([
             'name' => $data['name'],
             'description' => $data['description'],
+            'service_categories_id' => $data['service_category_id'],
             'price' => $data['price'],
             'image' => json_encode($imagePaths) // Mengubah array menjadi JSON
         ]);

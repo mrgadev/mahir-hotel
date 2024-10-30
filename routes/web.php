@@ -14,6 +14,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
+use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
@@ -42,6 +43,8 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::resource('/promo', PromoController::class)->middleware('role:admin');
 
     Route::resource('/service', ServiceController::class)->middleware('role:admin');
+    
+    Route::resource('/service_category', ServiceCategoryController::class)->middleware('role:admin');
 });
 
 Route::middleware('auth')->group(function () {
