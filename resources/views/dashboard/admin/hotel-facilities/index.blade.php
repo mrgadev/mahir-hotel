@@ -28,7 +28,7 @@
                         Data Fasilitas Hotel
                     </h1>
                 </div>
-                <a href="{{route('dashboard.hotel_facilities.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
+                <a href="{{route('dashboard.hotel_facilities.store')}}"  class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
                     <i class="bi bi-plus-square mr-2"></i>
                     <p>Tambah</p>
                 </a>
@@ -101,6 +101,7 @@
             </main>
         </section>    
     </main>
+
 @endsection
 @push('addon-script')
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>

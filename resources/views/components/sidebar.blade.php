@@ -256,5 +256,12 @@
             const submenu = document.getElementById('serviceSubmenu');
             submenu.classList.toggle('hidden');
         });
+
+        const servicesToggle = document.getElementById('serviceToggle');
+        const servicesSubmenu = document.getElementById('serviceSubmenu');
+
+        servicesToggle.addEventListener('click', function(){
+            servicesSubmenu.classList.toggle('hidden');
+        });
     </script>
 @endpush
