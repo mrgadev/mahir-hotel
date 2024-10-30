@@ -1,6 +1,6 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'Fasilitas Kamar')
+@section('title', 'Tambah Kamar')
 {{-- 
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
@@ -75,7 +75,7 @@
                                         
                                         <div>
                                             <label for="photos" class="block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
-                                            <input placeholder="" type="file" name="photos" id="photos" autocomplete="off" class="block border w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <input placeholder="" type="file" name="photos[]" id="photos" multiple autocomplete="off" class="block border w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                             @if ($errors->has('photos'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('photos')}}</p>
@@ -87,10 +87,10 @@
                                         <h2 class="text-md font-medium">Fasilitas Kamar</h2>
                                         <div class="flex flex-wrap gap-5">
                                             @foreach ($room_facilities as $room_facility)
-                                            <div class="flex items-center gap-2 rounded-full bg-primary-100 text-primary-700 w-fit px-5 py-2 hover:border hover:border-primary-700 checked:bg-primary-700 checked:text-white transition-all hover:cursor-pointer">
-                                                <input type="checkbox" name="room_facilities_id[]" id="room_facilities_id{{$loop->iteration}}" value="{{$room_facility->id}}" class="hidden" onclick="console.log('tes checkbox')">
-                                                <img src="{{Storage::url($room_facility->icon)}}" alt="">
-                                                <label for="room_facilities_id{{$loop->iteration}}">{{$room_facility->name}}</label>
+                                            <div class="flex items-center gap-2 rounded-full bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                                <input type="checkbox" name="room_facilities_id[]" id="room_facilities_id{{$loop->iteration}}" value="{{$room_facility->id}}" class="hidden" onclick="console.log('{{$room_facility->name}}')">
+                                                <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt="">
+                                                <label for="room_facilities_id{{$loop->iteration}}" class="hover:cursor-pointer">{{$room_facility->name}}</label>
                                             </div>
                                         
                                             @endforeach
@@ -99,7 +99,7 @@
 
                                     <div class="grid grid-cols-1 mt-5 items-center">
                                         <div>
-                                            <label for="description" class="block mb-3 font-medium text-gray-700 text-md">Deskripsi Fasilitas Kamar</label>
+                                            <label for="description" class="block mb-3 font-medium text-gray-700 text-md">Deskripsi Kamar</label>
                                             <textarea name="description" id="description" rows="10" cols="80"></textarea>
 
                                             @error('description')

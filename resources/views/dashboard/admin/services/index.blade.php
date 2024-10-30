@@ -1,6 +1,6 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'Lokasi Terdekat')
+@section('title', 'Layanan Lainnya')
 
 {{-- @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
@@ -66,7 +66,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        total harga
+                                        Harga
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -93,7 +93,7 @@
                                         @endif
                                     </td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->name}}</td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->price}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($service->price,0,',','.')}}</td>
                                     <td class="flex items-center">
                                         <div class="mr-2">
                                             <a href="{{route('dashboard.service.edit', $service)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">

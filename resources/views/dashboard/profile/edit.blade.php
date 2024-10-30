@@ -86,8 +86,13 @@
                                             @endif
                                         </div>
                                         <div class="">
+<<<<<<< HEAD
                                             <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Tempat Lahir</label>
                                             <select name="regency_id" id="regency_id" class="block w-full px-5 py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+=======
+                                            <label for="regency_id" class="block mb-3 font-medium text-gray-700 text-md">Tempat Lahir</label>
+                                            <select name="regency_id" id="regency_id" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+>>>>>>> cdeb622cf3dc4f316dbff347197807d1e3e32e21
                                                 @foreach ($regencies as $regency)
                                                     <option value="{{$regency->id}}">{{$regency->name}}</option>
                                                 @endforeach
@@ -194,3 +199,10 @@
     </a>
 </div>
 @endsection
+@push('addon-script')
+    <script>
+        $(document).ready(function() {
+            $('#regency_id').select2();
+        })
+    </script>
+@endpush
