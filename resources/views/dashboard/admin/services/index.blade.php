@@ -81,8 +81,16 @@
                             @forelse ($services as $service)
                                 <tr class="cursor-pointer">
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->id}}</td>
-                                    <td class="">
-                                        <img src="{{Storage::url($service->image)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
+                                    <td>
+                                        @php
+                                            $images = json_decode($service->image);
+                                        @endphp
+
+                                        @if(!empty($images) && is_array($images))
+                                            <img src="{{ asset('storage/' . $images[0]) }}" alt="Image" class="w-10 object-cover object-top transition duration-500 mb-2">
+                                        @elseif($service->image)
+                                            <img src="{{ asset('storage/' . $service->image) }}" alt="Image" class="w-10 object-cover object-top transition duration-500 mb-2">
+                                        @endif
                                     </td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->name}}</td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->price}}</td>

@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="">
                                             <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Tempat Lahir</label>
-                                            <select name="regency_id" id="regency_id" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <select name="regency_id" id="regency_id" class="block w-full px-5 py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                                                 @foreach ($regencies as $regency)
                                                     <option value="{{$regency->id}}">{{$regency->name}}</option>
                                                 @endforeach

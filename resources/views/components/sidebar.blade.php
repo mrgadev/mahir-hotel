@@ -39,6 +39,11 @@
                         </a>
                     </li>
                     <li>
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.hotel_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.service.index')}}">
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Layanan Lainnya</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.nearby_location.*') ? 'font-medium' : ''}}" href="{{route('dashboard.nearby_location.index')}}">
                             
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lokasi Terdekat</span>

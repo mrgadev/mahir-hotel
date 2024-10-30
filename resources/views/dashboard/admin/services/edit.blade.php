@@ -64,17 +64,24 @@
                                         
                                         <div class="">
                                             <label for="image" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Cover Promo</label>
-                                            <div class="relative flex h-20 w-[20] cursor-pointer">
-                                                <a href="#image-modal" class="block h-20 w-[20]">
-                                                    <img
-                                                    class="h-full w-full object-cover object-center rounded-xl"
-                                                    src="{{Storage::url($service->image)}}"
-                                                    />
-                                                </a>
-                                                <div class="block">
-                                                    <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Pilih Berkas</label>
-                                                    
-                                                    <input type="file" id="choose" name="image" hidden>
+                                            <div>
+                                                <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                                    @foreach (json_decode($service->image) as $image)
+                                                        <div class="relative flex h-40 cursor-pointer">
+                                                            <a href="#image-modal-{{$image}}" class="block h-full w-full">
+                                                                <img
+                                                                    class="h-full w-full object-cover object-center rounded-xl"
+                                                                    src="{{ Storage::url($image) }}"
+                                                                />
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <div class="mt-4">
+                                                    <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">
+                                                        Pilih Berkas
+                                                    </label>
+                                                    <input type="file" id="choose" name="image[]" hidden multiple>
                                                 </div>
                                             </div>
 
@@ -109,19 +116,22 @@
             </main>
         </section>
     </main>
-<div id="image-modal" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
-    <!-- Link pembungkus untuk close saat klik anywhere -->
-    <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
-        <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
-            <div>
-                <img
-                    class="w-full max-h-[80vh] object-contain"
-                    src="{{Storage::url($service->image)}}"
-                />
+
+@foreach (json_decode($service->image) as $image)
+    <div id="image-modal-{{$image}}" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+        <!-- Link pembungkus untuk close saat klik anywhere -->
+        <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+                <div>
+                    <img
+                        class="w-full max-h-[80vh] object-contain"
+                        src="{{Storage::url($image)}}"
+                    />
+                </div>
             </div>
-        </div>
-    </a>
-</div>
+        </a>
+    </div>
+@endforeach
 @endsection
 @push('addon-script')
     <!-- Panggil CKEditor versi 5 -->

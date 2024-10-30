@@ -32,21 +32,27 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'price' => 'required',
         ]);
 
+        $imagePaths = [];
         if($request->hasFile('image')){
-            $imagePath = $request->file('image')->store('images', 'public');
+            foreach ($request->file('image') as $image) {
+                $imagePaths[] = $image->store('images', 'public');
+            }
         }
 
         Service::create([
             'name' => $data['name'],
             'description' => $data['description'],
-            'image' => $imagePath,
+            'image' => json_encode($imagePaths),
             'price' => $data['price'],
         ]);
+
         return redirect()->route('dashboard.service.index')->with('success', 'Service created successfully!');
+
     }
 
     /**
@@ -73,23 +79,34 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
         ]);
 
-        if($request->hasFile('image')){
-            $imagePath = $request->file('image')->store('images', 'public');
-            $service->update(['image' => $imagePath]);
+        // Menyimpan array untuk menyimpan semua gambar
+        $imagePaths = [];
+
+        if($request->hasFile('image')) {
+            foreach ($request->file('image') as $image) {
+                $imagePath = $image->store('images', 'public');
+                $imagePaths[] = $imagePath; // Menambahkan path gambar ke array
+            }
+        }else{
+            $imagePaths = json_decode($service->image); // Mengambil array gambar yang ada di database
         }
 
+        // Memperbarui model Service dengan data yang baru
         $service->update([
             'name' => $data['name'],
             'description' => $data['description'],
             'price' => $data['price'],
-            'image' => $imagePath
+            'image' => json_encode($imagePaths) // Mengubah array menjadi JSON
         ]);
+
         return redirect()->route('dashboard.service.index')->with('success', 'Service updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
