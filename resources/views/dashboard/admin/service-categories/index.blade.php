@@ -1,6 +1,6 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'Layanan Lainnya')
+@section('title', 'Kategori Layanan Lainnya')
 
 {{-- @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
@@ -22,13 +22,13 @@
                             <span class="material-symbols-rounded scale-75">home</span>
                         </a>
                         <span class="material-symbols-rounded">chevron_right</span>
-                        <p>Layanan Lainnya</p>
+                        <p>Data Kategori Layanan Lainnya</p>
                     </div>
                     <h1 class="text-white text-4xl font-medium">
-                        Layanan Lainnya
+                        Data Kategori Layanan Lainnya
                     </h1>
                 </div>
-                <a href="{{route('dashboard.service.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
+                <a href="{{route('dashboard.service_category.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
                     <i class="bi bi-plus-square mr-2"></i>
                     <p>Tambah</p>
                 </a>
@@ -50,23 +50,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        Gambar
-                                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
-                                        </svg>
-                                    </span>
-                                </th>
-                                <th>
-                                    <span class="flex items-center">
                                         Nama
-                                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
-                                        </svg>
-                                    </span>
-                                </th>
-                                <th>
-                                    <span class="flex items-center">
-                                        Harga
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -78,29 +62,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($services as $service)
+                            @forelse ($service_categories as $service_category)
                                 <tr class="cursor-pointer">
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->id}}</td>
-                                    <td>
-                                        @php
-                                            $images = json_decode($service->image);
-                                        @endphp
-
-                                        @if($images && is_array($images) && count($images) > 0)
-                                            <img src="{{ Storage::url($images[0]) }}" alt="Image" class="w-10 object-cover object-top transition duration-500 mb-2">
-                                        @else 
-                                            <img src="" alt="No Image" class="w-10 object-cover object-top transition duration-500 mb-2">
-                                        @endif
-                                    </td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->name}}</td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($service->price,0,',','.')}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$service_category->id}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$service_category->name}}</td>
                                     <td class="flex items-center">
                                         <div class="mr-2">
-                                            <a href="{{route('dashboard.service.edit', $service)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                            <a href="{{route('dashboard.service_category.edit', $service_category)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                         </div>
-                                        <form action="{{route('dashboard.service.destroy', $service)}}" class="" method="POST">
+                                        <form action="{{route('dashboard.service_category.destroy', $service_category)}}" class="" method="POST">
                                             @method('DELETE')
                                             @csrf
                                             <button tyoe="submit" class="py-1 px-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white">

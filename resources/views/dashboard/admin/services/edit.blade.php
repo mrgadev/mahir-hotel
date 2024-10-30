@@ -53,6 +53,20 @@
                                             @endif
                                         </div>
 
+                                        <div class="">
+                                            <label for="service_category_id" class="block mb-3 font-medium text-gray-700 text-md">Kategori Layanan Lainnya</label>
+                                            <select name="service_category_id" id="service_category_id" class="block w-full py-3 px-5 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                                <option value="{{$service->serviceCategory->id}}">Tidak Diubah ({{$service->serviceCategory->name}})</option>
+                                                @foreach ($service_categories as $service_category)
+                                                    <option value="{{$service_category->id}}">{{$service_category->name}}</option>
+                                                @endforeach
+                                            </select>
+
+                                            @if ($errors->has('service_category_id'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('price')}}</p>
+                                            @endif
+                                        </div>
+
                                         <div>
                                             <label for="price" class="block mb-3 font-medium text-gray-700 text-md">Harga</label>
                                             <input placeholder="Harga" type="number" name="price" id="price" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$service->price}}">
@@ -62,26 +76,40 @@
                                             @endif
                                         </div>
                                         
-                                        <div class="">
-                                            <label for="image" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Cover Promo</label>
-                                            <div class="relative flex h-20 w-[20] cursor-pointer">
-                                                <a href="#image-modal" class="block h-20 w-[20]">
-                                                    <img
-                                                    class="h-full w-full object-cover object-center rounded-xl"
-                                                    src="{{Storage::url($service->image)}}"
-                                                    />
-                                                </a>
-                                                <div class="block">
-                                                    <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Pilih Berkas</label>
-                                                    
-                                                    <input type="file" id="choose" name="image" hidden>
-                                                </div>
+                                    </div>
+                                    <div class="">
+                                        <label for="image" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Cover Promo</label>
+                                        <div>
+                                            <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                                @php
+                                                    $images = json_decode($service->image, true); // Decode dengan array true
+                                                @endphp
+                                                @if (is_array($images) && !empty($images))
+                                                    @foreach (json_decode($service->image) as $image)
+                                                        <div class="relative flex h-40 cursor-pointer">
+                                                            <a href="#image-modal-{{$image}}" class="block h-full w-full">
+                                                                <img
+                                                                    class="h-full w-full object-cover object-center rounded-xl"
+                                                                    src="{{ Storage::url($image) }}"
+                                                                />
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    <p class="text-gray-500">Tidak ada gambar tersedia.</p>
+                                                @endif
                                             </div>
-
-                                            @if ($errors->has('image'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('image')}}</p>
-                                            @endif
+                                            <div class="mt-4">
+                                                <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">
+                                                    Pilih Berkas
+                                                </label>
+                                                <input type="file" id="choose" name="image[]" hidden multiple>
+                                            </div>
                                         </div>
+
+                                        @if ($errors->has('image'))
+                                            <p class="text-red-500 mb-3 text-sm">{{$errors->first('image')}}</p>
+                                        @endif
                                     </div>
                                     <div class="grid grid-cols-1 mt-5 items-center">
                                         <div>
@@ -109,19 +137,30 @@
             </main>
         </section>
     </main>
-<div id="image-modal" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
-    <!-- Link pembungkus untuk close saat klik anywhere -->
-    <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
-        <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
-            <div>
-                <img
-                    class="w-full max-h-[80vh] object-contain"
-                    src="{{Storage::url($service->image)}}"
-                />
-            </div>
+
+@php
+    $images = json_decode($service->image, true); // Ubah jadi array
+@endphp
+
+@if (is_array($images) && !empty($images))
+    @foreach ($images as $image)
+        <div id="image-modal-{{$image}}" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+            <!-- Link pembungkus untuk close saat klik anywhere -->
+            <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+                <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+                    <div>
+                        <img
+                            class="w-full max-h-[80vh] object-contain"
+                            src="{{ Storage::url($image) }}"
+                        />
+                    </div>
+                </div>
+            </a>
         </div>
-    </a>
-</div>
+    @endforeach
+@else
+    <p class="text-gray-500">Tidak ada gambar tersedia.</p>
+@endif
 @endsection
 @push('addon-script')
     <!-- Panggil CKEditor versi 5 -->

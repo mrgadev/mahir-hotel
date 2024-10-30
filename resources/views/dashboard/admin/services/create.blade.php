@@ -53,6 +53,20 @@
                                             @endif
                                         </div>
 
+                                        <div class="">
+                                            <label for="service_category_id" class="block mb-3 font-medium text-gray-700 text-md">Kategori Layanan Lainnya</label>
+                                            <select name="service_category_id" id="service_category_id" class="block w-full py-3 px-5 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                                <option value="">-- Pilih Kategori Layanan Lainnya --</option>
+                                                @foreach ($service_categories as $service_category)
+                                                    <option value="{{$service_category->id}}">{{$service_category->name}}</option>
+                                                @endforeach
+                                            </select>
+
+                                            @if ($errors->has('service_category_id'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('price')}}</p>
+                                            @endif
+                                        </div>
+
                                         <div>
                                             <label for="price" class="block mb-3 font-medium text-gray-700 text-md">Harga</label>
                                             <input placeholder="Harga" type="number" name="price" id="price" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
@@ -62,18 +76,18 @@
                                             @endif
                                         </div>
                                         
-                                        <div>
+                                        <div class="mt-5">
                                             <label for="image" class="block mb-3 font-medium text-gray-700 text-md">Foto Layanan Lainnya</label>
-                                            <input placeholder="" type="file" name="image" id="image" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <input placeholder="" type="file" name="image[]" id="image" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" multiple>
 
                                             @if ($errors->has('image'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('image')}}</p>
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="grid grid-cols-1 mt-5 items-center">
+                                    <div class="grid grid-cols-1 mt-10 items-center">
                                         <div>
-                                            <label for="description" class="block mb-3 font-medium text-gray-700 text-md">Deskripsi Fasilitas Hotel</label>
+                                            <label for="description" class="block mb-3 font-medium text-gray-700 text-md">Deskripsi Layanan Lainnya</label>
                                             <textarea name="description" id="description" rows="10" cols="80"></textarea>
 
                                             @error('description')

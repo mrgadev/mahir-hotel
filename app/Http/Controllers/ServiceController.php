@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -13,7 +14,8 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::all();
-        return view('dashboard.admin.services.index', compact('services'));
+        $service_categories = ServiceCategory::all();
+        return view('dashboard.admin.services.index', compact('services', 'service_categories'));
     }
 
     /**
@@ -21,7 +23,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.services.create');
+        $service_categories = ServiceCategory::all();
+        return view('dashboard.admin.services.create', compact('service_categories'));
     }
 
     /**
@@ -32,21 +35,29 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'service_category_id' => 'required',
+            'image' => 'required',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'price' => 'required',
         ]);
 
+        $imagePaths = [];
         if($request->hasFile('image')){
-            $imagePath = $request->file('image')->store('images', 'public');
+            foreach ($request->file('image') as $image) {
+                $imagePaths[] = $image->store('images', 'public');
+            }
         }
 
         Service::create([
             'name' => $data['name'],
             'description' => $data['description'],
-            'image' => $imagePath,
+            'service_categories_id' => $data['service_category_id'],
+            'image' => json_encode($imagePaths),
             'price' => $data['price'],
         ]);
+
         return redirect()->route('dashboard.service.index')->with('success', 'Service created successfully!');
+
     }
 
     /**
@@ -62,7 +73,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('dashboard.admin.services.edit', compact('service'));
+        $service_categories = ServiceCategory::all();
+        return view('dashboard.admin.services.edit', compact('service', 'service_categories'));
     }
 
     /**
@@ -73,23 +85,36 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'service_category_id' => 'required',
+            'image' => 'nullable',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
         ]);
 
-        if($request->hasFile('image')){
-            $imagePath = $request->file('image')->store('images', 'public');
-            $service->update(['image' => $imagePath]);
+        // Menyimpan array untuk menyimpan semua gambar
+        $imagePaths = [];
+
+        if($request->hasFile('image')) {
+            foreach ($request->file('image') as $image) {
+                $imagePath = $image->store('images', 'public');
+                $imagePaths[] = $imagePath; // Menambahkan path gambar ke array
+            }
+        }else{
+            $imagePaths = json_decode($service->image); // Mengambil array gambar yang ada di database
         }
 
+        // Memperbarui model Service dengan data yang baru
         $service->update([
             'name' => $data['name'],
             'description' => $data['description'],
+            'service_categories_id' => $data['service_category_id'],
             'price' => $data['price'],
-            'image' => $imagePath
+            'image' => json_encode($imagePaths) // Mengubah array menjadi JSON
         ]);
+
         return redirect()->route('dashboard.service.index')->with('success', 'Service updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
