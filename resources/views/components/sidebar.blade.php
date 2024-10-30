@@ -101,7 +101,7 @@
                     <li>
                         <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.service.*') ? 'font-medium' : ''}}" href="{{route('dashboard.service.index')}}">
                             
-                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Layanan Lainnya</span>
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lihat Semua</span>
                         </a>
                     </li>
                     <li>
@@ -147,7 +147,7 @@
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="bi bi-gear-wide-connected"></i>
                         </div>
-                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">General Settings</span>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease capitalize">pengaturan umum</span>
                     </div>
                     <span class="material-symbols-rounded">keyboard_arrow_down</span>
                 </a>
