@@ -245,11 +245,16 @@
             hotelSubmenu.classList.toggle('hidden');
         });
 
-        const siteSettingsToggle = document.getElementById('settingsToggle');
-        const siteSettingsSubmenu = document.getElementById('settingsMenu');
+        const serviceToggle = document.getElementById('serviceToggle');
+        const serviceSubmenu = document.getElementById('serviceMenu');
 
-        siteSettingsToggle.addEventListener('click', function(){
-            siteSettingsSubmenu.classList.toggle('hidden');
+        serviceToggle.addEventListener('click', function(){
+            serviceSubmenu.classList.toggle('hidden');
+        });
+        
+        document.getElementById('serviceToggle').addEventListener('click', function() {
+            const submenu = document.getElementById('serviceSubmenu');
+            submenu.classList.toggle('hidden');
         });
     </script>
 @endpush

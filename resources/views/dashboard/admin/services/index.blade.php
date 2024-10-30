@@ -82,19 +82,11 @@
                                 <tr class="cursor-pointer">
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->id}}</td>
                                     <td>
-                                        @php
-                                            $images = json_decode($service->image);
-                                        @endphp
-
-                                        @if($images && is_array($images) && count($images) > 0)
-                                            <img src="{{ Storage::url($images[0]) }}" alt="Image" class="w-10 object-cover object-top transition duration-500 mb-2">
-                                        @else 
-                                            <img src="" alt="No Image" class="w-10 object-cover object-top transition duration-500 mb-2">
-                                        @endif
+                                        <img src="{{Storage::url($service->cover)}}" alt="Image" class="w-10 object-cover object-top transition duration-500 mb-2">
                                     </td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$service->name}}</td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($service->price,0,',','.')}}</td>
-                                    <td class="flex items-center">
+                                    <td class="flex items-center justify-center">
                                         <div class="mr-2">
                                             <a href="{{route('dashboard.service.edit', $service)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
                                                 <i class="bi bi-pencil-square"></i>

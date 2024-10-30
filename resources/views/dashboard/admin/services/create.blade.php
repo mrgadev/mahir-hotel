@@ -77,8 +77,17 @@
                                         </div>
                                         
                                         <div class="mt-5">
+                                            <label for="cover" class="block mb-3 font-medium text-gray-700 text-md">Foto Cover Layanan Lainnya</label>
+                                            <input placeholder="" type="file" name="cover" id="cover" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required>
+
+                                            @if ($errors->has('cover'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('image')}}</p>
+                                            @endif
+                                        </div>
+
+                                        <div class="mt-5">
                                             <label for="image" class="block mb-3 font-medium text-gray-700 text-md">Foto Layanan Lainnya</label>
-                                            <input placeholder="" type="file" name="image[]" id="image" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" multiple>
+                                            <input placeholder="" type="file" name="image[]" id="image" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" multiple required>
 
                                             @if ($errors->has('image'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('image')}}</p>

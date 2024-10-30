@@ -43,7 +43,7 @@
                         <div class="">
                             <div class="px-4 py-5 sm:p-6">
                                 <div class="">
-                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center">
+                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                         <div>
                                             <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Layanan Lainnya</label>
                                             <input placeholder="Nama Layanan Lainnya" type="text" name="name" id="name" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$service->name}}">
@@ -75,10 +75,27 @@
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('price')}}</p>
                                             @endif
                                         </div>
-                                        
+
+                                        <div class="">
+                                            <label for="cover" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
+                                            <div class="relative flex h-52 w-auto cursor-pointer">
+                                                <a href="#cover-modal" class="block w-full">
+                                                    <img
+                                                    class="h-full w-full object-cover object-center rounded-xl"
+                                                    src="{{Storage::url($service->cover)}}"
+                                                    />
+                                                </a>
+                                            </div>
+                                            <input placeholder="Your Number" type="file" name="cover" id="" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$service->cover}}">
+
+                                            @if ($errors->has('cover'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('cover')}}</p>
+                                            @endif
+
+                                        </div>
                                     </div>
                                     <div class="">
-                                        <label for="image" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Cover Promo</label>
+                                        <label for="image" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
                                         <div>
                                             <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                                 @php
@@ -137,7 +154,19 @@
             </main>
         </section>
     </main>
-
+<div id="cover-modal" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+    <!-- Link pembungkus untuk close saat klik anywhere -->
+    <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+        <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+            <div>
+                <img
+                    class="w-full max-h-[80vh] object-contain"
+                    src="{{Storage::url($service->cover)}}"
+                />
+            </div>
+        </div>
+    </a>
+</div>
 @php
     $images = json_decode($service->image, true); // Ubah jadi array
 @endphp

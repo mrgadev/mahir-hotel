@@ -7,6 +7,8 @@ use App\Models\HotelFacilities;
 use App\Models\NearbyLocation;
 use App\Models\Promo;
 use App\Models\Room;
+use App\Models\Service;
+use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 
 class FrontpageController extends Controller
@@ -38,12 +40,28 @@ class FrontpageController extends Controller
         return view('frontpage.room-detail', compact('room'));
     }
 
-    public function services() {
-        return view('frontpage.services');
+    public function services(Request $request) {
+        $serviceCategories = ServiceCategory::all();
+
+        $selectedCategory = $request->input('category', 'Semua');
+
+        if ($selectedCategory === 'Semua') {
+            $services = Service::all();
+        } else {
+            $services = Service::whereHas('serviceCategory', function ($query) use ($selectedCategory) {
+                $query->where('name', $selectedCategory);
+            })->get();
+        }
+        return view('frontpage.services', [
+            'serviceCategories' => $serviceCategories,
+            'selectedCategory' => $selectedCategory,
+            'services' => $services,
+        ]);
     }
 
-    public function services_detail() {
-        return view('frontpage.services-detail');
+    public function services_detail(String $id) {
+        $service = Service::findOrFail($id);
+        return view('frontpage.services-detail', compact('service'));
     }
 
     public function contact() {
