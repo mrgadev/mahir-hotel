@@ -32,15 +32,25 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        $message = [
+            'name.required' => 'Nama layanan wajib diisi',
+            'description.required' => 'Deskripsi layanan wajib diisi',
+            'service_category_id.required' => 'Kategori layanan wajib dipilih',
+            'image.required' => 'Gambar wajib diunggah',
+            'image.mimes' => 'Format gambar tidak valid!',
+            'cover.required' => 'Gambar sampul wajib diunggah',
+            'cover.mimes' => 'Format gambar sampul tidak valid',
+            'price.required' => 'Harga wajib diisi'
+        ];
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
             'service_category_id' => 'required',
             'image' => 'required',
-            'cover' => 'required',
+            'cover' => 'required|mimes:jpeg,png,jpg,avif,webp',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'price' => 'required',
-        ]);
+        ], $message);
 
         $imagePaths = [];
         if($request->hasFile('image')){
@@ -88,6 +98,14 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
+        $message = [
+            'name.required' => 'Nama layanan wajib diisi',
+            'description.required' => 'Deskripsi layanan wajib diisi',
+            'service_category_id.required' => 'Kategori layanan wajib dipilih',
+            'image.mimes' => 'Format gambar tidak valid!',
+            'cover.mimes' => 'Format gambar sampul tidak valid',
+            'price.required' => 'Harga wajib diisi'
+        ];
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -96,7 +114,7 @@ class ServiceController extends Controller
             'image' => 'nullable',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
-        ]);
+        ], $message);
 
         // Menyimpan array untuk menyimpan semua gambar
         $imagePaths = [];

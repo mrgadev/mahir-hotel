@@ -29,14 +29,23 @@ class PromoController extends Controller
      */
     public function store(Request $request)
     {
+        $message = [
+            'name.required' => 'Judul promo wajib diisi',
+            'code.required' => 'Kode promo wajib diisi',
+            'cover.required' => 'Gambar sampul wajib diunggah',
+            'amount.required' => 'Jumlah potongan wajib diisi',
+            'start_date.required' => 'Tanggal awal wajib diisi',
+            'end_date.required' => 'Tanggal akhir wajib diisi',
+            'cover.mimes' => 'Format gambar tidak valid!'
+        ];
         $request->validate([
             'name' => 'required',
             'code' => 'required',
-            'cover' => 'required',
+            'cover' => 'required|mimes:jpeg,jpg,png,avif,webp',
             'amount' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-        ]);
+        ], $message);
 
         if($request->hasFile('cover')){
             $coverPath = $request->file('cover')->store('cover', 'public');

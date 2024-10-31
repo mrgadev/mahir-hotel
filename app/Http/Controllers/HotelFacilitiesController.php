@@ -77,7 +77,6 @@ class HotelFacilitiesController extends Controller
     {
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
-            'icon.required' => 'Icon fasilitas wajib diupload!',
             'icon.mimes' => 'File harus bertipe: png,jpg,svg'
         ];
 

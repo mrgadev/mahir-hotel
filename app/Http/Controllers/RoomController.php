@@ -34,15 +34,24 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
+        $message = [
+            'name.required' => 'Nama kamar wajib diisi',
+            'cover.required' => 'Gambar sampul wajib diunggah',
+            'cover.mimes' => 'Format gambar tidak valid',
+            'price.required' => 'Harga wajib diisi',
+            'price.integer' => 'Harga harus berupa angka',
+            'photos.required' => 'Gambar lainnya wajib diunggah',
+            'room_facilities_id.required' => 'Fasilitas kamar wajib dipilih',
+        ];
         $data = $request->validate([
             'name' => 'required',
-            'cover' => 'nullable|image|mimes:png,jpg,jpeg,webp,png,avif',
-            'price' => 'nullable|integer',
-            'photos' => 'nullable',
+            'cover' => 'required|image|mimes:png,jpg,jpeg,webp,png,avif',
+            'price' => 'required|integer',
+            'photos' => 'required',
             'room_facilities_id' => 'required|array',
             'room_facilities_id.*' => 'exists:room_facilities,id',
             'description' => 'nullable'
-        ]);
+        ], $message);
 
         // dd($request->room_facilities_id);
 
@@ -124,6 +133,14 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
+        $message = [
+            'name.required' => 'Nama kamar wajib diisi',
+            'cover.mimes' => 'Format gambar tidak valid',
+            'price.required' => 'Harga wajib diisi',
+            'price.integer' => 'Harga harus berupa angka',
+            'photos.required' => 'Gambar lainnya wajib diunggah',
+            'room_facilities_id.required' => 'Fasilitas kamar wajib dipilih',
+        ];
         $existingImages = $room->photos ? explode('|', $room->photos) : [];
         $data = $request->validate([
             'name' => 'required',
@@ -133,7 +150,7 @@ class RoomController extends Controller
             'room_facilities_id' => 'required|array',
             'room_facilities_id.*' => 'exists:room_facilities,id',
             'description' => 'nullable'
-        ]);
+        ], $message);
 
         $room_slug_name = Str::slug($data['name']);
 

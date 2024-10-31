@@ -29,9 +29,12 @@ class ServiceCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $message = [
+            'name.required' => 'Nama kategori wajib diisi'
+        ];
         $request->validate([
             'name' => ['required','string','max:255'],
-        ]);
+        ], $message);
 
         ServiceCategory::create($request->all());
         return redirect()->route('dashboard.service_category.index')->with('success', 'Kategori layanan berhasil ditambahkan');
@@ -58,9 +61,12 @@ class ServiceCategoryController extends Controller
      */
     public function update(Request $request, ServiceCategory $service_category)
     {
+        $message = [
+            'name.required' => 'Nama kategori wajib diisi'
+        ];
         $request->validate([
             'name' => ['required','string','max:255'],
-        ]);
+        ], $message);
 
         $service_category->update($request->all());
         return redirect()->route('dashboard.service_category.index')->with('success', 'Kategori layanan berhasil diubah');

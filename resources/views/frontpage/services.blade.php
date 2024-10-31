@@ -82,11 +82,11 @@
         <p class="text-sm text-center text-gray-600">Temukan penawaran eksklusif dan penginapan mewah yang dirancang khusus untuk Anda di hotel kami.<br> Pesan sekarang dan nikmati kenyamanan serta penghematan yang tak tertandingi</p>
     </div> --}}
     <div class="flex items-center gap-3">
-        <a href="{{ route('frontpage.services') }}" class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white{{ $selectedCategory === 'Semua' ? ' font-bold' : '' }}">
+        <a href="{{ route('frontpage.services') }}" class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white{{ $selectedCategory === 'Semua' ? ' font-medium bg-primary-700 text-white' : '' }}">
             Semua
         </a>
         @foreach ($serviceCategories as $serviceCategory)
-            <a href="{{ route('frontpage.services', ['category' => $serviceCategory->name]) }}" class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white{{ $selectedCategory === $serviceCategory->name ? ' font-bold' : '' }}">
+            <a href="{{ route('frontpage.services', ['category' => $serviceCategory->name]) }}" class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white{{ $selectedCategory === $serviceCategory->name ? ' font-medium bg-primary-700 text-white' : '' }}">
                 {{ $serviceCategory->name }}
             </a>
         @endforeach
