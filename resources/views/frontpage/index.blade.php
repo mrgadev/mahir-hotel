@@ -227,78 +227,29 @@
 
     <div class="" id="roomsContainer">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            
-            <div class="w-[250px] lg:w-[350px] h-[450px] bg-white rounded-xl bg-[url('https://images.unsplash.com/photo-1531835551805-16d864c8d311?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover relative">
-                <div class="bg-white absolute bottom-3 left-3 right-3 w-[225px] lg:w-[325px] flex items-end justify-between p-5 rounded-xl">
-                    <div>
-                        <h2 class="font-medium text-gray-600">Standard Room</h2>
-                        <div class="flex items-center gap-2 text-xs my-3 text-primary-300">
-                            <p class="flex items-center">
-                                <span class="material-symbols-rounded scale-75">group</span>
-                                1
-                            </p>
-                            <span class="material-symbols-rounded scale-75">restaurant</span>
-                            <span class="material-symbols-rounded scale-75">bathtub</span>
-                            <span class="material-symbols-rounded scale-75 leading-none">wifi</span>
+           @foreach ($rooms as $room)
+               <a class="flex flex-col rounded-2xl shadow-xl">
+                    <img src="{{url($room->cover)}}" alt="" class="rounded-t-2xl">
+                    <div class="p-3 rounded-b-2xl">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl text-primary-700 font-medium">{{$room->name}}</h3>
+                            <div class="flex items-center gap-2 p-2 rounded-full bg-primary-100 text-primary-500 text-xs">
+                                <i class="bi bi-star-fill"></i>
+                                4.2
+                            </div>
                         </div>
-                        <p class="text-xl text-primary-400 font-medium">IDR 500K</p>
-                    </div>
-                    <a href="#" class="items-end text-primary-400 font-medium">Pesan</a>
-                </div>
-            </div>   
-
-            <div class="w-[250px] lg:w-[350px] h-[450px] bg-white rounded-xl bg-[url('https://images.unsplash.com/photo-1531835551805-16d864c8d311?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover relative">
-                <div class="bg-white absolute bottom-3 left-3 right-3 w-[225px] lg:w-[325px] flex items-end justify-between p-5 rounded-xl">
-                    <div>
-                        <h2 class="font-medium text-gray-600">Family Room</h2>
-                        <div class="flex items-center gap-1 text-xs my-3 text-primary-300">
-                            <span class="material-symbols-rounded scale-75">restaurant</span>
-                            <p class="flex items-center">
-                                <span class="material-symbols-rounded scale-75">bathtub</span>
-                                IN
-                            </p>
-                            <p class="flex items-center">
-                                <span class="material-symbols-rounded scale-75">bed</span>
-                                2
-                            </p>
-                            <span class="material-symbols-rounded scale-75 leading-none">wifi</span>
+                        <div class="flex items-center gap-1">
+                            @foreach ($room->room_facility as $facility)
+                                <img src="{{Storage::url($facility->icon)}}" alt="" class="h-5 w-5 mb-7">
+                            @endforeach
                         </div>
-                        <p class="text-xl text-primary-400 font-medium">IDR 500K</p>
-                    </div>
-                    <a href="#" class="items-end text-primary-400 font-medium">Pesan</a>
-                </div>
-            </div>   
-            
-            <div class="w-[250px] lg:w-[350px] h-[450px] bg-white rounded-xl bg-[url('https://images.unsplash.com/photo-1531835551805-16d864c8d311?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover relative">
-                <div class="bg-white absolute bottom-3 left-3 right-3 w-[225px] lg:w-[325px] flex items-end justify-between p-5 rounded-xl">
-                    <div>
-                        <h2 class="font-medium text-gray-600">Standard Room</h2>
-                        <div class="flex items-center gap-2 text-xs my-3 text-primary-300">
-                            <span class="material-symbols-rounded scale-75">restaurant</span>
-                            <span class="material-symbols-rounded scale-75">bathtub</span>
-                            <span class="material-symbols-rounded scale-75 leading-none">wifi</span>
+                        <div class="flex items-center justify-between">
+                            <p class="text-primary-500 font-medium">Rp. {{number_format($room->price,0,',','.')}}</p>
+                            <a href="#" class="px-5 py-3 bg-primary-700 text-white rounded-full">Pesan</a>
                         </div>
-                        <p class="text-xl text-primary-400 font-medium">IDR 500K</p>
                     </div>
-                    <a href="#" class="items-end text-primary-400 font-medium">Pesan</a>
-                </div>
-            </div>   
-
-            <div class="w-[250px] lg:w-[350px] h-[450px] bg-white rounded-xl bg-[url('https://images.unsplash.com/photo-1531835551805-16d864c8d311?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover relative">
-                <div class="bg-white absolute bottom-3 left-3 right-3 w-[225px] lg:w-[325px] flex items-end justify-between p-5 rounded-xl">
-                    <div>
-                        <h2 class="font-medium text-gray-600">Standard Room</h2>
-                        <div class="flex items-center gap-2 text-xs my-3 text-primary-300">
-                            <span class="material-symbols-rounded scale-75">restaurant</span>
-                            <span class="material-symbols-rounded scale-75">bathtub</span>
-                            <span class="material-symbols-rounded scale-75 leading-none">wifi</span>
-                        </div>
-                        <p class="text-xl text-primary-400 font-medium">IDR 500K</p>
-                    </div>
-                    <a href="#" class="items-end text-primary-400 font-medium">Pesan</a>
-                </div>
-            </div>  
-
+               </a>
+           @endforeach
         </div>
         {{-- <div class="flex flex-nowrap gap-10">
             <div class="w-[250px] lg:w-[350px] bg-white rounded-xl grid grid-rows-2 gap-5 border border-primary-300">

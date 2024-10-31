@@ -89,10 +89,12 @@
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 my-12">
         @foreach($services as $service)
-
+        @php
+            $images = json_decode($service->image, true); // Ubah jadi array
+        @endphp
         <a href="{{route('frontpage.services.detail', $service->id)}}" class="flex flex-col gap-5">
             <div class="relative">
-                <img src="{{Storage::url($service->image)}}" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                <img src="{{Storage::url($images[0])}}" alt="" class="w-full h-64 object-cover rounded-xl relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
                    <span class="text-lg">IDR {{number_format($service->price,0,',','.')}}</span>
                 </p>
