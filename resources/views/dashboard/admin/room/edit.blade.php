@@ -42,7 +42,7 @@
                         @csrf
                         <div class="">
                             <div class="px-4 py-5 sm:p-6">
-                                <div class="mt-10">
+                                <div class="mt-">
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center">
                                         {{-- <div>
                                             <label for="photos" class="block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
@@ -54,7 +54,7 @@
                                         </div> --}}
                                         
                                         <div class="">
-                                            <label for="cover" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
+                                            <label for="cover" class="block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
                                             <div>
                                                 <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                                     @if($room->cover)
