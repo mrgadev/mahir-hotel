@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Faq;
 use App\Models\Room;
 use App\Models\Promo;
-use App\Models\Room;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 use App\Models\NearbyLocation;
 use App\Models\HotelFacilities;
-use App\Models\ServiceCategory;
 
 class FrontpageController extends Controller
 {
