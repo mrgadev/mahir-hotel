@@ -37,6 +37,7 @@ class ServiceController extends Controller
             'description' => 'required',
             'service_category_id' => 'required',
             'image' => 'required',
+            'cover' => 'required',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'price' => 'required',
         ]);
@@ -48,10 +49,15 @@ class ServiceController extends Controller
             }
         }
 
+        if($request->hasFile('cover')){
+            $coverPath = $request->file('cover')->store('covers', 'public');
+        }
+
         Service::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'service_categories_id' => $data['service_category_id'],
+            'cover' => $coverPath,
             'image' => json_encode($imagePaths),
             'price' => $data['price'],
         ]);
@@ -86,6 +92,7 @@ class ServiceController extends Controller
             'name' => 'required',
             'description' => 'required',
             'service_category_id' => 'required',
+            'cover' => 'nullable',
             'image' => 'nullable',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required',
@@ -103,11 +110,18 @@ class ServiceController extends Controller
             $imagePaths = json_decode($service->image); // Mengambil array gambar yang ada di database
         }
 
+        if($request->hasFile('cover')){
+            $coverPath = $request->file('cover')->store('covers', 'public');
+        }else{
+            $coverPath = $service->cover;
+        }
+
         // Memperbarui model Service dengan data yang baru
         $service->update([
             'name' => $data['name'],
             'description' => $data['description'],
             'service_categories_id' => $data['service_category_id'],
+            'cover' => $coverPath,
             'price' => $data['price'],
             'image' => json_encode($imagePaths) // Mengubah array menjadi JSON
         ]);

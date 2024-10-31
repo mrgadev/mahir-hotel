@@ -73,16 +73,33 @@
 </div>
 <header class="lg:px-36 px-12 py-11 w-screen grid lg:grid-cols-2 gap-8">
     <div class="grid gap-3">
-        <div class="relative">
-            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-2xl" alt="">
+        <div class="relative flex w-auto cursor-pointer">
+            <a href="#cover-modal" class="block w-full">
+                <img
+                class="h-full w-full object-cover object-center rounded-xl"
+                src="{{Storage::url($service->cover)}}"
+                />
+            </a>
         </div>
     </div>
-
     <div class="grid grid-cols-2 gap-5">
-        <img src="https://images.unsplash.com/photo-1522058171200-e61f77c7353d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl" alt="">
-        <img src="https://images.unsplash.com/photo-1571268373914-e888c6dafeff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl" alt="">
-        <img src="https://images.unsplash.com/photo-1571268373914-e888c6dafeff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl" alt="">
-        <img src="https://images.unsplash.com/photo-1524479967500-c3a0bf56d080?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-xl" alt="">
+        @php
+            $images = json_decode($service->image, true); // Decode dengan array true
+        @endphp
+        @if (is_array($images) && !empty($images))
+            @foreach (array_slice($images, 0, 4) as $image) <!-- Batasi hanya 4 gambar -->
+                <div class="relative flex h-40 cursor-pointer">
+                    <a href="#image-modal-{{$image}}" class="block h-full w-full">
+                        <img
+                            class="h-full w-full object-cover object-center rounded-xl"
+                            src="{{ Storage::url($image) }}"
+                        />
+                    </a>
+                </div>
+            @endforeach
+        @else
+            <p class="text-gray-500">Tidak ada gambar tersedia.</p>
+        @endif
     </div>
     {{-- <div class="flex flex-col gap-5">
         <div class="flex items-center justify-between">
@@ -144,8 +161,8 @@
                 <i class="bi bi-star-fill text-primary-500"></i>
                 4.6 (120 Ulasan)
             </div> --}}
-            <h1 class="text-4xl text-primary-700">Royal Wedding Package</h1>
-            <p class="text-xl text-primary-500">Mulai dari IDR 88jt</p>
+            <h1 class="text-4xl text-primary-700">{{$service->name}}</h1>
+            <p class="text-xl text-primary-500">Mulai dari IDR {{number_format($service->price,0,',','.')}}</p>
         </div>
 
         <a href="#" class="px-7 py-3 rounded-full bg-primary-700 text-white">Pesan sekarang</a>
@@ -153,7 +170,7 @@
 
     <div class="flex flex-col gap-2 mb-5">
         <div class="text-gray-600 font-light">
-            <p>Aspernatur dolorum cupiditate, voluptatibus perferendis tempore amet explicabo accusamus enim saepe repellendus aperiam tempora, magni accusantium sit molestias ut quaerat rem, ipsam consequuntur debitis. Voluptatem facere quasi porro maiores incidunt temporibus? Dolores corporis magnam quidem cum in animi at nisi quas ipsam nam sint dicta accusamus nostrum modi id minus autem, perferendis ipsum quis natus adipisci.</p> 
+            <p>{!! $service->description !!}</p> 
         </div>
         <h2 class="my-5 text-xl text-primary-700 font-medium">Fasilitas yang Didapatkan</h2>
         <div class="flex flex-col gap-8">
@@ -217,6 +234,43 @@
 
    
 </div>
+
+<div id="cover-modal" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+    <!-- Link pembungkus untuk close saat klik anywhere -->
+    <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+        <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+            <div>
+                <img
+                    class="w-full max-h-[80vh] object-contain"
+                    src="{{Storage::url($service->cover)}}"
+                />
+            </div>
+        </div>
+    </a>
+</div>
+@php
+    $images = json_decode($service->image, true); // Ubah jadi array
+@endphp
+
+@if (is_array($images) && !empty($images))
+    @foreach ($images as $image)
+        <div id="image-modal-{{$image}}" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+            <!-- Link pembungkus untuk close saat klik anywhere -->
+            <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+                <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+                    <div>
+                        <img
+                            class="w-full max-h-[80vh] object-contain"
+                            src="{{ Storage::url($image) }}"
+                        />
+                    </div>
+                </div>
+            </a>
+        </div>
+    @endforeach
+@else
+    <p class="text-gray-500">Tidak ada gambar tersedia.</p>
+@endif
 
 @include('components.frontpage-footer')
 

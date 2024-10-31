@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('image');
-            $table->string('icon')->nullable();
+            $table->text('cover');
             $table->integer('price');
             $table->unsignedBigInteger('service_categories_id');
             $table->foreign('service_categories_id')->references('id')->on('service_categories');

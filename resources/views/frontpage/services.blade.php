@@ -82,36 +82,36 @@
         <p class="text-sm text-center text-gray-600">Temukan penawaran eksklusif dan penginapan mewah yang dirancang khusus untuk Anda di hotel kami.<br> Pesan sekarang dan nikmati kenyamanan serta penghematan yang tak tertandingi</p>
     </div> --}}
     <div class="flex items-center gap-3">
-        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white">Semua</button>
-        @foreach ($service_categories as $service_category)
-        <button class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white">{{$service_category->name}}</button>
+        <a href="{{ route('frontpage.services') }}" class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white{{ $selectedCategory === 'Semua' ? ' font-bold' : '' }}">
+            Semua
+        </a>
+        @foreach ($serviceCategories as $serviceCategory)
+            <a href="{{ route('frontpage.services', ['category' => $serviceCategory->name]) }}" class="px-5 py-2 rounded-full bg-primary-100 text-primary-700 border border-primary-700 transition-all hover:bg-primary-700 hover:text-white{{ $selectedCategory === $serviceCategory->name ? ' font-bold' : '' }}">
+                {{ $serviceCategory->name }}
+            </a>
         @endforeach
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 my-12">
-        @foreach($services as $service)
-        @php
-            $images = json_decode($service->image, true); // Ubah jadi array
-        @endphp
-        <a href="{{route('frontpage.services.detail', $service->id)}}" class="flex flex-col gap-5">
-            <div class="relative">
-                <img src="{{Storage::url($images[0])}}" alt="" class="w-full h-64 object-cover rounded-xl relative">
-                <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
-                   <span class="text-lg">IDR {{number_format($service->price,0,',','.')}}</span>
-                </p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <h3 class="text-xl text-primary-700 hover:underline">{{$service->name}}</h3>
-                <div class="text-sm flex items-center gap-1 text-primary-500">
-                    {{-- <span class="material-symbols-rounded scale-75">bed</span> --}}
-                    <span class="material-symbols-rounded scale-75">restaurant</span>
-                    <span class="material-symbols-rounded scale-75">photo_camera</span>
-                    <span class="material-symbols-rounded scale-75">directions_car</span>
-                    <span class="material-symbols-rounded scale-75">group</span> 300 pax
+        @foreach ($services as $service)
+            <a href="{{route('frontpage.services.detail', $service->id)}}" class="flex flex-col gap-5">
+                <div class="relative">
+                    <img src="{{Storage::url($service->cover)}}" alt="" class="w-full h-64 object-cover rounded-xl relative">
+                    <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
+                    <span class="text-lg">IDR {{number_format($service->price,0,',','.')}}</span>
+                    </p>
                 </div>
-            </div>
-        </a>
+                <div class="flex flex-col gap-2">
+                    <h3 class="text-xl text-primary-700 hover:underline">{{$service->name}}</h3>
+                    <div class="text-sm flex items-center gap-1 text-primary-500">
+                        {{-- <span class="material-symbols-rounded scale-75">bed</span> --}}
+                        <span class="material-symbols-rounded scale-75">restaurant</span>
+                        <span class="material-symbols-rounded scale-75">photo_camera</span>
+                        <span class="material-symbols-rounded scale-75">directions_car</span>
+                        <span class="material-symbols-rounded scale-75">group</span> 300 pax
+                    </div>
+                </div>
+            </a>
         @endforeach
-
     </div>
 
    

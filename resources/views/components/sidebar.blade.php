@@ -1,9 +1,7 @@
 <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-primary-100 border-2 border-primary-700 shadow-xl :shadow-none max-w-64 ease-nav-brand xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
     <div class="h-19">
     <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times  text-slate-400 xl:hidden" sidenav-close></i>
-    <a class="block px-8 py-6 m-0 whitespace-nowrap  text-primary-700" href="https://demos.creative-tim.com/argon-dashboard-tailwind/pages/dashboard.html" target="_blank">
-        <img src="/assets/img/logo-ct-dark.png" class="inline h-full max-w-full transition-all duration-200  ease-nav-brand max-h-8" alt="main_logo" />
-        <img src="/assets/img/logo-ct.png" class="hidden h-full max-w-full transition-all duration-200  ease-nav-brand max-h-8" alt="main_logo" />
+    <a class="block px-8 py-6 m-0 whitespace-nowrap  text-primary-700" href="/" target="_blank">
         <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Mahir Hotel</span>
     </a>
     </div>
@@ -142,7 +140,7 @@
 
             {{-- Menu General Settings --}}
             <li class="mt-0.5 w-full">  
-                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.users_management.*') || Route::is('dashboard.service_category.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="settingsToggle">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.users_management.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="settingsToggle">
                     <div class="flex items-center">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="bi bi-gear-wide-connected"></i>
@@ -151,22 +149,20 @@
                     </div>
                     <span class="material-symbols-rounded">keyboard_arrow_down</span>
                 </a>
-                <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="settingsMenu">
+                <ul id="settingsSubmenu" class="px-4 mx-2 flex flex-col my-3 bg-primary-500 rounded-lg hidden">
                     <li>
-                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.users_management.*') ? 'font-medium' : ''}}" href="{{route('dashboard.users_management.index')}}">        
+                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{ Route::is('dashboard.users_management.*') ? 'font-medium' : '' }}" href="{{ route('dashboard.users_management.index') }}">        
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Kelola Pengguna</span>
                         </a>
                     </li>
                     <li>
-                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="">
+                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="">
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Situs</span>
                         </a>
                     </li>
                 </ul>
                 </a>
             </li>
-
-            
         
             <li class="w-full mt-4">
                 <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
@@ -244,19 +240,15 @@
         hotelToggle.addEventListener('click', function(){
             hotelSubmenu.classList.toggle('hidden');
         });
-
-        const siteSettingsToggle = document.getElementById('settingsToggle');
-        const siteSettingsSubmenu = document.getElementById('settingsMenu');
-
-        siteSettingsToggle.addEventListener('click', function(){
-            siteSettingsSubmenu.classList.toggle('hidden');
+        
+        document.getElementById('serviceToggle').addEventListener('click', function() {
+            const submenu = document.getElementById('serviceSubmenu');
+            submenu.classList.toggle('hidden');
         });
 
-        const servicesToggle = document.getElementById('serviceToggle');
-        const servicesSubmenu = document.getElementById('serviceSubmenu');
-
-        servicesToggle.addEventListener('click', function(){
-            servicesSubmenu.classList.toggle('hidden');
+        document.getElementById('settingsToggle').addEventListener('click', function() {
+            const settingssubmenu = document.getElementById('settingsSubmenu');
+            settingssubmenu.classList.toggle('hidden');
         });
     </script>
 @endpush
