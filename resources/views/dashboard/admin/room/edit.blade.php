@@ -42,7 +42,7 @@
                         @csrf
                         <div class="">
                             <div class="px-4 py-5 sm:p-6">
-                                <div class="mt-10">
+                                <div class="mt-">
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center">
                                         {{-- <div>
                                             <label for="photos" class="block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
@@ -52,44 +52,9 @@
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('photos')}}</p>
                                             @endif
                                         </div> --}}
-
-                                        <div class="">
-                                            <label for="photos" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
-                                            <div>
-                                                <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                                                    @php
-                                                        $photos = explode("|", $room->photos); // Decode dengan array true
-                                                    @endphp
-                                                    @if (is_array($photos) && !empty($photos))
-                                                        @foreach ($photos as $photo)
-                                                            <div class="relative flex h-40 cursor-pointer">
-                                                                <a href="#image-modal-{{$photo}}" class="block h-full w-full">
-                                                                    <img
-                                                                        class="h-full w-full object-cover object-center rounded-xl"
-                                                                        src="{{ url($photo) }}"
-                                                                    />
-                                                                </a>
-                                                            </div>
-                                                        @endforeach
-                                                    @else
-                                                        <p class="text-gray-500">Tidak ada gambar tersedia.</p>
-                                                    @endif
-                                                </div>
-                                                <div class="mt-4">
-                                                    <label for="photos" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">
-                                                        Pilih Berkas
-                                                    </label>
-                                                    <input type="file" id="photos" name="photos[]" hidden multiple>
-                                                </div>
-                                            </div>
-    
-                                            @if ($errors->has('photos'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('photos')}}</p>
-                                            @endif
-                                        </div>
                                         
                                         <div class="">
-                                            <label for="cover" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
+                                            <label for="cover" class="block mb-3 font-medium text-gray-700 text-md">Gambar Sampul</label>
                                             <div>
                                                 <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                                     @if($room->cover)
@@ -154,6 +119,41 @@
                                             @endforeach
                                         </div>
                                     </div>
+
+                                    <div class="mt-10">
+                                            <label for="photos" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Gambar Lainnya</label>
+                                            <div>
+                                                <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                                    @php
+                                                        $photos = explode("|", $room->photos); // Decode dengan array true
+                                                    @endphp
+                                                    @if (is_array($photos) && !empty($photos))
+                                                        @foreach ($photos as $photo)
+                                                            <div class="relative flex h-40 cursor-pointer">
+                                                                <a href="#image-modal-{{$photo}}" class="block h-full w-full">
+                                                                    <img
+                                                                        class="h-full w-full object-cover object-center rounded-xl"
+                                                                        src="{{ url($photo) }}"
+                                                                    />
+                                                                </a>
+                                                            </div>
+                                                        @endforeach
+                                                    @else
+                                                        <p class="text-gray-500">Tidak ada gambar tersedia.</p>
+                                                    @endif
+                                                </div>
+                                                <div class="mt-4">
+                                                    <label for="photos" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">
+                                                        Pilih Berkas
+                                                    </label>
+                                                    <input type="file" id="photos" name="photos[]" hidden multiple>
+                                                </div>
+                                            </div>
+    
+                                            @if ($errors->has('photos'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('photos')}}</p>
+                                            @endif
+                                        </div>
 
                                     <div class="grid grid-cols-1 mt-5 items-center">
                                         <div>
