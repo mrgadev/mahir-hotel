@@ -23,10 +23,16 @@
                     @csrf
                     @method('POST')
                     <div class="mb-4">
-                        <input type="number" name="phone" autocomplete="off" placeholder="Nomor Telepon" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding  p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                        <input type="number" name="phone" autocomplete="off" placeholder="Nomor Telepon*" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding  p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                        @if ($errors->has('phone'))
+                          <p  class="text-red-500 mt-3 text-sm">{{$errors->first('phone')}}</p>
+                        @endif
                     </div>
                     <div class="mb-4">
-                        <input type="password" name="password" autocomplete="off" placeholder="Password" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                        <input type="password" name="password" autocomplete="off" placeholder="Password*" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                        @if ($errors->has('password'))
+                          <p class="text-red-500 mt-3 text-sm">{{$errors->first('password')}}</p>
+                        @endif
                       </div>
                       <p class="mx-auto mb-6 leading-normal text-sm"><a href="{{route('forgot.password.phone')}}" class="text-primary-500 font-light bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500] underline">Lupa Sandi?</a></p>
                     <div class="text-center">

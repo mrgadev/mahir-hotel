@@ -155,7 +155,7 @@
 </section>
 
 <div class="mx-12 lg:mx-36">
-    <div class="flex items-center justify-between mb-8">
+    <div class="flex flex-col gap-5 lg:flex-row lg:items-center justify-between mb-8">
         <div class="flex flex-col gap-1.5">
             {{-- <div class="flex items-center gap-1 font-light text-gray-700">
                 <i class="bi bi-star-fill text-primary-500"></i>
@@ -165,7 +165,7 @@
             <p class="text-xl text-primary-500">Mulai dari IDR {{number_format($service->price,0,',','.')}}</p>
         </div>
 
-        <a href="#" class="px-7 py-3 rounded-full bg-primary-700 text-white">Pesan sekarang</a>
+        <a href="#" class="px-7 py-3 rounded-full bg-primary-700 text-white w-fit">Pesan sekarang</a>
     </div>
 
     <div class="flex flex-col gap-2 mb-5">

@@ -50,4 +50,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'birth' => 'date',
     ];
+
+    public function regency() {
+        return $this->belongsTo(Regency::class);
+    }
 }

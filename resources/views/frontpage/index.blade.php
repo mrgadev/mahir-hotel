@@ -10,7 +10,7 @@
         background-color: white;
         /* border-radius: 25px; */
         /* border: 2px solid #976033; */
-        width: 100%;
+        /* width: ; */
         padding: 1.5rem 9rem;
         transition: all 0.5s ease;
     }
@@ -228,28 +228,30 @@
     <div class="" id="roomsContainer">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
            @foreach ($rooms as $room)
-               <a class="flex flex-col rounded-2xl shadow-xl">
-                    <img src="{{url($room->cover)}}" alt="" class="rounded-t-2xl">
-                    <div class="p-3 rounded-b-2xl">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-xl text-primary-700 font-medium">{{$room->name}}</h3>
-                            <div class="flex items-center gap-2 p-2 rounded-full bg-primary-100 text-primary-500 text-xs">
-                                <i class="bi bi-star-fill"></i>
-                                4.2
-                            </div>
-                        </div>
+           <a href="{{route('frontpage.rooms.detail', $room->id)}}" class="flex flex-col rounded-xl shadow-xl">
+               <img src="{{url($room->cover)}}" alt="" class="w-full h-64 object-cover rounded-xl relative">
+            {{-- <div class="relative">
+                <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
+                <span class="text-lg">IDR {{number_format($room->price,0,',','.')}}</span>
+                </p>
+            </div> --}}
+            <div class="flex flex-col gap-2 p-5">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-2xl text-primary-700 hover:underline">{{$room->name}}</h3>
+                    <p class="bg-primary-100 text-primary-600 text-xs rounded-full px-3 py-1 border border-primary-600"><i class="bi bi-star-fill"></i> 4.5 (120)</p>
+                </div>
+                <div class="text-sm flex items-center gap-2 text-primary-500">
+                    @foreach ($room->room_facility as $facility)
                         <div class="flex items-center gap-1">
-                            @foreach ($room->room_facility as $facility)
-                                <img src="{{Storage::url($facility->icon)}}" alt="" class="h-5 w-5 mb-7">
-                            @endforeach
+                            <img src="{{Storage::url($facility->icon)}}" alt="" class="w-5 h-5">
+                            <p class="text-xs">{{$facility->name}}</p>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <p class="text-primary-500 font-medium">Rp. {{number_format($room->price,0,',','.')}}</p>
-                            <a href="#" class="px-5 py-3 bg-primary-700 text-white rounded-full">Pesan</a>
-                        </div>
-                    </div>
-               </a>
-           @endforeach
+                    @endforeach
+                </div>
+                <p class="text-lg mt-3 text-primary-500">Rp. {{number_format($room->price,0,',','.')}}/malam</p>
+            </div>
+        </a>
+        @endforeach
         </div>
         {{-- <div class="flex flex-nowrap gap-10">
             <div class="w-[250px] lg:w-[350px] bg-white rounded-xl grid grid-rows-2 gap-5 border border-primary-300">

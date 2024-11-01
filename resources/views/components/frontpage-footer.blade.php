@@ -11,7 +11,7 @@
             </div>
         </div>
     
-        <div class="grid grid-cols-2 gap-8">
+        <div class="grid lg:grid-cols-2 gap-8 mt-5">
             <div class="flex flex-col gap-5">
                 <h2 class="text-primary-700 text-xl font-medium">Perusahaan</h2>
                 <div class="flex flex-col gap-1 font-light">

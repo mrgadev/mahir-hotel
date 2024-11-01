@@ -32,6 +32,14 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'phone.required' => 'Nomor telepon wajib diisi!',
+            'password.required' => 'Password wajib diisi!'
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -44,7 +52,8 @@ class LoginRequest extends FormRequest
         if (! Auth::attempt($this->only('phone', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
             throw ValidationException::withMessages([
-                'phone' => '',
+                'phone' => 'Nomor telepon tidak benar',
+                'password' => 'Password anda tidak sesuai'
             ]);
         }
 
