@@ -22,31 +22,49 @@
                 <form method="POST" action="{{ route('register') }}">
                   @csrf
                   <div class="mb-4">
-                      <input type="text" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Nama Lengkap" aria-label="Name" aria-describedby="email-addon" name="name" required autocomplete="off" />
+                      <input type="text" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Nama Lengkap" aria-label="Name" aria-describedby="email-addon" name="name" required autocomplete="off" />
                       @error('name')
                           <span class="text-red-500 text-sm">{{ $message }}</span>
                       @enderror
                   </div>
                   <div class="mb-4">
-                      <input type="email" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Email" aria-label="Email" aria-describedby="email-addon" name="email" required autocomplete="off" />
+                      <input type="email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Email" aria-label="Email" aria-describedby="email-addon" name="email" required autocomplete="off" />
                       @error('email')
                           <span class="text-red-500 text-sm">{{ $message }}</span>
                       @enderror
                   </div>
                   <div class="mb-4">
-                      <input type="number" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Nomor Telepon" aria-label="Name" aria-describedby="email-addon" name="phone" required autocomplete="off" />
+                      <input type="number" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Nomor Telepon" aria-label="Name" aria-describedby="email-addon" name="phone" required autocomplete="off" />
                       @error('phone')
                           <span class="text-red-500 text-sm">{{ $message }}</span>
                       @enderror
                   </div>
                   <div class="mb-4">
-                      <input type="password" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Password" aria-label="Password" aria-describedby="password-addon" name="password" required />
+                      <div class="relative">
+                        <input 
+                          type="password" name="password" id="password" autocomplete="off" placeholder="Password*" required class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                        <button
+                          type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                        >
+                          <i id="eye-icon" class="fas fa-eye text-gray-300"></i>
+                        </button>
+                      </div>
                       @error('password')
                           <span class="text-red-500 text-sm">{{ $message }}</span>
                       @enderror
                   </div>
                   <div class="mb-4">
-                      <input type="password" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Konfirmasi Password" aria-label="Password" aria-describedby="password-addon" name="password_confirmation" required />
+                      <div class="relative">
+                        <input 
+                          type="password" name="password_confirmation" id="password_confirmation" autocomplete="off" placeholder="Konfirmasi Password" required class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                        <button
+                          type="button" onclick="togglePasswordConfirmation()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                        >
+                          <i id="eye-icon-2" class="fas fa-eye text-gray-300"></i>
+                        </button>
+                      </div>
                       @error('password_confirmation')
                           <span class="text-red-500 text-sm">{{ $message }}</span>
                       @enderror

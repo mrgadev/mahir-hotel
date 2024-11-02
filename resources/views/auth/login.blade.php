@@ -23,13 +23,22 @@
                     @csrf
                     @method('POST')
                     <div class="mb-4">
-                        <input type="number" name="phone" autocomplete="off" placeholder="Nomor Telepon*" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding  p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                        <input type="number" name="phone" autocomplete="off" placeholder="Nomor Telepon*" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" />
                         @if ($errors->has('phone'))
                           <p  class="text-red-500 mt-3 text-sm">{{$errors->first('phone')}}</p>
                         @endif
                     </div>
                     <div class="mb-4">
-                        <input type="password" name="password" autocomplete="off" placeholder="Password*" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                        <div class="relative">
+                          <input 
+                            type="password" name="password" id="password" required autocomplete="off" placeholder="Password*" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                          />
+                          <button
+                            type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                          >
+                            <i id="eye-icon" class="fas fa-eye text-gray-300"></i>
+                          </button>
+                        </div>
                         @if ($errors->has('password'))
                           <p class="text-red-500 mt-3 text-sm">{{$errors->first('password')}}</p>
                         @endif
