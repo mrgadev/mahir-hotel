@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                     <div id="room_selection" class="grid grid-cols-1 gap-5 hidden mt-10">
-                                        <h2 class="text-md font-medium">Kamar</h2>
+                                        <h2 class="text-md font-medium">Pilih Kamar</h2>
                                         <div class="flex flex-wrap gap-5">
                                             @foreach ($rooms as $room)
                                             <div class="flex items-center gap-2 rounded-full bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
