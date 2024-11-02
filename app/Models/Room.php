@@ -11,4 +11,8 @@ class Room extends Model
     public function room_facility() {
         return $this->belongsToMany(RoomFacilities::class);
     }
+
+    public function promos(){
+        return $this->belongsToMany(Promo::class);
+    }
 }
