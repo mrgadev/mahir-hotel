@@ -19,21 +19,20 @@
                 {{-- <p class="mb-0 text-[#976033]">Masuk ke Mahir Hotel untuk melakukan reservasi kamar</p> --}}
               </div>
               <div class="flex-auto p-6">
-                <form role="form" method="POST" action="{{route('login')}}">
+                <form role="form" method="POST" action="{{route('login.email.strore')}}">
                     @csrf
                     @method('POST')
                     <div class="mb-4">
                         <div class=" pb-0 mb-0 flex justify-between">
-                            <label class="font-medium text-sm mb-5x text-primary-700">Nomor Handphone</label>
-                            <a href="{{route('login.email')}}" class="font-normal text-sm mb-5x text-primary-700 underline">Email?</a>
+                            <label class="font-medium text-sm mb-5x text-primary-700">Email</label>
+                            <a href="{{route('login')}}" class="font-normal text-sm mb-5x text-primary-700 underline">Nomor Hanphone?</a>
                             {{-- <p class="mb-0 text-[#976033]">Masuk ke Mahir Hotel untuk melakukan reservasi kamar</p> --}}
                         </div>
-                        <input type="number" name="phone" autocomplete="off" placeholder="Nomor Telepon*" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" />
-                        @if ($errors->has('phone'))
-                          <p  class="text-red-500 mt-3 text-sm">{{$errors->first('phone')}}</p>
+                        <input type="email" name="email" autocomplete="off" placeholder="Email*" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" />
+                        @if ($errors->has('email'))
+                          <p  class="text-red-500 mt-3 text-sm">{{$errors->first('email')}}</p>
                         @endif
                     </div>
-
                     <div class="mb-4">
                       <div class="relative">
                           <div class="pb-0 mb-0 flex justify-between">
@@ -49,12 +48,12 @@
                           <button
                             type="button" onclick="togglePassword()" class="absolute right-3 top-[70%] -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
                           >
-                            <i id="eye-icon" class="fas fa-eye text-gray-400"></i>
+                            <i id="eye-icon" class="fas fa-eye text-gray-300"></i>
                           </button>
-                      </div>
-                      @if ($errors->has('password'))
-                        <p class="text-red-500 mt-3 text-sm">{{$errors->first('password')}}</p>
-                      @endif
+                        </div>
+                        @if ($errors->has('password'))
+                            <p class="text-red-500 mt-3 text-sm">{{$errors->first('password')}}</p>
+                        @endif
                     </div>
                     <div class="text-center">
                         <button type="submit" class="inline-block w-full px-5 py-2.5 mt-2 mb-2 font-medium text-center text-white align-middle transition-all bg-primary-500 rounded-lg cursor-pointer hover:shadow-xs leading-normal text-sm  hover:bg-primary-700">Sign in</button>
@@ -77,7 +76,3 @@
   </section>
 </main>
 @endsection
-@push('addon-script')
-
-  
-@endpush
