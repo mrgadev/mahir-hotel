@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Promo;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class PromoController extends Controller
@@ -21,7 +22,8 @@ class PromoController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.promos.create');
+        $rooms = Room::all();
+        return view('dashboard.admin.promos.create', compact('rooms'));
     }
 
     /**
@@ -42,23 +44,39 @@ class PromoController extends Controller
             'name' => 'required',
             'code' => 'required',
             'cover' => 'required|mimes:jpeg,jpg,png,avif,webp',
-            'amount' => 'required',
+            'amount' => 'required|max:95',
             'start_date' => 'required',
             'end_date' => 'required',
+            'is_all' => 'required',
+            'room_id' => 'required|array',
+            'room_id.*' => 'exists:rooms,id',
         ], $message);
 
         if($request->hasFile('cover')){
             $coverPath = $request->file('cover')->store('cover', 'public');
         }
 
-        Promo::create([
-            'name' => $request->name,
-            'code' => $request->code,
-            'cover' => $coverPath,
-            'amount' => $request->amount,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-        ]);
+        // Promo::create([
+        //     'name' => $request->name,
+        //     'code' => $request->code,
+        //     'cover' => $coverPath,
+        //     'amount' => $request->amount,
+        //     'start_date' => $request->start_date,
+        //     'end_date' => $request->end_date,
+        //     'is_all' => $request->is_all,
+        // ]);
+
+        $promo = new Promo();
+        $promo->name = $request->name;
+        $promo->code = $request->code;
+        $promo->cover = $coverPath;
+        $promo->amount = $request->amount;
+        $promo->start_date = $request->start_date;
+        $promo->end_date = $request->end_date;
+        $promo->is_all = $request->is_all;
+        $promo->save();
+
+        $promo->rooms()->sync($request->room_id);
 
         return redirect()->route('dashboard.promo.index')->with('success', 'Promo created successfully');
     }
@@ -76,7 +94,8 @@ class PromoController extends Controller
      */
     public function edit(Promo $promo)
     {
-        return view('dashboard.admin.promos.edit', compact('promo'));
+        $rooms = Room::all();
+        return view('dashboard.admin.promos.edit', compact('promo', 'rooms'));
     }
 
     /**
@@ -88,9 +107,12 @@ class PromoController extends Controller
             'name' => 'required',
             'code' => 'required',
             'cover' => 'nullable',
-            'amount' => 'required',
+            'amount' => 'required|max:95',
             'start_date' => 'required',
             'end_date' => 'required',
+            'is_all' => 'required', // tambah boolean disini
+            'room_id' => 'nullable|array',
+            'room_id.*' => 'exists:rooms,id',
         ]);
 
         if($request->hasFile('cover')){
@@ -99,6 +121,21 @@ class PromoController extends Controller
             $coverPath = $promo->cover;
         }
 
+        // Ubah pengecekan is_all nya gini
+        if ($request->boolean('is_all')) { // pake method boolean()
+            $promo->rooms()->detach();
+            $rooms = [];
+        } else {
+            if ($request->has('room_id')) {
+                $rooms = $request->room_id;
+            } else {
+                $rooms = $promo->rooms->pluck('id')->toArray();
+            }
+        }
+
+        $promo->rooms()->sync($rooms);
+
+        // Convert is_all ke boolean sebelum update
         $promo->update([
             'name' => $request->name,
             'code' => $request->code,
@@ -106,6 +143,7 @@ class PromoController extends Controller
             'amount' => $request->amount,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
+            'is_all' => $request->boolean('is_all') // pake method boolean() disini juga
         ]);
 
         return redirect()->route('dashboard.promo.index')->with('success', 'Promo updated successfully');
@@ -117,6 +155,7 @@ class PromoController extends Controller
     public function destroy(Promo $promo)
     {
         $promo->delete();
+        $promo->rooms()->detach();
         return redirect()->route('dashboard.promo.index')->with('success', 'Promo deleted successfully');
     }
 }

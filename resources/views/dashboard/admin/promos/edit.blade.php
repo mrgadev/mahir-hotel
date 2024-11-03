@@ -95,7 +95,7 @@
 
                                         <div class="mt-5">
                                             <label for="start_date" class="block mb-3 font-medium text-gray-700 text-md">Tanggal Mulai</label>
-                                            <input placeholder="Tanggak Mulai" type="date" name="start_date" id="start_date" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$promo->start_date}}">
+                                            <input placeholder="Tanggal Mulai" type="date" name="start_date" id="start_date" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$promo->start_date}}">
 
                                             @if ($errors->has('start_date'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('start_date')}}</p>
@@ -103,12 +103,42 @@
                                         </div>
 
                                         <div class="mt-5">
-                                            <label for="end_date" class="block mb-3 font-medium text-gray-700 text-md">Tanggal Berakhir</label>
-                                            <input placeholder="Tanggak Berakhir" type="date" name="end_date" id="end_date" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$promo->end_date}}">
+                                                <label for="end_date" class="block mb-3 font-medium text-gray-700 text-md">Tanggal Berakhir</label>
+                                                <input placeholder="Tanggal Berakhir" type="date" name="end_date" id="end_date" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$promo->end_date}}">
 
-                                            @if ($errors->has('end_date'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('end_date')}}</p>
-                                            @endif
+                                                @if ($errors->has('end_date'))
+                                                    <p class="text-red-500 mb-3 text-sm">{{$errors->first('end_date')}}</p>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-10 ms-2">
+                                            <label for="is_all" class="block mb-3 font-medium text-gray-700 text-md">Kategori Promo</label>
+                                            <div class="flex items-center space-x-4">
+                                                <label class="flex items-center">
+                                                    <input type="radio" name="is_all" value="Yes" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2" 
+                                                        {{ $promo->is_all === 1 ? 'checked' : '' }}>
+                                                    <span class="ml-2">Semua</span>
+                                                </label>
+                                                <label class="flex items-center">
+                                                    <input type="radio" name="is_all" value="No" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2" 
+                                                        {{ $promo->is_all === 0 ? 'checked' : '' }}>
+                                                    <span class="ml-2">Per Kamar</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid grid-cols-1 gap-5 my-5 mt-10">
+                                            <h2 class="text-md font-medium">Pilih Kamar</h2>
+                                            <div class="flex flex-wrap gap-5">
+                                                @foreach ($rooms as $room)
+                                                <div class="flex items-center gap-2 rounded-full bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                                    <input type="checkbox" name="room_id[]" id="room_id{{$loop->iteration}}" value="{{$room->id}}" class="hidden" {{ $promo->rooms->contains($room->id) ? 'checked' : '' }} onclick="console.log('{{$room->name}}')">
+                                                    <img src="{{url($room->cover)}}" class="w-5 h-5 object-cover object-center" alt="">
+                                                    <label for="room_id{{$loop->iteration}}" class="hover:cursor-pointer">{{$room->name}}</label>
+                                                </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -150,5 +180,37 @@
             .catch(error => {
                 console.error(error);
             });
+
+        // Get necessary DOM elements
+        const roomSelectionSection = document.querySelector('.grid.grid-cols-1.gap-5');
+        const promoTypeRadios = document.getElementsByName('is_all');
+        const roomCheckboxes = document.querySelectorAll('input[name="room_id[]"]');
+
+        // Function to toggle room selection visibility
+        function toggleRoomSelection() {
+            const selectedValue = document.querySelector('input[name="is_all"]:checked').value;
+            if (selectedValue === 'No') { // Per Kamar
+                roomSelectionSection.classList.remove('hidden');
+            } else { // Semua
+                roomSelectionSection.classList.add('hidden');
+                // Uncheck all room checkboxes when hiding
+                roomCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            }
+        }
+
+        // Add event listeners to radio buttons
+        promoTypeRadios.forEach(radio => {
+            radio.addEventListener('change', toggleRoomSelection);
+        });
+
+        // Initial state setup based on existing selection
+        window.addEventListener('DOMContentLoaded', () => {
+            // Hide room selection if "Semua" is checked initially
+            if (document.querySelector('input[name="is_all"][value="Yes"]').checked) {
+                roomSelectionSection.classList.add('hidden');
+            }
+        });
     </script>
 @endpush

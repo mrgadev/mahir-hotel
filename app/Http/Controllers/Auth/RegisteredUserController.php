@@ -69,9 +69,8 @@ class RegisteredUserController extends Controller
         // Auth::login($user);
         $random_url = Str::random(64);
         
-        $pesan = 'ini otp anda ';
-        $finalPesan = $pesan . $user->otp;
-        $pesan1 = $this->send_message($request->phone, $finalPesan);
+        $pesan = 'Halo'. $user->name . '/n Silahkan Masukkan Kode OTP Untuk Melanjutkan Registrasi /n'. $user->otp;
+        $pesan1 = $this->send_message($request->phone, $pesan);
 
         session(['user' => $user]);
         return redirect()->route('verify', compact('phone', 'random_url'));
@@ -101,7 +100,7 @@ class RegisteredUserController extends Controller
 
             Auth::login($user);
 
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('dashboard');
         }else{
             return redirect()->back()->withErrors(['otp' => 'token sudah kadarluarsa']);
         }
@@ -117,9 +116,8 @@ class RegisteredUserController extends Controller
         $user->update([
             'otp' => $rand
         ]);
-        $pesan = 'ini otp anda';
-        $finalPesan = $pesan . $user->otp;
-        $pesan1 = $this->send_message($request->phone, $finalPesan);
+        $pesan = "Halo ". $user->name . "\n\n Silahkan Masukkan Kode OTP Untuk Melanjutkan Registrasi \n\n *$user->otp*";
+        $pesan1 = $this->send_message($request->phone, $pesan);
         $random_url = Str::random(64);
 
         return redirect()->route('verify', compact('phone', 'random_url'));

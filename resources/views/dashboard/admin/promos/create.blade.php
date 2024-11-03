@@ -98,6 +98,35 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    <div class="mt-8">
+                                        <label class="block mb-2 font-medium text-gray-700">Kategori Promo</label>
+                                        <div class="flex items-center space-x-4">
+                                            <label class="flex items-center">
+                                                <input type="radio" name="is_all" value="1" 
+                                                    class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2">
+                                                <span class="ml-2">Semua</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="radio" name="is_all" value="0" 
+                                                    class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2">
+                                                <span class="ml-2">Per Kamar</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div id="room_selection" class="grid grid-cols-1 gap-5 hidden mt-10">
+                                        <h2 class="text-md font-medium">Pilih Kamar</h2>
+                                        <div class="flex flex-wrap gap-5">
+                                            @foreach ($rooms as $room)
+                                            <div class="flex items-center gap-2 rounded-full bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                                <input type="checkbox" name="room_id[]" id="room_id{{$loop->iteration}}" value="{{$room->id}}" class="hidden" onclick="console.log('{{$room->name}}')">
+                                                <img src="{{url($room->cover)}}" class="w-5 h-5 object-cover object-center" alt="">
+                                                <label for="room_id{{$loop->iteration}}" class="hover:cursor-pointer">{{$room->name}}</label>
+                                            </div>
+                                        
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="px-4 py-3 text-right sm:px-6">
@@ -124,5 +153,40 @@
             .catch(error => {
                 console.error(error);
             });
+
+        // Get necessary DOM elements
+        const roomSelectionSection = document.getElementById('room_selection');
+        const promoTypeRadios = document.getElementsByName('is_all');
+        const roomCheckboxes = document.querySelectorAll('input[name="room_id[]"]');
+
+        // Add event listeners to radio buttons
+        promoTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === '0') { // Jika value 0 (Per Kamar)
+                    // Show room selection section
+                    roomSelectionSection.classList.remove('hidden');
+                    
+                    // Reset all checkboxes when showing
+                    roomCheckboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                } else { // Jika value 1 (Semua)
+                    // Hide room selection section
+                    roomSelectionSection.classList.add('hidden');
+                    
+                    // Uncheck all room checkboxes when hiding
+                    roomCheckboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                }
+            });
+        });
+
+        // Optional: Add click handler for room selection
+        roomCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                console.log(`Room ${this.value} ${this.checked ? 'selected' : 'unselected'}`);
+            });
+        });
     </script>
 @endpush

@@ -22,26 +22,32 @@
                 <form role="form" method="POST" action="{{route('login')}}">
                     @csrf
                     @method('POST')
-                    <div class="flex flex-col gap-3 mb-4">
-                        <div class="flex items-center justify-between">
-                          <label for="phone" class="text-sm">Nomor Telepon <span class="text-red-700 font-semibold">*</span></label>
-                          <a href="{{route('login.email')}}" class="text-primary-500 text-sm font-light bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500] underline">Login dengan Email</a>
+                    <div class="mb-4">
+                      <div class="flex items-center justify-between">
+                        <label for="phone" class="text-sm">Nomor Telepon <span class="text-red-700 font-semibold">*</span></label>
+                        <a href="{{route('login.email')}}" class="text-primary-500 text-sm font-light bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500] underline">Login dengan Email</a>
 
-                        </div>
+                      </div>
                         <input type="number" name="phone" autocomplete="off" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding  p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
                         @if ($errors->has('phone'))
                           <p  class="text-red-500 mt-3 text-sm">{{$errors->first('phone')}}</p>
                         @endif
                     </div>
-                    <div class="flex flex-col gap-3 mb-4">
-                        <div class="flex items-center justify-between w-full">
-                          <label for="password" class="text-sm">Password <span class="text-red-700 font-semibold">*</span></label>
-                          <a href="{{route('forgot.password.phone')}}" class="text-primary-500 text-sm font-light bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500] underline">Lupa Sandi?</a>
-                        </div>
-                        <input type="password" name="password" autocomplete="off" placeholder="Password*" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                    <div class="mb-4">
+                      <div class="flex items-center justify-between w-full">
+                        <label for="password" class="text-sm">Password <span class="text-red-700 font-semibold">*</span></label>
+                        <a href="{{route('forgot.password.phone')}}" class="text-primary-500 text-sm font-light bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500] underline">Lupa Sandi?</a>
+                      </div>
+                        <input type="password" name="password" autocomplete="off" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                        <button
+                            type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                          >
+                            <i id="eye-icon" class="fas fa-eye text-gray-300"></i>
+                          </button>
                         @if ($errors->has('password'))
                           <p class="text-red-500 mt-3 text-sm">{{$errors->first('password')}}</p>
                         @endif
+
                       </div>
                     <div class="text-center">
                         <button type="submit" class="inline-block w-full px-5 py-2.5 mt-2 mb-2 font-medium text-center text-white align-middle transition-all bg-primary-500 rounded-lg cursor-pointer hover:shadow-xs leading-normal text-sm  hover:bg-primary-700">Sign in</button>

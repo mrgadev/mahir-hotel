@@ -115,7 +115,6 @@
                                                 <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt="">
                                                 <label for="room_facilities_id{{$loop->iteration}}" class="hover:cursor-pointer">{{$room_facility->name}}</label>
                                             </div>
-                                        
                                             @endforeach
                                         </div>
                                     </div>

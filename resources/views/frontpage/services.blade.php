@@ -104,10 +104,7 @@
                     <h3 class="text-xl text-primary-700 hover:underline">{{$service->name}}</h3>
                     <div class="text-sm flex items-center gap-1 text-primary-500">
                         {{-- <span class="material-symbols-rounded scale-75">bed</span> --}}
-                        <span class="material-symbols-rounded scale-75">restaurant</span>
-                        <span class="material-symbols-rounded scale-75">photo_camera</span>
-                        <span class="material-symbols-rounded scale-75">directions_car</span>
-                        <span class="material-symbols-rounded scale-75">group</span> 300 pax
+                        {{$service->serviceCategory->name}}
                     </div>
                 </div>
             </a>
