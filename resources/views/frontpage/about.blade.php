@@ -45,33 +45,65 @@
 
 
 <div class="mx-12 mb-16 lg:mx-36 flex flex-col lg:flex-row lg:justify-between">
-    <form action="#" class="">
+    <form action="{{route('frontpage.message.store')}}" class="" method="POST">
+        @csrf
+        @method('POST')
         <h2 class="mb-5 text-xl text-primary-700 font-medium">Kirim Pesan</h2>
         <div class="grid lg:grid-cols-2 gap-5 text-gray-800 font-light">
             <div class="flex flex-col gap-2">
-                <label for="firstName" class="text-sm">Nama depan</label>
-                <input type="text" class="rounded-lg">
+                <label for="firstName" class="text-sm">Judul pesan</label>
+                <input type="text" class="rounded-lg" name="title">
+                @if ($errors->has('title'))
+                    <p  class="text-red-500 mt-3 text-sm">{{$errors->first('title')}}</p>
+                @endif
             </div>
             <div class="flex flex-col gap-2">
-                <label for="lastName" class="text-sm">Nama belakang</label>
-                <input type="text" class="rounded-lg">
+                <label for="lastName" class="text-sm">Nama lengkap</label>
+                @guest
+                <input type="text" class="rounded-lg" name="name">
+                @endguest
+                @auth
+                <input type="text" class="rounded-lg" name="name" value="{{Auth::user()->name}}">
+                @endauth
+                @if ($errors->has('name'))
+                    <p  class="text-red-500 mt-3 text-sm">{{$errors->first('name')}}</p>
+                @endif
             </div>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-5 my-5 text-gray-800 font-light">
             <div class="flex flex-col gap-2">
                 <label for="email" class="text-sm">Email</label>
-                <input type="email" class="rounded-lg">
+                @guest
+                <input type="email" class="rounded-lg" name="email">
+                @endguest
+                @auth
+                <input type="email" class="rounded-lg" name="email" value="{{Auth::user()->email}}">
+                @endauth
+                @if ($errors->has('email'))
+                    <p  class="text-red-500 mt-3 text-sm">{{$errors->first('email')}}</p>
+                @endif
             </div>
             <div class="flex flex-col gap-2">
                 <label for="phone" class="text-sm">Nomor telepon</label>
-                <input type="text" class="rounded-lg">
+                @guest
+                <input type="text" class="rounded-lg" name="phone">
+                @endguest
+                @auth
+                <input type="text" class="rounded-lg" name="phone" value="{{Auth::user()->phone}}">
+                @endauth
+                @if ($errors->has('phone'))
+                    <p  class="text-red-500 mt-3 text-sm">{{$errors->first('phone')}}</p>
+                @endif
             </div>
         </div>
 
         <div class="flex flex-col gap-2 text-gray-800 font-light">
             <label for="message" class="text-sm">Pesan</label>
-            <textarea name="" id="" cols="30" rows="10" class="rounded-lg"></textarea>
+            <textarea name="message" id="" cols="30" rows="10" class="rounded-lg"></textarea>
+            @if ($errors->has('message'))
+                <p  class="text-red-500 mt-3 text-sm">{{$errors->first('message')}}</p>
+            @endif
         </div>
 
         <button type="submit" class="px-7 py-3 rounded-full border border-primary-700 mt-8 text-primary-700 w-full transition-all hover:bg-primary-700 hover:text-white">Kirim Pesan</button>

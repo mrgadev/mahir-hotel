@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontpageController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HotelFacilitiesController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NearbyLocationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PromoController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Models\Message;
+use Symfony\Component\Mime\MessageConverter;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('home');
@@ -45,6 +48,10 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::resource('/service', ServiceController::class)->middleware('role:admin');
     
     Route::resource('/service_category', ServiceCategoryController::class)->middleware('role:admin');
+
+    Route::get('/pesan', [MessageController::class, 'index'])->name('message')->middleware('role:admin|staff');
+    Route::get('/pesan/{message:slug}', [MessageController::class, 'show'])->name('message.show')->middleware('role:admin|staff');
+    Route::delete('/pesan/{message}', [MessageController::class, 'destroy'])->name('message.delete')->middleware('role:admin|staff');
 });
 
 Route::middleware('auth')->group(function () {

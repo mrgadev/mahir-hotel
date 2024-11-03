@@ -34,11 +34,12 @@ class FrontpageController extends Controller
         return view('frontpage.rooms', compact('rooms'));
     }
 
-    public function room_detail(string $id) {
-        $room = Room::with('room_facility')->findOrFail($id);
+    public function room_detail(Room $room) {
+        // $room = Room::where('slug',$slug)->with('room_facility')->get();
         // dd($room->id);
         return view('frontpage.room-detail', compact('room'));
     }
+
 
     public function services(Request $request) {
         $serviceCategories = ServiceCategory::all();

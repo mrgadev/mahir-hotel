@@ -20,6 +20,8 @@ Route::middleware('guest')->group(function () {
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
+    Route::get('login/email', [AuthenticatedSessionController::class, 'createEmail'])
+        ->name('login.email');
 
     Route::get('login/email', [AuthenticatedSessionController::class, 'emailLogin'])
         ->name('login.email');
@@ -28,6 +30,7 @@ Route::middleware('guest')->group(function () {
     Route::post('login/email/create', [AuthenticatedSessionController::class, 'emailLoginStore'])->name('login.email.strore');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('login/email', [AuthenticatedSessionController::class, 'storeEmail'])->name('login.email.process');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
