@@ -20,6 +20,10 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function emailLogin(): View{
+        return view('auth.email-login');
+    }
+
     /**
      * Handle an incoming authentication request.
      */
@@ -40,6 +44,35 @@ class AuthenticatedSessionController extends Controller
         }
 
     }
+
+    public function emailLoginStore(Request $request){
+        // Validasi input
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        // Coba login
+        if (Auth::attempt($credentials)) {
+            // Regenerate session
+            $request->session()->regenerate();
+
+            $user = Auth::user(); // Ambil user yang login
+
+            // Cek role
+            if($user->hasRole('admin') || $user->hasRole('staff')) {
+                return redirect()->intended(route('dashboard.home'));
+            } elseif($user->hasRole('user')) {
+                return redirect()->route('frontpage.index');
+            }
+        }
+
+        // Kalo gagal login
+        return redirect()->back()
+            ->withInput()
+            ->withErrors(['email' => 'Email atau password salah!']);
+    }
+
 
     /**
      * Destroy an authenticated session.
