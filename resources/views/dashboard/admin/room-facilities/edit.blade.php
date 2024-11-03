@@ -1,6 +1,6 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'My Account')
+@section('title', 'Fasilitas Kamar')
 {{-- 
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
@@ -25,11 +25,11 @@
                         <p>Fasilitas Kamar</p>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <p>Buat Fasilitas Kamar</p>
+                    <p>Ubah Fasilitas Kamar</p>
                 </div>
         
                 <h1 class="text-white text-4xl font-medium">
-                    Buat Fasilitas Kamar
+                    Ubah Fasilitas Kamar
                 </h1>
             </div>
             
@@ -56,15 +56,7 @@
                                         <div>
                                             <label for="icon" class="block mb-3 font-medium text-gray-700 text-md">Icon Fasilitas Kamar</label>
                                             <div class="grid grid-cols-1 sm:grid-cols-2">
-                                                <div class="flex items-center mt-1">
-                                                    <a href="#image-modal" class="">
-                                                        <img src="{{Storage::url($room_facility->icon)}}" alt="icon" class=" w-16 h-16 object-cover object-center rounded-full">
-                                                    </a>
-
-                                                    <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Pilih Berkas</label>
-
-                                                    <input type="file" id="choose" name="icon" hidden>
-                                                </div>
+                                                <x-icon-picker></x-icon-picker>
                                             </div>
 
                                             @if ($errors->has('icon'))

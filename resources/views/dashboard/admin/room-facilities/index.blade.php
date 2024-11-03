@@ -74,7 +74,10 @@
                                 <tr class="cursor-pointer">
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$room_facility->id}}</td>
                                     <td class="">
-                                        <img src="{{Storage::url($room_facility->icon)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
+                                        {{-- <img src="{{Storage::url($room_facility->icon)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2"> --}}
+                                        <span class="material-icons">
+                                            {{$room_facility->icon}}
+                                            </span>
                                     </td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$room_facility->name}}</td>
                                     <td class="flex items-center">

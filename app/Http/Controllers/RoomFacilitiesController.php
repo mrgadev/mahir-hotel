@@ -33,22 +33,17 @@ class RoomFacilitiesController extends Controller
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
             'icon.required' => 'Icon fasilitas wajib diupload!',
-            'icon.mimes' => 'File harus bertipe: png,jpg,svg'
         ];
 
         $data = $request->validate([
             'name' => 'required',
-            'icon' => 'required|image|mimes:png,jpg,svg',
+            'icon' => 'required',
             'description' => 'nullable'
         ], $message);
 
-        if($request->hasFile('icon')){
-            $iconPath = $request->file('icon')->store('icons', 'public');
-        }
-
         RoomFacilities::create([
             'name' => $data['name'],
-            'icon' => $iconPath,
+            'icon' => $data['icon'],
             'description' => $data['description'],
         ]);
 
@@ -83,12 +78,12 @@ class RoomFacilitiesController extends Controller
 
         $data = $request->validate([
             'name' => 'required',
-            'icon' => 'nullable|image|mimes:png,jpg,svg',
+            'icon' => 'nullable',
             'description' => 'nullable'
         ], $message);
 
-        if($request->hasFile('icon')){
-            $data['icon'] = $request->file('icon')->store('icons', 'public');
+        if($request->has('icon')){
+            $data['icon'] = $request->icon;
         } else {
             $data['icon'] = $room_facility->icon;
         }

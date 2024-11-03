@@ -38,11 +38,12 @@
                         <label for="password" class="text-sm">Password <span class="text-red-700 font-semibold">*</span></label>
                         <a href="{{route('forgot.password.phone')}}" class="text-primary-500 text-sm font-light bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500] underline">Lupa Sandi?</a>
                       </div>
+                      <div class="relative">
                         <input type="password" name="password" autocomplete="off" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
                         <button
-                            type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                            type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-700 hover:text-gray-700 transition-colors"
                           >
-                            <i id="eye-icon" class="fas fa-eye text-gray-300"></i>
+                            <i id="eye-icon" class="fas fa-eye text-gray-400"></i>
                           </button>
                         @if ($errors->has('password'))
                           <p class="text-red-500 mt-3 text-sm">{{$errors->first('password')}}</p>
@@ -70,3 +71,7 @@
   </section>
 </main>
 @endsection
+@push('addon-script')
+
+  
+@endpush

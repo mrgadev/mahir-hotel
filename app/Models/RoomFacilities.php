@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomFacilities extends Model
 {
-    protected $fillable = ['icon', 'name', 'description', 'google_icons_id'];
+    protected $fillable = ['icon', 'name', 'description', 'color'];
 
     public function rooms() {
         return $this->belongsToMany(Room::class);

@@ -136,7 +136,7 @@
             <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
             <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
             <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
-            <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
+            <a href="{{route('login')}}" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
         </div>
     </nav>
     
@@ -252,7 +252,7 @@
     </div>
 
     <div class="" id="roomsContainer">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
            @foreach ($rooms as $room)
            <a href="{{route('frontpage.rooms.detail', $room->slug)}}" class="flex flex-col rounded-xl shadow-xl">
                <img src="{{url($room->cover)}}" alt="" class="w-full h-64 object-cover rounded-xl relative">

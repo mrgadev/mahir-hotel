@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('google_icons', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('category');
             $table->timestamps();
         });
     }

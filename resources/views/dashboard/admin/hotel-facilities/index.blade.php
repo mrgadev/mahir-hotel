@@ -50,7 +50,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        image
+                                        icon
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -74,7 +74,7 @@
                                 <tr class="cursor-pointer">
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$hotel_facility->id}}</td>
                                     <td class="">
-                                        <img src="{{Storage::url($hotel_facility->icon)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
+                                        <span class="material-icons-round">{{$hotel_facility->icon}}</span>
                                     </td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$hotel_facility->name}}</td>
                                     <td class="flex items-center">

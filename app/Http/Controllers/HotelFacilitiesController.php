@@ -32,7 +32,6 @@ class HotelFacilitiesController extends Controller
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
             'icon.required' => 'Icon fasilitas wajib diupload!',
-            'icon.mimes' => 'File harus bertipe: png,jpg,svg'
         ];
 
         $data = $request->validate([
@@ -41,13 +40,10 @@ class HotelFacilitiesController extends Controller
             'description' => 'nullable',
         ], $message);
 
-        if($request->hasFile('icon')){
-            $iconPath = $request->file('icon')->store('icons', 'public');
-        }
 
         HotelFacilities::create([
             'name' => $data['name'],
-            'icon' => $iconPath,
+            'icon' => $data['icon'],
             'description' => $data['description'],
         ]);
 
@@ -77,7 +73,6 @@ class HotelFacilitiesController extends Controller
     {
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
-            'icon.mimes' => 'File harus bertipe: png,jpg,svg'
         ];
 
         $data = $request->validate([

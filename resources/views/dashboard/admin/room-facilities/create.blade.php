@@ -53,13 +53,16 @@
                                             @endif
                                         </div>
                                         
-                                        <div>
-                                            <label for="icon" class="block mb-3 font-medium text-gray-700 text-md">Icon Fasilitas Kamar</label>
-                                            <input placeholder="" type="file" name="icon" id="icon" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                        <div class="flex flex-col">
+                                            <label for="icon" class="block mb-3 font-medium text-gray-700 text-md">Pilih Ikon dan Warna</label>
+                                            {{--<input placeholder="" type="file" name="icon" id="icon" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
-                                            @if ($errors->has('icon'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('icon')}}</p>
-                                            @endif
+                                             --}}
+                                             <x-icon-picker></x-icon-picker>
+                                             @if ($errors->has('icon'))
+                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('icon')}}</p>
+                                             @endif
+                                            
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 mt-5 items-center">
