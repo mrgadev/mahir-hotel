@@ -20,6 +20,11 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function createEmail(): View
+    {
+        return view('auth.login-email');
+    }
+
     /**
      * Handle an incoming authentication request.
      */
@@ -39,6 +44,28 @@ class AuthenticatedSessionController extends Controller
             return redirect()->back()->with('error', 'Password atau nomor telepon salah!');
         }
 
+    }
+
+    public function storeEmail(Request $request): RedirectResponse
+    {
+        $message = [
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Format email tidak valid',
+            'password.required' => 'Password wajib diisi'
+        ];
+        $data = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $user = User::where('email', $data['email'])->first();
+        if($user->hasRole('admin') || $user->hasRole('staff')) {
+            return redirect()->intended(route('dashboard.home'));
+        } elseif($user->hasRole('user')) {
+            return redirect()->route('frontpage.index');
+        } else {
+            return redirect()->back()->with('error', 'Password atau nomor telepon salah!');
+        }
     }
 
     /**

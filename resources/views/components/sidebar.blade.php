@@ -163,6 +163,32 @@
                 </ul>
                 </a>
             </li>
+
+            {{-- Menu Feedback --}}
+            <li class="mt-0.5 w-full">  
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.message.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="feedbackToggle">
+                    <div class="flex items-center">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="bi bi-chat-text-fill"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease capitalize">umpan balik</span>
+                    </div>
+                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                </a>
+                <ul id="feedbackSubmenu" class="px-4 mx-2 flex flex-col my-3 bg-primary-500 rounded-lg hidden">
+                    <li>
+                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{ Route::is('dashboard.message') ? 'font-medium' : '' }}" href="{{ route('dashboard.message') }}">        
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pesan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="">
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Ulasan Pengguna</span>
+                        </a>
+                    </li>
+                </ul>
+                </a>
+            </li>
         
             <li class="w-full mt-4">
                 <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
@@ -240,7 +266,7 @@
         hotelToggle.addEventListener('click', function(){
             hotelSubmenu.classList.toggle('hidden');
         });
-        
+
         document.getElementById('serviceToggle').addEventListener('click', function() {
             const submenu = document.getElementById('serviceSubmenu');
             submenu.classList.toggle('hidden');
@@ -249,6 +275,11 @@
         document.getElementById('settingsToggle').addEventListener('click', function() {
             const settingssubmenu = document.getElementById('settingsSubmenu');
             settingssubmenu.classList.toggle('hidden');
+        });
+
+        document.getElementById('feedbackToggle').addEventListener('click', function() {
+            const feedbacksubmenu = document.getElementById('feedbackSubmenu');
+            feedbacksubmenu.classList.toggle('hidden');
         });
     </script>
 @endpush

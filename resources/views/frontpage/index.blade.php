@@ -79,6 +79,7 @@
         <a href="{{route('frontpage.index')}}"  class="text-lg font-medium">Mahir Hotel</a>
         <div class="xl:flex gap-8 font-light hidden">
             <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
+            <a href="{{route('frontpage.rooms')}}" class="hover:font-medium {{(Route::is('frontpage.rooms') ? 'font-medium' : '')}}">Kamar</a>
             <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
             <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
             <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
@@ -130,8 +131,9 @@
         </div>
 
         <div class="flex flex-col gap-8 mt-8 font-light">
-            <a href="{{route('frontpage.index')}}" class="hover:font-medium">Beranda</a>
-            <a href="{{route('frontpage.promo')}}" class="hover:font-medium">Promo</a>
+            <a href="{{route('frontpage.index')}}" class="hover:font-medium {{(Route::is('frontpage.index') ? 'font-medium' : '')}}">Beranda</a>
+            <a href="{{route('frontpage.rooms')}}" class="hover:font-medium {{(Route::is('frontpage.rooms') ? 'font-medium' : '')}}">Kamar </a>
+            <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
             <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
             <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
             <a href="#" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
@@ -252,7 +254,7 @@
     <div class="" id="roomsContainer">
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
            @foreach ($rooms as $room)
-           <a href="{{route('frontpage.rooms.detail', $room->id)}}" class="flex flex-col rounded-xl shadow-xl">
+           <a href="{{route('frontpage.rooms.detail', $room->slug)}}" class="flex flex-col rounded-xl shadow-xl">
                <img src="{{url($room->cover)}}" alt="" class="w-full h-64 object-cover rounded-xl relative">
             {{-- <div class="relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">

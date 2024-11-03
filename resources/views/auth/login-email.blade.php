@@ -19,18 +19,18 @@
                 {{-- <p class="mb-0 text-[#976033]">Masuk ke Mahir Hotel untuk melakukan reservasi kamar</p> --}}
               </div>
               <div class="flex-auto p-6">
-                <form role="form" method="POST" action="{{route('login')}}">
+                <form role="form" method="POST" action="{{route('login.email.process')}}">
                     @csrf
                     @method('POST')
                     <div class="flex flex-col gap-3 mb-4">
                         <div class="flex items-center justify-between">
-                          <label for="phone" class="text-sm">Nomor Telepon <span class="text-red-700 font-semibold">*</span></label>
-                          <a href="{{route('login.email')}}" class="text-primary-500 text-sm font-light bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500] underline">Login dengan Email</a>
+                          <label for="email" class="text-sm">Email <span class="text-red-700 font-semibold">*</span></label>
+                          <a href="{{route('login')}}" class="text-primary-500 text-sm font-light bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500] underline">Login dengan Nomor Telepon</a>
 
                         </div>
-                        <input type="number" name="phone" autocomplete="off" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding  p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
-                        @if ($errors->has('phone'))
-                          <p  class="text-red-500 mt-3 text-sm">{{$errors->first('phone')}}</p>
+                        <input type="email" name="email" autocomplete="off" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding  p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                        @if ($errors->has('email'))
+                          <p  class="text-red-500 mt-3 text-sm">{{$errors->first('email')}}</p>
                         @endif
                     </div>
                     <div class="flex flex-col gap-3 mb-4">

@@ -92,6 +92,7 @@ class RoomController extends Controller
         // dd($photos);
         $room = new Room();
         $room->name = $data['name'];
+        $room->slug = Str::slug($data['name']);
         $room->cover = $data['cover'];
         $room->price = $data['price'];
         $room->photos = implode('|',$photos);
