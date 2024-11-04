@@ -94,6 +94,24 @@
             <div class="flex flex-col gap-2">
                 <p class="text-sm flex items-center gap-1 text-primary-500"><span class="material-symbols-rounded">calendar_month</span>{{date('j F Y', strtotime($promo->start_date))}} - {{date('j F Y', strtotime($promo->end_date))}}</p>
                 <h3 class="text-xl text-primary-700">{{$promo->name}}</h3>
+                <p class="text-primary-500">
+                    Berlaku untuk kamar :
+                </p>
+                <div class="flex">
+                    @forelse ($promo->rooms as $room)
+
+                    <div class="flex items-center" style="">
+                        <p class="bg-primary-100 me-2 text-primary-600 text-xs rounded-full px-3 py-1 border border-primary-600">{{$room->name}}</p>
+                    </div>
+
+                    @empty
+
+                    <div class="flex items-center" style="">
+                        <p class="bg-primary-100 me-2 text-primary-600 text-xs rounded-full px-3 py-1 border border-primary-600">Semua Kamar</p>
+                    </div>
+
+                    @endforelse
+                </div>
             </div>
         </div>
         @endforeach
@@ -108,6 +126,7 @@
 
 @endsection
 @push('addons-script')
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         document.addEventListener('scroll', function() {
             const mainNavbar = document.getElementById('mainNavbar');

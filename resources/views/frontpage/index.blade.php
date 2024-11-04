@@ -167,24 +167,26 @@
         <form action="" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full">
             <div class="flex items-center gap-2">
                 <div class="grid grid-cols-1 gap-2">
-                    <label for="" class="text-sm">Pilih Kamar</label>
-                    <select name="" class="outline-none border-none text-lg p-0" id="">
-                        <option value="" class="p-2 ">Pilih Kamar</option>
-                        <option value="">Standard</option>
-                        <option value="">Platinum</option>
-                        <option value="">Premium</option>
+                    <label for="" class="text-sm px-3">Pilih Kamar</label>
+                    <select name="" class="outline-none border-none text-lg px-3" id="">
+                        <option value="" class="p-2 ">-- Pilih Kamar --</option>
+                        @forelse ($rooms as $room)
+                            <option value="">{{$room->name}}</option>
+                        @empty
+                            
+                        @endforelse
                     </select>
                 </div>
                 <div class="grid grid-cols-1 gap-2">
-                    <label for="" class="text-sm">Check-in</label>
-                    <input type="date" class="outline-none border-none text-lg p-0">
+                    <label for="" class="text-sm px-3">Check-in</label>
+                    <input type="date" class="outline-none border-none text-lg px-3">
                 </div>
                 <div class="grid grid-cols-1 gap-2">
-                    <label for="" class="text-sm">Check-out</label>
-                    <input type="date" class="outline-none border-none text-lg p-0" name="" id="">
+                    <label for="" class="text-sm px-3">Check-out</label>
+                    <input type="date" class="outline-none border-none text-lg px-3" name="" id="">
                 </div>
             </div>
-            <button class="text-white bg-primary-500 w-fit px-5 py-3 rounded-full">
+            <button class="text-white bg-primary-500 w-fit px-5 me-3 py-3 rounded-full">
                 Pesan
             </button>
         </form>
