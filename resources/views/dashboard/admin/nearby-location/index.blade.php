@@ -82,7 +82,8 @@
                                 <tr class="cursor-pointer">
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$nearby_location->id}}</td>
                                     <td class="">
-                                        <img src="{{Storage::url($nearby_location->icon)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
+                                        {{-- <img src="{{Storage::url($nearby_location->icon)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2"> --}}
+                                        <span class="material-icons-round">{{$nearby_location->icon}}</span>
                                     </td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$nearby_location->name}}</td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$nearby_location->distance}} M</td>

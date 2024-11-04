@@ -42,6 +42,8 @@ class RoomController extends Controller
             'price.integer' => 'Harga harus berupa angka',
             'photos.required' => 'Gambar lainnya wajib diunggah',
             'room_facilities_id.required' => 'Fasilitas kamar wajib dipilih',
+            'total_rooms.required' => 'Total kamar wajib diisi',
+            'total_rooms.required' => 'Total kamar harus berupa angka'
         ];
         $data = $request->validate([
             'name' => 'required',
@@ -50,6 +52,7 @@ class RoomController extends Controller
             'photos' => 'required',
             'room_facilities_id' => 'required|array',
             'room_facilities_id.*' => 'exists:room_facilities,id',
+            'total_rooms' => 'integer|required',
             'description' => 'nullable'
         ], $message);
 
@@ -98,6 +101,7 @@ class RoomController extends Controller
         $room->photos = implode('|',$photos);
         $room->description = $data['description'];
         $room->slug = $room_slug_name;
+        $room->total_rooms = $data['total_rooms'];
         $room->save();
 
         $room->room_facility()->sync($request->room_facilities_id);
@@ -142,6 +146,8 @@ class RoomController extends Controller
             'price.integer' => 'Harga harus berupa angka',
             'photos.required' => 'Gambar lainnya wajib diunggah',
             'room_facilities_id.required' => 'Fasilitas kamar wajib dipilih',
+            'total_rooms.required' => 'Total kamar wajib diisi',
+            'total_rooms.integer' => 'Total kamar harus berupa angka'
         ];
         $existingImages = $room->photos ? explode('|', $room->photos) : [];
         $data = $request->validate([
@@ -151,6 +157,7 @@ class RoomController extends Controller
             'photos' => 'nullable',
             'room_facilities_id' => 'required|array',
             'room_facilities_id.*' => 'exists:room_facilities,id',
+            'total_rooms' => 'integer|required',
             'description' => 'nullable'
         ], $message);
 
@@ -215,6 +222,7 @@ class RoomController extends Controller
             'name' => $data['name'],
             'cover'=> $data['cover'],
             'price' => $data['price'],
+            'total_rooms' => $data['total_rooms'],
             'slug' => $room_slug_name,
             'photos' => $photos,
             'description' => $data['description'],

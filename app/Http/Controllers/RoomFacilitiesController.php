@@ -73,7 +73,6 @@ class RoomFacilitiesController extends Controller
     {
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
-            'icon.mimes' => 'File harus bertipe: png,jpg,svg'
         ];
 
         $data = $request->validate([

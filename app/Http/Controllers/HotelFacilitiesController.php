@@ -81,16 +81,9 @@ class HotelFacilitiesController extends Controller
             'description' => 'required',
         ], $message);
 
-        if($request->hasFile('icon')){
-            $iconPath = $request->file('icon')->store('icons', 'public');
-            $hotel_facility->icon = $iconPath;
-        }else{
-            $iconPath = $hotel_facility->icon;
-        }
-
         $hotel_facility->update([
             'name' => $data['name'],
-            'icon' => $iconPath,
+            'icon' => $data['icon'],
             'description' => $data['description'],
         ]);
 

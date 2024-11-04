@@ -83,17 +83,29 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid grid-cols-1 gap-5 my-5">
-                                        <h2 class="text-md font-medium">Fasilitas Kamar</h2>
-                                        <div class="flex flex-wrap gap-5">
-                                            @foreach ($room_facilities as $room_facility)
-                                            <div class="flex items-center gap-2 rounded-full bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
-                                                <input type="checkbox" name="room_facilities_id[]" id="room_facilities_id{{$loop->iteration}}" value="{{$room_facility->id}}" class="hidden" onclick="console.log('{{$room_facility->name}}')">
-                                                <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt="">
-                                                <label for="room_facilities_id{{$loop->iteration}}" class="hover:cursor-pointer">{{$room_facility->name}}</label>
+                                    <div class="grid lg:grid-cols-2 gap-5 ">
+                                        <div>
+                                            <h2 class="text-md font-medium mb-3">Fasilitas Kamar</h2>
+                                            <div class="flex flex-wrap gap-5">
+                                                @foreach ($room_facilities as $room_facility)
+                                                <div class="flex items-center gap-2 rounded-full bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                                    <input type="checkbox" name="room_facilities_id[]" id="room_facilities_id{{$loop->iteration}}" value="{{$room_facility->id}}" class="hidden" onclick="console.log('{{$room_facility->name}}')">
+                                                    {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                                    <span class="material-icons-round">{{$room_facility->icon}}</span>
+                                                    <label for="room_facilities_id{{$loop->iteration}}" class="hover:cursor-pointer">{{$room_facility->name}}</label>
+                                                </div>
+                                            
+                                                @endforeach
                                             </div>
-                                        
-                                            @endforeach
+                                        </div>
+
+                                        <div>
+                                            <label for="total_rooms" class="block mb-3 font-medium text-gray-700 text-md">Total Kamar</label>
+                                            <input type="number" name="total_rooms" id="total_rooms" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+
+                                            @if ($errors->has('total_rooms'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('total_rooms')}}</p>
+                                            @endif
                                         </div>
                                     </div>
 

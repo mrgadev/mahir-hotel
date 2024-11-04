@@ -268,10 +268,11 @@
                     <h3 class="text-2xl text-primary-700 hover:underline">{{$room->name}}</h3>
                     <p class="bg-primary-100 text-primary-600 text-xs rounded-full px-3 py-1 border border-primary-600"><i class="bi bi-star-fill"></i> 4.5 (120)</p>
                 </div>
-                <div class="text-sm flex items-center gap-2 text-primary-500">
+                <div class="text-sm flex items-center gap-1 text-primary-500">
                     @foreach ($room->room_facility as $facility)
                         <div class="flex items-center gap-1">
-                            <img src="{{Storage::url($facility->icon)}}" alt="" class="w-5 h-5">
+                            {{-- <img src="{{Storage::url($facility->icon)}}" alt="" class="w-5 h-5"> --}}
+                            <span class="material-icons-round scale-50">{{$facility->icon}}</span>
                             <p class="text-xs">{{$facility->name}}</p>
                         </div>
                     @endforeach
@@ -421,8 +422,7 @@
             <div class="grid xl:grid-cols-2 gap-8">
                 @foreach ($nearby_locations as $nearby_location)
                 <div class="flex items-center gap-5">
-                    {{-- <span class="material-symbols-rounded text-primary-400 scale-[150%]">subway</span> --}}
-                    <img src="{{Storage::url($nearby_location->icon)}}" alt="">
+                    <span class="material-icons-round text-primary-400 scale-[150%]">{{$nearby_location->icon}}</span>
                     <div class="flex flex-col">
                         <p class="text-lg text-gray-700">{{$nearby_location->name}}</p>
                         <p class="text-primary-400">{{$nearby_location->distance}} M</p>

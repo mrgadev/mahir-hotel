@@ -55,20 +55,10 @@
                                         
                                         <div>
                                             <label for="icon" class="block mb-3 font-medium text-gray-700 text-md">Icon Lokasi Terdekat</label>
-                                            <div class="grid grid-cols-1 sm:grid-cols-2">
-                                                <div class="flex items-center mt-1">
-                                                    <a href="#image-modal" class="">
-                                                        <img src="{{Storage::url($nearby_location->icon)}}" alt="icon" class=" w-16 h-16 object-cover object-center rounded-full">
-                                                    </a>
-                                                    
-                                                    <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Pilih Berkas</label>
-                                                    
-                                                    <input type="file" id="choose" name="icon" hidden>
-                                                </div>
-                                            </div>
-                                            
+                                            <x-icon-picker></x-icon-picker>
+
                                             @if ($errors->has('icon'))
-                                            <p class="text-red-500 mb-3 text-sm">{{$errors->first('icon')}}</p>
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('icon')}}</p>
                                             @endif
                                         </div>
                                         <div>

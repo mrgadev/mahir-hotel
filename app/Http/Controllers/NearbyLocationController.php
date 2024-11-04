@@ -32,24 +32,19 @@ class NearbyLocationController extends Controller
     {
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
-            'icon.required' => 'Icon fasilitas wajib diupload!',
-            'icon.mimes' => 'File harus bertipe: png,jpg,svg',
+            'icon.required' => 'Icon fasilitas wajib dipilih!',
             'distance.required' => 'Jarak harus diisi!'
         ];
 
         $data = $request->validate([
             'name' => 'required',
-            'icon' => 'required|image|mimes:png,jpg,svg',
+            'icon' => 'required',
             'distance' => 'required'
         ], $message);
 
-        if($request->hasFile('icon')){
-            $iconPath = $request->file('icon')->store('icons', 'public');
-        }
-
         NearbyLocation::create([
             'name' => $data['name'],
-            'icon' => $iconPath,
+            'icon' => $data['icon'],
             'distance' => $data['distance'],
         ]);
 
@@ -79,21 +74,14 @@ class NearbyLocationController extends Controller
     {
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
-            'icon.mimes' => 'File harus bertipe: png,jpg,svg',
             'distance.required' => 'Jarak wajib diisi'
         ];
 
         $data = $request->validate([
             'name' => 'required',
-            'icon' => 'nullable|image|mimes:png,jpg,svg',
+            'icon' => 'nullable',
             'distance' => 'required'
         ], $message);
-
-        if($request->hasFile('icon')){
-            $data['icon'] = $request->file('icon')->store('icons', 'public');
-        } else {
-            $data['icon'] = $nearby_location->icon;
-        }
 
         $nearby_location->update($data);
 
@@ -106,7 +94,6 @@ class NearbyLocationController extends Controller
     public function destroy(NearbyLocation $nearby_location)
     {
         $icon = $nearby_location->icon;
-        Storage::disk('public')->delete($icon);
         $nearby_location->delete();
 
         return redirect()->route('dashboard.nearby_location.index')->with('success', 'Fasilitas hotel berhasil dihapus!');

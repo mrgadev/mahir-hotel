@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $fillable = ['name', 'slug', 'description', 'photos', 'cover', 'room_facilities_id', 'price'];
+    protected $fillable = ['name', 'slug', 'description', 'photos', 'cover', 'room_facilities_id', 'price', 'total_rooms', 'available_rooms'];
 
     public function room_facility() {
         return $this->belongsToMany(RoomFacilities::class);
