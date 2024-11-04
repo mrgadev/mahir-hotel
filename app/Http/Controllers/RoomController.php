@@ -97,6 +97,7 @@ class RoomController extends Controller
         $room->price = $data['price'];
         $room->photos = implode('|',$photos);
         $room->description = $data['description'];
+        $room->slug = $room_slug_name;
         $room->save();
 
         $room->room_facility()->sync($request->room_facilities_id);
@@ -214,6 +215,7 @@ class RoomController extends Controller
             'name' => $data['name'],
             'cover'=> $data['cover'],
             'price' => $data['price'],
+            'slug' => $room_slug_name,
             'photos' => $photos,
             'description' => $data['description'],
         ]);
