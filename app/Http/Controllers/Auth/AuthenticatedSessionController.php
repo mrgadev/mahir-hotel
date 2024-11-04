@@ -45,20 +45,19 @@ class AuthenticatedSessionController extends Controller
 
     }
 
-    public function emailLoginStore(Request $request){
+    public function emailLoginStore(Request $request): RedirectResponse{
         // Validasi input
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
-
         // Coba login
         if (Auth::attempt($credentials)) {
             // Regenerate session
             $request->session()->regenerate();
 
-            $user = Auth::user(); // Ambil user yang login
-
+            // $user = Auth::user(); // Ambil user yang login
+            $user = User::where('email', $request->email)->first();
             // Cek role
             if($user->hasRole('admin') || $user->hasRole('staff')) {
                 return redirect()->intended(route('dashboard.home'));
@@ -71,6 +70,7 @@ class AuthenticatedSessionController extends Controller
         return redirect()->back()
             ->withInput()
             ->withErrors(['email' => 'Email atau password salah!']);
+        
     }
 
 

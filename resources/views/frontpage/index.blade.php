@@ -445,8 +445,8 @@
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 my-10">
         @foreach ($hotel_facilities as $hotel_facility)    
         <div class="flex items-center justify-center px-5 py-2 rounded-xl border border-primary-500 gap-5 bg-primary-100 text-primary-500">
-            {{-- <span class="material-symbols-rounded text-primary-100 scale-[150%]">prayer_times</span>  --}}
-            <img src="{{Storage::url($hotel_facility->icon)}}" alt="">
+            <span class="material-icons-round text-primary-700">{{$hotel_facility->icon}}</span> 
+           
             <p>{{$hotel_facility->name}}</p>
         </div>
         @endforeach
