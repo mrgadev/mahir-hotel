@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('google_icons', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('category');
-            $table->timestamps();
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->integer('available_rooms')->nullable();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('google_icons');
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->dropColumn('available_rooms');
+        });
     }
 };

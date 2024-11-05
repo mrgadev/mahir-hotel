@@ -94,7 +94,7 @@
                                     </td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$promo->name}}</td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$promo->code}}</td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$promo->amount}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$promo->amount}}%</td>
                                     <td class="flex items-center">
                                         <div class="mr-2">
                                             <a href="{{route('dashboard.promo.edit', $promo)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">

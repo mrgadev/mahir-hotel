@@ -48,8 +48,8 @@ export default {
 
     plugins: [
         forms,
-        require('flowbite-typography')({
-            wysiwyg: true,
-        }),
+        // require('flowbite-typography')({
+        //     wysiwyg: true,
+        // }),
     ],
 };

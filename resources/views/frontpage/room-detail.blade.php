@@ -74,7 +74,7 @@
 <header class="lg:px-36 px-12 py-11 w-screen grid lg:grid-cols-2 gap-8">
     <div class="grid gap-3">
         <div class="relative">
-            <img src="{{url($room->cover)}}" class="rounded-2xl" alt="">
+            <img src="{{url($room->cover)}}" class="rounded-2xl h-96 object-cover object-center w-full" alt="">
             <button class="absolute bottom-5 left-5 bg-primary-100 px-5 py-2 rounded-full border border-primary-700 flex items-center gap-1 text-primary-700 transition-all hover:bg-primary-700 hover:text-primary-100" id="galleryBtn"><ion-icon name="images-outline"></ion-icon> Lihat foto lainnya</button>
 
             <div class="flex flex-col justify-center items-center gap-8 px-12 lg:px-36 w-screen h-screen hidden fixed bg-gray-800/75 z-20  top-0 left-0" id="gallery">

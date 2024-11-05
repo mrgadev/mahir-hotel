@@ -44,7 +44,7 @@ class PromoController extends Controller
             'name' => 'required',
             'code' => 'required',
             'cover' => 'required|mimes:jpeg,jpg,png,avif,webp',
-            'amount' => 'required|max:95',
+            'amount' => 'required|integer|max:95',
             'start_date' => 'required',
             'end_date' => 'required',
             'is_all' => 'required',
@@ -107,7 +107,7 @@ class PromoController extends Controller
             'name' => 'required',
             'code' => 'required',
             'cover' => 'nullable',
-            'amount' => 'required|max:95',
+            'amount' => 'required|integer|max:95',
             'start_date' => 'required',
             'end_date' => 'required',
             'is_all' => 'required', // tambah boolean disini
