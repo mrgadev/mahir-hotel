@@ -200,33 +200,22 @@
                     <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Pilih Kamar</label>
                     
                     <select name="rooms" id="rooms" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700">
-                        <option value="Pilih kamar">&#xeb4f; Pilih kamar</option>
-                        <option value="Standar">Standar</option>
-                        <option value="Premium">Premium</option>
-                        <option value="Platinum">Platinum</option>
+                        <option value="Pilih kamar">Pilih kamar</option>
+                        @foreach ($rooms as $room)
+                        <option value="{{$room->name}}">{{$room->name}}</option>
+                        @endforeach
+                        
                     </select>
                 </div>
 
                 <div class="flex items-center gap-3">
                     <div class="grid grid-cols-1 gap-2 w-full">
                         <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Check-in</label>
-                        
-                        <select name="rooms" id="rooms" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700">
-                            <option value="Pilih kamar">&#xeb4f; Pilih kamar</option>
-                            <option value="Standar">Standar</option>
-                            <option value="Premium">Premium</option>
-                            <option value="Platinum">Platinum</option>
-                        </select>
+                        <input type="date" name="start_date" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
                     </div>
                     <div class="grid grid-cols-1 gap-2 w-full">
-                        <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Pilih Kamar</label>
-                        
-                        <select name="rooms" id="rooms" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700">
-                            <option value="Pilih kamar">&#xeb4f; Pilih kamar</option>
-                            <option value="Standar">Standar</option>
-                            <option value="Premium">Premium</option>
-                            <option value="Platinum">Platinum</option>
-                        </select>
+                        <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Check-out</label>
+                        <input type="date" name="end_date" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
                     </div>
                 </div>
 
