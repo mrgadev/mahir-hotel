@@ -50,7 +50,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        image
+                                        Gambar
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -58,7 +58,15 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        Name
+                                        Nama
+                                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                                        </svg>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="flex items-center">
+                                        Harga
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -77,6 +85,7 @@
                                         <img src="{{url($room->cover)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
                                     </td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap">{{$room->name}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($room->price,0,',','.')}}</td>
                                     <td class="flex items-center">
                                         <div class="mr-2">
                                             <a href="{{route('dashboard.room.edit', $room)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
