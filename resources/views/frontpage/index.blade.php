@@ -164,14 +164,14 @@
     <section class="main h-[90%] flex flex-col justify-center gap-3 relative">
         <h1 class="text-4xl xl:text-6xl text-white">Liburan impian Anda<br>dimulai di sini!</h1>
         <p class=" text-white">Mahir Hotel menawarkan kenyamanan dan kemewahan yang tiada duanya,<br> dengan fasilitas kelas dunia dan layanan istimewa, kami siap menyambut Anda.</p>
-        <form action="" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full">
+        <form action="{{route('frontpage.search.rooms')}}" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full" method="GET">
             <div class="flex items-center gap-2">
                 <div class="grid grid-cols-1 gap-2">
                     <label for="" class="text-sm px-3">Pilih Kamar</label>
-                    <select name="" class="outline-none border-none text-lg px-3" id="">
+                    <select name="room_id" class="outline-none border-none text-lg px-3" id="">
                         <option value="" class="p-2 ">-- Pilih Kamar --</option>
                         @forelse ($rooms as $room)
-                            <option value="">{{$room->name}}</option>
+                            <option value="{{$room->id}}">{{$room->name}}</option>
                         @empty
                             
                         @endforelse
@@ -179,11 +179,11 @@
                 </div>
                 <div class="grid grid-cols-1 gap-2">
                     <label for="" class="text-sm px-3">Check-in</label>
-                    <input type="date" class="outline-none border-none text-lg px-3">
+                    <input type="date" name="check_in" class="outline-none border-none text-lg px-3">
                 </div>
                 <div class="grid grid-cols-1 gap-2">
                     <label for="" class="text-sm px-3">Check-out</label>
-                    <input type="date" class="outline-none border-none text-lg px-3" name="" id="">
+                    <input type="date" name="check_out" class="outline-none border-none text-lg px-3" name="" id="">
                 </div>
             </div>
             <button class="text-white bg-primary-500 w-fit px-5 me-3 py-3 rounded-full">
@@ -246,7 +246,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
            @foreach ($rooms as $room)
            <a href="{{route('frontpage.rooms.detail', $room->slug)}}" class="flex flex-col rounded-xl shadow-xl">
-               <img src="{{url($room->cover)}}" alt="" class="w-full h-64 object-cover rounded-xl relative">
+               <img src="{{url($room->cover)}}" alt="" class="w-full h-64 object-cover rounded-t-xl relative">
             {{-- <div class="relative">
                 <p class="absolute bottom-5 left-5 flex items-end gap-1 px-3 py-1 rounded-full bg-primary-100 text-primary-600 text-sm">
                 <span class="text-lg">IDR {{number_format($room->price,0,',','.')}}</span>

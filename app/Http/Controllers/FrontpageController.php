@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccomdationPlan;
 use App\Models\Faq;
 use App\Models\Room;
 use App\Models\Promo;
@@ -20,8 +21,19 @@ class FrontpageController extends Controller
         $rooms = Room::all();
         return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms'));
     }
-    public function checkout(){
-        return view('frontpage.checkout');
+    public function checkout(String $id, Request $request){
+        $room = Room::find($id);
+
+        $accomodation_plans = AccomdationPlan::all();
+
+        if ($request->filled(['check_in', 'check_out'])) {
+            session([
+                'check_in' => $request->check_in,
+                'check_out' => $request->check_out,
+            ]);
+        }
+
+        return view('frontpage.checkout', compact('room', 'accomodation_plans'));
     }
     
     public function promo() {
@@ -29,9 +41,14 @@ class FrontpageController extends Controller
         return view('frontpage.promo', compact('promos'));
     }
 
-    public function rooms() {
-        $rooms = Room::all();
-        return view('frontpage.rooms', compact('rooms'));
+    public function rooms(Request $request) {
+        $room_id = $request->input('room_id');
+    
+        $rooms = Room::when($room_id, function($query) use ($room_id) {
+            return $query->where('id', $room_id);
+        })->get();
+        
+        return view('frontpage.rooms', compact('rooms', 'room_id'));
     }
 
     public function room_detail(Room $room) {
@@ -73,5 +90,23 @@ class FrontpageController extends Controller
 
     public function about() {
         return view('frontpage.about');
+    }
+
+    public function search(Request $request){
+        if($request->input('room_id')){
+            $room_id = $request->input('room_id');
+            $room = Room::where('id', $room_id)->first();
+
+            if ($request->filled(['check_in', 'check_out'])) {
+                session([
+                    'check_in' => $request->check_in,
+                    'check_out' => $request->check_out,
+                ]);
+            }
+        
+            return redirect()->route('frontpage.rooms.detail', $room->slug);
+        }else{
+            return redirect()->route('frontpage.rooms');
+        }
     }
 }

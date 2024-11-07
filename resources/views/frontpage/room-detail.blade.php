@@ -135,16 +135,20 @@
         {{-- <p class="font-light text-gray-700">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis harum provident ratione odit hic sequi. Libero nostrum necessitatibus eos nobis eaque quisquam minus omnis commodi, sint laborum! 
         </p> --}}
-        <p class="font-medium p-2 rounded-lg bg-red-100 w-fit text-red-700 border border-red-700">Tersisa 10 kamar lagi!</p>
-        <form action="" class="hidden mt-5 py-3 ps-10 w-fit pe-3 lg:flex items-center gap-8 bg-primary-100 border border-primary-700 text-primary-700 rounded-full">
+        @if ($room->available_rooms == 0)
+            <p class="font-medium p-2 rounded-lg bg-red-100 w-fit text-red-700 border border-red-700">SOLD OUT</p>
+        @elseif ($room->available_rooms < 10)
+            <p class="font-medium p-2 rounded-lg bg-red-100 w-fit text-red-700 border border-red-700">Tersisa {{$room->available_rooms}} kamar lagi!</p>
+        @endif
+        <form action="{{route('frontpage.checkout', $room->id)}}" class="hidden mt-5 py-3 ps-10 w-fit pe-3 lg:flex items-center gap-8 bg-primary-100 border border-primary-700 text-primary-700 rounded-full" method="GET">
             <div class="flex items-center gap-3">
                 <div class="grid grid-cols-1 gap-2">
                     <label for="" class="text-sm">Check-in</label>
-                    <input type="date" class="outline-none border-none bg-transparent text-lg p-0">
+                    <input type="date" name="check_in" value="{{ session('check_in') }}" class="outline-none border-none bg-transparent text-lg p-0">
                 </div>
                 <div class="grid grid-cols-1 gap-2">
                     <label for="" class="text-sm">Check-out</label>
-                    <input type="date" class="outline-none border-none bg-transparent text-lg p-0" name="" id="">
+                    <input type="date" name="check_out" value="{{ session('check_out') }}" class="outline-none border-none bg-transparent text-lg p-0" name="" id="">
                 </div>
             </div>
             <button class="text-white bg-primary-500 w-fit px-5 py-3 rounded-full">
