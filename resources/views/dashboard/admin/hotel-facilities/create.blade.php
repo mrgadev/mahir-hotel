@@ -1,6 +1,6 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'My Account')
+@section('title', 'Fasilitas Hotel')
 {{-- 
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
@@ -38,8 +38,8 @@
             <main class="col-span-12 md:pt-0">
                 <div class="p-2 mt-2 bg-white rounded-xl shadow-lg">
                     <form action="{{route('dashboard.hotel_facilities.store')}}" method="POST" enctype="multipart/form-data">
-                        @method('POST')
                         @csrf
+                        @method('POST')
                         <div class="">
                             <div class="px-4 py-5 sm:p-6">
                                 <div class="mt-10">

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HotelFacilities;
 use Illuminate\Http\Request;
+use App\Models\HotelFacilities;
+use Illuminate\Support\Facades\Log;
 
 class HotelFacilitiesController extends Controller
 {
@@ -29,6 +30,7 @@ class HotelFacilitiesController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('Form submitted', $request->all());
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
             'icon.required' => 'Icon fasilitas wajib diupload!',
