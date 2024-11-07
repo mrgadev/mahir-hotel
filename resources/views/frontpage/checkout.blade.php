@@ -77,198 +77,174 @@
     </div>
 </header>
 
-<section class="md:px-24 sm:px-0 pt-3 bg-white antialiase">
-    <form action="#" class="mx-auto max-w-screen-xl px-12 2xl:px-0">
+<section class="mx-12 lg:mx-36">
+    <form action="#" class="mx-auto px-12 2xl:px-0">
     <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
-      <div class="min-w-0 flex-1 space-y-8">
-        <div class="space-y-4">
-          <h2 class="text-xl font-semibold text-gray-900">Delivery Details</h2>
-            <div>
-              <label for="your_name" class="mb-2 block text-sm font-medium text-gray-900"> Your name </label>
-              <input type="text" id="your_name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="Bonnie Green" required autocomplete="off" />
+      <div class="min-w-0 flex-1">
+        <div class="">
+          <h2 class="text-4xl text-primary-700 mb-8">Detail Pembayaran</h2>
+            <div class="mb-10">
+              <label for="your_name" class="mb-2 block text-base font-medium text-primary-700"> Your name </label>
+              @auth
+                  <input type="text" id="your_name" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required autocomplete="off" name="name" value="{{Auth::user()->name}}" />
+              @endauth
+              @guest
+                  <input type="text" id="your_name" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required autocomplete="off" name="name" />
+              @endguest
             </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label for="your_email" class="mb-2 block text-sm font-medium text-gray-900"> Your email* </label>
-              <input type="email" id="your_email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="name@gmail.com" required autocomplete="off" />
+              <label for="your_email" class="mb-2 block text-base font-medium text-primary-700"> Your email* </label>
+              @auth
+                  <input type="email" id="your_email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required autocomplete="off" name="email" value="{{Auth::user()->email}}"  />
+              @endauth
+              @guest
+                <input type="email" id="your_email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required autocomplete="off" name="email" />  
+              @endguest
             </div>
 
             <div>
-                <label for="phone-input-3" class="mb-2 block text-sm font-medium text-gray-900"> Phone Number </label>
-                <input type="text" id="phone-input" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" type="number" placeholder="123-456-7890" required autocomplete="off" />
-            </div>
-
-            <div class="sm:col-span-2">
-              <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100">
-                <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
-                </svg>
-                Add new address
-              </button>
+                <label for="phone-input-3" class="mb-2 block text-base font-medium text-primary-700"> Phone Number </label>
+                @auth
+                    <input type="text" id="phone-input" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" type="number" required autocomplete="off" name="phone" value="{{Auth::user()->phone}}"  />
+                @endauth
+                @guest
+                    <input type="text" id="phone-input" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" type="number" required autocomplete="off" name="phone" />
+                @endguest
             </div>
           </div>
         </div>
 
-        <div class="space-y-4">
-            <h3 class="text-xl font-semibold text-gray-900">Rencana Penginapan</h3>
+        <div class="space-y-4 mt-10">
+            <h3 class="text-2xl text-primary-700">Rencana Penginapan</h3>
 
             <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-                <div class="flex items-start">
-                    <div class="flex h-5 items-center">
-                    <input id="spa" aria-describedby="spa-text" type="checkbox" name="stay-plan[]" value="spa" class="h-4 w-4 border-gray-300 bg-white text-primary-600 rounded-md focus:ring-2 focus:ring-primary-600" />
-                    </div>
+                @forelse ($accomodation_plans as $accomodation_plan)
+                    <div class="rounded-lg border border-gray-200 p-4 ps-4 w-auto">
+                        <div class="flex items-start">
+                            <div class="flex h-5 items-center w-auto">
+                                <input 
+                                    id="spa_{{$accomodation_plan->id}}" 
+                                    type="checkbox" 
+                                    name="stay-plan[]" 
+                                    value="{{ $accomodation_plan->id }}" 
+                                    class="h-4 w-4 border-gray-300 bg-white text-primary-600 rounded-md focus:ring-2 focus:ring-primary-600"
+                                    data-price="{{ $accomodation_plan->price }}" 
+                                    onchange="updateAccommodationPlans()"/>
+                            </div>
 
-                    <div class="ms-4 text-sm">
-                    <label for="spa" class="font-medium leading-none text-gray-900">$15 - Spa dan Kebugaran</label>
-                    <p id="spa-text" class="mt-1 text-xs font-normal text-gray-500">Get it by Tomorrow</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-                <div class="flex items-start">
-                    <div class="flex h-5 items-center">
-                    <input id="airport" aria-describedby="airport-text" type="checkbox" name="stay-plan[]" value="airport-pickup" class="h-4 w-4 border-gray-300 bg-white text-primary-600 rounded-md focus:ring-2 focus:ring-primary-600" />
-                    </div>
-
-                    <div class="ms-4 text-sm">
-                    <label for="airport" class="font-medium leading-none text-gray-900">$100 - Penjemputan Di Bandara</label>
-                    <p id="airport-text" class="mt-1 text-xs font-normal text-gray-500">Get it by Friday, 13 Dec 2023</p>
-                    </div>
-                </div>
-                </div>
-
-                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-                <div class="flex items-start">
-                    <div class="flex h-5 items-center">
-                    <input id="laundry" aria-describedby="laundry-text" type="checkbox" name="stay-plan[]" value="laundry" class="h-4 w-4 border-gray-300 bg-white text-primary-600 rounded-md focus:ring-2 focus:ring-primary-600" />
-                    </div>
-
-                    <div class="ms-4 text-sm">
-                    <label for="laundry" class="font-medium leading-none text-gray-900">$49 - Laundry</label>
-                    <p id="laundry-text" class="mt-1 text-xs font-normal text-gray-500">Get it today</p>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-        <div>
-          <label for="voucher" class="mb-2 block text-sm font-medium text-gray-900"> Enter a gift card, voucher or promotional code </label>
-          <div class="flex max-w-md items-center gap-4">
-            <input type="text" id="voucher" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="" required />
-            <button type="button" class="flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Apply</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-6 w-full space-y-6 rounded-t-lg shadow-lg sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md mb-10">
-        <div class="flow-root">
-            <div class="relative flex h-56 w-auto cursor-pointer">
-                <a href="#image-modal" class="block w-full">
-                    <img
-                    class="h-full w-full object-cover object-center rounded-t-xl"
-                    src="https://plus.unsplash.com/premium_photo-1684445035187-c4bc7c96bc5d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    />
-                </a>
-            </div>
-
-            <!-- Modal -->
-            <div id="image-modal" class="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
-                <!-- Link pembungkus untuk close saat klik anywhere -->
-                <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
-                    <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
-                        <div>
-                            <img
-                                class="w-full max-h-[80vh] object-contain"
-                                src="https://plus.unsplash.com/premium_photo-1684445035187-c4bc7c96bc5d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            />
+                            <div class="ms-4 text-sm">
+                                <label for="{{$accomodation_plan->id}}" class="leading-none text-primary-700">
+                                    Rp.{{ number_format($accomodation_plan->price, 0, ',', '.') }} - {{ $accomodation_plan->name }}
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </a>
+                @empty
+                    <p>No accommodation plans available.</p>
+                @endforelse
             </div>
+        </div>
 
-            <div class="p-5">
-                <h3 class=" mt-5 text-xl font-semibold text-gray-900 mb-2">The Sawangan, Junior Suite, 1 King or 2 Queen, Balcony</h3>
-                <div class="items-center justify-between gap-4 py-3 mt-3">
-                    <p class="text-base font-light text-gray-900 mb-2">Wed, Oct 23, 2024 - Thu, Oct 24, 2024</p>
+        <div class="mt-10">
+            <h3 class="text-2xl text-primary-700">Pilih Promo</h3>
+            <div class="grid w-full gap-6 md:grid-cols-3 mt-5">
+                <div>
+                    @foreach ($room->promos as $promo)  
+                        <input type="checkbox" 
+                            id="promo-{{ $promo->id }}" 
+                            name="promo[]"
+                            value="{{ $promo->id }}" 
+                            data-discount="{{ $promo->amount }}"
+                            class="promo-checkbox hidden peer" 
+                            onchange="updateAccommodationPlans()">
+                        <label for="promo-{{ $promo->id }}" class="inline-flex items-center justify-between w-full p-5 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-500 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50">                           
+                            <div class="block">
+                                <p class="w-full text-base text-primary-700">{{ $promo->name }}</p>
+                                <p class="w-full text-sm text-primary-700">Potongan harga: {{ $promo->amount }}%<p>
+                            </div>
+                        </label>
+                    @endforeach
                 </div>
             </div>
-            <div class="-my-3 px-5 divide-y divide-gray-200">
-                <dl class="flex flex-col gap-4 py-3">
-                    <div class="text-left">
-                        <dt class="text-base font-normal text-gray-500">Total Kasur </dt>
-                    </div>
-                    <div class="flex items-center justify-between gap-4">
-                        <dd class="text-base font-light text-gray-500">Double Bed</dd>
-                        <dd class="text-base font-medium text-gray-900">1</dd>
-                    </div>
-                </dl>
+        </div>
 
-                <dl class="flex flex-col gap-4 py-3">
-                    <div class="text-left">
-                        <dt class="text-base font-normal text-gray-500">Total Tamu </dt>
-                    </div>
-                    <div class="flex items-center justify-between gap-4">
-                        <dd class="text-base font-light text-gray-500">Dewasa</dd>
-                        <dd class="text-base font-medium text-gray-900">2</dd>
-                    </div>
-                    <div class="flex items-center justify-between gap-4">
-                        <dd class="text-base font-light text-gray-500">Anak</dd>
-                        <dd class="text-base font-medium text-gray-900">1</dd>
-                    </div>
-                </dl>
+      </div>
 
-                <dl class="flex items-center justify-between gap-4 py-3">
-                    <dt class="text-base font-normal text-gray-500">Total Harga Kamar</dt>
-                    <div>
-                        <dd class="text-base font-medium text-gray-900">$8,094.00</dd>
-                    </div>
-                </dl>
+        <div class="mt-6 w-full space-y-6 rounded-t-lg shadow-lg sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md mb-10">
+            <div class="flow-root">
+                <div class="relative flex h-56 w-auto cursor-pointer">
+                    <a href="#image-modal" class="block w-full">
+                        <img class="h-full w-full object-cover object-center rounded-t-xl" src="{{ url($room->cover) }}" />
+                    </a>
+                </div>
 
-                <dl class="flex flex-col gap-4 py-3">
-                    <div class="text-left">
-                        <dt class="text-base font-normal text-gray-500">Rencana Penginapan</dt>
-                    </div>
-                    <div class="flex items-center justify-between gap-4">
-                        <dd class="text-base font-light text-gray-500">Spa dan Kebugaran</dd>
-                        <dd class="text-base font-medium text-gray-900">$15</dd>
-                    </div>
-                    <div class="flex items-center justify-between gap-4">
-                        <dd class="text-base font-light text-gray-500">Laundry</dd>
-                        <dd class="text-base font-medium text-gray-900">$49</dd>
-                    </div>
-                </dl>
+                <!-- Modal -->
+                <div id="image-modal" class="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+                    <a href="#" class="fixed inset-0 flex items-center justify-center p-4">
+                        <div class="relative max-w-3xl mx-auto" onclick="event.stopPropagation()">
+                            <div>
+                                <img class="w-full max-h-[80vh] object-contain" src="{{ url($room->cover) }}" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-                <dl class="flex items-center justify-between gap-4 py-3">
-                    <dt class="text-base font-normal text-gray-500">Diskon</dt>
-                    <div>
-                        <dd class="text-base font-medium text-green-500">0</dd>
+                <div class="p-5">
+                    <h3 class="mt-5 text-xl font-semibold text-gray-900 mb-2">{{ $room->name }}</h3>
+                    <div class="items-center justify-between gap-4 py-3 mt-3">
+                        <p class="text-base font-light text-gray-900 mb-2">
+                            {{ \Carbon\Carbon::parse(session('check_in'))->format('D, M d, Y') }} - 
+                            {{ \Carbon\Carbon::parse(session('check_out'))->format('D, M d, Y') }}
+                        </p>
                     </div>
-                </dl>
+                </div>
 
-                <dl class="flex items-center justify-between gap-4 py-3">
-                    <dt class="text-base font-normal text-gray-500">Pajak</dt>
-                    <div>
-                        <dd class="text-base font-medium text-gray-900">$199</dd>
-                    </div>
-                </dl>
+                <div class="-my-3 px-5 divide-y divide-gray-200">
+                    <dl class="flex items-center justify-between gap-4 py-3">
+                        <dt class="text-base font-normal text-gray-500">Total Harga Kamar</dt>
+                        <div>
+                            <!-- Harga kamar -->
+                            <dd id="room-price" class="text-base font-medium text-gray-900">Rp.{{ number_format($room->price, 0, ',', '.') }}</dd>
+                        </div>
+                    </dl>
 
-                <dl class="flex items-center justify-between gap-4 py-3">
-                    <dt class="text-base font-bold text-gray-900">Total</dt>
-                    <div>
-                        <dd class="text-base font-bold text-gray-900">$8,392.00</dd>
-                    </div>
-                </dl>
+                    <dl class="flex flex-col gap-4 py-3">
+                        <div class="text-left">
+                            <dt class="text-base font-normal text-gray-500">Rencana Penginapan</dt>
+                        </div>
+                        <!-- Tempat untuk menampilkan rencana penginapan yang dipilih -->
+                        <div id="accommodation-plans"></div>
+                    </dl>
+
+                    <dl class="flex items-center justify-between gap-4 py-3">
+                        <dt class="text-base font-normal text-gray-500">Total Diskon</dt>
+                        <div>
+                            <!-- Tempat untuk menampilkan total diskon yang diterapkan -->
+                            <dd id="discount-total" class="text-base font-medium text-red-600">Rp. 0</dd>
+                        </div>
+                    </dl>
+
+                    <dl class="flex items-center justify-between gap-4 py-3">
+                        <dt class="text-base font-bold text-gray-900">Total</dt>
+                        <div>
+                            <!-- Total harga keseluruhan -->
+                            <dd id="total-price" class="text-base font-bold text-gray-900"></dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="space-y-3 p-5">
+                <button type="submit" class="flex w-full items-center bg-[#5b3a1f] justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white" style="background-color: #5b3a1f">
+                    Proceed to Payment
+                </button>
+                <p class="text-sm font-normal text-gray-500 pb-5">
+                    One or more items in your cart require an account. 
+                    <a href="#" title="" class="font-medium text-primary-700 underline hover:no-underline">Sign in or create an account now.</a>.
+                </p>
             </div>
         </div>
-
-        <div class="space-y-3 p-5">
-          <button type="submit" class="flex w-full items-center bg-[#5b3a1f] justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white" style="background-color: #5b3a1f">Proceed to Payment</button>
-
-          <p class="text-sm font-normal text-gray-500 pb-5">One or more items in your cart require an account. <a href="#" title="" class="font-medium text-primary-700 underline hover:no-underline">Sign in or create an account now.</a>.</p>
-        </div>
-      </div>
     </div>
   </form>
 </section>
@@ -332,5 +308,58 @@
         toggleUserMenu.addEventListener('click', function() {
             userMenu.classList.toggle('hidden');
         })
+
+        function calculateRoomTotal() {
+            const checkInDate = new Date("{{ session('check_in') }}");
+            const checkOutDate = new Date("{{ session('check_out') }}");
+            const roomPricePerNight = parseFloat(document.getElementById("room-price").textContent.replace(/[^0-9]/g, ""));
+
+            // Hitung jumlah malam
+            const nights = Math.max(0, (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+            const roomTotal = nights * roomPricePerNight;
+
+            return roomTotal;
+        }
+
+        function updateAccommodationPlans() {
+            const selectedPlansContainer = document.getElementById("accommodation-plans");
+            const totalPriceElement = document.getElementById("total-price");
+            const discountTotalElement = document.getElementById("discount-total");
+
+            let accommodationTotal = 0;
+            let selectedPlans = "";
+
+            // Tampilkan rencana penginapan yang dipilih
+            document.querySelectorAll('input[name="stay-plan[]"]:checked').forEach((checkbox) => {
+                const price = parseFloat(checkbox.getAttribute("data-price") || "0");
+                const name = checkbox.closest('.rounded-lg').querySelector('label').textContent.trim().split('-')[1];
+
+                accommodationTotal += price;
+                selectedPlans += `
+                    <div class="flex justify-between">
+                        <span class="plan-name">${name.trim()}</span>
+                        <span class="plan-price">Rp. ${price.toLocaleString("id-ID")}</span>
+                    </div>
+                `;
+            });
+
+            selectedPlansContainer.innerHTML = selectedPlans || "<div class='flex justify-between'><span class='plan-name'>-</span><span class='plan-price'>Rp. 0</span></div>";
+
+            // Hitung total diskon
+            const roomTotal = calculateRoomTotal();
+            let discountTotal = 0;
+            
+            document.querySelectorAll('input[name="promo[]"]:checked').forEach((checkbox) => {
+                const discountPercentage = parseFloat(checkbox.getAttribute("data-discount") || "0");
+                discountTotal += (roomTotal * (discountPercentage / 100));
+            });
+
+            // Update tampilan total diskon
+            discountTotalElement.textContent = `- Rp. ${discountTotal.toLocaleString("id-ID")}`;
+
+            // Hitung dan update total akhir
+            const totalAmount = roomTotal + accommodationTotal - discountTotal;
+            totalPriceElement.textContent = `Rp. ${totalAmount.toLocaleString("id-ID")}`;
+        }
     </script>
 @endpush
