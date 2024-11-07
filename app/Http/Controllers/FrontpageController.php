@@ -26,6 +26,8 @@ class FrontpageController extends Controller
 
         $accomodation_plans = AccomdationPlan::all();
 
+        $promos = Promo::where('is_all', true)->get();
+
         if ($request->filled(['check_in', 'check_out'])) {
             session([
                 'check_in' => $request->check_in,
@@ -33,7 +35,7 @@ class FrontpageController extends Controller
             ]);
         }
 
-        return view('frontpage.checkout', compact('room', 'accomodation_plans'));
+        return view('frontpage.checkout', compact('room', 'accomodation_plans', 'promos'));
     }
     
     public function promo() {
