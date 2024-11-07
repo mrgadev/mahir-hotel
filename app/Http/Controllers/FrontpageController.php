@@ -54,7 +54,9 @@ class FrontpageController extends Controller
     public function room_detail(Room $room) {
         // $room = Room::where('slug',$slug)->with('room_facility')->get();
         // dd($room->id);
-        return view('frontpage.room-detail', compact('room'));
+        // $promo = Promo::where('room_id', $room->id)->get();
+        $other_room = Room::whereNot('id', $room->id)->get();
+        return view('frontpage.room-detail', compact('room', 'other_room'));
     }
 
 

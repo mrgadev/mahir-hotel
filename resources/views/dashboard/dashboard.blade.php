@@ -418,6 +418,53 @@
         </div>
         @endrole
 
+        @role('user')
+        {{-- #1 Row for USer --}}
+        <div class="grid lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-2xl shadow-xl p-5">
+                <h3 class="text-xl text-primary-600 font-medium">My Wallet</h3>
+                <div class="grid lg:grid-cols-2 gap-5 mt-5">
+                    <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
+                        <span class="material-symbols-rounded scale-150">toll</span>
+                        <div class="flex flex-col">
+                            <p class="text-sm">Point Terkumpul</p>
+                            <p class="font-medium text-lg">200</p>
+                        </div>
+                    </div>
+                    <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
+                        <span class="material-symbols-rounded scale-150">wallet</span>
+                        <div class="flex flex-col">
+                            <p class="text-sm">Saldoku</p>
+                            <p class="font-medium text-lg">IDR 200.000</p>
+                        </div>
+                    </div>
+
+                
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-5">
+                <h3 class="font-medium text-lg text-primary-700">Reservasi Berikutnya</h3>
+                <div class="flex gap-5 mt-5">
+                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="h-24 rounded-lg">
+                    <div class="flex flex-col gap-1">
+                        <p class="text-sm text-primary-500">Order ID: MH-89007</p>
+                        <p class="font-medium text-primary-700 text-base">Kamar Standard (2 Malam)</p>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-0.5 text-sm">
+                                <span class="material-symbols-rounded scale-75">group</span>
+                                <p>1 orang</p>
+                            </div>
+                            <div class="flex items-center gap-0.5 text-sm">
+                                <span class="material-symbols-rounded scale-75">event</span>
+                                <p>10 Nov 2024 - 12 Nov 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endrole
     </div>
 @endsection
 

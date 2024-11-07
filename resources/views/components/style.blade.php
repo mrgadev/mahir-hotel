@@ -15,6 +15,8 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+{{-- Autocomma CDN --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.10.7/autoNumeric.js" integrity="sha512-+TD1crYQC9Nz7fwpqyNFx2bUUmqLuV+H3lanJbWAy2i4MFcBMDmiixepJvC++HmBRsIzDljVlxzUwEKlTSlynw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {{-- Flowbite CDN --}}
 <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>

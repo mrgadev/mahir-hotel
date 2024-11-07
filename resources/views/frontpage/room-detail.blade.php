@@ -165,13 +165,13 @@
 
 <div class="mx-12 lg:mx-36">
     <div class="flex flex-col gap-2">
-        <h1 class="text-xl text-primary-700">Deskripsi</h1>
+        <h1 class="text-2xl text-primary-700">Deskripsi</h1>
         <div class="text-gray-600 font-light">
             {!!$room->description!!}
         </div>
     </div>
-    <div class="my-12 flex flex-col lg:flex-row justify-between">
-        <div class="flex flex-col gap-8 w-3/4">
+    <div class="my-12 grid lg:grid-cols-3 gap-10">
+        <div class="flex flex-col gap-8 col-span-2">
             <div class="flex flex-col gap-3">
                 <h2 class="text-2xl text-primary-700">Ulasan</h2>
                 <p class="flex items-center gap-2 text-gray-800">
@@ -193,6 +193,31 @@
             </div>
         </div>
 
+        <div class="col-span-1 flex flex-col gap-10 order-first lg:order-last">
+            {{-- {{$other_room}} --}}
+            <div class="flex flex-col gap-3">
+                <h2 class="text-2xl text-primary-700">Kamar Lainnya</h2>
+            </div>
+            @foreach ($other_room as $item)    
+            <a href="{{route('frontpage.rooms.detail',$item->slug)}}" class="flex flex-col gap-3">
+                <img src="{{url($item->cover)}}" class="h-56 w-full object-cover rounded-lg" alt="">
+                <div class="flex items-center justify-between">
+                    <div class="flex flex-col gap-2">
+                        <h3 class="text-xl text-primary-700">{{$item->name}}</h3>
+                        <div class="flex gap-1 items-center">
+                        @foreach ($item->room_facility as $facility)
+                            <div class="flex items-center text-sm text-primary-500">
+                                <span class="material-icons-round scale-75">{{$facility->icon}}</span>
+                                <p>{{$facility->name}}</p>
+                            </div>
+                        @endforeach
+                        </div>
+                    </div>
+                    <p class="text-lg text-primary-500">Rp. {{number_format($item->price,0,',','.')}}</p>
+                </div>
+            </a>
+            @endforeach
+        </div>
         {{-- <div class="w-1/4">
             <h1>Kamar lainnya</h1>
         </div> --}}

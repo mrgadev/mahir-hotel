@@ -1,6 +1,6 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'Daftar Kamar')
+@section('title', 'My Bookings')
 
 {{-- @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
@@ -22,16 +22,12 @@
                             <span class="material-symbols-rounded scale-75">home</span>
                         </a>
                         <span class="material-symbols-rounded">chevron_right</span>
-                        <p>Data Kamar</p>
+                        <p>Data Booking</p>
                     </div>
                     <h1 class="text-white text-4xl font-medium">
-                        Data Kamar
+                        Riwayat Reservasi
                     </h1>
                 </div>
-                <a href="{{route('dashboard.room.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
-                    <i class="bi bi-plus-square mr-2"></i>
-                    <p>Tambah</p>
-                </a>
             </div>
         </div>       
         <section class="container mx-auto">
@@ -50,7 +46,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        Gambar
+                                        Nama kamar
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -58,7 +54,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        Nama
+                                        check-in
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -66,7 +62,23 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        Harga
+                                        check-out
+                                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                                        </svg>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="flex items-center">
+                                        Status check-in
+                                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                                        </svg>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="flex items-center">
+                                        Status pembayaran
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -78,32 +90,86 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($rooms as $key => $room)
-                                <tr class="cursor-pointer">
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
-                                    <td class="">
-                                        <img src="{{url($room->cover)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
-                                    </td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$room->name}}</td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($room->price,0,',','.')}}</td>
-                                    <td class="flex items-center">
-                                        <div class="mr-2">
-                                            <a href="{{route('dashboard.room.edit', $room)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                        </div>
-                                        <form action="{{route('dashboard.room.destroy', $room)}}" class="" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button tyoe="submit" class="py-1 px-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                
-                            @endforelse
+                            <tr class="cursor-pointer">
+                                <td class="font-medium whitespace-nowrap">1</td>
+                                <td class="">
+                                    <p>Kamar Standard</p>
+                                </td>
+                                <td class="">
+                                    <p>12 Nov 2024</p>
+                                </td>
+                                <td class="">
+                                    <p>13 Nov 2024</p>
+                                </td>
+                                <td class="">
+                                    <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">Sudah</p>
+                                </td> 
+                                <td class="">
+                                    <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">Lunas</p>
+                                </td>
+
+                                <td class="flex items-center">
+                                    <div class="mr-2">
+                                        <a href="{{route('dashboard.user.bookings.detail')}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="cursor-pointer">
+                                <td class="font-medium whitespace-nowrap">2</td>
+                                <td class="">
+                                    <p>Kamar Keluarga</p>
+                                </td>
+                                <td class="">
+                                    <p>15 Nov 2024</p>
+                                </td>
+                                <td class="">
+                                    <p>20 Nov 2024</p>
+                                </td>
+                                <td class="">
+                                    <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">Belum</p>
+                                </td> 
+                                <td class="">
+                                    <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">Dibatalkan</p>
+                                </td>
+
+                                <td class="flex items-center">
+                                    <div class="mr-2">
+                                        <a href="{{route('dashboard.user.bookings.detail')}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="cursor-pointer">
+                                <td class="font-medium whitespace-nowrap">3</td>
+                                <td class="">
+                                    <p>Kamar Royal</p>
+                                </td>
+                                <td class="">
+                                    <p>01 Des 2024</p>
+                                </td>
+                                <td class="">
+                                    <p>10 Des 2024</p>
+                                </td>
+                                <td class="">
+                                    <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">Belum</p>
+                                </td> 
+                                <td class="">
+                                    <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">Tertunda</p>
+                                </td>
+
+                                <td class="flex items-center">
+                                    <div class="mr-2">
+                                        <a href="{{route('dashboard.user.bookings.detail')}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -66,7 +66,7 @@
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center my-5">
                                         <div>
                                             <label for="price" class="block mb-3 font-medium text-gray-700 text-md">Harga per Malam</label>
-                                            <input placeholder="Harga per Malam" type="number" name="price" id="price" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                            <input placeholder="Harga per Malam" type="number" data-a-sign="" data-a-dec="," data-a-sep="." name="price" id="price" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                             @if ($errors->has('price'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('price')}}</p>
@@ -148,4 +148,10 @@
                 console.error(error);
             });
     </script>
+    <script>
+        jQuery(function($) {
+       $('#price').autoNumeric('init');   
+        });
+       </script>
+       
 @endpush
