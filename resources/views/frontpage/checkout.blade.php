@@ -150,9 +150,9 @@
 
         <div class="mt-10">
             <h3 class="text-2xl text-primary-700">Pilih Promo</h3>
-            <div class="grid w-full gap-6 md:grid-cols-3 mt-5">
-                <div>
-                    @foreach ($room->promos as $promo)  
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3 mt-5">
+                @foreach ($room->promos as $promo)  
+                    <div class="relative">
                         <input type="checkbox" 
                             id="promo-{{ $promo->id }}" 
                             name="promo[]"
@@ -166,11 +166,27 @@
                                 <p class="w-full text-sm text-primary-700">Potongan harga: {{ $promo->amount }}%<p>
                             </div>
                         </label>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
+                @foreach ($promos as $promo)
+                    <div class="relative">
+                        <input type="checkbox" 
+                            id="promo-{{ $promo->id }}" 
+                            name="promo[]"
+                            value="{{ $promo->id }}" 
+                            data-discount="{{ $promo->amount }}"
+                            class="promo-checkbox hidden peer" 
+                            onchange="updateAccommodationPlans()">
+                        <label for="promo-{{ $promo->id }}" class="inline-flex items-center justify-between w-full p-5 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-500 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50">                           
+                            <div class="block">
+                                <p class="w-full text-base text-primary-700">{{ $promo->name }}</p>
+                                <p class="w-full text-sm text-primary-700">Potongan harga: {{ $promo->amount }}%<p>
+                            </div>
+                        </label>
+                    </div>
+                @endforeach
             </div>
         </div>
-
       </div>
 
         <div class="mt-6 w-full space-y-6 rounded-t-lg shadow-lg sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md mb-10">
