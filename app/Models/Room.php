@@ -15,4 +15,8 @@ class Room extends Model
     public function promos(){
         return $this->belongsToMany(Promo::class);
     }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
+    }
 }

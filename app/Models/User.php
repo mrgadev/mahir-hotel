@@ -54,4 +54,12 @@ class User extends Authenticatable
     public function regency() {
         return $this->belongsTo(Regency::class);
     }
+
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
+    }
 }
