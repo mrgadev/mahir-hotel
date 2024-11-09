@@ -59,7 +59,7 @@
     }
 </style> --}}
 @endpush
-@section('title', 'Detail Kamar')
+@section('title', 'Pemesanan Kamar')
 @section('main')
 @include('components.frontpage-navbar')
 
@@ -78,7 +78,9 @@
 </header>
 
 <section class="mx-12 lg:mx-36">
-    <form action="#" class="mx-auto px-12 2xl:px-0">
+    <form action="#" method="POST" class="mx-auto px-12 2xl:px-0" id="payment-form">
+    @csrf
+    @method('POST')
     <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
       <div class="min-w-0 flex-1">
         <div class="">
@@ -210,8 +212,13 @@
                     <h3 class="mt-5 text-xl font-semibold text-gray-900 mb-2">{{ $room->name }}</h3>
                     <div class="items-center justify-between gap-4 py-3 mt-3">
                         <p class="text-base font-light text-gray-900 mb-2">
-                            {{ \Carbon\Carbon::parse(session('check_in'))->format('D, M d, Y') }} - 
-                            {{ \Carbon\Carbon::parse(session('check_out'))->format('D, M d, Y') }}
+                            <input type="date" name="check_in" value="{{session('check_in')}}" hidden>
+                            <input type="date" name="check_out" value="{{session('check_out')}}" hidden>
+                            <input type="text" name="room_id" value="{{$room->id}}" hidden>
+                            {{\Carbon\Carbon::parse(session('check_in'))->isoFormat('dddd, D MMMM YYYY')}} - 
+                            {{\Carbon\Carbon::parse(session('check_out'))->isoFormat('dddd, D MMMM YYYY')}}
+                            {{-- {{ \Carbon\Carbon::parse(session('check_in'))->format('D, M d, Y') }} -  --}}
+                            {{-- {{ \Carbon\Carbon::parse(session('check_out'))->format('D, M d, Y') }} --}}
                         </p>
                     </div>
                 </div>
@@ -234,7 +241,8 @@
                     </dl>
 
                     <dl class="flex items-center justify-between gap-4 py-3">
-                        <dt class="text-base font-normal text-gray-500">Total Diskon</dt>
+
+                        <dt class="text-base font-normal text-gray-500">Total Diskon <span></span></dt>
                         <div>
                             <!-- Tempat untuk menampilkan total diskon yang diterapkan -->
                             <dd id="discount-total" class="text-base font-medium text-red-600">Rp. 0</dd>
@@ -248,11 +256,29 @@
                             <dd id="total-price" class="text-base font-bold text-gray-900"></dd>
                         </div>
                     </dl>
+
+                    <dl class="flex flex-col gap-3 py-3">
+                        <p>Metode pembayaran</p>
+                        <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                <input type="radio" name="payment_method" id="Cash" value="Cash" class="hidden" onclick="console.log('Cash')">
+                                {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                <label for="Cash" class="hover:cursor-pointer">Cash</label>
+                            </div>
+                            <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                <input type="radio" name="payment_method" id="Xendit" value="Xendit" class="hidden" onclick="console.log ('Xendit')">
+                                {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                <label for="Xendit" class="hover:cursor-pointer">Xendit</label>
+                            </div>
+                        </div>
+                    </dl>
                 </div>
             </div>
 
             <div class="space-y-3 p-5">
-                <button type="submit" class="flex w-full items-center bg-[#5b3a1f] justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white" style="background-color: #5b3a1f">
+                <button type="submit" id="payment-button" class="flex w-full items-center bg-[#5b3a1f] justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white" style="background-color: #5b3a1f">
                     Proceed to Payment
                 </button>
                 <p class="text-sm font-normal text-gray-500 pb-5">
@@ -269,6 +295,7 @@
 
 @endsection
 @push('addons-script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const openMobileMenu = document.getElementById('openMobileMenu');
         const closeMobileMenu = document.getElementById('closeMobileMenu');
@@ -369,6 +396,10 @@
                 const discountPercentage = parseFloat(checkbox.getAttribute("data-discount") || "0");
                 discountTotal += (roomTotal * (discountPercentage / 100));
             });
+            // document.querySelectorAll('input[name="promo"]').addEventListener('click', function() {
+            //     const discountPercentage = parseFloat(checkbox.getAttribute("data-discount") || "0");
+            //     discountTotal += (roomTotal * (discountPercentage / 100));
+            // });
 
             // Update tampilan total diskon
             discountTotalElement.textContent = `- Rp. ${discountTotal.toLocaleString("id-ID")}`;
@@ -377,5 +408,29 @@
             const totalAmount = roomTotal + accommodationTotal - discountTotal;
             totalPriceElement.textContent = `Rp. ${totalAmount.toLocaleString("id-ID")}`;
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            const paymentForm = $('#payment-form');
+            const paymentButton = $('#payment-button');
+            const onlineRoute = "{{route('payment.store')}}";
+            const cashRoute = "https://yahoo.com";
+
+            $('#Cash').change(function() {
+                if($(this).is(':checked')) {
+                    // Change to Cash payment
+                    paymentButton.text('Bayar tunai');
+                    paymentForm.attr('action', cashRoute);
+                }
+            });
+
+            $('#Xendit').change(function() {
+                if($(this).is(':checked')) {
+                    // Change to Cash payment
+                    paymentButton.text('Bayar dengan Xendit');
+                    paymentForm.attr('action', onlineRoute);
+                }
+            });
+        });
     </script>
 @endpush
