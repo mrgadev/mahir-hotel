@@ -88,6 +88,7 @@
             <div class="mb-10">
               <label for="your_name" class="mb-2 block text-base font-medium text-primary-700"> Your name </label>
               @auth
+                  <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                   <input type="text" id="your_name" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required autocomplete="off" name="name" value="{{Auth::user()->name}}" />
               @endauth
               @guest
@@ -128,7 +129,7 @@
                                 <input 
                                     id="spa_{{$accomodation_plan->id}}" 
                                     type="checkbox" 
-                                    name="stay-plan[]" 
+                                    name="accomodation_plan_id[]" 
                                     value="{{ $accomodation_plan->id }}" 
                                     class="h-4 w-4 border-gray-300 bg-white text-primary-600 rounded-md focus:ring-2 focus:ring-primary-600"
                                     data-price="{{ $accomodation_plan->price }}" 
@@ -155,7 +156,7 @@
                     <div class="relative">
                         <input type="checkbox" 
                             id="promo-{{ $promo->id }}" 
-                            name="promo[]"
+                            name="promo_id[]"
                             value="{{ $promo->id }}" 
                             data-discount="{{ $promo->amount }}"
                             class="promo-checkbox hidden peer" 
@@ -172,7 +173,7 @@
                     <div class="relative">
                         <input type="checkbox" 
                             id="promo-{{ $promo->id }}" 
-                            name="promo[]"
+                            name="promo_id[]"
                             value="{{ $promo->id }}" 
                             data-discount="{{ $promo->amount }}"
                             class="promo-checkbox hidden peer" 
@@ -215,8 +216,12 @@
                             <input type="date" name="check_in" value="{{session('check_in')}}" hidden>
                             <input type="date" name="check_out" value="{{session('check_out')}}" hidden>
                             <input type="text" name="room_id" value="{{$room->id}}" hidden>
-                            {{\Carbon\Carbon::parse(session('check_in'))->isoFormat('dddd, D MMMM YYYY')}} - 
-                            {{\Carbon\Carbon::parse(session('check_out'))->isoFormat('dddd, D MMMM YYYY')}}
+                            {{\Carbon\Carbon::parse(session('check_in'))->isoFormat('dddd, D MMM Y')}} - 
+                            {{\Carbon\Carbon::parse(session('check_out'))->isoFormat('dddd, D MMM YYYY')}}
+                            @php
+                                $totalDays = date_diff(date_create(session('check_in')), date_create(session('check_out')));
+                            @endphp
+                            
                             {{-- {{ \Carbon\Carbon::parse(session('check_in'))->format('D, M d, Y') }} -  --}}
                             {{-- {{ \Carbon\Carbon::parse(session('check_out'))->format('D, M d, Y') }} --}}
                         </p>
@@ -225,16 +230,31 @@
 
                 <div class="-my-3 px-5 divide-y divide-gray-200">
                     <dl class="flex items-center justify-between gap-4 py-3">
-                        <dt class="text-base font-normal text-gray-500">Total Harga Kamar</dt>
+                        <dt class="text-base font-normal text-gray-500">Harga Kamar</dt>
                         <div>
                             <!-- Harga kamar -->
                             <dd id="room-price" class="text-base font-medium text-gray-900">Rp.{{ number_format($room->price, 0, ',', '.') }}</dd>
                         </div>
                     </dl>
 
+                    <dl class="flex items-center justify-between gap-4 py-3">
+                        <dt class="text-base font-normal text-gray-500">Durasi</dt>
+                        <div>
+                            <!-- Harga kamar -->
+                            <dd id="room-price" class="text-base font-medium text-gray-900">{{$totalDays->format("%a hari")}}</dd>
+                        </div>
+                    </dl>
+                    <dl class="flex items-center justify-between gap-4 py-3">
+                        <dt class="text-base font-normal text-gray-500">Total Harga Kamar</dt>
+                        <div>
+                            <!-- Harga kamar -->
+                            <dd id="room-price" class="text-base font-medium text-gray-900">Rp.{{ number_format($room->price * $totalDays->format("%a"), 0, ',', '.') }}</dd>
+                        </div>
+                    </dl>
+
                     <dl class="flex flex-col gap-4 py-3">
                         <div class="text-left">
-                            <dt class="text-base font-normal text-gray-500">Rencana Penginapan</dt>
+                            <dt class="text-base font-medium text-gray-900">Rencana Penginapan</dt>
                         </div>
                         <!-- Tempat untuk menampilkan rencana penginapan yang dipilih -->
                         <div id="accommodation-plans"></div>
@@ -245,8 +265,8 @@
                         <dt class="text-base font-normal text-gray-500">Total Diskon <span></span></dt>
                         <div>
                             <!-- Tempat untuk menampilkan total diskon yang diterapkan -->
-                            <dd id="discount-total" class="text-base font-medium text-red-600">Rp. 0</dd>
                         </div>
+                        <dd id="discount-total" class="text-base font-medium text-red-600">Rp. 0</dd>
                     </dl>
 
                     <dl class="flex items-center justify-between gap-4 py-3">
@@ -261,13 +281,13 @@
                         <p>Metode pembayaran</p>
                         <div class="flex items-center gap-5">
                             <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
-                                <input type="radio" name="payment_method" id="Cash" value="Cash" class="hidden" onclick="console.log('Cash')">
+                                <input type="radio" name="payment_method" id="Cash" value="Cash" class="hidden">
                                 {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
                                 {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
                                 <label for="Cash" class="hover:cursor-pointer">Cash</label>
                             </div>
                             <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
-                                <input type="radio" name="payment_method" id="Xendit" value="Xendit" class="hidden" onclick="console.log ('Xendit')">
+                                <input type="radio" name="payment_method" id="Xendit" value="Xendit" class="hidden">
                                 {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
                                 {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
                                 <label for="Xendit" class="hover:cursor-pointer">Xendit</label>
@@ -278,7 +298,7 @@
             </div>
 
             <div class="space-y-3 p-5">
-                <button type="submit" id="payment-button" class="flex w-full items-center bg-[#5b3a1f] justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white" style="background-color: #5b3a1f">
+                <button type="submit" id="payment-button" class="hidden flex w-full items-center bg-[#5b3a1f] justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white" style="background-color: #5b3a1f">
                     Proceed to Payment
                 </button>
                 <p class="text-sm font-normal text-gray-500 pb-5">
@@ -373,7 +393,7 @@
             let selectedPlans = "";
 
             // Tampilkan rencana penginapan yang dipilih
-            document.querySelectorAll('input[name="stay-plan[]"]:checked').forEach((checkbox) => {
+            document.querySelectorAll('input[name="accomodation_plan_id[]"]:checked').forEach((checkbox) => {
                 const price = parseFloat(checkbox.getAttribute("data-price") || "0");
                 const name = checkbox.closest('.rounded-lg').querySelector('label').textContent.trim().split('-')[1];
 
@@ -392,7 +412,7 @@
             const roomTotal = calculateRoomTotal();
             let discountTotal = 0;
             
-            document.querySelectorAll('input[name="promo[]"]:checked').forEach((checkbox) => {
+            document.querySelectorAll('input[name="promo_id[]"]:checked').forEach((checkbox) => {
                 const discountPercentage = parseFloat(checkbox.getAttribute("data-discount") || "0");
                 discountTotal += (roomTotal * (discountPercentage / 100));
             });
@@ -413,22 +433,28 @@
         $(document).ready(function() {
             const paymentForm = $('#payment-form');
             const paymentButton = $('#payment-button');
-            const onlineRoute = "{{route('payment.store')}}";
-            const cashRoute = "https://yahoo.com";
+            const onlineRoute = "{{route('payment.online')}}";
+            const cashRoute = "{{route('payment.cash')}}";
 
             $('#Cash').change(function() {
                 if($(this).is(':checked')) {
                     // Change to Cash payment
                     paymentButton.text('Bayar tunai');
+                    paymentButton.show();
                     paymentForm.attr('action', cashRoute);
+                } else {
+                    paymentButton.hide();
                 }
             });
 
             $('#Xendit').change(function() {
                 if($(this).is(':checked')) {
                     // Change to Cash payment
-                    paymentButton.text('Bayar dengan Xendit');
+                    paymentButton.text('Bayar Online');
+                    paymentButton.show();
                     paymentForm.attr('action', onlineRoute);
+                } else {
+                    paymentButton.hide();
                 }
             });
         });

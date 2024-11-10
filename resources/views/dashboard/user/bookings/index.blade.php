@@ -90,86 +90,34 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($transactions as $transaction)    
                             <tr class="cursor-pointer">
                                 <td class="font-medium whitespace-nowrap">1</td>
                                 <td class="">
-                                    <p>Kamar Standard</p>
+                                    <p>{{$transaction->room->name}}</p>
                                 </td>
                                 <td class="">
-                                    <p>12 Nov 2024</p>
+                                    <p>{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('d MMM YYYY')}}</p>
                                 </td>
                                 <td class="">
-                                    <p>13 Nov 2024</p>
+                                    <p>{{Carbon\Carbon::parse($transaction->check_out)->isoFormat('d MMM YYYY')}}</p>
                                 </td>
                                 <td class="">
-                                    <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">Sudah</p>
+                                    <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
                                 </td> 
                                 <td class="">
-                                    <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">Lunas</p>
+                                    <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->payment_status}}</p>
                                 </td>
 
                                 <td class="flex items-center">
                                     <div class="mr-2">
-                                        <a href="{{route('dashboard.user.bookings.detail')}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                        <a href="{{route('dashboard.user.bookings.detail', $transaction->invoice)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                     </div>
                                 </td>
                             </tr>
-
-                            <tr class="cursor-pointer">
-                                <td class="font-medium whitespace-nowrap">2</td>
-                                <td class="">
-                                    <p>Kamar Keluarga</p>
-                                </td>
-                                <td class="">
-                                    <p>15 Nov 2024</p>
-                                </td>
-                                <td class="">
-                                    <p>20 Nov 2024</p>
-                                </td>
-                                <td class="">
-                                    <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">Belum</p>
-                                </td> 
-                                <td class="">
-                                    <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">Dibatalkan</p>
-                                </td>
-
-                                <td class="flex items-center">
-                                    <div class="mr-2">
-                                        <a href="{{route('dashboard.user.bookings.detail')}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="cursor-pointer">
-                                <td class="font-medium whitespace-nowrap">3</td>
-                                <td class="">
-                                    <p>Kamar Royal</p>
-                                </td>
-                                <td class="">
-                                    <p>01 Des 2024</p>
-                                </td>
-                                <td class="">
-                                    <p>10 Des 2024</p>
-                                </td>
-                                <td class="">
-                                    <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">Belum</p>
-                                </td> 
-                                <td class="">
-                                    <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">Tertunda</p>
-                                </td>
-
-                                <td class="flex items-center">
-                                    <div class="mr-2">
-                                        <a href="{{route('dashboard.user.bookings.detail')}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

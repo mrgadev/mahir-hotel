@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0cacf783dc80bfeb7f92013c7ef4eca7",
+    "content-hash": "1882b03e567217a641d89f0ab912fe0b",
     "packages": [
         {
             "name": "brick/math",
@@ -5726,7 +5726,19 @@
                     "Xendit\\": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Xendit\\Test\\": "test/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "DEVELOPMENT_API_KEY=$DEVELOPMENT_API_KEY BUSINESS_ID=$BUSINESS_ID phpunit"
+                ],
+                "filtered-test": [
+                    "DEVELOPMENT_API_KEY=$DEVELOPMENT_API_KEY BUSINESS_ID=$BUSINESS_ID phpunit --filter PaymentAPITest"
+                ]
+            },
             "license": [
                 "unlicense"
             ],
@@ -5748,8 +5760,8 @@
                 "sdk"
             ],
             "support": {
-                "issues": "https://github.com/xendit/xendit-php/issues",
-                "source": "https://github.com/xendit/xendit-php/tree/6.0.0"
+                "source": "https://github.com/xendit/xendit-php/tree/6.0.0",
+                "issues": "https://github.com/xendit/xendit-php/issues"
             },
             "time": "2024-08-15T06:16:23+00:00"
         }

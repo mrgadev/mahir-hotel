@@ -60,7 +60,7 @@ class AuthenticatedSessionController extends Controller
             $user = User::where('email', $request->email)->first();
             // Cek role
             if($user->hasRole('admin') || $user->hasRole('staff')) {
-                return redirect()->intended(route('dashboard.home'));
+                return redirect()->route('dashboard.home');
             } elseif($user->hasRole('user')) {
                 return redirect()->route('frontpage.index');
             }

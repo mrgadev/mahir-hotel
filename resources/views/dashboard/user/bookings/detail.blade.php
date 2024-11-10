@@ -41,16 +41,16 @@
                     <div class="p-7 mt-2 bg-white rounded-xl shadow-lg col-span-2">
                         {{-- Header card --}}
                         <div class="flex flex-col gap-3 mb-8">
-                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-xs w-fit font-medium">Pesanan dikonfirmasi</p>
-                            <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">MH-37289</span></h2>
-                            <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> 17 November 2024, 09:56</p>
+                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-xs w-fit font-medium">{{$transaction->payment_status}}</p>
+                            <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">{{$transaction->invoice}}</span></h2>
+                            <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, d MMMM YYYY, H:m')}}</p>
                         </div>
 
                         {{-- Body card --}}
                         <div class="grid lg:grid-cols-3 gap-6 text-sm">
                             <div class="flex flex-col gap-1">
                                 <p>Tipe Kamar</p>
-                                <p class="font-medium text-primary-700">Standard Single</p>
+                                <p class="font-medium text-primary-700">{{$transaction->room->name}}</p>
                             </div>
 
                             <div class="flex flex-col gap-1">
@@ -60,24 +60,27 @@
 
                             <div class="flex flex-col gap-1">
                                 <p>Harga per Malam</p>
-                                <p class="font-medium text-primary-700">Rp. 975.000</p>
+                                <p class="font-medium text-primary-700">Rp. {{number_format($transaction->room->price,0,',','.')}}</p>
                             </div>
 
                             <div class="flex flex-col gap-1">
                                 <p>Check-in</p>
-                                <p class="font-medium text-primary-700">17 Nov 2024</p>
-                                <p>09:00</p>
+                                <p class="font-medium text-primary-700">{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')}}</p>
+                                {{-- <p>09:00</p> --}}
                             </div>
 
                             <div class="flex flex-col gap-1">
                                 <p>Check-out</p>
-                                <p class="font-medium text-primary-700">20 Nov 2024</p>
-                                <p>07:30</p>
+                                <p class="font-medium text-primary-700">{{Carbon\Carbon::parse($transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
+                                {{-- <p>07:30</p> --}}
                             </div>
 
                             <div class="flex flex-col gap-1">
                                 <p>Durasi</p>
-                                <p class="font-medium text-primary-700">3 Malam</p>
+                                @php
+                                    $nights = date_diff(date_create($transaction->check_in), date_create($transaction->check_out))->format("%a")
+                                @endphp
+                                <p class="font-medium text-primary-700">{{$nights}} Malam</p>
                             </div>
 
                             <div class="flex flex-col gap-1 col-span-3">
@@ -92,27 +95,48 @@
                             <div class="flex flex-col gap-1">
                                 <p>Fasilitas Kamar</p>
                                 <ul class="flex flex-col gap-1">
-                                    <li class="flex items-center gap-1 text-primary-700"><span class="material-symbols-rounded scale-75">wifi</span>Wifi Kencang</li>
-                                    <li class="flex items-center gap-1 text-primary-700"><span class="material-symbols-rounded scale-75">wifi</span>TV Kabel</li>
-                                    <li class="flex items-center gap-1 text-primary-700"><span class="material-symbols-rounded scale-75">wifi</span>Air Hangat</li>
+                                    @foreach ($transaction->room->room_facility as $room_facility)
+                                    <li class="flex items-center gap-1 text-primary-700"><span class="material-icons-round scale-75">{{$room_facility->icon}}</span>{{$room_facility->name}}</li>
+                                    @endforeach
+                                    {{-- <li class="flex items-center gap-1 text-primary-700"><span class="material-symbols-rounded scale-75">wifi</span>TV Kabel</li>
+                                    <li class="flex items-center gap-1 text-primary-700"><span class="material-symbols-rounded scale-75">wifi</span>Air Hangat</li> --}}
                                 </ul>
                             </div>
 
                             <div class="flex flex-col gap-1">
                                 <p>Tambahan</p>
                                 <ul class="flex flex-col gap-1">
-                                    <li class="flex items-center gap-1 text-primary-700"><span class="material-symbols-rounded scale-75">wifi</span>Pijat Refleksi</li>
+                                    @foreach ($transaction->accomodation_plans as $accomodation_plan)                                        
+                                    <li class="flex items-center gap-1 text-primary-700">{{$accomodation_plan->name}} (Rp. {{number_format($accomodation_plan->price,0,',','.')}})</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @php
+                                $discount_amount = 0;
+                                foreach($transaction->promos as $promo) {
+                                    $discount_amount += $promo->amount;
+                                }
+                                $discount_amount = $discount_amount / 100;
+                                $discounted_price = $discount_amount * ($transaction->room->price * $nights);
+                            @endphp
+                            <div class="flex flex-col gap-1">
+                                <p>Promo yang Dipakai</p>
+                                <ul class="flex flex-col gap-1">
+                                    @foreach ($transaction->promos as $promo)                                        
+                                    <li class="flex items-center gap-1 text-primary-700">{{$promo->name}} ({{$promo->amount}}%)</li>
+                                    <li class="flex items-center gap-1 text-red-700 text-sm font-medium">-Rp. {{number_format(($promo->amount / 100) * ($transaction->room->price * $nights),0,',','.')}}</li>
+                                    @endforeach
                                 </ul>
                             </div>
 
-                            <div class="flex flex-col gap-1">
+                            {{-- <div class="flex flex-col gap-1">
                                 <p>Poin yang Didapatkan</p>
                                 <ul class="flex flex-col gap-1">
                                     <li class="flex items-center gap-1 text-primary-700"><span class="material-symbols-rounded scale-75">toll</span>100 Poin</li>
                                 </ul>
-                            </div>
-                            <button class="p-3 rounded-lg text-white bg-red-700">Batalkan pesanan</button>
+                            </div> --}}
                         </div>
+                        <button class="p-3 rounded-lg text-white bg-red-700 mt-5">Batalkan pesanan</button>
 
                     </div>
 
@@ -120,10 +144,10 @@
                     <div class="p-7 mt-2 bg-white rounded-xl shadow-lg col-span-1">
                         <div class="flex flex-col gap-5">
                             <div class="flex items-center justify-between">
-                                <p class="text-primary-700 text-lg font-medium">Single Standard</p>
-                                <a href="#" class="text-sm underline">Detail</a>
+                                <p class="text-primary-700 text-lg font-medium">{{$transaction->room->name}}</p>
+                                <a href="{{route('frontpage.rooms.detail', $transaction->room->slug)}}" class="text-sm underline">Detail</a>
                             </div>
-                            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="rounded-lg">
+                            <img src="{{url($transaction->room->cover)}}" alt="" class="rounded-lg">
                             <div class="flex items-center gap-2">
                                 <div class="flex items-center gap-1 text-sm">
                                     <span class="material-symbols-rounded">square_foot</span>
@@ -143,33 +167,37 @@
                         <div class="flex flex-col gap-5">
                             <div class="flex items-center gap-3">
                                 <h3 class="text-xl text-primary-700 ">Ringkasan Tagihan</h3>
-                                <p class="px-2 py-1 font-medium rounded text-sm bg-green-100 border border-green-700 text-green-700">Lunas</p>
+                                <p class="px-2 py-1 font-medium rounded text-sm bg-green-100 border border-green-700 text-green-700">{{$transaction->payment_status}}</p>
                             </div>
                             <div class="flex flex-col gap-3 text-sm">
                                 <div class="flex items-center justify-between">
                                     <p>Biaya kamar</p>
-                                    <p class="text-primary-700">Rp. 2.925.000</p>
+                                    <p class="text-primary-700">Rp. {{number_format($transaction->room->price,0,',','.')}}</p>
                                 </div>
+                                @php
+                                    $accomodation_plan_amount = 0;
+                                    foreach ($transaction->accomodation_plans as $accomodation_plan) {
+                                        $accomodation_plan_amount += $accomodation_plan->price;
+                                    }
+                                @endphp
                                 <div class="flex items-center justify-between">
                                     <p>Biaya tambahan</p>
-                                    <p class="text-primary-700">Rp. 25.000</p>
+                                    <p class="text-primary-700">Rp. {{number_format($accomodation_plan_amount,0,',','.')}}</p>
                                 </div>
+                                
                                 <div class="flex items-center justify-between">
                                     <p>Potongan harga</p>
-                                    <p class="text-red-700">-Rp. 150.000</p>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <p>PPN 10%</p>
-                                    <p class="text-red-700">Rp. -280.000</p>
+                                    <p class="text-red-700">-Rp. {{number_format($discounted_price,0,',','.')}}</p>
                                 </div>
                                 <div class="flex items-center justify-between ">
                                     <p class="text-gray-800">Total harga</p>
-                                    <p class="bg-primary-100 text-primary-700 font-semibold">Rp. 2.580.000</p>
+                                    <p class="bg-primary-100 text-primary-700 font-semibold">Rp. {{number_format($transaction->total_price,0,',','.')}}</p>
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <p>Metode pembayaran</p>
-                                    <p class="">Online merchant (Xendit)</p>
+                                    <p class="">{{$transaction->payment_method}}</p>
                                 </div>
+                                <a href="#" class="px-5 py-2 rounded-lg text-white bg-primary-700 text-center">Check-in</a>
                             </div>
                         </div>
                     </div>

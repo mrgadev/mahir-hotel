@@ -14,7 +14,7 @@ class Transaction extends Model
         'room_id',
         'check_in',
         'check_out',
-        'accomdation_plan_id',
+        'accomodation_plans_id',
         'service_id',
         'notes',
         'checkin_status',
@@ -24,7 +24,7 @@ class Transaction extends Model
         'payment_status',
         'payment_method',
         'total_price',
-        'promo_id'
+        'promos_id'
     ];
 
     public function user() {
