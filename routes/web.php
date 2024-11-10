@@ -34,6 +34,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
 
     Route::resource('/users_management', UsersManagementController::class)->middleware('role:admin');
     Route::put('/users_management/{users_management}/password', [UsersManagementController::class, 'updatePassword'])->name('users_management.updatePassword')->middleware('role:admin');
+    Route::post('/users_management/bulkUpdateRole', [BulkAction::class, 'updateRole'])->name('users_management.updateRole')->middleware('role:admin');
 
     Route::resource('/accomodation_plan', AccomdationPlanController::class)->middleware('role:admin|staff');
     Route::post('/accomodation_plan/bulkDelete', [BulkAction::class, 'accomodationPlanBulkDelete'])->name('accomodation_plan.bulkDelete')->middleware('role:admin|staff');

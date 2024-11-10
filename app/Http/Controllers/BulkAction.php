@@ -13,6 +13,7 @@ use App\Models\Room;
 use App\Models\RoomFacilities;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\User;
 
 class BulkAction extends Controller
 {
@@ -135,5 +136,28 @@ class BulkAction extends Controller
         Message::whereIn('id', $message_ids)->delete();
 
         return response()->json(['success' => true, 'message' => 'Data Pesan berhasil dihapus']);
+    }
+
+    public function updateRole(Request $request)
+    {
+        $user_ids = $request->input('user_ids', []);
+        $role_id = $request->input('role_id');
+        
+        if (empty($user_ids)) {
+            return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
+        }
+
+        if (empty($role_id)) {
+            return redirect()->back()->with('error', 'tidak ada role yang dipilih');
+        }
+
+        foreach($user_ids as $user_id) {
+            $user = User::find($user_id);
+            if($user) {
+                $user->syncRoles([$role_id]);
+            }
+        }
+
+        return redirect()->route('dashboard.users_management.index')->with('success', 'Data pengguna berhasil diubah');
     }
 }
