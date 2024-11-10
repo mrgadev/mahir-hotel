@@ -29,30 +29,42 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::put('/profile/password', [DashboardController::class, 'updatePassword'])->name('profile.updatePassword');
     Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('/hotel_facilities', HotelFacilitiesController::class)->names('hotel_facilities')->middleware('role:admin|staff');
+    Route::resource('/hotel_facilities', HotelFacilitiesController::class)->names('hotel_facilities')->middleware(middleware: 'role:admin|staff');
     Route::post('/fasilitas-hotel/bulkDelete', [BulkAction::class, 'hotelFacilitiesBulkDelete'])->name('hotel-facilities.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/users_management', UsersManagementController::class)->middleware('role:admin');
     Route::put('/users_management/{users_management}/password', [UsersManagementController::class, 'updatePassword'])->name('users_management.updatePassword')->middleware('role:admin');
+    Route::post('/users_management/bulkUpdateRole', [BulkAction::class, 'updateRole'])->name('users_management.updateRole')->middleware('role:admin');
 
     Route::resource('/accomodation_plan', AccomdationPlanController::class)->middleware('role:admin|staff');
+    Route::post('/accomodation_plan/bulkDelete', [BulkAction::class, 'accomodationPlanBulkDelete'])->name('accomodation_plan.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/room_facilities', RoomFacilitiesController::class)->middleware('role:admin|staff');
+    Route::post('/room_facilities/bulkDelete', [BulkAction::class, 'roomFacilitiesBulkDelete'])->name('room_facilities.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/nearby_location', NearbyLocationController::class)->middleware('role:admin|staff');
+    Route::post('/nearby_location/bulkDelete', [BulkAction::class, 'nearbyLocationBulkDelete'])->name('nearby_location.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/faq', FaqController::class)->middleware('role:admin|staff');
+    Route::post('/faq/bulkDelete', [BulkAction::class, 'faqBulkDelete'])->name('faq.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/room', RoomController::class)->middleware('role:admin|staff');
+    Route::post('/room/bulkDelete', [BulkAction::class, 'roomBulkDelete'])->name('room.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/promo', PromoController::class)->middleware('role:admin|staff');
+    Route::post('/promo/bulkDelete', [BulkAction::class, 'promoBulkDelete'])->name('promo.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/service', ServiceController::class)->middleware('role:admin|staff');
+    Route::post('/service/bulkDelete', [BulkAction::class,'serviceBulkDelete'])->name('service.bulkDelete')->middleware('role:admin|staff');
     
     Route::resource('/service_category', ServiceCategoryController::class)->middleware('role:admin|staff');
+    Route::post('/service_category/bulkDelete', [BulkAction::class,'serviceCategoryBulkDelete'])->name('service_category.bulkDelete')->middleware('role:admin|staff');
 
     Route::get('/pesan', [MessageController::class, 'index'])->name('message')->middleware('role:admin|staff');
+    Route::post('/pesan/bulkDelete', [BulkAction::class,'pesanBulkDelete'])->name('pesan.bulkDelete')->middleware('role:admin|staff');
+
     Route::get('/pesan/{message:slug}', [MessageController::class, 'show'])->name('message.show')->middleware('role:admin|staff');
+
     Route::delete('/pesan/{message}', [MessageController::class, 'destroy'])->name('message.delete')->middleware('role:admin|staff');
 });
 
