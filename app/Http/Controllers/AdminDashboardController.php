@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminDashboardController extends Controller
 {
     public function index() {
-        $transaction = Transaction::where('user_id', Auth::user()->id)->firstOrFail();
-        return view('dashboard.dashboard', compact('transaction'));
+        return view('dashboard.dashboard');
     }
 
     public function editProfile() {

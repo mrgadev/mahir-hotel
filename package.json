@@ -21,6 +21,7 @@
         "@tiptap/pm": "^2.9.1",
         "@tiptap/starter-kit": "^2.9.1",
         "datatables.net-dt": "^2.1.8",
+        "echarts": "^5.5.1",
         "flowbite-typography": "^1.0.4",
         "jquery": "^3.7.1",
         "simple-datatables": "^9.2.1"

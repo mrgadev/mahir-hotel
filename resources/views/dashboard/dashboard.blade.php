@@ -18,6 +18,11 @@
     </h1>
     <div class="w-full px-6 py-6 mx-auto">
         @role(['admin|staff'])
+        @php
+            $total_rooms = App\Models\Room::count();
+            $total_reservations = App\Models\Transaction::count();
+            $total_check_in = App\Models\Transaction::whereIn('checkin_status', ['Sudah'])->count();
+        @endphp
         <!-- row 1 -->
         <div class="flex flex-wrap -mx-3">
             <!-- card1 -->
@@ -28,7 +33,7 @@
                     <div class="flex-none w-2/3 max-w-full px-3">
                         <div>
                         <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Jumlah Kamar</p>
-                        <h5 class="mb-2 font-semibold text-xl">2000</h5>
+                        <h5 class="mb-2 font-semibold text-xl">{{$total_rooms}}</h5>
                         {{-- <p class="mb-0">
                             <span class="text-sm font-bold leading-normal text-emerald-500">+55%</span>
                             since yesterday
@@ -53,7 +58,7 @@
                     <div class="flex-none w-2/3 max-w-full px-3">
                         <div>
                         <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Jumlah Reservasi</p>
-                        <h5 class="mb-2 font-semibold text-xl">175</h5>
+                        <h5 class="mb-2 font-semibold text-xl">{{$total_reservations}}</h5>
                         </div>
                     </div>
                     <div class="px-3 text-right basis-1/3">
@@ -95,7 +100,7 @@
                     <div class="flex-none w-2/3 max-w-full px-3">
                         <div>
                         <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Total Check-in</p>
-                        <h5 class="mb-2 font-semibold text-xl">200</h5>
+                        <h5 class="mb-2 font-semibold text-xl">{{$total_check_in}}</h5>
                         </div>
                     </div>
                     <div class="px-3 text-right basis-1/3">
@@ -419,6 +424,9 @@
         @endrole
 
         @role('user')
+        @php
+            $transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->firstOrFail();
+        @endphp
         {{-- #1 Row for USer --}}
         <div class="grid lg:grid-cols-2 gap-5">
             <div class="bg-white rounded-2xl shadow-xl p-5">

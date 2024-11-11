@@ -18,6 +18,7 @@ use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Message;
 use Symfony\Component\Mime\MessageConverter;
 
@@ -59,6 +60,10 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     
     Route::resource('/service_category', ServiceCategoryController::class)->middleware('role:admin|staff');
     Route::post('/service_category/bulkDelete', [BulkAction::class,'serviceCategoryBulkDelete'])->name('service_category.bulkDelete')->middleware('role:admin|staff');
+
+    // Route::resource('/transactions', TransactionController::class)->middleware('role:admin|staff');
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transaction.index')->middleware('role:admin|staff');
+    Route::get('/transaction/{transaction:invoice}', [TransactionController::class, 'show'])->name('transaction.show')->middleware('role:admin|staff');
 
     Route::get('/pesan', [MessageController::class, 'index'])->name('message')->middleware('role:admin|staff');
     Route::post('/pesan/bulkDelete', [BulkAction::class,'pesanBulkDelete'])->name('pesan.bulkDelete')->middleware('role:admin|staff');
