@@ -14,6 +14,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NearbyLocationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\ServiceCategoryController;
@@ -71,6 +72,9 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::get('/pesan/{message:slug}', [MessageController::class, 'show'])->name('message.show')->middleware('role:admin|staff');
 
     Route::delete('/pesan/{message}', [MessageController::class, 'destroy'])->name('message.delete')->middleware('role:admin|staff');
+
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('role:admin|staff');
+    Route::post('/export-transactions', [ReportController::class, 'exportTransactions'])->name('export-transactions');
 });
 
 Route::middleware('auth')->group(function () {

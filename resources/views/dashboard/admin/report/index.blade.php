@@ -1,6 +1,6 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'Daftar Transaksi')
+@section('title', 'Laporan Keuangan')
 
 {{-- @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
@@ -23,18 +23,68 @@
                                 <span class="material-symbols-rounded scale-75">home</span>
                             </a>
                             <span class="material-symbols-rounded">chevron_right</span>
-                            <p>Daftar Transaksi</p>
+                            <p>Laporan Keuangan</p>
                         </div>
                         <h1 class="text-white text-4xl font-medium">
-                            Daftar Transaksi
+                            Laporan Keuangan
                         </h1>
                     </div>
-                    <a href="{{route('dashboard.service.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
-                        <i class="bi bi-plus-square mr-2"></i>
-                        <p>Tambah</p>
-                    </a>
+                    @if(isset($transactions) && $transactions->isNotEmpty())
+                        <form action="{{route('dashboard.export-transactions')}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="years" id="years" value="{{request('year')}}">
+                            <input type="hidden" name="months" id="months" value="{{request('month')}}">
+                            <button type="submit" class="ring-green-800 flex items-center gap-2 mt-10 px-5 py-2 ring-2  rounded-md bg-primary-100 p-2 text-green-700 hover:bg-white transition-all duration-75 hover:text-green-700 text-base text-center">
+                                <i class="bi bi-file-earmark-spreadsheet"></i>
+                                <p class=" whitespace-nowrap">Export Data</p>
+                            </button>
+                        </form>
+                    @endif
                 </div>
-            </div>       
+            </div>      
+            <section class="container mx-auto">
+                <main class="col-span-12 md:pt-0">
+                    <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
+                        <form action="{{ route('dashboard.report.index') }}" method="GET">
+                            <div class="flex items-center gap-3">
+                                <div class="grid grid-cols-1 gap-2 w-full">
+                                    <label for="year" class="flex items-center gap-1 text-primary-700 font-light text-sm">Tahun</label>
+                                    <select name="year" id="year" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700">
+                                        <option value="">-- Pilih Tahun --</option>
+                                        @foreach ($years as $year)
+                                            <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="grid grid-cols-1 gap-2 w-full">
+                                    <label for="month" class="flex items-center gap-1 text-primary-700 font-light text-sm">Bulan</label>
+                                    <select name="month" id="month" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700">
+                                        <option value="">-- Pilih Bulan --</option>
+                                        <option value="january" {{ request('month') == 'january' ? 'selected' : '' }}>Januari</option>
+                                        <option value="february" {{ request('month') == 'february' ? 'selected' : '' }}>Februari</option>
+                                        <option value="march" {{ request('month') =='march' ? 'selected' : '' }}>Maret</option>
+                                        <option value="april" {{ request('month') == 'april' ? 'selected' : '' }}>April</option>
+                                        <option value="may" {{ request('month') == 'may' ? 'selected' : '' }}>Mei</option>
+                                        <option value="june" {{ request('month') == 'june' ? 'selected' : '' }}>Juni</option>
+                                        <option value="july" {{ request('month') == 'july' ? 'selected' : '' }}>Juli</option>
+                                        <option value="august" {{ request('month') == 'august' ? 'selected' : '' }}>Agustus</option>
+                                        <option value="september" {{ request('month') == 'september' ? 'selected' : '' }}>September</option>
+                                        <option value="october" {{ request('month') == 'october' ? 'selected' : '' }}>Oktober</option>
+                                        <option value="november" {{ request('month') == 'november' ? 'selected' : '' }}>November</option>
+                                        <option value="december" {{ request('month') == 'december' ? 'selected' : '' }}>Desember</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 mt-8">
+                                <a href="{{route('dashboard.report.index')}}" class="px-5 py-2 border border-primary-500 text-primary-500 rounded-full hover:bg-primary-500 hover:text-white transition-all" id="">Reset</a>
+                                <button type="submit" class="bg-primary-500 text-white px-5 py-2 rounded-full hover:bg-primary-700 transition-all">Pilih</button>
+                            </div>
+                        </form>
+                    </div>
+                </main>
+            </section>   
+            
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -100,9 +150,6 @@
                                             </svg>
                                         </span>
                                     </th>
-                                    <th class="flex items-center">
-                                        Action
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -118,13 +165,6 @@
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($transaction->total_price,0,',','.')}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->payment_status}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->payment_method}}</td>
-                                        <td class="flex items-center justify-center">
-                                            <div class="mr-2">
-                                                <a href="{{route('dashboard.transaction.show', $transaction)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
-                                                    <i class="bi bi-eye"></i>
-                                                </a>
-                                            </div>
-                                        </td>
                                     </tr>
                                 @empty
                                     
@@ -133,7 +173,16 @@
                         </table>
                     </div>
                 </main>
-            </section>    
+            </section>  
+
+            <section class="container mx-auto">
+                <main class="col-span-12 md:pt-0">
+                    <div class="p-10 mt-2 bg-white rounded-xl shadow-lg flex items-center justify-between">
+                        <p class="font-bold text-primary-700 whitespace-nowrap">Total Transaksi</p>
+                        <p class="font-bold text-primary-700 whitespace-nowrap">Rp. {{number_format($totalAmount,0,',','.')}}</p>
+                    </div>
+                </main>
+            </section>  
         </main>
     </div>
 @endsection
@@ -255,13 +304,13 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const deleteButton = document.getElementById('quickActionButton');
-            const actionUrl = "{{ route('dashboard.service.bulkDelete') }}";
+            const actionUrl = "{{ route('dashboard.faq.bulkDelete') }}";
 
             deleteButton.addEventListener('click', function () {
-                const serviceIds = Array.from(document.querySelectorAll('input[name="service_ids[]"]:checked'))
+                const faqIds = Array.from(document.querySelectorAll('input[name="faq_ids[]"]:checked'))
                     .map(checkbox => checkbox.value);
 
-                if (serviceIds.length === 0) {
+                if (faqIds.length === 0) {
                     Swal.fire({
                         icon: "error",
                         title: "Tidak ada data yang dipilih",
@@ -283,7 +332,7 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken
                     },
-                    body: JSON.stringify({ service_ids: serviceIds })
+                    body: JSON.stringify({ faq_ids: faqIds })
                 })
                 .then(response => response.json())
                 .then(data => {
