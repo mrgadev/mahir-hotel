@@ -13,6 +13,6 @@ class TransactionController extends Controller
     }
 
     public function show(Transaction $transaction) {
-        return view('dashboard.admin.transaction.detail', compact('transaction'));
+    return view('dashboard.admin.transaction.detail', compact('transaction'));
     }
 }

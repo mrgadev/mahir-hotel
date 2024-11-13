@@ -162,8 +162,8 @@
     </div>
 
     <section class="main h-[90%] flex flex-col justify-center gap-3 relative">
-        <h1 class="text-4xl xl:text-6xl text-white">Liburan impian Anda<br>dimulai di sini!</h1>
-        <p class=" text-white">Mahir Hotel menawarkan kenyamanan dan kemewahan yang tiada duanya,<br> dengan fasilitas kelas dunia dan layanan istimewa, kami siap menyambut Anda.</p>
+        <h1 class="text-4xl xl:text-6xl text-white">{!!$site_setting->tagline!!}</h1>
+        <p class="text-white">{!!$site_setting->description!!}</p>
         <form action="{{route('frontpage.search.rooms')}}" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full" method="GET">
             <div class="flex items-center gap-2">
                 <div class="grid grid-cols-1 gap-2">
@@ -194,7 +194,7 @@
         {{-- Mobile booking form --}}
         <button class="text-white bg-primary-500 w-fit px-5 py-3 rounded-full block xl:hidden" id="openBookingForm">Pesan sekarang</button>
         <div class="inset-0 z-20 bg-gray-500 bg-opacity-65 fixed flex items-center justify-center xl:hidden hidden min-h-screen w-screen " id="bookingForm">
-            <form class="flex flex-col gap-5 justify-center bg-white w-[90%] rounded-xl p-5">
+            <form action="{{route('frontpage.search.rooms')}}" method="GET" class="flex flex-col gap-5 justify-center bg-white w-[90%] rounded-xl p-5">
                 <h2 class="text-2xl font-medium mb-5 text-primary-500">Pesan Kamar</h2>
                 <div class="grid grid-cols-1 gap-2 w-full">
                     <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Pilih Kamar</label>
@@ -422,7 +422,15 @@
                 
             </div>
         </div>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4138.804388321211!2d106.82896076951583!3d-6.205752381880911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f41ace344be7%3A0x7ca9fc55e762b09e!2sThe%20St.%20Regis%20Jakarta!5e1!3m2!1sid!2sid!4v1729430801393!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe
+            src="https://maps.app.goo.gl/ttoLdkSigY8Fc2ju5?entry=ttu"
+            width="600"
+            height="450"
+            style="border:0;"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
     </div>
 </div>
 
@@ -594,25 +602,23 @@
     <h2 class="text-3xl font-medium text-primary-700 text-center">Partner Kami</h2>
     <div class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
         <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-            <li><img src="{{asset('images/1200px-Tiket.com_logo.png')}}" class="h-10 grayscale" alt=""></li>
-            <li><img src="{{asset('images/agoda-logo-8C565D040A-seeklogo.com.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/Traveloka-Logo-Vector.svg-.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/TripAdvisor_Logo.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/Airbnb_Logo_Bélo.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/garuda-indonesia.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/All_Nippon_Airways_Logo.svg.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-    
+            @foreach ($partners as $partner)
+            <li>
+                <a href="{{$partner->link}}">
+                    <img src="{{url($partner->logo)}}" target="_blank" class="h-10 grayscale hover:grayscale-0" alt="">
+                </a>
+            </li>
+            @endforeach
         </ul>
     
         <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-            <li><img src="{{asset('images/1200px-Tiket.com_logo.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/agoda-logo-8C565D040A-seeklogo.com.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/Traveloka-Logo-Vector.svg-.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/TripAdvisor_Logo.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/Airbnb_Logo_Bélo.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/garuda-indonesia.svg')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-            <li><img src="{{asset('images/All_Nippon_Airways_Logo.svg.png')}}" class="h-10 grayscale hover:grayscale-0 transition-all" alt=""></li>
-    
+            @foreach ($partners as $partner)
+            <li>
+                <a href="{{$partner->link}}">
+                    <img src="{{url($partner->logo)}}" target="_blank" class="h-10 grayscale hover:grayscale-0" alt="">
+                </a>
+            </li>
+            @endforeach
         </ul>
     </div>
 </div>

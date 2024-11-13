@@ -19,6 +19,8 @@ use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SiteSettingPartnerController;
+use App\Http\Controllers\SiteSettingsController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Message;
 use Symfony\Component\Mime\MessageConverter;
@@ -66,13 +68,17 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transaction.index')->middleware('role:admin|staff');
     Route::get('/transaction/{transaction:invoice}', [TransactionController::class, 'show'])->name('transaction.show')->middleware('role:admin|staff');
 
-    Route::get('/pesan', [MessageController::class, 'index'])->name('message')->middleware('role:admin|staff');
-    Route::post('/pesan/bulkDelete', [BulkAction::class,'pesanBulkDelete'])->name('pesan.bulkDelete')->middleware('role:admin|staff');
+    Route::get('/message', [MessageController::class, 'index'])->name('message')->middleware('role:admin|staff');
+    Route::post('/message/bulkDelete', [BulkAction::class,'pesanBulkDelete'])->name('pesan.bulkDelete')->middleware('role:admin|staff');
 
-    Route::get('/pesan/{message:slug}', [MessageController::class, 'show'])->name('message.show')->middleware('role:admin|staff');
+    Route::get('/message/{message:slug}', [MessageController::class, 'show'])->name('message.show')->middleware('role:admin|staff');
 
     Route::delete('/pesan/{message}', [MessageController::class, 'destroy'])->name('message.delete')->middleware('role:admin|staff');
 
+    Route::get('/site-settings', [SiteSettingsController::class, 'edit'])->name('site.settings.edit')->middleware('role:admin');
+    Route::put('/site-settings/{site_setting}', [SiteSettingsController::class, 'update'])->name('site.settings.update')->middleware('role:admin');
+    // Route::put('/partners/{partner}')
+    
     Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('role:admin|staff');
     Route::post('/export-transactions', [ReportController::class, 'exportTransactions'])->name('export-transactions');
 });

@@ -11,6 +11,8 @@ use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 use App\Models\NearbyLocation;
 use App\Models\HotelFacilities;
+use App\Models\SiteSettingPartner;
+use App\Models\SiteSettings;
 
 class FrontpageController extends Controller
 {
@@ -19,7 +21,9 @@ class FrontpageController extends Controller
         $nearby_locations = NearbyLocation::all();
         $hotel_facilities = HotelFacilities::all();
         $rooms = Room::all();
-        return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms'));
+        $site_setting = SiteSettings::where('id', 1)->firstOrFail();
+        $partners = SiteSettingPartner::all();
+        return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms', 'site_setting', 'partners'));
     }
     public function checkout(String $id, Request $request){
         $room = Room::find($id);

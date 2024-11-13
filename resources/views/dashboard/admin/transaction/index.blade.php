@@ -116,7 +116,15 @@
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Kamar Hotel</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->invoice}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($transaction->total_price,0,',','.')}}</td>
-                                        <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->payment_status}}</td>
+                                        @if($transaction->payment_status == 'PAID')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                                        </td>
+                                        @elseif($transaction->payment_status == 'PENDING')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                                        </td>
+                                        @endif
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->payment_method}}</td>
                                         <td class="flex items-center justify-center">
                                             <div class="mr-2">

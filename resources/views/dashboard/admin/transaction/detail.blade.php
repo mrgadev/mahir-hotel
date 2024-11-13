@@ -41,7 +41,11 @@
                     <div class="p-7 mt-2 bg-white rounded-xl shadow-lg col-span-2">
                         {{-- Header card --}}
                         <div class="flex flex-col gap-3 mb-8">
-                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-xs w-fit font-medium">{{$transaction->payment_status}}</p>
+                            @if($transaction->payment_status == 'PAID')
+                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                            @elseif($transaction->payment_status == 'PENDING')
+                            <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                            @endif
                             <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">{{$transaction->invoice}}</span></h2>
                             <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, d MMMM YYYY, H:m')}}</p>
                         </div>
@@ -170,20 +174,6 @@
                                 <a href="{{route('frontpage.rooms.detail', $transaction->room->slug)}}" class="text-sm underline">Detail</a>
                             </div>
                             <img src="{{url($transaction->room->cover)}}" alt="" class="rounded-lg">
-                            <div class="flex items-center gap-2">
-                                <div class="flex items-center gap-1 text-sm">
-                                    <span class="material-symbols-rounded">square_foot</span>
-                                    15 m2
-                                </div>
-                                <div class="flex items-center gap-1 text-sm">
-                                    <span class="material-symbols-rounded">single_bed</span>
-                                    Single Bed
-                                </div>
-                                <div class="flex items-center gap-1 text-sm">
-                                    <span class="material-symbols-rounded">group</span>
-                                    1 Guest
-                                </div>
-                            </div>
                         </div>
                         <hr class="h-0.5 my-8 bg-gray-700 border-0">
                         <div class="flex flex-col gap-5">

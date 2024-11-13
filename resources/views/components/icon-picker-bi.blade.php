@@ -1,8 +1,6 @@
 <!-- resources/views/components/icon-picker.blade.php -->
 <div>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    {{-- <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"> --}}
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .icon-trigger {
             cursor: pointer;
@@ -125,12 +123,13 @@
 
     <!-- Icon Trigger Button -->
     <div class="icon-trigger" onclick="openIconPicker()">
-        <i class="material-icons-round" id="selected-icon-display">{{ $selected ?? 'add' }}</i>
+        <i class="bi bi-{{ $selected ?? 'plus' }}" id="selected-icon-display"></i>
+        {{-- <i class="material-icons-round" id="selected-icon-display">{{ $selected ?? 'add' }}</i> --}}
         <span>Pilih Ikon</span>
     </div>
 
     <!-- Hidden Input -->
-    <input type="hidden" name="items[0][icon]" id="icon-input" value="{{ $selected ?? '' }}">
+    <input type="hidden" name="{{ $name ?? 'icon' }}" id="icon-input" value="{{ $selected ?? '' }}">
 
     <!-- Icon Modal -->
     <div class="icon-modal" id="icon-modal">
@@ -141,8 +140,9 @@
             
             <div class="icon-preview">
                 Ikon yang Dipilih: 
-                <i class="material-icons-round" id="preview-icon">{{ $selected ?? 'add' }}</i>
-                <span id="preview-icon-name">{{ $selected ?? 'add' }}</span>
+                <i class="bi bi-{{ $selected ?? 'plus' }}" id="preview-icon"></i>
+                {{-- <i class="material-icons-round" id="preview-icon">{{ $selected ?? 'add' }}</i> --}}
+                <span id="preview-icon-name">{{ $selected ?? 'plus' }}</span>
             </div>
             
             <input type="text" class="icon-search" placeholder="Search icons..." onkeyup="searchIcons()">
@@ -155,23 +155,10 @@
 
     <script>
         const iconCategories = {
-            'Action': ['home', 'settings', 'search', 'done', 'menu', 'favorite', 'bolt', 'toggle_off', 'key', 'shopping_cart_checkout', 'block', 'settings_accessibility', 'fullscreen', 'swap_horiz', 'upload', 'token',  'swipe_left', 'swipe_up', 'shopping_cart', 'description', 'logout', 'manage_accounts', 'fingerprint', 'login', 'paid', 'shopping_bag', 'trending_up', 'account_circle', 'visibility', 'favorite_border', 'lock', 'verified', 'schedule', 'face', 'history', 'build', 'print', 'admin_panel_settings', 'savings', 'receipt', 'grade', 'room', 'lock_open', 'bookmark', 'payment', 'pending_actions', 'explore', 'pets', 'shopping_basket', 'tips_and_updates', 'card_giftcard', 'thumb_up_off_alt', 'view_in_ar', 'dns', 'assignment_turned_in', 'flight_takeoff', 'gavel', 'book', 'translate', 'rocket_launch', 'accessibility', 'add_task', 'dashboard_customize', 'redeem', 'group_work', 'nightlight_round', 'query_builder', 'circle_notifications', 'accessible', 'translate', 'offline_bolt', 'aspect_ratio', 'opacity', 'commute', 'tour', 'view_sidebar', 'toll', 'pregnant_woman', 'next_plan', 'work_history', 'credit_card_off', 'view_timeline', 'lightbulb_outline', 'lock_person', 'browse_gallery', 'add_home', 'view_compact_alt', 'width_wide', 'error', 'warning', 'info', 'help', 'sell', 'thermostat', 'widgets'],
 
-            'Navigation': ['arrow_back', 'arrow_forward', 'menu', 'more_vert', 'payments', 'check', 'campaign', 'maps_home_work', 'legend_toggle', 'assistant_direction', 'add_home_work', 'pivot_table_chart', 'light_mode', 'dark_mode', 'task'],
+            'Communication': ['amd', 'android', 'phone', 'chat', 'apple', 'chat', 'check-circle', 'clipboard', 'clock', 'cloud', 'compass', 'credit-card', 'cursor', 'facebook', 'messenger', 'meta', 'whatsapp', 'instagram', 'threads', 'twitter', 'twitter-x', 'twitch', 'pinterest', 'tiktok', 'alexa', 'behance', 'discord', 'dribbble', 'github', 'gitlab', 'google', 'line', 'linkedin', 'mastodon', 'medium', 'quora', 'reddit', 'signal', 'skype', 'slack', 'snapchat', 'spotify', 'telegram', 'vimeo', 'youtube'],
 
-            'Communication': ['mail', 'message', 'phone', 'chat', 'location_on', 'business', 'list_alt', 'vpn_key', 'alternate_email', 'chat_bubble', 'qr_code_2', 'hub', 'import_contacts', 'hourglass_bottom', 'rss_feed', 'mark_email_read', 'mark_email_unread', 'call_end', 'dialpad', 'document_scanner', 'cancel_presentation', 'cell_tower', 'ring_volume', 'duo', 'voicemail', 'call_merge', 'spoke', 'contact_emergency', 'pause_presentation', 'wifi_calling', 'nat', 'stay_current_landscape'],
-
-            'File': ['folder', 'file_copy', 'cloud_upload', 'attachment', 'download', 'cloud', 'newspaper', 'folder_shared', 'approval', 'workspaces', 'topic', 'cloud_circle', 'add', 'remove', 'create', 'upload', 'send', 'inventory_2', 'flag', 'bolt', 'create', 'calculate', 'shield', 'inbox', 'ballot', 'outlined_flag', 'where_to_vote', 'square_foot', 'waves', 'how_to_vote', 'weekend', 'gesture', 'upcoming', 'attribution', 'web_stories', 'next_week', 'insights', 'create', 'content_paste', 'how_to_reg', 'waves', 'square_foot', 'stream'],
-
-            'Social': ['person', 'group', 'share', 'notifications', 'groups', 'public', 'emoji_events', 'engineering', 'construction', 'water_drop', 'location_city', 'emoji_emotions', 'sports_esports', 'sentiment_satisfied', 'science', 'emoji_objects', 'cake', 'emoji_people', 'whatshot', 'self_improvement', 'domain', 'recommend', 'recycling', 'real_estate_agent', 'architecture', 'hiking', 'masks', 'luggage', 'diversity_3', 'interests', 'night_stay', 'king_bed', 'compost', 'sports_basketball', 'emoji_food_beverage', 'cookie', 'wallet', 'elderly', 'add_moderator', 'scale', 'fireplace', 'hive', 'sports_volleyball', 'diversity_2', 'domain_add', 'face_6', 'face_4', 'face_3', 'elderly_woman', 'flood', 'no_luggage'],
-
-            'Maps & Places': ['local_shipping', 'menu_book', 'local_offer', 'badge', 'map', 'restaurant', 'directions_car', 'local_fire_department', 'volunteer_activism', 'flight', 'local_mall', 'near_me', 'directions_run', 'restaurant_menu', 'celebration', 'lunch_dining', 'local_library', 'park', 'local_atm', 'local_activity', 'person_pin', 'design_services', 'directions_bus', 'local_cafe', 'delivery_dining', 'local_police', 'directions_bike', 'fastfood', 'cleaning_services', 'hotel', 'home_repair_services', 'navigation', 'local_grocery_store', 'diamond', 'train', 'local_parking', 'local_florist', 'factory', 'money', 'local_post_office', 'directions', 'two_wheeler', 'add_business', 'traffic', 'directions_boat', 'warehouse', 'local_bar', 'agriculture', 'emergency', 'pedal_bike', '360', 'liquor', 'local_airport', 'local_taxi', 'hail', 'local_dining', 'directions_bus_filled', 'local_printshop', 'theater_comedy', 'local_pizza', 'forest', 'transfer_within_a_station', 'dinner_dining', 'bakery_dining', 'wine_bar', 'terrain', 'store_mall_directory', 'departure_board', 'nightlife', 'hardware', 'local_pharmacy', 'museum', 'ev_station', 'electric_car', 'local_see', 'festival', 'plumbing', 'car_rental', 'medical_information', 'church', 'pest_control', 'edit_attributes', 'car_repair', 'moped', 'tram', 'subway', 'straight', 'hvac', 'signpost', 'local_movies', 'brunch_dining', 'transit_enterexit', 'directions_transit', 'stadium', 'mosque', 'egg', 'compass_calibration', 'local_play', 'tire_repair', 'sos', 'flight_class', 'fire_truck', 'synagogue', 'temple_hindu', 'fire_hydrant_alt', 'apartment', 'storefront', 'business_center', 'spa', 'meeting_room', 'cottage', 'checkroom', 'grass', 'beach_access', 'pool', 'airport_shuttle', 'free_breakfast', 'villa', 'smoke_free', 'hot_tub', 'fire_extinguisher', 'balcony', 'iron', 'bungalow'], 
-
-            'Audio & Video': ['play_arrow', 'play_circle', 'mic', 'videocam', 'volume_up', 'replay', 'stop', 'movie', 'web', 'video_library', 'hearing', 'recent_actors', 'subtitles', 'games', 'radio', 'add_to_queue', 'airplay', 'call_to_action', 'hd', 'video_label', 'art_track', '4k', 'surround_sound', 'sd', '8k', 'airplay', 'live_tv', 'personal_video'],
-
-            'Notification': ['support_agent', 'wifi', 'account_tree', 'sync', 'event_available', 'event_note', 'sms', 'live_tv', 'ondemand_video', 'drive_eta', 'more', 'wc', 'do_not_disturb', 'power', 'vpn_lock', 'enhanced_encryption', 'adb', 'airline_seat_recline_extra', 'imagesearch_roller', 'signal_cellular_4_bar'],
             
-            'Hardware': ['smartphone', 'computer', 'security', 'desktop_windows', 'laptop', 'headphones', 'tv', 'point_of_sale', 'router', 'phonelink', 'speaker', 'connected_tv'],
             // Add more categories as needed
         };
 
@@ -207,8 +194,8 @@
                 div.className = 'icon-item';
                 div.onclick = () => selectIcon(icon);
                 div.innerHTML = `
-                    <i class="material-icons-round">${icon}</i>
-                    <span class="icon-name">${icon}</span>
+                <i class="bi bi-${icon}"></i>
+                <span class="icon-name">${icon}</span>
                 `;
                 grid.appendChild(div);
             });

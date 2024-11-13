@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 
 // use Xendit\/Invoice;
+use Carbon\Carbon;
+use App\Traits\Fonnte;
 use Xendit\Configuration;
 use Xendit\Payout\Payout;
 use App\Models\Transaction;
 use Xendit\Invoice\Invoice;
 use Illuminate\Http\Request;
-use Xendit\BalanceAndTransaction\TransactionApi;
-use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\Invoice\InvoiceApi;
+use Xendit\Invoice\CreateInvoiceRequest;
+use Xendit\BalanceAndTransaction\TransactionApi;
 use Xendit\PaymentRequest\PaymentRequestParameters;
 
 class PaymentController extends Controller
 {
+    use Fonnte;
     // Buat construct untuk mendapatkan token Xendit
     public function __construct() {
         // Configuration::setXenditKey(env('XENDIT_SECRET_KEY'));
@@ -129,13 +132,76 @@ class PaymentController extends Controller
         // dd($paymentResponse);
     }
 
+    public function cashPayment(Request $request) {
+        $data = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'room_id' => 'required|exists:rooms,id',
+            'check_in' => 'required',
+            'check_out' => 'required',
+            'accomodation_plan_id' => 'nullable|array',
+            'accomodation_plan_id.*' => 'exists:accomdation_plans,id',
+            'promo_id' => 'nullable|array',
+            'promo_id.*' => 'exists:promos,id',
+        ]);
+        // buat data invoice
+        $data['invoice'] = 'MH-'.rand(000000,999999); 
+        // buat data jumlah malam dari selisih tanggal check in dan out untuk kalkulasi harga akhir
+        $nights = date_diff(date_create($data['check_in']), date_create($data['check_out']))->format("%a");
+
+        // Buat data transaction baru dengan beberapa data awal
+        // Adapun data lain spt, harga total akan diperbarui di akhir
+        $transaction = new Transaction();
+        $transaction->user_id = $data['user_id'];
+        $transaction->name = $data['name'];
+        $transaction->email = $data['email'];
+        $transaction->phone = $data['phone'];
+        $transaction->room_id = $data['room_id'];
+        $transaction->check_in = $data['check_in'];
+        $transaction->check_out = $data['check_out'];
+        $transaction->invoice = $data['invoice'];
+        $transaction->payment_method = 'Cash';
+        $transaction->save();
+        // lakukan sinkronisasi data accomodation_plan_id dan promo_id
+        $transaction->accomodation_plans()->sync($request->accomodation_plan_id);
+        $transaction->promos()->sync($request->promo_id);
+        $accomodation_plan_amount = 0;
+        // Lakukan perulangan untuk menghitung total biaya accomodation plan
+        foreach($transaction->accomodation_plans as $accomodation_plan) {
+            $accomodation_plan_amount += $accomodation_plan->price;
+        }
+        $promo_amount = 0;
+        // Lakukan perulangan untuk menghituyng total promo
+        foreach($transaction->promos as $promo) {
+            $promo_amount += $promo->amount;
+        }
+        $base_price = $nights * $transaction->room->price;
+        $promo_price = (int) $base_price * ($promo_amount / 100);
+
+        $total_amount = $base_price + $accomodation_plan_amount - $promo_price;
+
+        $transaction->payment_status = "PENDING";
+        $transaction->payment_url = '';
+        $transaction->total_price = $total_amount;
+        $transaction->save();
+
+        
+
+        return redirect()->route('payment.success', $transaction->invoice);
+    }
+
     public function success($id)
     {
         $transaction = Transaction::where('invoice',$id)->firstOrFail();
-        if($transaction->payment_status == "PENDING")  {
+        if($transaction->payment_method == 'Xendit' && $transaction->payment_status == "PENDING") {
             $transaction->payment_status = "PAID";
+            $transaction->room->available_rooms -= 1;
             $transaction->save();
         }
+        $pesan = 'Halo'. $transaction->user->name . 'Terimakasih telah melakukan pemesanan kamar di Mahir Hotel/nBerikut ini detail reservasi Anda: \nNomor Kamar: *100*\nTipe Kamar: *'.$transaction->room->name.'*\nTanggal Check-in: *'.Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY').'*\n\nSemoga liburan Anda menyenangkan!';
+        $this->send_message($transaction->user->phone, $pesan);
         return view('frontpage.payment.success', compact('transaction'));
         // $apiInstance = new InvoiceApi();
         // $result = $apiInstance->getInvoices(null,$id);
