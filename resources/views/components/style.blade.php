@@ -40,6 +40,12 @@
 <!-- Include jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- Bootstrap Icon Picker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/css/bootstrap-iconpicker.min.css">
+
+<!-- Bootstrap Icon Picker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker.bundle.min.js"></script>
 <!-- Include Select2 JS CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <style>
