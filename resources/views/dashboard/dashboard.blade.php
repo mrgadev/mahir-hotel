@@ -22,6 +22,7 @@
             $total_rooms = App\Models\Room::count();
             $total_reservations = App\Models\Transaction::count();
             $total_check_in = App\Models\Transaction::whereIn('checkin_status', ['Sudah'])->count();
+            $total_revenue = App\Models\Transaction::where('payment_status', 'PAID')->sum('total_price');
         @endphp
         <!-- row 1 -->
         <div class="flex flex-wrap -mx-3">
@@ -79,7 +80,7 @@
                     <div class="flex-none w-2/3 max-w-full px-3">
                         <div>
                         <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase">Total Pendapatan</p>
-                        <h5 class="mb-2 font-semibold text-xl">Rp. 17.500.000</h5>
+                        <h5 class="mb-2 font-semibold text-xl">Rp. {{number_format($total_revenue,0,',','.')}}</h5>
                         </div>
                     </div>
                     <div class="px-3 text-right basis-1/3">
@@ -120,10 +121,8 @@
                 <div slider class="bg-white w-full h-full overflow-hidden rounded-2xl shadow-xl">
                     <div class="p-6 flex flex-col gap-5">
                         <h6>Ketersediaan Kamar</h6>
-                        <div class="flex items-center gap-2 w-full">
-                            <div class="w- h-10 relative bg-primary-700"></div>
-                            {{-- <div class="w- h-10 relative bg-primary-700"></div> --}}
-                            {{-- <div class="w-2/7 h-10 relative bg-primary-700"></div> --}}
+                        <div class="flex items-center justify-center gap-2 w-full">
+                            <canvas id="roomChart" style="max-height: 300px;"></canvas>
                         </div>
                     </div>
                 </div>
@@ -152,141 +151,53 @@
         <div class="flex flex-wrap mt-6 -mx-3">
             <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
                 <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl border-black-125 rounded-2xl bg-clip-border">
-                <div class="p-4 pb-0 mb-0 rounded-t-4">
-                    <div class="flex justify-between">
-                    <h6 class="mb-2">Reservasi</h6>
+                    <div class="py-4 px-6 pb-0 mb-0 rounded-t-4">
+                        <div class="flex justify-between items-center">
+                            <h6 class="">Reservasi</h6>
+                            <a href="{{route('dashboard.transaction.index')}}" class="flex items-center px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
+                                <p>Lihat</p>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="items-center w-full mb-4 align-top border-collapse border-gray-200">
-                    <tbody>
-                        <tr>
-                        <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap">
-                            <div class="flex items-center px-2 py-1">
-                            <div>
-                                <img src="/assets/img/icons/flags/US.png" alt="Country flag" />
-                            </div>
-                            <div class="ml-6">
-                                <p class="mb-0 text-xs font-semibold leading-tight">Country:</p>
-                                <h6 class="mb-0 text-sm leading-normal">United States</h6>
-                            </div>
-                            </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Sales:</p>
-                            <h6 class="mb-0 text-sm leading-normal">2500</h6>
-                            </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Value:</p>
-                            <h6 class="mb-0 text-sm leading-normal">$230,900</h6>
-                            </div>
-                        </td>
-                        <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="flex-1 text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Bounce:</p>
-                            <h6 class="mb-0 text-sm leading-normal">29.9%</h6>
-                            </div>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap">
-                            <div class="flex items-center px-2 py-1">
-                            <div>
-                                <img src="/assets/img/icons/flags/DE.png" alt="Country flag" />
-                            </div>
-                            <div class="ml-6">
-                                <p class="mb-0 text-xs font-semibold leading-tight">Country:</p>
-                                <h6 class="mb-0 text-sm leading-normal">Germany</h6>
-                            </div>
-                            </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Sales:</p>
-                            <h6 class="mb-0 text-sm leading-normal">3.900</h6>
-                            </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Value:</p>
-                            <h6 class="mb-0 text-sm leading-normal">$440,000</h6>
-                            </div>
-                        </td>
-                        <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="flex-1 text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Bounce:</p>
-                            <h6 class="mb-0 text-sm leading-normal">40.22%</h6>
-                            </div>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap">
-                            <div class="flex items-center px-2 py-1">
-                            <div>
-                                <img src="/assets/img/icons/flags/GB.png" alt="Country flag" />
-                            </div>
-                            <div class="ml-6">
-                                <p class="mb-0 text-xs font-semibold leading-tight">Country:</p>
-                                <h6 class="mb-0 text-sm leading-normal">Great Britain</h6>
-                            </div>
-                            </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Sales:</p>
-                            <h6 class="mb-0 text-sm leading-normal">1.400</h6>
-                            </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Value:</p>
-                            <h6 class="mb-0 text-sm leading-normal">$190,700</h6>
-                            </div>
-                        </td>
-                        <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap">
-                            <div class="flex-1 text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Bounce:</p>
-                            <h6 class="mb-0 text-sm leading-normal">23.44%</h6>
-                            </div>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td class="p-2 align-middle bg-transparent border-0 w-3/10 whitespace-nowrap">
-                            <div class="flex items-center px-2 py-1">
-                            <div>
-                                <img src="/assets/img/icons/flags/BR.png" alt="Country flag" />
-                            </div>
-                            <div class="ml-6">
-                                <p class="mb-0 text-xs font-semibold leading-tight">Country:</p>
-                                <h6 class="mb-0 text-sm leading-normal">Brasil</h6>
-                            </div>
-                            </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                            <div class="text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Sales:</p>
-                            <h6 class="mb-0 text-sm leading-normal">562</h6>
-                            </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                            <div class="text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Value:</p>
-                            <h6 class="mb-0 text-sm leading-normal">$143,960</h6>
-                            </div>
-                        </td>
-                        <td class="p-2 text-sm leading-normal align-middle bg-transparent border-0 whitespace-nowrap">
-                            <div class="flex-1 text-center">
-                            <p class="mb-0 text-xs font-semibold leading-tight">Bounce:</p>
-                            <h6 class="mb-0 text-sm leading-normal">32.14%</h6>
-                            </div>
-                        </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
+                    <div class="overflow-x-auto py-5 flex items-center justify-center">
+                        <table class="text-center w-full whitespace-nowrap text-sm items-center font-normal">
+                            <thead>
+                                <tr class="font-semibold">
+                                    <th scope="col" class="p-4 font-normal">Id</th>
+                                    <th scope="col" class="p-4 font-normal">Nama</th>
+                                    <th scope="col" class="p-4 font-normal">Status Pembayaran</th>
+                                    <th scope="col" class="p-4 font-normal">Status Check in</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $i=1 @endphp
+                                @forelse ($transactions as $transaction)
+                                    <tr>
+                                        <td class="p-4 font-normal">{{$i++}}</td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col gap-1">
+                                                <h3 class="font-normal">{{$transaction->name}}</h3>
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col gap-1">
+                                                <h3 class="font-normal">{{$transaction->payment_status}}</h3>
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col gap-1">
+                                                <h3 class="font-normal">{{$transaction->checkin_status}}</h3>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="p-4 text-center">No data available</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="w-full max-w-full px-3 mt-0 lg:w-5/12 lg:flex-none">
@@ -477,6 +388,7 @@
 
 @push('addon-script')
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script>
     if (document.getElementById("selection-table") && typeof simpleDatatables.DataTable !== 'undefined') {
         let multiSelect = true;
@@ -541,5 +453,37 @@
 
         resetTable();
     }
+
+    const ctx = document.getElementById('roomChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Kamar Terpesan', 'Kamar Tersedia'],
+            datasets: [{
+                data: [{{ $bookedRooms }}, {{ $availableRooms }}],
+                backgroundColor: [
+                    '#FF8042', // Warna untuk kamar terpesan
+                    '#00C49F'  // Warna untuk kamar tersedia
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const total = {{ $bookedRooms + $availableRooms }};
+                            const percentage = Math.round((context.raw / total) * 100);
+                            return `${context.label}: ${context.raw} (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
 </script>
 @endpush

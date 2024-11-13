@@ -7,11 +7,21 @@ use App\Models\Regency;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminDashboardController extends Controller
 {
     public function index() {
-        return view('dashboard.dashboard');
+        $bookedRooms = DB::table('transactions')
+            ->where('checkin_status', 'Sudah')
+            ->count();
+
+        // Hitung kamar yang tersedia
+        $availableRooms = DB::table('rooms')
+            ->sum('available_rooms');
+
+        $transactions = Transaction::all();
+        return view('dashboard.dashboard', compact('availableRooms', 'bookedRooms', 'transactions'));
     }
 
     public function editProfile() {
