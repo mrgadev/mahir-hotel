@@ -13,6 +13,24 @@ class TransactionController extends Controller
     }
 
     public function show(Transaction $transaction) {
-    return view('dashboard.admin.transaction.detail', compact('transaction'));
+        return view('dashboard.admin.transaction.detail', compact('transaction'));
+    }
+    
+    public function changeCheckInStatus(Request $request, Transaction $transaction) {
+        $data = $request->validate([
+            'checkin_status' => 'required|in:Sudah,Belum,Dibatalkan'
+        ]);
+
+        $transaction->update($data);
+        return view('dashboard.admin.transaction.detail', compact('transaction'));
+    }
+
+    public function changePaymentStatus(Request $request, Transaction $transaction) {
+        $data = $request->validate([
+            'payment_status' => 'required|string'
+        ]);
+
+        $transaction->update($data);
+        return view('dashboard.admin.transaction.detail', compact('transaction'));
     }
 }

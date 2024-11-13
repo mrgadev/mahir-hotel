@@ -102,6 +102,7 @@ class RoomController extends Controller
         $room->description = $data['description'];
         $room->slug = $room_slug_name;
         $room->total_rooms = $data['total_rooms'];
+        $room->available_rooms = $data['total_rooms'];
         $room->save();
 
         $room->room_facility()->sync($request->room_facilities_id);
@@ -223,6 +224,7 @@ class RoomController extends Controller
             'cover'=> $data['cover'],
             'price' => $data['price'],
             'total_rooms' => $data['total_rooms'],
+            'available_rooms' => $data['total_rooms'],
             'slug' => $room_slug_name,
             'photos' => $photos,
             'description' => $data['description'],

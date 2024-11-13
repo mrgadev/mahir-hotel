@@ -153,9 +153,9 @@
                 <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl border-black-125 rounded-2xl bg-clip-border">
                     <div class="py-4 px-6 pb-0 mb-0 rounded-t-4">
                         <div class="flex justify-between items-center">
-                            <h6 class="">Reservasi</h6>
-                            <a href="{{route('dashboard.transaction.index')}}" class="flex items-center px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
-                                <p>Lihat</p>
+                            <h6 class="">Reservasi Terbaru</h6>
+                            <a href="{{route('dashboard.transaction.index')}}" class="flex items-center px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700  transition-all duration-75 hover:text-[#976033] border border-primary-700 text-base text-center">
+                                <p>Lihat selengkapnya</p>
                             </a>
                         </div>
                     </div>

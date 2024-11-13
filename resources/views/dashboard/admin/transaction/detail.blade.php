@@ -68,6 +68,66 @@
                                     <p>Email</p>
                                     <p class="font-medium text-primary-700">{{$transaction->email}}</p>
                                 </div>
+
+                                <div class="flex flex-col gap-1">
+                                    <p>Status Check-in</p>
+                                    <div class="flex items-center gap-3">
+                                        <p class="font-medium text-primary-700" id="checkInStatus">
+                                            {{$transaction->checkin_status}}
+                                        </p>
+                                        <button id="editCheckInStatusBtn" class="underline text-primary-700">
+                                            Ubah status
+                                        </button>
+                                        <div id="checkInStatusFormContainer" class="hidden">
+                                            <form id="editCheckInStatusForm" method="POST" action="{{route('dashboard.transaction.changeCheckInStatus', $transaction->id)}}">
+                                                @csrf
+                                                @method('PUT')
+                                                {{-- <input type="hidden" name="id"> --}}
+                                                {{-- <input type="text" id="inputField" /> --}}
+                                                <select name="checkin_status" id="checkInStatusField" class="bg-primary-100 rounded border border-primary-700 text-primary-700 p-2">
+                                                    
+                                                    <option value="Sudah">Sudah</option>
+                                                    <option value="Belum">Belum</option>
+                                                    <option value="Dibatalkan">Dibatalkan</option>
+                                                </select>
+                                                <button type="submit">Submit</button>
+                                                <button type="button" id="cancelEditCheckInStatusBtn">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col gap-1">
+                                    <p>Status Pembayaran</p>
+                                    @if($transaction->payment_method == 'Xendit')
+                                    <p class="font-medium text-primary-700">{{$transaction->payment_status}}</p>
+                                    @elseif($transaction->payment_method == 'Cash')
+                                    <div class="flex items-center gap-3">
+                                        <p class="font-medium text-primary-700" id="paymentStatus">
+                                            {{$transaction->payment_status}}
+                                        </p>
+                                        <button id="editpaymentStatusBtn" class="underline text-primary-700">
+                                            Ubah status
+                                        </button>
+                                        <div id="paymentStatusFormContainer" class="hidden">
+                                            <form id="editpaymentStatusForm" method="POST" action="{{route('dashboard.transaction.changePaymentStatus', $transaction->id)}}">
+                                                @csrf
+                                                @method('PUT')
+                                                {{-- <input type="hidden" name="id"> --}}
+                                                {{-- <input type="text" id="inputField" /> --}}
+                                                <select name="payment_status" id="paymentStatusField" class="bg-primary-100 rounded border border-primary-700 text-primary-700 p-2">
+                                                    
+                                                    <option value="Sudah">Sudah</option>
+                                                    <option value="Belum">Belum</option>
+                                                    <option value="Dibatalkan">Dibatalkan</option>
+                                                </select>
+                                                <button type="submit">Submit</button>
+                                                <button type="button" id="cancelEditpaymentStatusBtn">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         <div class="my-10">
@@ -80,7 +140,7 @@
     
                                 <div class="flex flex-col gap-1">
                                     <p>Nomor Kamar</p>
-                                    <p class="font-medium text-primary-700">101</p>
+                                    <p class="font-medium text-primary-700">{{$transaction->room_number}}</p>
                                 </div>
     
                                 <div class="flex flex-col gap-1">
@@ -108,10 +168,10 @@
                                     <p class="font-medium text-primary-700">{{$nights}} Malam</p>
                                 </div>
     
-                                <div class="flex flex-col gap-1 col-span-3">
+                                {{-- <div class="flex flex-col gap-1 col-span-3">
                                     <p>Catatan</p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quae odio adipisci aperiam dolorem odit facilis quo esse blanditiis, illum vel, voluptates earum labore? Maiores, tempore. </p>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
     
@@ -284,5 +344,60 @@
 
             resetTable();
         }
+    </script>
+
+    <script>
+        const editCheckInStatusBtn = document.getElementById('editCheckInStatusBtn');
+        const checkInStatus = document.getElementById('checkInStatus');
+        const checkInStatusFormContainer = document.getElementById('checkInStatusFormContainer');
+        const checkInStatusField = document.getElementById('checkInStatusField');
+        const cancelEditCheckInStatusBtn = document.getElementById('cancelEditCheckInStatusBtn');
+
+        editCheckInStatusBtn.addEventListener('click', function() {
+            // Get the current text from the <p> element
+            const currentCheckInStatus = checkInStatus.textContent;
+
+            // Set the input field value to the current text
+            checkInStatusField.value = currentCheckInStatus;
+            
+            // Hide the <p> element and show the form
+            checkInStatus.style.display = 'none';
+            editCheckInStatusBtn.classList.add('hidden');
+            checkInStatusFormContainer.classList.remove('hidden');
+        });
+
+        cancelEditCheckInStatusBtn.addEventListener('click', function() {
+            // Hide the form and show the <p> element again
+                editCheckInStatusBtn.classList.remove('hidden');
+            checkInStatusFormContainer.classList.add('hidden');
+            checkInStatus.style.display = 'block';
+        });
+
+
+        const editPaymentStatusBtn = document.getElementById('editPaymentStatusBtn');
+        const paymentStatus = document.getElementById('paymentStatus');
+        const paymentStatusFormContainer = document.getElementById('paymentStatusFormContainer');
+        const paymentStatusField = document.getElementById('paymentStatusField');
+        const cancelEditPaymentStatusBtn = document.getElementById('cancelEditPaymentStatusBtn');
+
+        editPaymentStatusBtn.addEventListener('click', function() {
+            // Get the current text from the <p> element
+            const currentPaymentStatus = paymentStatus.textContent;
+
+            // Set the input field value to the current text
+            paymentStatusField.value = currentPaymentStatus;
+            
+            // Hide the <p> element and show the form
+            paymentStatus.style.display = 'none';
+            editPaymentStatusBtn.classList.add('hidden');
+            paymentStatusFormContainer.classList.remove('hidden');
+        });
+
+        cancelEditPaymentStatusBtn.addEventListener('click', function() {
+            // Hide the form and show the <p> element again
+            editPaymentStatusBtn.classList.remove('hidden');
+            paymentStatusFormContainer.classList.add('hidden');
+            paymentStatus.style.display = 'block';
+        });
     </script>
 @endpush

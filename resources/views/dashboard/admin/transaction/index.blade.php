@@ -29,9 +29,8 @@
                             Daftar Transaksi
                         </h1>
                     </div>
-                    <a href="{{route('dashboard.service.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
-                        <i class="bi bi-plus-square mr-2"></i>
-                        <p>Tambah</p>
+                    <a href="#quickAction" id="quickActionButton" class="flex items-center mt-10 px-5 py-[0.73rem] ring-2 ring-primary-700 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-primary-700 text-base text-center">
+                        <p class="whitespace-nowrap">Quick Action</p>
                     </a>
                 </div>
             </div>       
@@ -41,9 +40,9 @@
                         <table id="selection-table" class="">
                             <thead>
                                 <tr>
-                                    {{-- <th scope="col" class="px-4 py-3">
+                                    <th scope="col" class="px-4 py-3">
                                         <input type="checkbox" id="masterCheckbox" class="cursor-pointer w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
-                                    </th> --}}
+                                    </th>
                                     <th>
                                         <span class="flex items-center">
                                             No
@@ -94,6 +93,14 @@
                                     </th>
                                     <th>
                                         <span class="flex items-center">
+                                            Status Check-in
+                                            <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                                            </svg>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="flex items-center">
                                             Metode Pambayaran
                                             <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
@@ -108,9 +115,9 @@
                             <tbody>
                                 @forelse ($transactions as $key => $transaction)
                                     <tr class="cursor-pointer">
-                                        {{-- <td scope="row" class="px-4 pe-0 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                            <input type="checkbox" name="service_ids[]" class="cursor-pointer child-checkbox w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600" value="{{ $service->id }}">
-                                        </td> --}}
+                                        <td scope="row" class="px-4 pe-0 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            <input type="checkbox" name="selected_transaction_ids[]" class="cursor-pointer child-checkbox w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600" value="{{ $transaction->id }}">
+                                       </td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->name}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Kamar Hotel</td>
@@ -123,6 +130,19 @@
                                         @elseif($transaction->payment_status == 'PENDING')
                                         <td>
                                             <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                                        </td>
+                                        @endif
+                                        @if($transaction->checkin_status == 'Sudah')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
+                                        </td>
+                                        @elseif($transaction->checkin_status == 'Belum')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
+                                        </td>
+                                        @elseif($transaction->checkin_status == 'Dibatalkan')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
                                         </td>
                                         @endif
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->payment_method}}</td>
@@ -143,6 +163,43 @@
                 </main>
             </section>    
         </main>
+        <div id="quickAction" class="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+            <div class="fixed inset-0 flex items-center justify-center p-4">
+                <!-- Modal content -->
+                <div class="relative w-1/3 mx-auto bg-white rounded-lg" onclick="event.stopPropagation()">
+                    <!-- Close button -->
+                    <a href="#" class="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </a>
+                    
+                    <!-- Modal content -->
+                    <div class="p-8">
+                        <form id="" action="{{ route('dashboard.users_management.updateRole') }}" method="POST" class="mb-4">
+                            @csrf
+                            <div class="mb-4">
+                                <input type="hidden" name="transaction_ids[]" value="" id="selectedTransactionIds">
+                                <label for="newStatus" class="block mb-2">
+                                    Ubah Status Check-in
+                                </label>
+                                <select name="checkin_status" id="newStatus" class="block w-full px-4 py-2 border rounded" required>
+                                    <option value="">--Pilih Status--</option>
+                                    <option value="Sudah">Sudah</option>
+                                    <option value="Belum">Belum</option>
+                                    <option value="Dibatalkan">Dibatalkan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="submit" class="inline-flex justify-center px-4 py-2 w-full text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
+                                    Ubah Status
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @push('addon-script')
@@ -262,14 +319,14 @@
         document.getElementById('quickActionButton').style.display = 'none';
 
         document.addEventListener('DOMContentLoaded', function () {
-            const deleteButton = document.getElementById('quickActionButton');
-            const actionUrl = "{{ route('dashboard.service.bulkDelete') }}";
+            const quickActionBtn = document.getElementById('quickActionButton');
+            const actionUrl = "{{ route('dashboard.transaction.bulkAction') }}";
 
-            deleteButton.addEventListener('click', function () {
-                const serviceIds = Array.from(document.querySelectorAll('input[name="service_ids[]"]:checked'))
+            quickActionBtn.addEventListener('click', function () {
+                const transactionIds = Array.from(document.querySelectorAll('input[name="selected_transaction_ids[]"]:checked'))
                     .map(checkbox => checkbox.value);
 
-                if (serviceIds.length === 0) {
+                if (transactionIds.length === 0) {
                     Swal.fire({
                         icon: "error",
                         title: "Tidak ada data yang dipilih",
@@ -291,7 +348,7 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken
                     },
-                    body: JSON.stringify({ service_ids: serviceIds })
+                    body: JSON.stringify({ transaction_ids: transactionIds })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -312,7 +369,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    Swal.fire('Error', 'Terjadi kesalahan saat menghapus data.', 'error');
+                    Swal.fire('Error', 'Terjadi kesalahan saat merubah data.', 'error');
                 });
             });
         });

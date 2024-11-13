@@ -66,6 +66,9 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     // Route::resource('/transactions', TransactionController::class)->middleware('role:admin|staff');
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transaction.index')->middleware('role:admin|staff');
     Route::get('/transaction/{transaction:invoice}', [TransactionController::class, 'show'])->name('transaction.show')->middleware('role:admin|staff');
+    Route::put('/transaction/{transaction}/checkin-status', [TransactionController::class, 'changeCheckInStatus'])->name('transaction.changeCheckInStatus')->middleware('role:admin|staff');
+    Route::put('/transaction/{transaction}/payment-status', [TransactionController::class, 'changePaymentStatus'])->name('transaction.changePaymentStatus')->middleware('role:admin|staff');
+    Route::put('/transaction/bulk-update-check-in-status', [TransactionController::class, 'updateCheckInStatus'])->name('transaction.bulkAction')->middleware('role:admin|staff');
 
     Route::get('/message', [MessageController::class, 'index'])->name('message')->middleware('role:admin|staff');
     Route::post('/message/bulkDelete', [BulkAction::class,'pesanBulkDelete'])->name('pesan.bulkDelete')->middleware('role:admin|staff');

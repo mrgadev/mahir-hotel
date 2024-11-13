@@ -59,7 +59,7 @@
 
                             <div class="flex flex-col gap-1">
                                 <p>Nomor Kamar</p>
-                                <p class="font-medium text-primary-700">101</p>
+                                <p class="font-medium text-primary-700">{{$transaction->room_number}}</p>
                             </div>
 
                             <div class="flex flex-col gap-1">
@@ -86,6 +86,16 @@
                                 @endphp
                                 <p class="font-medium text-primary-700">{{$nights}} Malam</p>
                             </div>
+
+                            <div class="flex flex-col gap-1">
+                                <p>Status Check-in</p>
+                                <p class="font-medium text-primary-700">{{$transaction->checkin_status}}</p>
+                            </div>
+
+                            {{-- <div class="flex flex-col gap-1">
+                                <p>Harga per Malam</p>
+                                <p class="font-medium text-primary-700">Rp. {{number_format($transaction->room->price,0,',','.')}}</p>
+                            </div> --}}
 
                             {{-- <div class="flex flex-col gap-1 col-span-3">
                                 <p>Catatan</p>
@@ -140,7 +150,15 @@
                                 </ul>
                             </div> --}}
                         </div>
+                        @if($transaction->checkin_status == 'Belum')
                         <button class="p-3 rounded-lg text-white bg-red-700 mt-5">Batalkan pesanan</button>
+                        @elseif($transaction->checkin_status == 'Sudah')
+                        <h3 class="text-lg text-primary-700">Berikan ulasan</h3>
+                        <form action="#">
+                            <input type="hidden" name="room_id" value="{{$transaction->room_id}}">
+                            
+                        </form> 
+                        @endif
 
                     </div>
 
