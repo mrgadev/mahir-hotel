@@ -179,7 +179,7 @@
                 </div>
                 <div class="grid grid-cols-1 gap-2">
                     <label for="" class="text-sm px-3">Check-in</label>
-                    <input type="date" name="check_in" class="outline-none border-none text-lg px-3">
+                    <input type="date" min="{{now()}}" name="check_in" class="outline-none border-none text-lg px-3">
                 </div>
                 <div class="grid grid-cols-1 gap-2">
                     <label for="" class="text-sm px-3">Check-out</label>

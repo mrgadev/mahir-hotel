@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AccomdationPlan;
 use App\Models\Faq;
-use Illuminate\Http\Request;
-use App\Models\HotelFacilities;
-use App\Models\Message;
-use App\Models\NearbyLocation;
-use App\Models\Promo;
 use App\Models\Room;
+<<<<<<< HEAD
 use App\Models\RoomFacilities;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\Transaction;
+=======
+>>>>>>> 0bdafa9e3cd3e547bd924afe9f9665f5c05bd083
 use App\Models\User;
+use App\Models\Promo;
+use App\Models\Message;
+use App\Models\Service;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+use App\Models\NearbyLocation;
+use App\Models\RoomFacilities;
+use App\Models\AccomdationPlan;
+use App\Models\HotelFacilities;
+use App\Models\ServiceCategory;
 
 class BulkAction extends Controller
 {
@@ -161,6 +168,7 @@ class BulkAction extends Controller
 
         return redirect()->route('dashboard.users_management.index')->with('success', 'Data pengguna berhasil diubah');
     }
+<<<<<<< HEAD
 
     public function updateStatus(Request $request){
         $transaction_ids = $request->input('transaction_ids', []);
@@ -204,5 +212,25 @@ class BulkAction extends Controller
         }
 
         return redirect()->route('dashboard.transaction.index')->with('success', 'Data pengguna berhasil diubah');
+=======
+    public function updateCheckInStatus(Request $request)
+    {
+        $transaction_ids = $request->input('transaction_ids', []);
+        $checkin_status = $request->input('checkin_status');
+        
+        if (empty($user_ids)) {
+            return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
+        }
+
+        foreach($transaction_ids as $transaction_id) {
+            $transaction = Transaction::find($transaction_id);
+            if($transaction) {
+                $transaction->checkin_status = $checkin_status;
+                $transaction->save;
+            }
+        }
+
+        return redirect()->route('dashboard.transaction.index')->with('success', 'Status check-in berhasil diubah');
+>>>>>>> 0bdafa9e3cd3e547bd924afe9f9665f5c05bd083
     }
 }
