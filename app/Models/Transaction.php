@@ -46,4 +46,8 @@ class Transaction extends Model
     public function promos() {
         return $this->belongsToMany(Promo::class, 'transaction_promos');
     }
+
+    public function room_reviews() {
+        return $this->hasMany(Promo::class, 'room_reviews');
+    }
 }

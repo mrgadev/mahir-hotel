@@ -11,6 +11,7 @@ use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 use App\Models\NearbyLocation;
 use App\Models\HotelFacilities;
+use App\Models\RoomReview;
 use App\Models\SiteSettingPartner;
 use App\Models\SiteSettings;
 
@@ -62,7 +63,8 @@ class FrontpageController extends Controller
         // dd($room->id);
         // $promo = Promo::where('room_id', $room->id)->get();
         $other_room = Room::whereNot('id', $room->id)->get();
-        return view('frontpage.room-detail', compact('room', 'other_room'));
+        $reviews = RoomReview::where('room_id', $room->id)->get();
+        return view('frontpage.room-detail', compact('room', 'other_room', 'reviews'));
     }
 
 

@@ -362,6 +362,7 @@
                 </div>
             </div>
 
+            @if($transaction->checkin_status == 'Belum')
             <div class="bg-white rounded-2xl shadow-xl p-5">
                 <h3 class="font-medium text-lg text-primary-700">Reservasi Berikutnya</h3>
                 <a href="{{route('dashboard.user.bookings.detail', $transaction->invoice)}}" class="flex gap-5 mt-5">
@@ -380,7 +381,21 @@
                         </div>
                     </div>
                 </a>
+                
             </div>
+
+            @else
+            <div class="bg-white rounded-2xl shadow-xl p-10">
+                <div class="flex gap-5">
+
+                    <img src="{{asset('images/undraw_Quitting_time_re_1whp.png')}}" alt="" class="w-24">
+                    <div class="flex flex-col gap-3">
+                        <h3 class="font-medium text-xl text-primary-700">Tidak ada reservasi mendatang</h3>
+                        <a href="{{route('dashboard.user.bookings')}}" class="px-5 py-3 rounded-lg bg-primary-700 text-white w-fit">Lihat riwayat</a>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
         @endrole
     </div>

@@ -1,7 +1,69 @@
 @extends('layouts.dahboard_layout')
 
 @section('title', 'Detail Booking')
+@push('addon-style')
+<style>
+    .rating-container {
+        margin-bottom: 20px;
+    }
+    .rating {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 5px;
+        padding: 20px 0;
+    }
+    .star {
+        cursor: pointer;
+        font-size: 30px;
+        color: #ddd;
+        transition: color 0.2s;
+    }
+    .star.active,
+    .star.hover {
+        color: #5b3a1f;
+    }
+    .preview-images {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .preview-images img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
 
+    /* Added styles for better form layout */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    /* .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    } */
+    .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+    .alert-danger ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+    
+</style>
+@endpush
 {{-- @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -89,7 +151,7 @@
 
                             <div class="flex flex-col gap-1">
                                 <p>Status Check-in</p>
-                                <p class="font-medium text-primary-700">{{$transaction->checkin_status}}</p>
+                                <p class="font-medium text-primary-700">{{$transaction->checkin_status}} Check-in</p>
                             </div>
 
                             {{-- <div class="flex flex-col gap-1">
@@ -152,12 +214,80 @@
                         </div>
                         @if($transaction->checkin_status == 'Belum')
                         <button class="p-3 rounded-lg text-white bg-red-700 mt-5">Batalkan pesanan</button>
-                        @elseif($transaction->checkin_status == 'Sudah')
-                        <h3 class="text-lg text-primary-700">Berikan ulasan</h3>
-                        <form action="#">
-                            <input type="hidden" name="room_id" value="{{$transaction->room_id}}">
-                            
-                        </form> 
+                        @elseif($transaction->checkin_status == 'Sudah' && !$room_review)
+                        <h3 class="text-lg text-primary-700 font-medium my-5">Berikan ulasan untuk "{{$transaction->room->name}}"</h3>
+                        <form action="{{route('dashboard.user.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
+                            @csrf
+                            @method('POST')
+                            <div class="rating-container flex flex-col gap-1">
+                                <span class="rating-label">Berikan bintang</span>
+                                <div class="rating">
+                                    <input type="hidden" name="rating" id="selected-rating" value="">
+                                    <input type="hidden" name="rating_text" id="rating-text-input" value="">
+                                    <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
+                                    <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
+                                    <div id="stars-container">
+                                        <!-- Stars will be added by JavaScript -->
+                                    </div>
+                                </div>
+                                <span id="rating-text" style="display: block; margin-top: 5px; color: #666;"></span>
+                            </div>
+                
+                            <div class="flex flex-col gap-3">
+                                <label for="title">Judul</label>
+                                <input type="text" name="title" class="rounded-lg ">
+                            </div>
+
+                            <div class="flex flex-col gap-3">
+                                <label for="description">Ulasan Anda</label>
+                                <textarea name="description" id="description" class="form-control" rows="4"></textarea>
+                            </div>
+                
+                            {{-- <div class="flex flex-col gap-3">
+                                <label for="images">Upload Images:</label>
+                                <input type="file" name="images[]" id="images" multiple accept="image/*" onchange="previewImages(this)">
+                                <div class="preview-images"></div>
+                            </div> --}}
+                
+                            <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
+                        </form>
+                        @elseif ($transaction->checkin_status == 'Sudah' && $room_review)
+                        <h3 class="text-lg text-primary-700 font-medium my-5">Ubah ulasan untuk "{{$transaction->room->name}}"</h3>
+                        <form action="{{route('dashboard.user.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
+                            @csrf
+                            @method('POST')
+                            <div class="rating-container flex flex-col gap-1">
+                                <span class="rating-label">Berikan bintang</span>
+                                <div class="rating">
+                                    <input type="hidden" name="rating" id="selected-rating" value="">
+                                    <input type="hidden" name="rating_text" id="rating-text-input" value="">
+                                    <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
+                                    <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
+                                    <div id="stars-container">
+                                        <!-- Stars will be added by JavaScript -->
+                                    </div>
+                                </div>
+                                <span id="rating-text" style="display: block; margin-top: 5px; color: #666;"></span>
+                            </div>
+                
+                            <div class="flex flex-col gap-3">
+                                <label for="title">Judul</label>
+                                <input type="text" name="title" class="rounded-lg " value="{{$room_review->title}}">
+                            </div>
+
+                            <div class="flex flex-col gap-3">
+                                <label for="description">Ulasan Anda</label>
+                                <textarea name="description" id="description" class="form-control" rows="4">{!!$room_review->description!!}</textarea>
+                            </div>
+                
+                            {{-- <div class="flex flex-col gap-3">
+                                <label for="images">Upload Images:</label>
+                                <input type="file" name="images[]" id="images" multiple accept="image/*" onchange="previewImages(this)">
+                                <div class="preview-images"></div>
+                            </div> --}}
+                
+                            <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
+                        </form>
                         @endif
 
                     </div>
@@ -209,7 +339,9 @@
                                     <p>Metode pembayaran</p>
                                     <p class="">{{$transaction->payment_method}}</p>
                                 </div>
+                                @if($transaction->checkin_status == 'Belum')
                                 <a href="#" class="px-5 py-2 rounded-lg text-white bg-primary-700 text-center">Check-in</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -284,5 +416,101 @@
 
             resetTable();
         }
+    </script>
+     <!-- Panggil CKEditor versi 5 -->
+     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+     <script>
+         ClassicEditor
+             .create(document.querySelector('#description'))
+             .catch(error => {
+                 console.error(error);
+             });
+     </script>
+     <script>
+        // Function to preview images
+        function previewImages(input) {
+            const preview = document.querySelector('.preview-images');
+            preview.innerHTML = '';
+
+            if (input.files) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        preview.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        const starsContainer = document.getElementById('stars-container');
+        const ratingInput = document.getElementById('selected-rating');
+        const ratingText = document.getElementById('rating-text');
+        const ratingTextInput = document.getElementById('rating-text-input');
+        let selectedRating = 0;
+
+        // Create 5 stars
+        for (let i = 1; i <= 5; i++) {
+            const star = document.createElement('span');
+            star.innerHTML = '★';
+            star.className = 'star';
+            star.dataset.value = i;
+            starsContainer.appendChild(star);
+        }
+
+        const stars = document.querySelectorAll('.star');
+
+        // Rating descriptions
+        const ratingDescriptions = {
+            1: 'Buruk',
+            2: 'Lumayan',
+            3: 'Bagus',
+            4: 'Sangat Bagus',
+            5: 'Sempurna'
+        };
+
+        // Handle mouse enter
+        stars.forEach(star => {
+            star.addEventListener('mouseenter', () => {
+                const value = parseInt(star.dataset.value);
+                highlightStars(value, 'hover');
+            });
+        });
+
+        // Handle mouse leave
+        starsContainer.addEventListener('mouseleave', () => {
+            highlightStars(selectedRating, 'active');
+        });
+
+        // Handle click
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = parseInt(star.dataset.value);
+                ratingInput.value = selectedRating;
+                highlightStars(selectedRating, 'active');
+                updateRatingText(selectedRating);
+            });
+        });
+
+        function highlightStars(count, className) {
+            stars.forEach(star => {
+                star.classList.remove('hover', 'active');
+            });
+            
+            stars.forEach(star => {
+                if (parseInt(star.dataset.value) <= count) {
+                    star.classList.add(className);
+                }
+            });
+        }
+
+        function updateRatingText(rating) {
+            const text = ratingDescriptions[rating] || '';
+            ratingText.textContent = text;
+            ratingTextInput.value = text; // Update hidden input with rating text
+        }
+
     </script>
 @endpush

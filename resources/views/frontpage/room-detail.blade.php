@@ -181,16 +181,13 @@
             </div>
 
             {{-- Review Section --}}
-            <div class="flex flex-col lg:flex-row gap-5">
-                <img src="{{asset('assets/img/marie.jpg')}}" alt="" class="w-20 h-20 rounded-full">
-                <div class="flex flex-col gap-3">
-                    <div class="flex flex-col gap-2">
-                        <h3>Marie Antoinette</h3>
-
-                    </div>
-                    <p class="font-light text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius perspiciatis dolorum hic possimus labore sit error odit magnam veritatis optio impedit quos, earum ad illum eum nostrum. Nisi ab, dolor molestiae aspernatur in numquam accusantium qui sed dolores impedit quos repellendus delectus vitae vero itaque officiis quisquam consequatur aut velit, amet officia, ipsum minus quia est? Quas cumque harum exercitationem, facere voluptate unde officiis in! Architecto deserunt laudantium a aspernatur animi repudiandae, atque rem nobis!</p>
+            @foreach ($reviews as $review)
+            <div class="flex flex-col gap-3">
+                <div class="flex items-center gap-2">
+                    <img src="{{Storage::url($review->user->avatar)}}" alt="">
                 </div>
             </div>
+            @endforeach
         </div>
 
         <div class="col-span-1 flex flex-col gap-10 order-first lg:order-last">

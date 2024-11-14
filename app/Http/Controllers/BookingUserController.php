@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoomReview;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ class BookingUserController extends Controller
     }
 
     public function detail(Transaction $transaction) {
-        return view('dashboard.user.bookings.detail', compact('transaction'));
+        $room_review = RoomReview::where('transaction_id', $transaction->id)->firstOrFail();
+        return view('dashboard.user.bookings.detail', compact('transaction', 'room_review'));
     }
 }

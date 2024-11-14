@@ -3,6 +3,7 @@
   <head>
 	<title>@yield('title') | Dashboard</title>
 	@include('components.style')
+  @stack('addon-style')
   </head>
 
   <body class="m-0 font-sora text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
