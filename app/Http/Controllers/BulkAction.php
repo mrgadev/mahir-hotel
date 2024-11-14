@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Faq;
 use App\Models\Room;
+use App\Models\RoomFacilities;
+use App\Models\Service;
+use App\Models\ServiceCategory;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Promo;
 use App\Models\Message;
-use App\Models\Service;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\NearbyLocation;
-use App\Models\RoomFacilities;
 use App\Models\AccomdationPlan;
 use App\Models\HotelFacilities;
-use App\Models\ServiceCategory;
 
 class BulkAction extends Controller
 {
@@ -161,23 +161,48 @@ class BulkAction extends Controller
 
         return redirect()->route('dashboard.users_management.index')->with('success', 'Data pengguna berhasil diubah');
     }
-    public function updateCheckInStatus(Request $request)
-    {
+
+    public function updateStatus(Request $request){
         $transaction_ids = $request->input('transaction_ids', []);
-        $checkin_status = $request->input('checkin_status');
+        $payment_status = $request->input('payment_status');
         
-        if (empty($user_ids)) {
+        if (empty($transaction_ids)) {
             return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
         }
 
+        if (empty($payment_status)) {
+            return redirect()->back()->with('error', 'tidak ada status yang dipilih');
+        }
+
         foreach($transaction_ids as $transaction_id) {
-            $transaction = Transaction::find($transaction_id);
-            if($transaction) {
-                $transaction->checkin_status = $checkin_status;
-                $transaction->save;
+            $transaction = Transaction::find($transaction_id); // Perbaikan disini
+            if($transaction) { // Perbaikan disini
+                $transaction->update(['payment_status' => $payment_status]);
             }
         }
 
-        return redirect()->route('dashboard.transaction.index')->with('success', 'Status check-in berhasil diubah');
+        return redirect()->route('dashboard.transaction.index')->with('success', 'Data pengguna berhasil diubah');
+    }
+
+    public function updateStatusCheckin(Request $request){
+        $transaction_ids = $request->input('transaction_ids', []);
+        $checkin_status = $request->input('checkin_status');
+        
+        if (empty($transaction_ids)) {
+            return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
+        }
+
+        if (empty($checkin_status)) {
+            return redirect()->back()->with('error', 'tidak ada status yang dipilih');
+        }
+
+        foreach($transaction_ids as $transaction_id) {
+            $transaction = Transaction::find($transaction_id); // Perbaikan disini
+            if($transaction) { // Perbaikan disini
+                $transaction->update(['checkin_status' => $checkin_status]);
+            }
+        }
+
+        return redirect()->route('dashboard.transaction.index')->with('success', 'Data pengguna berhasil diubah');
     }
 }
