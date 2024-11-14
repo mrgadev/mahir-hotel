@@ -29,10 +29,6 @@
                             Daftar Transaksi
                         </h1>
                     </div>
-                    <a href="{{route('dashboard.service.create')}}" class="flex items-center gap-2 mt-10 px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
-                        <i class="bi bi-plus-square mr-2"></i>
-                        <p>Tambah</p>
-                    </a>
                     <a href="#image-modal" id="quickActionButton" class="flex items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
                         <p class="whitespace-nowrap">Ubah Status Pembayaran</p>
                     </a>
@@ -48,9 +44,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col" class="px-4 py-3">
-                                    <th scope="col" class="px-4 py-3">
                                         <input type="checkbox" id="masterCheckbox" class="cursor-pointer w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
-                                    </th>
                                     </th>
                                     <th>
                                         <span class="flex items-center">
@@ -110,14 +104,6 @@
                                     </th>
                                     <th>
                                         <span class="flex items-center">
-                                            Status Check-in
-                                            <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
-                                            </svg>
-                                        </span>
-                                    </th>
-                                    <th>
-                                        <span class="flex items-center">
                                             Metode Pambayaran
                                             <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
@@ -139,7 +125,7 @@
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->name}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Kamar Hotel</td>
                                         @if($transaction->checkin_status == 'Sudah')
-                                        <td>checkin_status
+                                        <td>
                                             <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
                                         </td>
                                         @elseif($transaction->checkin_status == 'Belum')
@@ -210,7 +196,6 @@
                                     <option value="">--Pilih Status Pembayaran--</option>
                                     <option value="PAID">PAID</option>
                                     <option value="UNPAID">UNPAID</option>
-                                    <option value="CENCEL">CENCEL</option>
                                 </select>
                             </div>
                             <div>
@@ -420,7 +405,6 @@
                 // Debug log
                 console.log('Selected transactions:', hiddenInput.value);
             }
-
             // Pasang event listener ke setiap checkbox
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', updateHiddenInput);
