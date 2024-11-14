@@ -13,6 +13,7 @@ use App\Models\Room;
 use App\Models\RoomFacilities;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\Transaction;
 use App\Models\User;
 
 class BulkAction extends Controller
@@ -159,5 +160,49 @@ class BulkAction extends Controller
         }
 
         return redirect()->route('dashboard.users_management.index')->with('success', 'Data pengguna berhasil diubah');
+    }
+
+    public function updateStatus(Request $request){
+        $transaction_ids = $request->input('transaction_ids', []);
+        $payment_status = $request->input('payment_status');
+        
+        if (empty($transaction_ids)) {
+            return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
+        }
+
+        if (empty($payment_status)) {
+            return redirect()->back()->with('error', 'tidak ada status yang dipilih');
+        }
+
+        foreach($transaction_ids as $transaction_id) {
+            $transaction = Transaction::find($transaction_id); // Perbaikan disini
+            if($transaction) { // Perbaikan disini
+                $transaction->update(['payment_status' => $payment_status]);
+            }
+        }
+
+        return redirect()->route('dashboard.transaction.index')->with('success', 'Data pengguna berhasil diubah');
+    }
+
+    public function updateStatusCheckin(Request $request){
+        $transaction_ids = $request->input('transaction_ids', []);
+        $checkin_status = $request->input('checkin_status');
+        
+        if (empty($transaction_ids)) {
+            return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
+        }
+
+        if (empty($checkin_status)) {
+            return redirect()->back()->with('error', 'tidak ada status yang dipilih');
+        }
+
+        foreach($transaction_ids as $transaction_id) {
+            $transaction = Transaction::find($transaction_id); // Perbaikan disini
+            if($transaction) { // Perbaikan disini
+                $transaction->update(['checkin_status' => $checkin_status]);
+            }
+        }
+
+        return redirect()->route('dashboard.transaction.index')->with('success', 'Data pengguna berhasil diubah');
     }
 }

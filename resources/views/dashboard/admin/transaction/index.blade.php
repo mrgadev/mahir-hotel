@@ -33,6 +33,12 @@
                         <i class="bi bi-plus-square mr-2"></i>
                         <p>Tambah</p>
                     </a>
+                    <a href="#image-modal" id="quickActionButton" class="flex items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
+                        <p class="whitespace-nowrap">Ubah Status Pembayaran</p>
+                    </a>
+                    <a href="#image-modal2" id="quickActionButton2" class="flex items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
+                        <p class="whitespace-nowrap">Ubah Status Checkin</p>
+                    </a>
                 </div>
             </div>       
             <section class="container mx-auto">
@@ -41,9 +47,9 @@
                         <table id="selection-table" class="">
                             <thead>
                                 <tr>
-                                    {{-- <th scope="col" class="px-4 py-3">
+                                    <th scope="col" class="px-4 py-3">
                                         <input type="checkbox" id="masterCheckbox" class="cursor-pointer w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
-                                    </th> --}}
+                                    </th>
                                     <th>
                                         <span class="flex items-center">
                                             No
@@ -63,6 +69,14 @@
                                     <th>
                                         <span class="flex items-center">
                                             Jenis
+                                            <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                                            </svg>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="flex items-center">
+                                            Status Checkin
                                             <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                             </svg>
@@ -108,12 +122,25 @@
                             <tbody>
                                 @forelse ($transactions as $key => $transaction)
                                     <tr class="cursor-pointer">
-                                        {{-- <td scope="row" class="px-4 pe-0 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                            <input type="checkbox" name="service_ids[]" class="cursor-pointer child-checkbox w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600" value="{{ $service->id }}">
-                                        </td> --}}
+                                        <td scope="row" class="px-4 pe-0 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                         <input type="checkbox" name="selected_transactions[]" class="cursor-pointer child-checkbox w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600" value="{{ $transaction->id }}">
+                                        </td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->name}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Kamar Hotel</td>
+                                        @if($transaction->checkin_status == 'Sudah')
+                                        <td>checkin_status
+                                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
+                                        </td>
+                                        @elseif($transaction->checkin_status == 'Belum')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
+                                        </td>
+                                        @elseif($transaction->checkin_status == 'Dibatalkan')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
+                                        </td>
+                                        @endif
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->invoice}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($transaction->total_price,0,',','.')}}</td>
                                         @if($transaction->payment_status == 'PAID')
@@ -123,6 +150,10 @@
                                         @elseif($transaction->payment_status == 'PENDING')
                                         <td>
                                             <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                                        </td>
+                                        @elseif($transaction->payment_status == 'UNPAID')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">{{$transaction->payment_status}}</p>
                                         </td>
                                         @endif
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->payment_method}}</td>
@@ -143,6 +174,84 @@
                 </main>
             </section>    
         </main>
+        <div id="image-modal" class="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+            <div class="fixed inset-0 flex items-center justify-center p-4">
+                <!-- Modal content -->
+                <div class="relative max-w-3xl mx-auto bg-white rounded-lg" onclick="event.stopPropagation()">
+                    <!-- Close button -->
+                    <a href="#" class="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </a>
+                    
+                    <!-- Modal content -->
+                    <div class="p-16">
+                        <form id="updateStatusForm" action="{{ route('dashboard.transactions.updateStatus') }}" method="POST" class="mb-4">
+                            @csrf
+                            <div class="mb-4">
+                                <input type="hidden" name="transaction_ids[]" value="" id="selectedTransactionIds">
+                                <label for="newStatus" class="block mb-2">
+                                    Pilih Status:
+                                    <br>
+                                    <small class="text-red-700">Silakan pilih peran (role) baru yang ingin Anda terapkan. Pilihan peran ini akan menentukan hak akses dan tanggung jawab pengguna di dalam sistem.</small>
+                                </label>
+                                <select name="payment_status" id="newStatus" class="block w-full px-4 py-2 border rounded" required>
+                                    <option value="">--Pilih Status Pembayaran--</option>
+                                    <option value="PAID">PAID</option>
+                                    <option value="UNPAID">UNPAID</option>
+                                    <option value="CENCEL">CENCEL</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="submit" class="inline-flex justify-center px-4 py-2 w-full text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
+                                    Ubah Status
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="image-modal2" class="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+            <div class="fixed inset-0 flex items-center justify-center p-4">
+                <!-- Modal content -->
+                <div class="relative max-w-3xl mx-auto bg-white rounded-lg" onclick="event.stopPropagation()">
+                    <!-- Close button -->
+                    <a href="#" class="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </a>
+                    
+                    <!-- Modal content -->
+                    <div class="p-16">
+                        <form id="updateStatusForm" action="{{ route('dashboard.transactions.updateStatusCheckin') }}" method="POST" class="mb-4">
+                            @csrf
+                            <div class="mb-4">
+                                <input type="hidden" name="transaction_ids[]" value="" id="selectedTransactionIds2">
+                                <label for="newStatus" class="block mb-2">
+                                    Pilih Status:
+                                    <br>
+                                    <small class="text-red-700">Silakan pilih peran (role) baru yang ingin Anda terapkan. Pilihan peran ini akan menentukan hak akses dan tanggung jawab pengguna di dalam sistem.</small>
+                                </label>
+                                <select name="checkin_status" id="newStatus" class="block w-full px-4 py-2 border rounded" required>
+                                    <option value="">--Pilih Status Checkin--</option>
+                                    <option value="Sudah">Sudah</option>
+                                    <option value="Belum">Belum</option>
+                                    <option value="Dibatalkan">Dibatalkan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="submit" class="inline-flex justify-center px-4 py-2 w-full text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
+                                    Ubah Status
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @push('addon-script')
@@ -258,63 +367,85 @@
             checkbox.addEventListener('change', toggleQuickActionButton);
         });
 
-        // Initially hide the quick action button
-        document.getElementById('quickActionButton').style.display = 'none';
+        const toggleQuickActionButton2 = () => {
+            const quickActionButton2 = document.getElementById('quickActionButton2');
+            const masterCheckbox = document.getElementById('masterCheckbox');
+            const childCheckboxes = document.querySelectorAll('.child-checkbox');
+            
+            // Check if any checkbox is selected (either master or any child)
+            const isAnyCheckboxSelected = masterCheckbox.checked || 
+                Array.from(childCheckboxes).some(checkbox => checkbox.checked);
+            
+            // Show/hide quick action button based on selection
+            if (isAnyCheckboxSelected) {
+                quickActionButton2.style.display = 'flex';
+            } else {
+                quickActionButton2.style.display = 'none';
+            }
+        };
+
+        // Add event listeners to master checkbox
+        document.getElementById('masterCheckbox').addEventListener('change', toggleQuickActionButton2);
+
+        // Add event listeners to all child checkboxes
+        document.querySelectorAll('.child-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', toggleQuickActionButton2);
+        });
 
         document.addEventListener('DOMContentLoaded', function () {
-            const deleteButton = document.getElementById('quickActionButton');
-            const actionUrl = "{{ route('dashboard.service.bulkDelete') }}";
+            // Ambil semua checkbox dan hidden input
+            const checkboxes = document.querySelectorAll('input[name="selected_transactions[]"]');
+            const hiddenInput = document.getElementById('selectedTransactionIds');
 
-            deleteButton.addEventListener('click', function () {
-                const serviceIds = Array.from(document.querySelectorAll('input[name="service_ids[]"]:checked'))
+            // Function untuk update hidden input
+            function updateHiddenInput() {
+                // Ambil semua checkbox yang tercentang dan ambil valuenya
+                const selectedValues = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
                     .map(checkbox => checkbox.value);
+                
+                // Update value hidden input dengan value checkbox yang tercentang
+                hiddenInput.value = selectedValues.join(',');
+                
+                // Debug log
+                console.log('Selected transactions:', hiddenInput.value);
+            }
 
-                if (serviceIds.length === 0) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Tidak ada data yang dipilih",
-                        toast: true,
-                        position: "top-end",
-                        timer: 3000,
-                        showConfirmButton: false,
-                        timerProgressBar: true
-                    });
-                    return;
-                }
-
-                // CSRF token
-                const csrfToken = "{{ csrf_token() }}";
-
-                fetch(actionUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: JSON.stringify({ service_ids: serviceIds })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    Swal.fire({
-                        icon: data.success ? "success" : "error",
-                        title: data.message,
-                        toast: true,
-                        position: "top-end",
-                        timer: 3000,
-                        showConfirmButton: false,
-                        timerProgressBar: true
-                    });
-
-                    // Reload the page if the operation was successful
-                    if (data.success) {
-                        location.reload();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'Terjadi kesalahan saat menghapus data.', 'error');
-                });
+            // Pasang event listener ke setiap checkbox
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateHiddenInput);
             });
+
+            // Jalankan updateHiddenInput saat halaman dimuat
+            updateHiddenInput();
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ambil semua checkbox dan hidden input
+            const checkboxes = document.querySelectorAll('input[name="selected_transactions[]"]');
+            const hiddenInput = document.getElementById('selectedTransactionIds2');
+
+            // Function untuk update hidden input
+            function updateHiddenInput2() {
+                // Ambil semua checkbox yang tercentang dan ambil valuenya
+                const selectedValues = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.value);
+                
+                // Update value hidden input dengan value checkbox yang tercentang
+                hiddenInput.value = selectedValues.join(',');
+                
+                // Debug log
+                console.log('Selected transactions:', hiddenInput.value);
+            }
+
+            // Pasang event listener ke setiap checkbox
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateHiddenInput2);
+            });
+
+            // Jalankan updateHiddenInput saat halaman dimuat
+            updateHiddenInput2();
         });
     </script>
 @endpush
