@@ -17,13 +17,13 @@ use App\Http\Controllers\PromoController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\RoomFacilitiesController;
-use App\Http\Controllers\RoomReviewController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SiteSettingPartnerController;
 use App\Http\Controllers\SiteSettingsController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Message;
+use App\Models\SiteSettingPartner;
 use Symfony\Component\Mime\MessageConverter;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
@@ -83,7 +83,8 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
 
     Route::get('/site-settings', [SiteSettingsController::class, 'edit'])->name('site.settings.edit')->middleware('role:admin');
     Route::put('/site-settings/{site_setting}', [SiteSettingsController::class, 'update'])->name('site.settings.update')->middleware('role:admin');
-    // Route::put('/partners/{partner}')
+    
+    Route::resource('/partners', SiteSettingPartnerController::class)->middleware('role:admin');
     
     Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('role:admin|staff');
     Route::post('/export-transactions', [ReportController::class, 'exportTransactions'])->name('export-transactions');
