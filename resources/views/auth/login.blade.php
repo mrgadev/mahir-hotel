@@ -56,10 +56,11 @@
                         <p class="text-red-500 mt-3 text-sm">{{$errors->first('password')}}</p>
                       @endif
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="inline-block w-full px-5 py-2.5 mt-2 mb-2 font-medium text-center text-white align-middle transition-all bg-primary-500 rounded-lg cursor-pointer hover:shadow-xs leading-normal text-sm  hover:bg-primary-700">Sign in</button>
+                    <div class="grid grid-cols-1 gap-5">
+                      <button type="submit" class="px-5 py-3 font-medium text-center text-white  transition-all bg-primary-500 rounded-lg cursor-pointer hover:shadow-xs leading-normal text-sm  hover:bg-primary-700">Masuk</button>
+                      <a href="{{route('auth.google.redirect')}}" class="rounded-lg bg-primary-100 border border-primary-700 px-5 py-3 flex items-center gap-2 justify-center text-primary-700"><i class="bi bi-google"></i> Masuk dengan Google</a>
                     </div>
-                </form>
+                  </form>
               </div>
               <div class="border-black/12.5 rounded-b-2xl border-t-0 border-solid p-6 pt-0 px-1 sm:px-6">
                 <p class="mx-auto mb-6 leading-normal text-sm">Belum punya akun? <a href="{{route('register')}}" class="text-[#976033] font-medium underline bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500]">Daftar</a></p>

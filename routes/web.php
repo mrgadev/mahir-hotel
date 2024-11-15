@@ -1,30 +1,31 @@
 <?php
 
-use App\Http\Controllers\AccomdationPlanController;
+use App\Models\Message;
 use App\Models\HotelFacilities;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FrontpageController;
-use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\BulkAction;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\HotelFacilitiesController;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\NearbyLocationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\UsersManagementController;
-use App\Http\Controllers\RoomFacilitiesController;
-use App\Http\Controllers\RoomReviewController;
-use App\Http\Controllers\ServiceCategoryController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\SiteSettingPartnerController;
-use App\Http\Controllers\SiteSettingsController;
-use App\Http\Controllers\TransactionController;
-use App\Models\Message;
 use Symfony\Component\Mime\MessageConverter;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontpageController;
+use App\Http\Controllers\RoomReviewController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\SiteSettingsController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\NearbyLocationController;
+use App\Http\Controllers\RoomFacilitiesController;
+use App\Http\Controllers\AccomdationPlanController;
+use App\Http\Controllers\HotelFacilitiesController;
+use App\Http\Controllers\ServiceCategoryController;
+use App\Http\Controllers\UsersManagementController;
+use App\Http\Controllers\SiteSettingPartnerController;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('home');
@@ -89,9 +90,8 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::post('/export-transactions', [ReportController::class, 'exportTransactions'])->name('export-transactions');
 });
 
-Route::middleware('auth')->group(function () {
-});
-
+Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle'])->name('auth.google.redirect');
+Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 require __DIR__.'/auth.php';
 require __DIR__.'/frontpage.php';
 require __DIR__.'/user.php';

@@ -69,8 +69,9 @@
                           <span class="text-red-500 text-sm">{{ $message }}</span>
                       @enderror
                   </div>
-                  <div class="text-center">
-                      <button type="submit" class="inline-block w-full px-5 py-2.5 mt-6 mb-2 font-medium text-center text-white align-middle transition-all rounded-lg cursor-pointer hover:shadow-xs leading-normal text-sm bg-[#976033] from-zinc-800 to-zinc-700 hover:bg-primary-700">Daftar</button>
+                  <div class="grid grid-cols-1 gap-5">
+                    <button type="submit" class="px-5 py-3 font-medium text-center text-white  transition-all bg-primary-500 rounded-lg cursor-pointer hover:shadow-xs leading-normal text-sm  hover:bg-primary-700">Daftar</button>
+                    <a href="{{route('auth.google.redirect')}}" class="rounded-lg bg-primary-100 border border-primary-700 px-5 py-3 flex items-center gap-2 justify-center text-primary-700"><i class="bi bi-google"></i> Daftar dengan Google</a>
                   </div>
               </form>
               </div>

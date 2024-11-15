@@ -182,9 +182,22 @@
 
             {{-- Review Section --}}
             @foreach ($reviews as $review)
-            <div class="flex flex-col gap-3">
-                <div class="flex items-center gap-2">
-                    <img src="{{Storage::url($review->user->avatar)}}" alt="">
+            <div class="flex flex-col gap-5 bg-primary-100 lg:w-1/2 p-5 rounded-xl border border-primary-700">
+                <div class="flex items-center gap-5">
+                    <img src="{{Storage::url($review->user->avatar)}}" class="w-14 h-14 rounded-full" alt="">
+                    <div class="flex flex-col ">
+                        {{-- <p>{{$review->rating}} ({{$review->rating_text}})</p> --}}
+                        <p class="text-lg text-primary-700 font-medium">{{$review->user->name}}</p>
+                        <p class="font-light text-primary-600 text-sm">{{Carbon\Carbon::parse($review->created_at)->isoFormat('dddd, D MMM YYYY')}}</p>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <p class="text-primary-700">{{$review->title}}</p>
+                    <div class="text-gray-700">
+
+                        {!!$review->description!!}
+                    </div>
+                    
                 </div>
             </div>
             @endforeach

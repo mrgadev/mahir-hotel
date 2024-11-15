@@ -88,7 +88,7 @@
         @auth
             <div class="hidden xl:flex items-center gap-2">
                 @if(Storage::url(Auth::user()->avatar))
-                <img src="{{Auth::user()->avatar}}" alt="">
+                <img src="{{Storage::url(Auth::user()->avatar)}}" class="w-12 h-1w-12 rounded-full" alt="">
                 @else
                 <span class="material-symbols-rounded">account_circle</span>
                 @endif
@@ -163,7 +163,10 @@
 
     <section class="main h-[90%] flex flex-col justify-center gap-3 relative">
         <h1 class="text-4xl xl:text-6xl text-white">{!!$site_setting->tagline!!}</h1>
-        <p class="text-white">{!!$site_setting->description!!}</p>
+        <div class="text-white">
+            {!!$site_setting->description!!}
+        </div>
+        
         <form action="{{route('frontpage.search.rooms')}}" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full" method="GET">
             <div class="flex items-center gap-2">
                 <div class="grid grid-cols-1 gap-2">
@@ -460,57 +463,22 @@
     </div>
 
     <div class="mt-10 grid xl:grid-cols-4 gap-5">
+        @foreach ($room_reviews as $room_review)    
         <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
             {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
-            <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt="">
-            <p class="text-sm text-primary-800">Ultricies scelerisque netus maximus sodales facilisis orci neque. Magnis feugiat quam sociosqu ante facilisi justo vulputate pretium maximus. Class potenti velit tellus cubilia et ipsum accumsan fusce.</p>
+            {{-- <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt=""> --}}
+            <h3 class="font-medium text-primary-700 text-xl">{{$room_review->title}}</h3>
+            <div class="text-sm text-primary-800">{!!$room_review->description!!}</div>
             <div class="flex items-center gap-3">
-                <img src="{{asset('assets/img/team-1.jpg')}}" class="w-14 h-14 rounded-full" alt="">
+                <img src="{{Storage::url($room_review->user->avatar)}}" class="w-14 h-14 rounded-full" alt="">
                 <div class="flex flex-col">
-                    <p class="font-medium text-primary-700">Fufufafa</p>
-                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>4.9</p>
+                    <p class="font-medium text-primary-700">{{$room_review->user->name}}</p>
+                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>{{$room_review->rating}} ({{$room_review->rating_text}})</p>
                 </div> 
             </div>
         </div>
+        @endforeach
 
-        <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
-            {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
-            <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt="">
-            <p class="text-sm text-primary-800">Ultricies scelerisque netus maximus sodales facilisis orci neque. Magnis feugiat quam sociosqu ante facilisi justo vulputate pretium maximus. Class potenti velit tellus cubilia et ipsum accumsan fusce.</p>
-            <div class="flex items-center gap-3">
-                <img src="{{asset('assets/img/team-1.jpg')}}" class="w-14 h-14 rounded-full" alt="">
-                <div class="flex flex-col">
-                    <p class="font-medium text-primary-700">Fufufafa</p>
-                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>4.9</p>
-                </div> 
-            </div>
-        </div>
-
-        <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
-            {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
-            <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt="">
-            <p class="text-sm text-primary-800">Ultricies scelerisque netus maximus sodales facilisis orci neque. Magnis feugiat quam sociosqu ante facilisi justo vulputate pretium maximus. Class potenti velit tellus cubilia et ipsum accumsan fusce.</p>
-            <div class="flex items-center gap-3">
-                <img src="{{asset('assets/img/team-1.jpg')}}" class="w-14 h-14 rounded-full" alt="">
-                <div class="flex flex-col">
-                    <p class="font-medium text-primary-700">Fufufafa</p>
-                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>4.9</p>
-                </div> 
-            </div>
-        </div>
-
-        <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
-            {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
-            <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt="">
-            <p class="text-sm text-primary-800">Ultricies scelerisque netus maximus sodales facilisis orci neque. Magnis feugiat quam sociosqu ante facilisi justo vulputate pretium maximus. Class potenti velit tellus cubilia et ipsum accumsan fusce.</p>
-            <div class="flex items-center gap-3">
-                <img src="{{asset('assets/img/team-1.jpg')}}" class="w-14 h-14 rounded-full" alt="">
-                <div class="flex flex-col">
-                    <p class="font-medium text-primary-700">Fufufafa</p>
-                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>4.9</p>
-                </div> 
-            </div>
-        </div>
     </div>
 </div>
 
