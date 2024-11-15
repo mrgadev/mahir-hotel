@@ -15,7 +15,7 @@ class BookingUserController extends Controller
     }
 
     public function detail(Transaction $transaction) {
-        $room_review = RoomReview::where('transaction_id', $transaction->id)->firstOrFail();
+        $room_review = RoomReview::where('transaction_id', $transaction->id)->first();
         return view('dashboard.user.bookings.detail', compact('transaction', 'room_review'));
     }
 }

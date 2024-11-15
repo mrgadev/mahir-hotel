@@ -212,6 +212,7 @@
                                 </ul>
                             </div> --}}
                         </div>
+                        
                         @if($transaction->checkin_status == 'Belum')
                         <button class="p-3 rounded-lg text-white bg-red-700 mt-5">Batalkan pesanan</button>
                         @elseif($transaction->checkin_status == 'Sudah' && !$room_review)
@@ -253,9 +254,9 @@
                         </form>
                         @elseif ($transaction->checkin_status == 'Sudah' && $room_review)
                         <h3 class="text-lg text-primary-700 font-medium my-5">Ubah ulasan untuk "{{$transaction->room->name}}"</h3>
-                        <form action="{{route('dashboard.user.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
+                        <form action="{{route('dashboard.user.room-review.update', $room_review->id)}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
                             @csrf
-                            @method('POST')
+                            @method('PUT')
                             <div class="rating-container flex flex-col gap-1">
                                 <span class="rating-label">Berikan bintang</span>
                                 <div class="rating">

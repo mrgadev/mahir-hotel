@@ -106,9 +106,62 @@ class RoomReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RoomReview $roomReview)
+    public function update(Request $request, RoomReview $room_review)
     {
-        //
+        $data = $request->validate([
+            'title' => 'string|required',
+            'description' => 'required',
+            // 'images.*' => 'image|mimes:jpeg,png,jpg,svg,webp,avif|max:2048|nullable',
+            'room_id' => 'required|exists:rooms,id',
+            'transaction_id' => 'required|exists:transactions,id',
+            'rating_text' => 'required|string'
+        ]);
+
+
+
+        $rating_text = $data['rating_text'];
+        $rating = 0;
+        switch ($rating_text) {
+            case 'Buruk':
+                $rating = 1;
+                break;
+            case 'Lumayan':
+                $rating = 2;
+                break;
+            case 'Bagus':
+                $rating = 3;
+                break;
+            case 'Sangat Bagus':
+                $rating = 4;
+                break;
+            case 'Sempurna':
+                $rating = 5;
+                break;
+
+            default:
+                $rating = 0;
+                break;
+        }
+
+        // $images = [];
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $path = $image->store('review-images', 'public');
+        //         $images[] = $path;
+        //     }
+        // }
+        $room_review->update([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'rating' => $rating,
+            'rating_text' => $rating_text,
+            'user_id' => Auth::user()->id,
+            'room_id' => $data['room_id'],
+            'transaction_id' => $data['transaction_id']
+        ]);
+        
+        $transaction = Transaction::where('id', $data['transaction_id'])->firstOrFail();
+        return redirect()->route('dashboard.user.bookings.detail', $transaction->invoice);
     }
 
     /**

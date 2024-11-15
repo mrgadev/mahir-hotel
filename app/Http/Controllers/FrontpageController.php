@@ -24,7 +24,8 @@ class FrontpageController extends Controller
         $rooms = Room::all();
         $site_setting = SiteSettings::where('id', 1)->firstOrFail();
         $partners = SiteSettingPartner::all();
-        return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms', 'site_setting', 'partners'));
+        $room_reviews = RoomReview::all();
+        return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms', 'site_setting', 'partners', 'room_reviews'));
     }
     public function checkout(String $id, Request $request){
         $room = Room::find($id);
