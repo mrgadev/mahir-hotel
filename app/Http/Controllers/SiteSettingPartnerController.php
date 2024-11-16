@@ -28,25 +28,23 @@ class SiteSettingPartnerController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $data = $request->validate([
-            'logo' => 'required|image|mimes:svg,png,jpg,jpeg,webp,avif',
-            'name' => 'required|string',
-            'link' => 'required|string'
+            'logo' => '',
+            'name' => '',
+            'link' => ''
         ]);
-        $name_slug = Str::slug($data['name']);
-        if($request->file('logo')) {
-            $partner_name = 'PARTNER-'.$name_slug.'-'.rand(000,999);
-            $ext = strtolower($request->file('logo')->getClientOriginalExtension());
-            $partner_full_name = $partner_name.'.'.$ext;
-            $upload_path ='storage/partners/';
-            $partner_url = $upload_path.$partner_full_name;
-            $request->file('logo')->move($upload_path, $partner_full_name);
-            $data['logo']= $partner_url;
-        }
-        SiteSettingPartner::create($data);
 
-        return response()->json(['success' => 'Partner created successfully.']);
+        if($request->hasFile('logo')){
+            $logoPath = $request->file('logo')->store('logos', 'public');
+        }
+
+        SiteSettingPartner::create([
+            'name' => $data['name'],
+            'logo' => $logoPath,
+            'link' => $data['link']
+        ]);
+
+        return redirect()->back();
     }
 
     /**

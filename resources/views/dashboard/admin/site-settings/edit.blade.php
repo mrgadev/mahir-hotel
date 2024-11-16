@@ -63,7 +63,9 @@
                     <div class="p-10 mt-5 bg-white rounded-xl shadow-lg">
                         <div class="mb-5 flex items-center justify-between">
                             <h1 class="text-xl font-medium text-primary-700">Partner Kami</h1>
-                            <button id="createItemButton" class="bg-primary-100 text-primary-700 px-5 py-2 rounded-lg border-2 border-primary-700">Tambah baru</button>
+                            <a href="#image-modal" id="" class="bg-primary-100 text-primary-700 px-5 py-2 rounded-lg border-2 border-primary-700">
+                                <p class="whitespace-nowrap">Tambah Baru</p>
+                            </a>
                         </div>
                         <table id="selection-table" class="">
                             <thead>
@@ -138,42 +140,54 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <!-- Modal for Create/Edit Item -->
-                        <div id="itemModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex hidden z-10 justify-center items-center">
-                            <div class="bg-white rounded-lg p-6 w-96">
-                                <h2 class="text-xl font-medium text-primary-700 mb-4" id="modalTitle">Create Item</h2>
-                                <form id="itemForm">
-                                    @csrf
-                                    <input type="hidden" name="_method" id="method" value="POST">
-                                    <input type="hidden" name="item_id" id="item_id">
-                                    <div class="mb-4">
-                                        <label for="logo" class="block mb-3 font-medium text-gray-700 text-md">Logo</label>
-                                        <input placeholder="" type="file" name="logo" id="logo" autocomplete="off" class="block border  w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
-
-                                        @if ($errors->has('logo'))
-                                            <p class="text-red-500 mb-3 text-sm">{{$errors->first('logo')}}</p>
-                                        @endif
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="name" class="block text-gray-700">Nama</label>
-                                        <input type="text" name="name" id="name" class="border rounded-lg w-full px-3 py-2" required>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="link" class="block text-gray-700">Tautan</label>
-                                        <input name="link" id="link" class="border rounded-lg w-full px-3 py-2" type="text">
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <button type="button" id="closeModal" class="bg-primary-100 border border-primary-700 text-primary-700 px-4 py-2 rounded-lg">Batal</button>
-                                        <button type="submit" class="bg-primary-700 text-white px-4 py-2 rounded-lg">Simpan</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </main>
             </div>
         </section>
     </main>
+    <div id="image-modal" class="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <!-- Modal content -->
+            <div class="p-10 mt-2 bg-white rounded-xl shadow-lg"  onclick="event.stopPropagation()">
+                <a href="#" class="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </a>
+
+                <h3 class="flex items-center gap-1 text-primary-700 font-bold text-2xl">
+                    Buat Partner
+                    <br>
+                </h3>
+                <small class=" text-red-700">Silakan pilih peran (role) baru yang ingin Anda terapkan. Pilihan peran ini akan menentukan hak akses dan tanggung jawab pengguna di dalam sistem.</small>
+
+                <form action="{{ route('dashboard.partners.store') }}" class="mt-3" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
+                    <div class="flex items-center gap-3">
+                        <div class="grid grid-cols-1 gap-2 w-full">
+                            <label for="" class="flex items-center gap-1 text-primary-700 font-light text-sm">Nama Partner</label>
+                            <input type="text" name="name" value="" placeholder="Nama partner" class="bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
+                        </div>
+                        <div class="grid grid-cols-1 gap-2 w-full">
+                            <label for="" class="flex items-center gap-1 text-primary-700 font-light text-sm">Link Partner</label>
+                            <input type="text" name="link" value="" placeholder="Link Partner" class="bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-2 w-full mt-8">
+                        <label for="" class="flex items-center gap-1 text-primary-700 font-light text-sm">Link Partner</label>
+                        <input type="file" name="logo" value="" placeholder="Link Partner" class="bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
+                    </div>
+
+                    <div class="flex items-center gap-2 mt-8">
+                        <a href="#" class="px-5 py-2 border border-primary-500 text-primary-500 rounded-full hover:bg-primary-500 hover:text-white transition-all" id="">Batal</a>
+                        <button type="submit" class="bg-primary-500 text-white px-5 py-2 rounded-full hover:bg-primary-700 transition-all">Pilih</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('addon-script')
     <script>
@@ -377,97 +391,6 @@
                     console.error('Error:', error);
                     Swal.fire('Error', 'Terjadi kesalahan saat menghapus data.', 'error');
                 });
-            });
-        });
-    </script>
-
-    {{-- JS buat CRUD Partners --}}
-    <script>
-        $(document).ready(function() {
-            const csrfToken = "{{ csrf_token() }}";
-    
-            // Show modal for creating a new item
-            $('#createItemButton').click(function() {
-                $('#itemForm')[0].reset();
-                $('#modalTitle').text('Create Item');
-                $('#method').val('POST');
-                $('#item_id').val('');
-                $('#itemModal').removeClass('hidden');
-            });
-    
-            // Show modal for editing an item
-            $('.editItemButton').click(function() {
-                const id = $(this).data('id');
-                const name = $(this).data('name');
-                const link = $(this).data('link');
-                const logo = $(this).data('logo');
-    
-                $('#item_id').val(id);
-                $('#name').val(name);
-                $('#link').val(link);
-                $('#modalTitle').text('Edit Partner');
-                $('#method').val('PUT');
-                $('#itemModal').removeClass('hidden');
-            });
-    
-            $('#itemForm').submit(function(e) {
-                e.preventDefault(); // Prevent the default form submission
-
-                const formData = new FormData(this);
-                const method = $('#method').val(); // POST or PUT
-                const itemId = $('#item_id').val();
-                const url = itemId ? `partners/${itemId}` : 'partners'; // Adjust the URL based on itemId
-
-                $.ajax({
-                    type: method,
-                    url: url,
-                    data: formData,
-                    contentType: false, // Important for file uploads
-                    processData: false, // Important for file uploads
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken // Include CSRF token
-                    },
-                    success: function(response) {
-                        location.reload(); // Reload the page to see changes
-                    },
-                    error: function(xhr) {
-                        console.error(xhr.responseText);
-                        const errors = xhr.responseJSON.errors;
-                        if (errors) {
-                            // Display validation errors
-                            for (let field in errors) {
-                                alert(`${field}: ${errors[field].join(', ')}`);
-                            }
-                        } else {
-                            alert('An error occurred while saving the item.');
-                        }
-                    }
-                });
-            });
-    
-            // Handle item deletion
-            $('.deleteItemButton').click(function() {
-                const id = $(this).data('id');
-                if (confirm('Are you sure you want to delete this item?')) {
-                    $.ajax({
-                        type: 'DELETE',
-                        url: `partners/${id}`,
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        success: function(response) {
-                            location.reload(); // Reload the page to see the changes
-                        },
-                        error: function(xhr) {
-                            console.error(xhr.responseText);
-                        }
-                    });
-                }
-            });
-    
-            // Close modal
-            $('#closeModal').click(function() {
-                $('#itemModal').addClass('hidden');
             });
         });
     </script>

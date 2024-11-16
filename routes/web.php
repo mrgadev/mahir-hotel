@@ -84,7 +84,8 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
 
     Route::get('/site-settings', [SiteSettingsController::class, 'edit'])->name('site.settings.edit')->middleware('role:admin');
     Route::put('/site-settings/{site_setting}', [SiteSettingsController::class, 'update'])->name('site.settings.update')->middleware('role:admin');
-    // Route::put('/partners/{partner}')
+    
+    Route::resource('/partners', SiteSettingPartnerController::class)->middleware('role:admin');
     
     Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('role:admin|staff');
     Route::post('/export-transactions', [ReportController::class, 'exportTransactions'])->name('export-transactions');
