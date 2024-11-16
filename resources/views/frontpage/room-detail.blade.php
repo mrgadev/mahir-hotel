@@ -175,8 +175,12 @@
             <div class="flex flex-col gap-3">
                 <h2 class="text-2xl text-primary-700">Ulasan</h2>
                 <p class="flex items-center gap-2 text-gray-800">
+                    @php
+                        $total_rating = 0;
+                        
+                    @endphp
                     <ion-icon name="star" class="text-primary-500"></ion-icon>
-                    5.0 (125 pelanggan)
+                    {{}} ({{$reviews->count()}} pelanggan)
                 </p>
             </div>
 

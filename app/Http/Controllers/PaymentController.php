@@ -204,7 +204,7 @@ class PaymentController extends Controller
             $transaction->save();
         }
         $pesan = "Halo ".$transaction->user->name."!\nTerimakasih telah melakukan pemesanan kamar di Mahir Hotel\nBerikut ini detail reservasi Anda: \nNomor Kamar: *".$transaction->room_number."*\nTipe Kamar: *".$transaction->room->name."*\nTanggal Check-in: *".Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')."*\n\nSemoga liburan Anda menyenangkan!";
-        $this->send_message($transaction->user->phone, $pesan);
+        $this->send_message($transaction->phone, $pesan);
         return view('frontpage.payment.success', compact('transaction'));
         // $apiInstance = new InvoiceApi();
         // $result = $apiInstance->getInvoices(null,$id);

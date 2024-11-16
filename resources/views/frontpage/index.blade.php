@@ -88,7 +88,7 @@
         @auth
             <div class="hidden xl:flex items-center gap-2">
                 @if(Storage::url(Auth::user()->avatar))
-                <img src="{{Storage::url(Auth::user()->avatar)}}" class="w-12 h-1w-12 rounded-full" alt="">
+                <img src="{{Storage::url(Auth::user()->avatar)}}" class="w-12 h-12 object-fill rounded-full" alt="">
                 @else
                 <span class="material-symbols-rounded">account_circle</span>
                 @endif
