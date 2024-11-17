@@ -23,9 +23,11 @@ use App\Http\Controllers\NearbyLocationController;
 use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\AccomdationPlanController;
 use App\Http\Controllers\HotelFacilitiesController;
+use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\UsersManagementController;
 use App\Http\Controllers\SiteSettingPartnerController;
+use App\Models\Saldo;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('home');
@@ -89,6 +91,9 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     
     Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('role:admin|staff');
     Route::post('/export-transactions', [ReportController::class, 'exportTransactions'])->name('export-transactions');
+    
+    Route::resource('/saldo', SaldoController::class);
+    Route::put('/saldo/{id}/cancel', [SaldoController::class, 'cancelTransaction'])->name('saldo.cancelTransaction');
 });
 
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle'])->name('auth.google.redirect');

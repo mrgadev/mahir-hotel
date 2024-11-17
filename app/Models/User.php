@@ -66,4 +66,8 @@ class User extends Authenticatable
     public function room_reviews() {
         return $this->hasMany(RoomReview::class);
     }
+
+    public function saldo(){
+        return $this->hasMany(Saldo::class);
+    }
 }

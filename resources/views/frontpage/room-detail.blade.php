@@ -183,6 +183,7 @@
                     @endphp
                     <ion-icon name="star" class="text-primary-500"></ion-icon>
                     {{$total_rating/$reviews->count()}} ({{$reviews->count()}} pelanggan)
+                    ({{$reviews->count()}} pelanggan)
                 </p>
             </div>
 

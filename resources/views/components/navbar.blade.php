@@ -19,7 +19,7 @@
                                 type="button">
                             <span class="sr-only">Open user menu</span>
                             <div class="w-8 h-8 rounded-full overflow-hidden">
-                                <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-16 h-16 rounded-full object-center object-f" alt="User avatar">
+                                <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-12 h-12 rounded-full object-center object-cover" alt="User avatar">
                             </div>
                             <span class="text-gray-700 pe-2">{{Auth::user()->name}}</span>
                         </button>

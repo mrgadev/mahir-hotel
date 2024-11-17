@@ -214,7 +214,11 @@
                         </div>
                         
                         @if($transaction->checkin_status == 'Belum')
-                        <button class="p-3 rounded-lg text-white bg-red-700 mt-5">Batalkan pesanan</button>
+                        <form action="{{route('dashboard.saldo.cancelTransaction', $transaction->id)}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <button class="p-3 rounded-lg text-white bg-red-700 mt-5">Batalkan pesanan</button>
+                        </form>
                         @elseif($transaction->checkin_status == 'Sudah' && !$room_review)
                         <h3 class="text-lg text-primary-700 font-medium my-5">Berikan ulasan untuk "{{$transaction->room->name}}"</h3>
                         <form action="{{route('dashboard.user.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
