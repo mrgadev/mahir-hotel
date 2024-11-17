@@ -182,8 +182,12 @@
                         }
                     @endphp
                     <ion-icon name="star" class="text-primary-500"></ion-icon>
+                    @if ($reviews->count() >= 1) 
+
                     {{$total_rating/$reviews->count()}} ({{$reviews->count()}} pelanggan)
                     ({{$reviews->count()}} pelanggan)
+                    
+                    @endif
                 </p>
             </div>
 

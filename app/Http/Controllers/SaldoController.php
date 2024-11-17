@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Saldo;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
