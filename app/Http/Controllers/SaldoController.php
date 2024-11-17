@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Saldo;
 use App\Models\Transaction;
 use App\Models\User;
@@ -75,6 +76,7 @@ class SaldoController extends Controller
         
         // Update status transaksi
         $transaction->checkin_status = "Dibatalkan";
+        $transaction->room_number = null;
         $transaction->save();
 
         // Ambil saldo terakhir user
@@ -93,6 +95,10 @@ class SaldoController extends Controller
             'credit' => 0,
             'amount' => $newAmount
         ]);
+
+        $room = Room::where('id', $transaction->room_id);
+        $room->available_rooms = $room->available_rooms + 1;
+        $room->save();
 
         return redirect()->back()->with('success', 'Transaksi berhasil dibatalkan');
     }
