@@ -177,10 +177,12 @@
                 <p class="flex items-center gap-2 text-gray-800">
                     @php
                         $total_rating = 0;
-                        
+                        foreach($reviews as $review) {
+                            $total_rating += $review->rating;
+                        }
                     @endphp
                     <ion-icon name="star" class="text-primary-500"></ion-icon>
-                    {{}} ({{$reviews->count()}} pelanggan)
+                    {{$total_rating/$reviews->count()}} ({{$reviews->count()}} pelanggan)
                 </p>
             </div>
 
@@ -201,7 +203,7 @@
 
                         {!!$review->description!!}
                     </div>
-                    
+                    <p class="flex items-center gap-2 text-primary-700"><ion-icon name="star" class="text-primary-500"></ion-icon> {{$review->rating}}</p>
                 </div>
             </div>
             @endforeach
