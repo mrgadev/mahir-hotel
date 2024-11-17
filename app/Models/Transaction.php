@@ -50,4 +50,8 @@ class Transaction extends Model
     public function room_reviews() {
         return $this->hasMany(Promo::class, 'room_reviews');
     }
+
+    public function saldo(){
+        return $this->hasMany(Saldo::class);
+    }
 }

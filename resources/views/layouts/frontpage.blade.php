@@ -7,6 +7,17 @@
     <title>Mahir Hotel - @yield('title')</title>
     @stack('addons-style')
     @include('components.style')
+    @guest
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+    @endguest
+    @guest
+    <div id="g_id_onload"
+         data-auto_select="true"
+         data-client_id="{{ config('services.google.client_id') }}"
+         data-login_uri="{{ config('services.google.redirect') }}"
+         data-use_fedcm_for_prompt="true">
+    </div>
+@endguest
 </head>
 <body class="font-sora overflow-x-hidden scroll-smooth">
     @yield('main')
