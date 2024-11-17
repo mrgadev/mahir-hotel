@@ -15,7 +15,8 @@ class SaldoController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.user.saldo.index');
+
     }
 
     /**
