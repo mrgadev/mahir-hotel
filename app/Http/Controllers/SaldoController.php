@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Saldo;
 use App\Models\Transaction;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SaldoController extends Controller
 {
@@ -14,7 +15,8 @@ class SaldoController extends Controller
      */
     public function index()
     {
-        return view('dashboard.user.saldo.index');
+        $wallets = Saldo::where('user_id', Auth::user()->id)->get();
+        return view('dashboard.user.saldo.index', compact('wallets'));
 
     }
 
@@ -23,7 +25,7 @@ class SaldoController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

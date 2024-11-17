@@ -210,7 +210,7 @@
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="relative top-0 text-base leading-normal bi bi-clock-history"></i>
                         </div>
-                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Poin dan Reward</span>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Riwayat Saldo</span>
                     </a>
                 </li>
 

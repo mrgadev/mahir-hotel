@@ -109,7 +109,7 @@
                             <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-xs w-fit font-medium">{{$transaction->payment_status}}</p>
                             @endif
                             <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">{{$transaction->invoice}}</span></h2>
-                            <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, d MMMM YYYY, H:m')}}</p>
+                            <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, D MMMM YYYY, H:M')}}</p>
                         </div>
 
                         {{-- Body card --}}
@@ -151,7 +151,7 @@
 
                             <div class="flex flex-col gap-1">
                                 <p>Status Check-in</p>
-                                <p class="font-medium text-primary-700">{{$transaction->checkin_status}} Check-in</p>
+                                <p class="font-medium text-primary-700">{{$transaction->checkin_status}}</p>
                             </div>
 
                             {{-- <div class="flex flex-col gap-1">
@@ -219,7 +219,11 @@
                             @method('PUT')
                             <button class="p-3 rounded-lg text-white bg-red-700 mt-5">Batalkan pesanan</button>
                         </form>
-                        @elseif($transaction->checkin_status == 'Sudah' && !$room_review)
+                        @elseif($transaction->checkin_status == 'Dibatalkan')
+                            <p class="mt-5 p-3 rounded-lg bg-red-100 text-red-700 border border-red-700">Transaksi sudah dibatalkan dan dana dikembalikan ke saldo Anda.</p>
+                        @endif
+
+                        @if($transaction->checkin_status == 'Sudah' && !$room_review)
                         <h3 class="text-lg text-primary-700 font-medium my-5">Berikan ulasan untuk "{{$transaction->room->name}}"</h3>
                         <form action="{{route('dashboard.user.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
                             @csrf
@@ -293,6 +297,7 @@
                 
                             <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
                         </form>
+
                         @endif
 
                     </div>
