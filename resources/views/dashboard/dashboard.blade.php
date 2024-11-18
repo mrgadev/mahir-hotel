@@ -282,7 +282,7 @@
                                     </td>
                                 </tr>
                         </tbody>
-                    </table> --}}
+                    </table>
                 </div>                    
             </div>
         </div> --}}
@@ -317,39 +317,51 @@
                 </div>
             </div>
 
-            @if($transaction->checkin_status == 'Belum')
-            <div class="bg-white rounded-2xl shadow-xl p-5">
-                <h3 class="font-medium text-lg text-primary-700">Reservasi Berikutnya</h3>
-                <a href="{{route('dashboard.user.bookings.detail', $transaction->invoice)}}" class="flex gap-5 mt-5">
-                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="h-24 rounded-lg">
-                    <div class="flex flex-col gap-1">
-                        @php
-                            $nights = date_diff(date_create($transaction->check_in), date_create($transaction->check_out))->format("%a");
-                        @endphp
-                        <p class="text-sm text-primary-500">Order ID: {{$transaction->invoice}}</p>
-                        <p class="font-medium text-primary-700 text-base">{{$transaction->room->name}} ({{$nights}} Malam)</p>
-                        <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-0.5 text-sm">
-                                <span class="material-symbols-rounded scale-75">event</span>
-                                <p>{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')}} - {{Carbon\Carbon::parse($transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
+            @if (isset($transaction))
+                @if($transaction->checkin_status == 'Belum')
+                    <div class="bg-white rounded-2xl shadow-xl p-5">
+                        <h3 class="font-medium text-lg text-primary-700">Reservasi Berikutnya</h3>
+                        <a href="{{route('dashboard.user.bookings.detail', $transaction->invoice)}}" class="flex gap-5 mt-5">
+                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="h-24 rounded-lg">
+                            <div class="flex flex-col gap-1">
+                                @php
+                                    $nights = date_diff(date_create($transaction->check_in), date_create($transaction->check_out))->format("%a");
+                                @endphp
+                                <p class="text-sm text-primary-500">Order ID: {{$transaction->invoice}}</p>
+                                <p class="font-medium text-primary-700 text-base">{{$transaction->room->name}} ({{$nights}} Malam)</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-0.5 text-sm">
+                                        <span class="material-symbols-rounded scale-75">event</span>
+                                        <p>{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')}} - {{Carbon\Carbon::parse($transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        
+                    </div>
+                @else
+                    <div class="bg-white rounded-2xl shadow-xl p-10">
+                        <div class="flex gap-5">
+
+                            <img src="{{asset('images/undraw_Quitting_time_re_1whp.png')}}" alt="" class="w-24">
+                            <div class="flex flex-col gap-3">
+                                <h3 class="font-medium text-xl text-primary-700">Tidak ada reservasi mendatang</h3>
+                                <a href="{{route('dashboard.user.bookings')}}" class="px-5 py-3 rounded-lg bg-primary-700 text-white w-fit">Lihat riwayat</a>
                             </div>
                         </div>
                     </div>
-                </a>
-                
-            </div>
-
+                @endif
             @else
-            <div class="bg-white rounded-2xl shadow-xl p-10">
-                <div class="flex gap-5">
+                <div class="bg-white rounded-2xl shadow-xl p-10">
+                        <div class="flex gap-5">
 
-                    <img src="{{asset('images/undraw_Quitting_time_re_1whp.png')}}" alt="" class="w-24">
-                    <div class="flex flex-col gap-3">
-                        <h3 class="font-medium text-xl text-primary-700">Tidak ada reservasi mendatang</h3>
-                        <a href="{{route('dashboard.user.bookings')}}" class="px-5 py-3 rounded-lg bg-primary-700 text-white w-fit">Lihat riwayat</a>
+                            <img src="{{asset('images/undraw_Quitting_time_re_1whp.png')}}" alt="" class="w-24">
+                            <div class="flex flex-col gap-3">
+                                <h3 class="font-medium text-xl text-primary-700">Tidak ada reservasi mendatang</h3>
+                                <a href="{{route('dashboard.user.bookings')}}" class="px-5 py-3 rounded-lg bg-primary-700 text-white w-fit">Lihat riwayat</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
             @endif
         </div>
         @endrole

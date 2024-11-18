@@ -12,8 +12,10 @@ use Illuminate\Http\Request;
 use App\Models\NearbyLocation;
 use App\Models\HotelFacilities;
 use App\Models\RoomReview;
+use App\Models\Saldo;
 use App\Models\SiteSettingPartner;
 use App\Models\SiteSettings;
+use Illuminate\Support\Facades\Auth;
 
 class FrontpageController extends Controller
 {
@@ -34,6 +36,10 @@ class FrontpageController extends Controller
 
         $promos = Promo::where('is_all', true)->get();
 
+        $saldo = Saldo::where('user_id', Auth::user()->id)
+                        ->latest()
+                        ->first();
+
         if ($request->filled(['check_in', 'check_out'])) {
             session([
                 'check_in' => $request->check_in,
@@ -41,7 +47,7 @@ class FrontpageController extends Controller
             ]);
         }
 
-        return view('frontpage.checkout', compact('room', 'accomodation_plans', 'promos'));
+        return view('frontpage.checkout', compact('room', 'accomodation_plans', 'promos', 'saldo'));
     }
     
     public function promo() {

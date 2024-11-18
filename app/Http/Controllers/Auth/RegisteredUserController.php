@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
+use App\Models\Saldo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
@@ -64,6 +65,15 @@ class RegisteredUserController extends Controller
         ]);
 
         $user->assignRole('user');
+
+        Saldo::create([
+            'user_id' => $user->id,
+            'credit' => 0,
+            'debit' => 0,
+            'amount' => 0,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         // dd($user);
         // Auth::login($user);
