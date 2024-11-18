@@ -77,8 +77,8 @@
 @section('content')
     <main class="h-full overflow-y-auto">
         <div class="container mx-auto">
-            <div class="flex w-full gap-5 mx-auto justify-between items-center">
-                <div class="flex flex-col gap-5 w-full p-6">
+            <div class="flex w-full mx-auto justify-between items-center">
+                <div class="flex flex-col gap-5 p-6">
                     <div class="flex items-center gap-1 bg-primary-100 p-2 text-primary-700 rounded-lg w-fit text-sm">
                         <a href="{{route('dashboard.home')}}" class="flex items-center">
                             <span class="material-symbols-rounded scale-75">home</span>
@@ -94,6 +94,7 @@
                         Informasi Booking
                     </h1>
                 </div>
+                <a href="{{route('dashboard.user.bookings.export', $transaction->invoice)}}" class="px-5 py-3 rounded-lg bg-red-100 text-red-700 border-2 border-red-700"><i class="bi bi-file-earmark-pdf"></i> Simpan ke PDF</a>
             </div>
         </div>       
         <section class="container mx-auto">

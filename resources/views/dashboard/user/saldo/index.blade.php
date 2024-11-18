@@ -104,7 +104,7 @@
                                     <p class="text-green-700">+ {{number_format($wallet->debit,0,',','.')}}</p>
                                 </td>
                                 <td class="">
-                                    <p>-</p>
+                                    <p><p class="text-red-700">- {{number_format($wallet->credit,0,',','.')}}</p></p>
                                 </td> 
                                 <td class="">
                                     <p >Rp. {{number_format($wallet->amount,0,',','.')}}</p>

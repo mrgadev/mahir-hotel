@@ -24,6 +24,7 @@
         "echarts": "^5.5.1",
         "flowbite-typography": "^1.0.4",
         "jquery": "^3.7.1",
+        "puppeteer": "^23.8.0",
         "simple-datatables": "^9.2.1"
     }
 }

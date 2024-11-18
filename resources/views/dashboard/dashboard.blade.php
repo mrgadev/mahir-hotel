@@ -290,8 +290,8 @@
 
         @role('user')
         @php
-            $transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->firstOrFail();
-            $wallet = App\Models\Saldo::where('user_id', Auth::user()->id)->latest()->firstOrFail();
+            $transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->first();
+            $wallet = App\Models\Saldo::where('user_id', Auth::user()->id)->latest()->first();
         @endphp
         {{-- #1 Row for USer --}}
         <div class="grid lg:grid-cols-2 gap-5">
@@ -309,7 +309,7 @@
                         <span class="material-symbols-rounded scale-150">wallet</span>
                         <div class="flex flex-col">
                             <p class="text-sm">Saldoku</p>
-                            <p class="font-medium text-lg">IDR {{number_format($wallet->amount,0,',','.')}}</p>
+                            <p class="font-medium text-lg">IDR {{number_format($wallet->amount ?? 0,0,',','.')}}</p>
                         </div>
                     </div>
 
