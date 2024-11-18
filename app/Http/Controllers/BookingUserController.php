@@ -21,11 +21,13 @@ class BookingUserController extends Controller
     }
 
     public function export(Transaction $transaction) {
-        // $room_review = RoomReview::where('transaction_id', $transaction->id)->first();
-        $filename = $transaction->invoice."-".date("d-m-Y");
+        $room_review = RoomReview::where('transaction_id', $transaction->id)->first();
+        $filename = "Invoice-".$transaction->invoice."-".date("d-m-Y");
         return Pdf::view('dashboard.user.bookings.export', ['transaction' => $transaction])
             ->format('a4')
-            ->name($filename.'.pdf');
+            ->name($filename.'.pdf')
+            ->margins(20, 20, 20, 20) // left, top, right, bottom
+            ->download('invoice.pdf');
         // return view('dashboard.user.bookings.export', compact('transaction', 'room_review'));
     }
 }

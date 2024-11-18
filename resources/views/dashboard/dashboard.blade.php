@@ -290,49 +290,50 @@
 
         @role('user')
         @php
-            $transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->first();
+            $latest_transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->latest()->first();
             $wallet = App\Models\Saldo::where('user_id', Auth::user()->id)->latest()->first();
         @endphp
         {{-- #1 Row for USer --}}
-        <div class="grid lg:grid-cols-2 gap-5">
-            <div class="bg-white rounded-2xl shadow-xl p-5">
+        <div class="grid lg:grid-cols-3 gap-5">
+            <div class="bg-white rounded-2xl shadow-xl col-span-1 p-5">
                 <h3 class="text-xl text-primary-600 font-medium">My Wallet</h3>
-                <div class="grid lg:grid-cols-2 gap-5 mt-5">
-                    <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
+                <div class="mt-5">
+                    {{-- <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
                         <span class="material-symbols-rounded scale-150">toll</span>
                         <div class="flex flex-col">
                             <p class="text-sm">Point Terkumpul</p>
                             <p class="font-medium text-lg">200</p>
                         </div>
-                    </div>
-                    <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
+                    </div> --}}
+                    <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center justify-between gap-5 rounded-lg">
                         <span class="material-symbols-rounded scale-150">wallet</span>
                         <div class="flex flex-col">
                             <p class="text-sm">Saldoku</p>
                             <p class="font-medium text-lg">IDR {{number_format($wallet->amount ?? 0,0,',','.')}}</p>
                         </div>
+                        <a href="{{route('dashboard.saldo.index')}}" class="text-sm px-4 py-2 rounded-md bg-primary-700 text-white"><i class="bi bi-clock-history"></i> Lihat riwayat</a>
                     </div>
 
                 
                 </div>
             </div>
 
-            @if (isset($transaction))
-                @if($transaction->checkin_status == 'Belum')
-                    <div class="bg-white rounded-2xl shadow-xl p-5">
+            @if (isset($latest_transaction))
+                @if($latest_transaction->checkin_status == 'Belum')
+                    <div class="bg-white rounded-2xl col-span-2 shadow-xl p-5">
                         <h3 class="font-medium text-lg text-primary-700">Reservasi Berikutnya</h3>
-                        <a href="{{route('dashboard.user.bookings.detail', $transaction->invoice)}}" class="flex gap-5 mt-5">
+                        <a href="{{route('dashboard.user.bookings.detail', $latest_transaction->invoice)}}" class="flex gap-5 mt-5">
                             <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="h-24 rounded-lg">
                             <div class="flex flex-col gap-1">
                                 @php
-                                    $nights = date_diff(date_create($transaction->check_in), date_create($transaction->check_out))->format("%a");
+                                    $nights = date_diff(date_create($latest_transaction->check_in), date_create($latest_transaction->check_out))->format("%a");
                                 @endphp
-                                <p class="text-sm text-primary-500">Order ID: {{$transaction->invoice}}</p>
-                                <p class="font-medium text-primary-700 text-base">{{$transaction->room->name}} ({{$nights}} Malam)</p>
+                                <p class="text-sm text-primary-500">Order ID: {{$latest_transaction->invoice}}</p>
+                                <p class="font-medium text-primary-700 text-base">{{$latest_transaction->room->name}} ({{$nights}} Malam)</p>
                                 <div class="flex items-center gap-3">
                                     <div class="flex items-center gap-0.5 text-sm">
                                         <span class="material-symbols-rounded scale-75">event</span>
-                                        <p>{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')}} - {{Carbon\Carbon::parse($transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
+                                        <p>{{Carbon\Carbon::parse($latest_transaction->check_in)->isoFormat('dddd, D MMM YYYY')}} - {{Carbon\Carbon::parse($latest_transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
                                     </div>
                                 </div>
                             </div>

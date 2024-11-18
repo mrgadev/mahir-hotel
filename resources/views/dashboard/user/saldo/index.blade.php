@@ -95,7 +95,7 @@
                             <tr class="cursor-pointer">
                                 <td class="font-medium whitespace-nowrap">1</td>
                                 <td class="">
-                                    <p>Sabtu, 12 Nov 2024</p>
+                                    <p>{{Carbon\Carbon::parse($wallet->created_at)->isoFormat('dddd, D MMM YYYY')}}</p>
                                 </td>
                                 <td class="">
                                     <p>{{$wallet->transaction->invoice}}</p>

@@ -2,11 +2,11 @@
 @include('components.style')
 @section('title', 'Detail Booking')
 
-    <main class="overflow-hidden font-sora w-a4 h-a4">
-        <h1 class="p-7 text-primary-700 text-4xl font-medium">
+    <main class="overflow-hidden mx-auto font-sora w-a4 h-a4">
+        <h1 class="text-primary-700 text-4xl font-medium">
             Informasi Booking
         </h1> 
-        <section class="container mx-auto">
+        <section class="container ">
             <main class="col-span-12 md:pt-0">
                 <div class="grid lg:grid-cols-3 gap-5">
                     {{-- Booking detail card --}}
@@ -19,7 +19,7 @@
                             <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-xs w-fit font-medium">{{$transaction->payment_status}}</p>
                             @endif
                             <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">{{$transaction->invoice}}</span></h2>
-                            <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, D MMMM YYYY, H:M')}}</p>
+                            <p class="flex items-center text-gray-700 text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, D MMMM YYYY, H:M')}}</p>
                         </div>
 
                         {{-- Body card --}}
@@ -64,7 +64,7 @@
                             </div>
                         </div>
 
-                        <div class="grid lg:grid-cols-2 gap-6 my-5 text-sm">
+                        <div class="grid grid-cols-2 gap-6 my-5 text-sm">
                             <div class="flex flex-col gap-1">
                                 <p>Tambahan</p>
                                 <ul class="flex flex-col gap-1">
