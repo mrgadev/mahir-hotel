@@ -4,7 +4,7 @@
      class="border-b border-gray-200 last:border-b-0">
     <button @click="open = !open"
             class="flex justify-between items-center w-full py-6 text-left">
-        <span class="text-lg font-semibold text-gray-900">
+            <span class="text-lg font-semibold text-gray-900">
             {{ $faq->question }}
         </span>
         <span x-bind:class="{'rotate-180': open}" class="transform transition-transform duration-200">

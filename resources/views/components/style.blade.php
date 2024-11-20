@@ -49,7 +49,6 @@
 <!-- Include Select2 JS CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.3.3/echarts.min.js"></script>
-
 <style>
     .dt-layout-row:has(.dt-search),
 .dt-layout-row:has(.dt-length),

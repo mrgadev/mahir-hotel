@@ -24,6 +24,7 @@ class Transaction extends Model
         'payment_status',
         'payment_method',
         'total_price',
+        'created_at',   
         'promos_id'
     ];
 

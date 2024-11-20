@@ -127,7 +127,40 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-0 lg:flex-none">
+            <div class="lg:col-span-1 px-3 mt-0 w-full max-w-full">
+                @php
+                    $total_reviews = App\Models\RoomReview::all();
+                    if($total_reviews->count()) {
+                        $total_rating = 0;
+                        foreach($total_reviews as $review) {
+                            $total_rating += $review->rating;
+                        }
+                        $average_rating = $total_rating / $total_reviews->count();
+                    }
+                @endphp
+                
+                <div class="p-5 border-black/12.5 shadow-xl relative flex min-w-0 flex-col gap-5 break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+                    <div class="flex items-center justify-between">
+                        <h6 class="mb-0">Keseluruhan Rating</h6>
+                        <a href="{{route('dashboard.room-review.index')}}" class="bg-primary-100 border border-primary-700 text-primary-700 px-4 py-2 rounded-lg">Lihat semua</a>
+                    </div>
+                    
+                    <div class="flex items-center gap-5">
+                        <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{$average_rating}}</p>
+                        <div class="flex flex-col">
+                            <p class="text-primary-700">Sempurna</p>
+                            <p class="text-sm">dari {{$total_reviews->count()}} Pelanggan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- cards row 3 -->
+
+        <div class="mt-6 -mx-3">
+            {{-- <div class="mt-0 lg:flex-none">
                 <div class="border-black/12.5 shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
                 <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
                     <h6 class="capitalize">Total Pendapatan</h6>
@@ -136,19 +169,13 @@
                     <span class="font-semibold">4% more</span> in 2021
                     </p>
                 </div>
-                <div class="flex-auto p-4">
-                    <div id="revenueChart">
-                    </div>
+                <div class="revenue-section">
+                    <select id="yearSelect" class="p-2 border rounded mb-4"></select>
+                    <div id="revenueChart" style="width: 100%; height: 400px;"></div>
                 </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- cards row 3 -->
-
-        <div class="grid lg:grid-cols-3 mt-6 -mx-3">
-            <div class="lg:col-span-2 px-3 mt-0 mb-6 w-full max-w-full">
+   
+            </div> --}}
+            <div class=" px-3 mt-0 mb-6 w-full max-w-full lg:flex-none">
                 <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl border-black-125 rounded-2xl bg-clip-border">
                     <div class="py-4 px-6 pb-0 mb-0 rounded-t-4">
                         <div class="flex justify-between items-center">
@@ -196,28 +223,6 @@
                                 @endforelse
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:col-span-1 px-3 mt-0 w-full max-w-full">
-                @php
-                    $total_reviews = App\Models\RoomReview::all();
-                    $total_rating = 0;
-                    foreach($total_reviews as $review) {
-                        $total_rating += $review->rating;
-                    }
-                    $average_rating = $total_rating / $total_reviews->count();
-                @endphp
-                
-                <div class="p-5 border-black/12.5 shadow-xl relative flex min-w-0 flex-col gap-5 break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
-                    <h6 class="mb-0">Keseluruhan Rating</h6>
-                    
-                    <div class="flex items-center gap-5">
-                        <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{$average_rating}}</p>
-                        <div class="flex flex-col">
-                            <p class="text-primary-700">Sempurna</p>
-                            <p class="text-sm">dari {{$total_reviews->count()}} Pelanggan</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -298,13 +303,7 @@
             <div class="bg-white rounded-2xl shadow-xl col-span-1 p-5">
                 <h3 class="text-xl text-primary-600 font-medium">My Wallet</h3>
                 <div class="mt-5">
-                    {{-- <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
-                        <span class="material-symbols-rounded scale-150">toll</span>
-                        <div class="flex flex-col">
-                            <p class="text-sm">Point Terkumpul</p>
-                            <p class="font-medium text-lg">200</p>
-                        </div>
-                    </div> --}}
+
                     <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center justify-between gap-5 rounded-lg">
                         <span class="material-symbols-rounded scale-150">wallet</span>
                         <div class="flex flex-col">
@@ -371,7 +370,7 @@
 
 @push('addon-script')
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script> --}}
 <script>
     if (document.getElementById("selection-table") && typeof simpleDatatables.DataTable !== 'undefined') {
         let multiSelect = true;
@@ -470,25 +469,131 @@
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <script>
-    var myChart = echarts.init(document.getElementById('revenueChart'));
+// Initialize chart instance at global scope
+let myChart = null;
 
-    var option = {
+function initRevenueChart(data) {
+    // Get DOM element
+    const chartDom = document.getElementById('revenueChart');
+    
+    // Dispose existing chart if it exists
+    if (myChart != null && myChart.dispose) {
+        myChart.dispose();
+    }
+    
+    // Initialize new chart
+    myChart = echarts.init(chartDom);
+
+    // Configure chart options
+    const option = {
         title: {
-            text: 'ECharts Introduction Example'
+            text: `Monthly Revenue - ${data.selected_year}`,
+            left: 'center'
         },
-        tooltip: {},
+        tooltip: {
+            trigger: 'axis',
+            formatter: function(params) {
+                const value = params[0].value;
+                return `${params[0].name}: $${value.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })}`;
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
         xAxis: {
-            data: ["shirt", "cardigan", "chiffon", "pants", "heels", "socks"]
+            type: 'category',
+            data: [
+                'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+            ],
+            boundaryGap: false
         },
-        yAxis: {},
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: (value) => `$${value.toLocaleString('en-US')}`
+            }
+        },
         series: [{
-            name: 'Sales',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
+            name: 'Revenue',
+            type: 'line',
+            smooth: true,
+            data: data.monthly_revenue,
+            itemStyle: {
+                color: '#3498db'
+            },
+            areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    {
+                        offset: 0,
+                        color: 'rgba(52, 152, 219, 0.3)'
+                    },
+                    {
+                        offset: 1,
+                        color: 'rgba(52, 152, 219, 0.1)'
+                    }
+                ])
+            }
         }]
     };
 
+    // Set chart options
     myChart.setOption(option);
+
+    // Handle resize
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    });
+}
+
+// Fetch and initialize chart
+async function loadRevenueChart(year = null) {
+    try {
+        const url = year 
+            ? `/dashboard/monthly-revenue?year=${year}` 
+            : '/dashboard/monthly-revenue';
+        
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        const data = await response.json();
+        initRevenueChart(data);
+        
+        // Update year selector
+        const yearSelect = document.getElementById('yearSelect');
+        if (yearSelect && data.available_years.length > 0) {
+            yearSelect.innerHTML = data.available_years
+                .map(y => `<option value="${y}" ${y == data.selected_year ? 'selected' : ''}>${y}</option>`)
+                .join('');
+        }
+    } catch (error) {
+        console.error('Failed to load revenue data:', error);
+    }
+}
+
+// Add event listeners when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Year select change handler
+    const yearSelect = document.getElementById('yearSelect');
+    if (yearSelect) {
+        yearSelect.addEventListener('change', (e) => {
+            loadRevenueChart(e.target.value);
+        });
+    }
+
+    // Initial load
+    loadRevenueChart();
+});
 </script>
+
 @endpush

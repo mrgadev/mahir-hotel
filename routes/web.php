@@ -31,6 +31,8 @@ use App\Models\Saldo;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('home');
+    Route::get('/monthly-revenue', [TransactionController::class, 'getMonthlyRevenue'])->name('monthly-revenue');
+    
 
     Route::get('/profile', [DashboardController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');

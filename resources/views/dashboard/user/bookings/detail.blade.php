@@ -105,9 +105,9 @@
                         {{-- Header card --}}
                         <div class="flex flex-col gap-3 mb-8">
                             @if($transaction->payment_status == 'PAID')
-                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-xs w-fit font-medium">{{$transaction->payment_status}}</p>
+                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-xs w-fit font-medium">LUNAS</p>
                             @elseif($transaction->payment_status == 'PENDING')
-                            <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-xs w-fit font-medium">{{$transaction->payment_status}}</p>
+                            <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-xs w-fit font-medium">TERTUNDA</p>
                             @endif
                             <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">{{$transaction->invoice}}</span></h2>
                             <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, D MMMM YYYY, H:M')}}</p>
