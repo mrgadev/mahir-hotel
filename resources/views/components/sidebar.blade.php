@@ -155,7 +155,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="">
+                            <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="{{route('dashboard.room-review.index')}}">
                                 <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Ulasan Pengguna</span>
                             </a>
                         </li>
@@ -206,7 +206,7 @@
                 </li>
 
                 <li class="mt-0.5 w-full">  
-                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.user.saldo') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.user.saldo')}}">
+                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.saldo.index') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.saldo.index')}}">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="relative top-0 text-base leading-normal bi bi-clock-history"></i>
                         </div>

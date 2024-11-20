@@ -16,6 +16,12 @@ export default {
                 jakarta: ['Plus Jakarta Sans', 'sans-serif'],
                 sora: ['Sora', 'sans-serif']
             },
+            width: {
+                a4: '210mm',
+            },
+            height: {
+                a4: '297mm',
+            },
             backgroundImage: {
                 'hero-bg': "url('../img/Screenshot 2024-10-17 204712.png')",
             },

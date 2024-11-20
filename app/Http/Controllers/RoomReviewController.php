@@ -14,7 +14,8 @@ class RoomReviewController extends Controller
      */
     public function index()
     {
-        //
+        $room_reviews = RoomReview::all();
+        return view('dashboard.admin.reviews.index', compact('room_reviews'));
     }
 
     /**
@@ -90,15 +91,16 @@ class RoomReviewController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RoomReview $roomReview)
+    public function show(RoomReview $room_review)
     {
-        //
+        return view('dashboard.admin.reviews.detail', compact('room_review'));
+        // return response()->json($room_review);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RoomReview $roomReview)
+    public function edit(RoomReview $room_review)
     {
         //
     }
