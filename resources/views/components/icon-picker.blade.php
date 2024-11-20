@@ -130,7 +130,8 @@
     </div>
 
     <!-- Hidden Input -->
-    <input type="hidden" name="items[0][icon]" id="icon-input" value="{{ $selected ?? '' }}">
+    {{-- <input type="hidden" name="items[0][icon]" id="icon-input" value="{{ $selected ?? '' }}"> --}}
+    <input type="hidden" name="icon" id="icon-input" value="{{ $selected ?? '' }}">
 
     <!-- Icon Modal -->
     <div class="icon-modal" id="icon-modal">

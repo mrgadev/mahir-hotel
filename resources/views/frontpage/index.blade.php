@@ -425,15 +425,7 @@
                 
             </div>
         </div>
-        <iframe
-            src="https://maps.app.goo.gl/ttoLdkSigY8Fc2ju5?entry=ttu"
-            width="600"
-            height="450"
-            style="border:0;"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1187.875311872304!2d106.82119754241114!3d-6.201478784166075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f41e140f587f%3A0xc354e589ba37fb1!2sAll%20Seasons%20Thamrin!5e1!3m2!1sid!2sid!4v1732107745936!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </div>
 

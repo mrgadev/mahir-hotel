@@ -30,7 +30,8 @@ class HotelFacilitiesController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('Form submitted', $request->all());
+        // dd($request->all());
+        // Log::info('Form submitted', $request->all());
         $message = [
             'name.required' => 'Nama fasilitas wajib diisi!',
             'icon.required' => 'Icon fasilitas wajib diupload!',
