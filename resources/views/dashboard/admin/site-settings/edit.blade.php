@@ -118,18 +118,22 @@
                                         </td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
                                         <td class="">
-                                            <img src="{{url($partner->logo)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
+                                            <img src="{{Storage::url($partner->logo)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
                                         </td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$partner->name}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$partner->link}}</td>
                                         <td class="flex items-center">
                                             <div class="mr-2">
-                                                <button id="" class="editItemButton py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white" data-id="{{ $partner->id }}" data-name="{{ $partner->name }}" data-link="{{$partner->link}}" data-logo="{{$partner->logo}}">
+                                                <a href="{{route('dashboard.partners.edit', $partner)}}" class="editItemButton py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white" data-id="{{ $partner->id }}" data-name="{{ $partner->name }}" data-link="{{$partner->link}}" data-logo="{{$partner->logo}}">
                                                     <i class="bi bi-pencil-square"></i>
-                                                </button>
+                                                </a>
                                                 
                                             </div>
-                                            <button class="deleteItemButton p-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white" data-id="{{ $partner->id }}" data-name="{{ $partner->name }}" data-link="{{$partner->link}}" data-logo="{{$partner->logo}}">
+                                            <form action="{{route('dashboard.partners.destroy', $partner)}}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="deleteItemButton p-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white">
+                                            </form>
                                                 
                                         <i class="bi bi-trash"></i>
                                             </button>
@@ -176,8 +180,8 @@
                     </div>
 
                     <div class="grid grid-cols-1 gap-2 w-full mt-8">
-                        <label for="" class="flex items-center gap-1 text-primary-700 font-light text-sm">Link Partner</label>
-                        <input type="file" name="logo" value="" placeholder="Link Partner" class="bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
+                        <label for="" class="flex items-center gap-1 text-primary-700 font-light text-sm">Logo Partner</label>
+                        <input type="file" name="logo" value="" id="logo" placeholder="Link Partner" class="bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
                     </div>
 
                     <div class="flex items-center gap-2 mt-8">
