@@ -470,7 +470,7 @@
             <h3 class="font-medium text-primary-700 text-xl">{{$room_review->title}}</h3>
             <div class="text-sm text-primary-800">{!!$room_review->description!!}</div>
             <div class="flex items-center gap-3">
-                <img src="{{Storage::url($room_review->user->avatar)}}" class="w-14 h-14 rounded-full" alt="">
+                <img src="{{Storage::url($room_review->user->avatar)}}" class="w-14 h-14 rounded-full object-cover object-center" alt="">
                 <div class="flex flex-col">
                     <p class="font-medium text-primary-700">{{$room_review->user->name}}</p>
                     <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>{{$room_review->rating}} ({{$room_review->rating_text}})</p>
@@ -573,7 +573,7 @@
             @foreach ($partners as $partner)
             <li>
                 <a href="{{$partner->link}}">
-                    <img src="{{url($partner->logo)}}" target="_blank" class="h-10 grayscale hover:grayscale-0" alt="">
+                    <img src="{{Storage::url($partner->logo)}}" target="_blank" class="h-10 grayscale hover:grayscale-0" alt="">
                 </a>
             </li>
             @endforeach
@@ -583,7 +583,7 @@
             @foreach ($partners as $partner)
             <li>
                 <a href="{{$partner->link}}">
-                    <img src="{{url($partner->logo)}}" target="_blank" class="h-10 grayscale hover:grayscale-0" alt="">
+                    <img src="{{Storage::url($partner->logo)}}" target="_blank" class="h-10 grayscale hover:grayscale-0" alt="">
                 </a>
             </li>
             @endforeach

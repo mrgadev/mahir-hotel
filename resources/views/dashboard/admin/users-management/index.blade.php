@@ -31,7 +31,7 @@
                 <a href="{{route('dashboard.users_management.create')}}" class="mt-10 px-5 py-3 border-2 rounded-md bg-primary-100 p-2 text-primary-700 hover:bg-white transition-all duration-75 hover:text-[#976033] text-base text-center">
                     <p class="flex"><span><i class="bi bi-plus-square mr-2"></i></span> Tambah</p>
                 </a>
-                <a href="#image-modal" id="quickActionButton" class="flex items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
+                <a href="#image-modal" id="quickActionButton" class="flex hidden items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
                     <p class="whitespace-nowrap">Quick Action</p>
                 </a>
             </div>

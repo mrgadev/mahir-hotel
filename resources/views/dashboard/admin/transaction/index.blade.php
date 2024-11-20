@@ -29,10 +29,10 @@
                             Daftar Transaksi
                         </h1>
                     </div>
-                    <a href="#image-modal" id="quickActionButton" class="flex items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
+                    <a href="#image-modal" id="quickActionButton" class="flex hidden items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
                         <p class="whitespace-nowrap">Ubah Status Pembayaran</p>
                     </a>
-                    <a href="#image-modal2" id="quickActionButton2" class="flex items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
+                    <a href="#image-modal2" id="quickActionButton2" class="flex hidden items-center mt-10 px-5 py-[0.73rem] ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center">
                         <p class="whitespace-nowrap">Ubah Status Checkin</p>
                     </a>
                 </div>

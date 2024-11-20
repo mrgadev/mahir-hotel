@@ -127,28 +127,8 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-0 lg:flex-none">
-                <div class="border-black/12.5 shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
-                <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
-                    <h6 class="capitalize">Total Pendapatan</h6>
-                    <p class="mb-0 text-sm leading-normal">
-                    <i class="fa fa-arrow-up text-emerald-500"></i>
-                    <span class="font-semibold">4% more</span> in 2021
-                    </p>
-                </div>
-                <div class="flex-auto p-4">
-                    <div id="revenueChart">
-                    </div>
-                </div>
-                </div>
-            </div>
 
-        </div>
-
-        <!-- cards row 3 -->
-
-        <div class="grid lg:grid-cols-3 mt-6 -mx-3">
-            <div class="lg:col-span-2 px-3 mt-0 mb-6 w-full max-w-full">
+            <div class=" px-3 mt-0 mb-6 w-full max-w-full">
                 <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl border-black-125 rounded-2xl bg-clip-border">
                     <div class="py-4 px-6 pb-0 mb-0 rounded-t-4">
                         <div class="flex justify-between items-center">
@@ -199,9 +179,30 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- cards row 3 -->
+
+        <div class="grid lg:grid-cols-3 mt-6 -mx-3">
+            <div class="lg:col-span-2 px-3 mt-0 mb-6 w-full max-w-full">
+                <div class="border-black/12.5 shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+                <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
+                    <h6 class="capitalize">Total Pendapatan</h6>
+                    <p class="mb-0 text-sm leading-normal">
+                    <i class="fa fa-arrow-up text-emerald-500"></i>
+                    <span class="font-semibold">4% more</span> in 2021
+                    </p>
+                </div>
+                <div class="flex-auto p-4">
+                    <div id="revenueChart">
+                    </div>
+                </div>
+                </div>
+            </div>
+            
             <div class="lg:col-span-1 px-3 mt-0 w-full max-w-full">
                 @php
-                    $total_reviews = App\Models\RoomReview::all();
+                    $total_reviews = App\Models\RoomReview::all() ?? 0;
                     $total_rating = 0;
                     foreach($total_reviews as $review) {
                         $total_rating += $review->rating;

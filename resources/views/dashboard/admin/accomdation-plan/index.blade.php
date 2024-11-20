@@ -35,7 +35,7 @@
                     <button
                         type="button"
                         id="quickActionButton"
-                        class="flex items-center mt-10 px-5 py-2 ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center"
+                        class="flex hidden items-center mt-10 px-5 py-2 ring-2 ring-red-500 rounded-md bg-primary-100 p-2 text-red-500 hover:bg-white transition-all duration-75 hover:text-red-500 text-base text-center"
                         data-dialog-target="image-dialog4"
                     >
                         <i class="bi bi-trash mr-2"></i>

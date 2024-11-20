@@ -29,9 +29,9 @@ class SiteSettingPartnerController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'logo' => '',
-            'name' => '',
-            'link' => ''
+            'logo' => 'required',
+            'name' => 'required',
+            'link' => 'required',
         ]);
 
         if($request->hasFile('logo')){
@@ -60,7 +60,7 @@ class SiteSettingPartnerController extends Controller
      */
     public function edit(SiteSettingPartner $partner)
     {
-        //
+        return view('dashboard.admin.site-settings.edit_partner', compact('partner'));
     }
 
     /**
@@ -68,31 +68,25 @@ class SiteSettingPartnerController extends Controller
      */
     public function update(Request $request, SiteSettingPartner $partner)
     {
-        dd($request->all());
         $data = $request->validate([
-            'logo' => 'nullable|image|mimes:svg,png,jpg,jpeg,webp,avif',
-            'name' => 'required|string',
-            'link' => 'required|string'
+            'logo' => 'nullable',
+            'name' => 'required',
+            'link' => 'required',
         ]);
-        $name_slug = Str::slug($data['name']);
-        if($request->file('logo')) {
-            $partner_name = 'PARTNER-'.$name_slug.'-'.rand(000,999);
-            $ext = strtolower($request->file('logo')->getClientOriginalExtension());
-            $partner_full_name = $partner_name.'.'.$ext;
-            $upload_path ='storage/partners/';
-            $partner_url = $upload_path.$partner_full_name;
-            $request->file('logo')->move($upload_path, $partner_full_name);
-            $data['logo']= $partner_url;
-        } else {
-            $data['logo'] = $partner->logo;
+
+        if($request->hasFile('logo')){
+            $logoPath = $request->file('logo')->store('logos', 'public');
+        }else{
+            $logoPath = $partner->logo;
         }
 
         $partner->update([
+            'logo' => $logoPath,
             'name' => $data['name'],
-            'logo' => $data['logo'],
-            'link' => $data['link']
+            'link' => $data['link'],
         ]);
-        return response()->json(['success' => 'Partner berhasil diperbarui']);
+
+        return redirect()->back();
     }
 
     /**
@@ -101,6 +95,6 @@ class SiteSettingPartnerController extends Controller
     public function destroy(SiteSettingPartner $partner)
     {
         $partner->delete();
-        return response()->json(['success' => 'Partner berhasil dihapus']);
+        return redirect()->back();
     }
 }
