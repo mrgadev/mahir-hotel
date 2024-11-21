@@ -270,12 +270,12 @@ class PaymentController extends Controller
     {
         $transaction = Transaction::where('invoice',$id)->firstOrFail();
         $room = Room::where('id', $transaction->room_id)->firstOrFail();
-        if($transaction->payment_method == 'Xendit' || $transaction->payment_method == 'Credit' && $transaction->payment_status == "PENDING") {
+        if($transaction->payment_method == 'Xendit' || $transaction->payment_method == 'Credit') {
             $transaction->payment_status = "PAID";
             $room->available_rooms -= 1;
             $transaction->room_number = rand(1,$transaction->room->total_rooms);
             $transaction->save();
-        }
+        } 
         $pesan = "Halo ".$transaction->user->name."!\nTerimakasih telah melakukan pemesanan kamar di Mahir Hotel\nBerikut ini detail reservasi Anda: \nNomor Kamar: *".$transaction->room_number."*\nTipe Kamar: *".$transaction->room->name."*\nTanggal Check-in: *".Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')."*\n\nSemoga liburan Anda menyenangkan!";
         $this->send_message($transaction->phone, $pesan);
         return view('frontpage.payment.success', compact('transaction'));

@@ -181,17 +181,16 @@
                             $total_rating += $review->rating;
                         }
                     @endphp
-                    <ion-icon name="star" class="text-primary-500"></ion-icon>
                     @if ($reviews->count() >= 1) 
+                    <ion-icon name="star" class="text-primary-500"></ion-icon>
 
-                    {{$total_rating/$reviews->count()}} ({{$reviews->count()}} pelanggan)
-                    ({{$reviews->count()}} pelanggan)
-                    
+                    {{$total_rating/$reviews->count()}} ({{$reviews->count()}} pelanggan)                    
                     @endif
                 </p>
             </div>
 
             {{-- Review Section --}}
+            @if($reviews->count() >= 1)
             @foreach ($reviews as $review)
             <div class="flex flex-col gap-5 bg-primary-100 lg:w-1/2 p-5 rounded-xl border border-primary-700">
                 <div class="flex items-center gap-5">
@@ -212,6 +211,9 @@
                 </div>
             </div>
             @endforeach
+            @else
+            <p>Belum ada ulasan</p>
+            @endif
         </div>
 
         <div class="col-span-1 flex flex-col gap-10 order-first lg:order-last">

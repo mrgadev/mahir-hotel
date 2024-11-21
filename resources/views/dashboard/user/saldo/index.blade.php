@@ -98,7 +98,7 @@
                                     <p>{{Carbon\Carbon::parse($wallet->created_at)->isoFormat('dddd, D MMM YYYY')}}</p>
                                 </td>
                                 <td class="">
-                                    <p>{{$wallet->transaction->invoice}}</p>
+                                    <p>{{$wallet->transaction->invoice ?? '-'}}</p>
                                 </td>
                                 <td class="">
                                     <p class="text-green-700">+ {{number_format($wallet->debit,0,',','.')}}</p>

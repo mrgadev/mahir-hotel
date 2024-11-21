@@ -228,7 +228,7 @@
                                 <label for="newStatus" class="block mb-2">
                                     Pilih Status:
                                     <br>
-                                    <small class="text-red-700">Silakan pilih peran (role) baru yang ingin Anda terapkan. Pilihan peran ini akan menentukan hak akses dan tanggung jawab pengguna di dalam sistem.</small>
+                                    {{-- <small class="text-red-700">Silakan pilih peran (role) baru yang ingin Anda terapkan. Pilihan peran ini akan menentukan hak akses dan tanggung jawab pengguna di dalam sistem.</small> --}}
                                 </label>
                                 <select name="checkin_status" id="newStatus" class="block w-full px-4 py-2 border rounded" required>
                                     <option value="">--Pilih Status Checkin--</option>

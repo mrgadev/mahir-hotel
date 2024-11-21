@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Saldo;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
@@ -43,6 +44,15 @@ class SocialiteController extends Controller
             $user->save();
         }
         $user->assignRole('user');
+
+        Saldo::create([
+            'user_id' => $user->id,
+            'credit' => 0,
+            'debit' => 0,
+            'amount' => 0,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         Auth::login($user);
         return redirect()->route('frontpage.index');

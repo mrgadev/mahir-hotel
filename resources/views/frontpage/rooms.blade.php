@@ -92,13 +92,10 @@
             </div>
             <div class="flex flex-col gap-2">
                 <h3 class="text-xl text-primary-700 hover:underline">{{$room->name}}</h3>
-                <div class="text-sm flex items-center gap-2 text-primary-500">
-                    {{-- @foreach ($room->room_facility->icon as $facility)
-                        <img src="{{Storage::url($facility->icon)}}" alt="">
-                    @endforeach --}}
-                    <span class="material-symbols-rounded scale-75">bed</span>
-                    <span class="material-symbols-rounded scale-75">wifi</span>
-                    <span class="material-symbols-rounded scale-75">group</span> 1
+                <div class="flex items-center text-sm text-primary-500">
+                @foreach ($room->room_facility as $facility)
+                        <span class="material-icons-round scale-75">{{$facility->icon}}</span>
+                @endforeach
                 </div>
             </div>
         </a>

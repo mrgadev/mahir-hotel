@@ -23,6 +23,14 @@ class TransactionController extends Controller
         ]);
 
         $transaction->update($data);
+        if($data['checkin_status'] == 'Sudah') {
+            $transaction->available_rooms -= 1;
+            $transaction->save();
+        } else {
+            $transaction->available_rooms += 1;
+            $transaction->save();
+        }
+
         return view('dashboard.admin.transaction.detail', compact('transaction'));
     }
 
