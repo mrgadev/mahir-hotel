@@ -98,7 +98,7 @@
                                     <p>{{Carbon\Carbon::parse($wallet->created_at)->isoFormat('dddd, D MMM YYYY')}}</p>
                                 </td>
                                 <td class="">
-                                    <p>{{$wallet->transaction->invoice}}</p>
+                                    <p>{{$wallet->transaction->invoice ?? '-'}}</p>
                                 </td>
                                 <td class="">
                                     <p class="text-green-700">+ {{number_format($wallet->debit,0,',','.')}}</p>
@@ -112,9 +112,15 @@
 
                                 <td class="flex items-center">
                                     <div class="mr-2">
+                                        @if(isset($wallet->transaction))
+                                        <a href="{{route('dashboard.user.bookings.detail', $wallet->transaction->invoice)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        @else
                                         <a href="#" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
                                             <i class="bi bi-eye"></i>
                                         </a>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

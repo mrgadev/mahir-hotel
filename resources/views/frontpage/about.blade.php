@@ -5,6 +5,9 @@
 @section('title', 'Tentang Kami')
 @section('main')
 @include('components.frontpage-navbar')
+@php
+    $site_settings = App\Models\SiteSettings::where('id',1)->first();
+@endphp
 <header class="lg:px-36 px-12 pt-36 lg:h-screen flex flex-col justify-center items-center">
     <div class="flex flex-col gap-8 h-[70%] items-center justify-center">
         <h1 class="text-4xl lg:text-6xl text-center text-primary-700">Akomodasi Sempurna untuk<br> Perjalanan Sempurna</h1>
@@ -115,7 +118,7 @@
             <p class="text-gray-800">Hubungi tim kami setiap hari dari 08:00 sampai 16:00</p>
             <div class="flex items-center gap-2">
                 <span class="material-symbols-rounded text-primary-500">call</span>
-                <a href="tel:02190675444" class="underline text-gray-700">(021) 9067 5444</a>
+                <a href="tel:{{$site_settings->phone}}" class="underline text-gray-700">{!!$site_settings->phone_text!!}</a>
             </div>
         </div>
 
@@ -141,7 +144,8 @@
             <p class="text-gray-800">Ingin menyampaikan secara personal? Bisa langsung ke kantor kami</p>
             <div class="flex items-center gap-2">
                 <span class="material-symbols-rounded text-primary-500">corporate_fare</span>
-                <a href="#" class="underline text-gray-700">Jl. Jendral Sudirman, Bendungan Hilir, Jakarta</a>
+
+                <a href="{{$site_settings->maps_link}}" class="underline text-gray-700">{!!$site_settings->address!!}</a>
             </div>
         </div>
     </div>

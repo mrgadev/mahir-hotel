@@ -226,7 +226,7 @@
 
                         @if($transaction->checkin_status == 'Sudah' && !$room_review)
                         <h3 class="text-lg text-primary-700 font-medium my-5">Berikan ulasan untuk "{{$transaction->room->name}}"</h3>
-                        <form action="{{route('dashboard.user.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
+                        <form action="{{route('dashboard.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
                             @csrf
                             @method('POST')
                             <div class="rating-container flex flex-col gap-1">
@@ -263,7 +263,7 @@
                         </form>
                         @elseif ($transaction->checkin_status == 'Sudah' && $room_review)
                         <h3 class="text-lg text-primary-700 font-medium my-5">Ubah ulasan untuk "{{$transaction->room->name}}"</h3>
-                        <form action="{{route('dashboard.user.room-review.update', $room_review->id)}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
+                        <form action="{{route('dashboard.room-review.update', $room_review->id)}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
                             @csrf
                             @method('PUT')
                             <div class="rating-container flex flex-col gap-1">
@@ -278,16 +278,25 @@
                                     </div>
                                 </div>
                                 <span id="rating-text" style="display: block; margin-top: 5px; color: #666;"></span>
+                                @error('rating')
+                                    <p>{{$message}}</p>
+                                @enderror
                             </div>
                 
                             <div class="flex flex-col gap-3">
                                 <label for="title">Judul</label>
                                 <input type="text" name="title" class="rounded-lg " value="{{$room_review->title}}">
+                                @error('title')
+                                    <p>{{$message}}</p>
+                                @enderror
                             </div>
 
                             <div class="flex flex-col gap-3">
                                 <label for="description">Ulasan Anda</label>
                                 <textarea name="description" id="description" class="form-control" rows="4">{!!$room_review->description!!}</textarea>
+                                @error('description')
+                                    <p>{{$message}}</p>
+                                @enderror
                             </div>
                 
                             {{-- <div class="flex flex-col gap-3">

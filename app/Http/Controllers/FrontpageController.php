@@ -45,9 +45,11 @@ class FrontpageController extends Controller
                 'check_in' => $request->check_in,
                 'check_out' => $request->check_out,
             ]);
+            return view('frontpage.checkout', compact('room', 'accomodation_plans', 'promos', 'saldo'));
+        } else {
+            return redirect()->back()->with('error', 'Tanggal check-in wajib diisi!');
         }
 
-        return view('frontpage.checkout', compact('room', 'accomodation_plans', 'promos', 'saldo'));
     }
     
     public function promo() {

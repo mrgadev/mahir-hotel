@@ -271,21 +271,21 @@
 
         @role('user')
         @php
-            $transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->first();
+            $transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->latest()->first();
             $wallet = App\Models\Saldo::where('user_id', Auth::user()->id)->latest()->first();
         @endphp
         {{-- #1 Row for USer --}}
         <div class="grid lg:grid-cols-2 gap-5">
             <div class="bg-white rounded-2xl shadow-xl p-5">
                 <h3 class="text-xl text-primary-600 font-medium">My Wallet</h3>
-                <div class="grid lg:grid-cols-2 gap-5 mt-5">
-                    <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
+                <div class="mt-5">
+                    {{-- <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
                         <span class="material-symbols-rounded scale-150">toll</span>
                         <div class="flex flex-col">
                             <p class="text-sm">Point Terkumpul</p>
                             <p class="font-medium text-lg">200</p>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
                         <span class="material-symbols-rounded scale-150">wallet</span>
                         <div class="flex flex-col">

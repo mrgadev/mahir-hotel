@@ -99,7 +99,7 @@ class SaldoController extends Controller
         ]);
 
         $room = Room::where('id', $transaction->room_id)->first();
-        $room->available_rooms = $room->available_rooms + 1;
+        $room->available_rooms += 1;
         $room->save();
 
         return redirect()->back()->with('success', 'Transaksi berhasil dibatalkan');
