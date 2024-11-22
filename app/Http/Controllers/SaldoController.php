@@ -98,7 +98,7 @@ class SaldoController extends Controller
             'amount' => $newAmount
         ]);
 
-        $room = Room::where('id', $transaction->room_id);
+        $room = Room::where('id', $transaction->room_id)->first();
         $room->available_rooms = $room->available_rooms + 1;
         $room->save();
 
