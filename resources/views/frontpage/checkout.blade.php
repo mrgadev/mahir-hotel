@@ -292,26 +292,30 @@
                                 {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
                                 <label for="Xendit" class="hover:cursor-pointer">Xendit</label>
                             </div>
-                            <div class="flex flex-col items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
-                                <input type="radio" name="payment_method" id="Credit" value="Credit" class="hidden">
-                                {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
-                                {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
-                                <label for="Credit" class="hover:cursor-pointer">Kredit</label>
-                            </div>
+                            @auth
+                                <div class="flex flex-col items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                    <input type="radio" name="payment_method" id="Credit" value="Credit" class="hidden">
+                                    {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                    {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                    <label for="Credit" class="hover:cursor-pointer">Kredit</label>
+                                </div>
+                            @endauth
                         </div>
                     </dl>
 
-                    <div id="credit-description" style="display: none">
-                        <dl class="flex items-center justify-between gap-4 py-3">
-                            <dt class="text-base font-normal text-gray-500">Total Saldo Kredit <span></span></dt>
-                            <dd class="text-base font-medium" data-saldo="{{ $saldo->amount }}">
-                                Rp. {{ number_format($saldo->amount, 0, ',', '.') }}
-                                <small id="saldo-message">
-                                    <!-- Pesan error akan ditampilkan disini oleh JavaScript -->
-                                </small>
-                            </dd>
-                        </dl>
-                    </div>
+                    @auth
+                        <div id="credit-description" style="display: none">
+                            <dl class="flex items-center justify-between gap-4 py-3">
+                                <dt class="text-base font-normal text-gray-500">Total Saldo Kredit <span></span></dt>
+                                <dd class="text-base font-medium" data-saldo="{{ $saldo->amount }}">
+                                    Rp. {{ number_format($saldo->amount, 0, ',', '.') }}
+                                    <small id="saldo-message">
+                                        <!-- Pesan error akan ditampilkan disini oleh JavaScript -->
+                                    </small>
+                                </dd>
+                            </dl>
+                        </div>
+                    @endauth
                 </div>
             </div>
 

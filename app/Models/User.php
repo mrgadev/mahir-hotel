@@ -70,4 +70,8 @@ class User extends Authenticatable
     public function saldo(){
         return $this->hasMany(Saldo::class);
     }
+
+    public function PenarikanSaldo(){
+        return $this->hasMany(PenarikanSaldo::class);
+    }
 }

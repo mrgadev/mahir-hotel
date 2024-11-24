@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PenarikanSaldo;
 use App\Models\Room;
 use App\Models\Saldo;
 use App\Models\Transaction;
@@ -16,7 +17,11 @@ class SaldoController extends Controller
     public function index()
     {
         $wallets = Saldo::where('user_id', Auth::user()->id)->get();
-        return view('dashboard.user.saldo.index', compact('wallets'));
+        $withdrawals = PenarikanSaldo::where('user_id', Auth::user()->id)->get();
+        $lastBalance = Saldo::where('user_id', Auth::user()->id)
+                        ->latest()
+                        ->first();
+        return view('dashboard.user.saldo.index', compact('wallets', 'withdrawals'));
 
     }
 
@@ -95,7 +100,8 @@ class SaldoController extends Controller
             'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
             'debit' => $transaction->total_price,
             'credit' => 0,
-            'amount' => $newAmount
+            'amount' => $newAmount,
+            'description' => 'Reservasi Kamar Dibatalkan'
         ]);
 
         $room = Room::where('id', $transaction->room_id)->first();

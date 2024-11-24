@@ -6,6 +6,7 @@ use App\Http\Controllers\PointUserController;
 use App\Http\Controllers\RoomReviewController;
 use App\Http\Controllers\BookingUserController;
 use App\Http\Controllers\AccomdationPlanController;
+use App\Http\Controllers\PenarikanSaldoController;
 use App\Http\Controllers\SaldoController;
 
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
@@ -17,4 +18,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     // Route::get('/my-point/detail', [PointUserController::class, 'detail'])->name('user.point.detail')->middleware('role:user');
     Route::get('/my-wallet', [SaldoController::class, 'index'])->name('user.saldo')->middleware('role:user');
     Route::resource('/room-review', RoomReviewController::class)->names('room-review');
+    Route::get('/penarikan-saldo/create', [PenarikanSaldoController::class, 'create'])->name('penarikan-saldo.create');
+    Route::post('/penarikan-saldo', [PenarikanSaldoController::class, 'store'])->name('penarikan-saldo.store');
+    Route::get('/penarikan-saldo/success/{id}', [PenarikanSaldoController::class, 'success'])->name('penarikan-saldo.success');
 });

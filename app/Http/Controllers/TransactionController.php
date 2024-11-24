@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,12 +24,13 @@ class TransactionController extends Controller
         ]);
 
         $transaction->update($data);
+        $room = Room::where('id', $transaction->room_id)->first();
         if($data['checkin_status'] == 'Sudah') {
-            $transaction->available_rooms -= 1;
-            $transaction->save();
+            $room->available_rooms -= 1;
+            $room->save();
         } else {
-            $transaction->available_rooms += 1;
-            $transaction->save();
+            $room->available_rooms += 1;
+            $room->save();
         }
 
         return view('dashboard.admin.transaction.detail', compact('transaction'));
