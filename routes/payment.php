@@ -7,6 +7,7 @@ use App\Http\Controllers\BookingUserController;
 use App\Http\Controllers\PaymentController;
 
 Route::middleware('auth')->prefix('/payment')->name('payment.')->group(function(){
+    Route::get('/pay/{transaction:invoice}', [PaymentController::class, 'bill'])->name('bill');
     Route::post('/store/cash', [PaymentController::class, 'cashPayment'])->name('cash');
     Route::post('/store/online', [PaymentController::class, 'onlinePayment'])->name('online');
     Route::post('/store/creditPayment', [PaymentController::class, 'creditPayment'])->name('creditPayment');

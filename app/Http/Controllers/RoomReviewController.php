@@ -37,32 +37,32 @@ class RoomReviewController extends Controller
             // 'images.*' => 'image|mimes:jpeg,png,jpg,svg,webp,avif|max:2048|nullable',
             'room_id' => 'required|exists:rooms,id',
             'transaction_id' => 'required|exists:transactions,id',
-            'rating_text' => 'required|string'
+            'rating' => 'required|integer'
         ]);
 
 
 
-        $rating_text = $data['rating_text'];
-        $rating = 0;
-        switch ($rating_text) {
-            case 'Buruk':
-                $rating = 1;
+        $rating = $data['rating'];
+        $rating_text = "";
+        switch ($rating) {
+            case 1:
+                $rating_text = 'Buruk';
                 break;
-            case 'Lumayan':
-                $rating = 2;
+            case 2:
+                $rating_text = 'Lumayan';
                 break;
-            case 'Bagus':
-                $rating = 3;
+            case 3:
+                $rating_text = 'Bagus';
                 break;
-            case 'Sangat Bagus':
-                $rating = 4;
+            case 4:
+                $rating_text = 'Sangat Bagus';
                 break;
-            case 'Sempurna':
-                $rating = 5;
+            case 5:
+                $rating_text = 'Sempurna';
                 break;
 
             default:
-                $rating = 0;
+                $rating_text = "";
                 break;
         }
 
@@ -85,7 +85,7 @@ class RoomReviewController extends Controller
         // dd($roomReview);
         $roomReview->save();
         $transaction = Transaction::where('id', $roomReview->transaction->id)->firstOrFail();
-        return redirect()->route('dashboard.user.bookings.detail', $transaction->invoice);
+        return redirect()->route('dashboard.user.bookings.detail', $transaction->invoice)->with('success', 'Berhasil menambahkan ulasan!');
     }
 
     /**
@@ -116,32 +116,32 @@ class RoomReviewController extends Controller
             // 'images.*' => 'image|mimes:jpeg,png,jpg,svg,webp,avif|max:2048|nullable',
             'room_id' => 'required|exists:rooms,id',
             'transaction_id' => 'required|exists:transactions,id',
-            'rating_text' => 'required|string'
+            'rating' => 'required'
         ]);
 
 
 
-        $rating_text = $data['rating_text'];
-        $rating = 0;
-        switch ($rating_text) {
-            case 'Buruk':
-                $rating = 1;
+        $rating = $data['rating'];
+        $rating_text = "";
+        switch ($rating) {
+            case 1:
+                $rating_text = 'Buruk';
                 break;
-            case 'Lumayan':
-                $rating = 2;
+            case 2:
+                $rating_text = 'Lumayan';
                 break;
-            case 'Bagus':
-                $rating = 3;
+            case 3:
+                $rating_text = 'Bagus';
                 break;
-            case 'Sangat Bagus':
-                $rating = 4;
+            case 4:
+                $rating_text = 'Sangat Bagus';
                 break;
-            case 'Sempurna':
-                $rating = 5;
+            case 5:
+                $rating_text = 'Sempurna';
                 break;
 
             default:
-                $rating = 0;
+                $rating_text = "";
                 break;
         }
 
@@ -163,7 +163,7 @@ class RoomReviewController extends Controller
         ]);
         
         $transaction = Transaction::where('id', $data['transaction_id'])->firstOrFail();
-        return redirect()->route('dashboard.user.bookings.detail', $transaction->invoice);
+    return redirect()->route('dashboard.user.bookings.detail', $transaction->invoice)->with('success', 'Berhasil mengubah ulasan!');
     }
 
     /**

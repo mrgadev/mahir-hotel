@@ -108,6 +108,8 @@
                             <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-xs w-fit font-medium">LUNAS</p>
                             @elseif($transaction->payment_status == 'PENDING')
                             <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-xs w-fit font-medium">TERTUNDA</p>
+                            @elseif($transaction->payment_status == 'CANCELLED')
+                            <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-xs w-fit font-medium">DIBATALKAN</p>
                             @endif
                             <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">{{$transaction->invoice}}</span></h2>
                             <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, D MMMM YYYY, H:M')}}</p>
@@ -122,7 +124,7 @@
 
                             <div class="flex flex-col gap-1">
                                 <p>Nomor Kamar</p>
-                                <p class="font-medium text-primary-700">{{$transaction->room_number}}</p>
+                                <p class="font-medium text-primary-700">{{$transaction->room_number ?? '-'}}</p>
                             </div>
 
                             <div class="flex flex-col gap-1">
@@ -214,7 +216,155 @@
                             </div> --}}
                         </div>
                         
-                        @if($transaction->checkin_status == 'Belum')
+                        @if($transaction->payment_status == 'PAID')
+                            @if($transaction->checkin_status == 'Belum')
+                            <form action="{{route('dashboard.saldo.cancelTransaction', $transaction->id)}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <button class="p-3 rounded-lg text-white bg-red-700 mt-5">Batalkan pesanan</button>
+                            </form>
+                            @elseif($transaction->checkin_status == 'Dibatalkan')
+                            <p class="mt-5 p-3 rounded-lg bg-red-100 text-red-700 border border-red-700">Transaksi sudah dibatalkan dan dana dikembalikan ke saldo Anda.</p>
+                            @elseif($transaction->checkin_status == 'Sudah' && !$room_review)
+                            <h3 class="text-lg text-primary-700 font-medium my-5">Berikan ulasan untuk "{{$transaction->room->name}}"</h3>
+                            <form action="{{route('dashboard.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
+                                @csrf
+                                @method('POST')
+                                <div class="rating-container flex flex-col gap-1">
+                                    <span class="rating-label mb-3">Berikan bintang</span>
+                                    <div class="flex flex-wrap gap-3">
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating1" value="1" class="hidden">
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating1" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 1 (Buruk)</label>
+                                        </div>
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating2" value="1" class="hidden">
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating2" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 2 (Lumayan)</label>
+                                        </div>
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating3" value="3" class="hidden">
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating3" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 3 (Bagus)</label>
+                                        </div>
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating1" value="4" class="hidden">
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating4" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 4 (Sangat Bagus)</label>
+                                        </div>
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating5" value="5" class="hidden">
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating5" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 5 (Semopurna)</label>
+                                        </div>
+                                    </div>
+
+                                    {{-- <input type="hidden" name="rating" id="selected-rating" value=""> --}}
+                                    <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
+                                    <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
+                                </div>
+                    
+                                <div class="flex flex-col gap-3">
+                                    <label for="title">Judul</label>
+                                    <input type="text" name="title" class="rounded-lg ">
+                                </div>
+
+                                <div class="flex flex-col gap-3">
+                                    <label for="description">Ulasan Anda</label>
+                                    <textarea name="description" id="description" class="form-control" rows="4"></textarea>
+                                </div>
+                    
+                                {{-- <div class="flex flex-col gap-3">
+                                    <label for="images">Upload Images:</label>
+                                    <input type="file" name="images[]" id="images" multiple accept="image/*" onchange="previewImages(this)">
+                                    <div class="preview-images"></div>
+                                </div> --}}
+                    
+                                <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
+                            </form>
+                            @elseif ($transaction->checkin_status == 'Sudah' && $room_review)
+                            <h3 class="text-lg text-primary-700 font-medium my-5">Ubah ulasan untuk "{{$transaction->room->name}}"</h3>
+                            <form action="{{route('dashboard.room-review.update', $room_review->id)}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
+                                @csrf
+                                @method('PUT')
+                                <div class="rating-container flex flex-col gap-1">
+                                    <span class="rating-label mb-3">Berikan bintang</span>
+                                    <div class="flex flex-wrap gap-3">
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating1" value="1" class="hidden" {{$room_review->rating == 1 ? 'checked' : ''}}>
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating1" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 1 (Buruk)</label>
+                                        </div>
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer" >
+                                            <input type="radio" name="rating" id="rating2" value="2" class="hidden" {{$room_review->rating == 2 ? 'checked' : ''}}>
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating2" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 2 (Lumayan)</label>
+                                        </div>
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating3" value="3" class="hidden" {{$room_review->rating == 3 ? 'checked' : ''}}>
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating3" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 3 (Bagus)</label>
+                                        </div>
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating1" value="4" class="hidden" {{$room_review->rating == 4 ? 'checked' : ''}}>
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating4" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 4 (Sangat Bagus)</label>
+                                        </div>
+                                        <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                            <input type="radio" name="rating" id="rating5" value="5" class="hidden" {{$room_review->rating == 5 ? 'checked' : ''}}>
+                                            {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                            {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                            <label for="rating5" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 5 (Semopurna)</label>
+                                        </div>
+                                    </div>
+
+                                    {{-- <input type="hidden" name="rating" id="selected-rating" value=""> --}}
+                                    <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
+                                    <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
+                                </div>
+                    
+                                <div class="flex flex-col gap-3">
+                                    <label for="title">Judul</label>
+                                    <input type="text" name="title" class="rounded-lg " value="{{$room_review->title}}">
+                                    @error('title')
+                                        <p>{{$message}}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="flex flex-col gap-3">
+                                    <label for="description">Ulasan Anda</label>
+                                    <textarea name="description" id="description" class="form-control" rows="4">{!!$room_review->description!!}</textarea>
+                                    @error('description')
+                                        <p>{{$message}}</p>
+                                    @enderror
+                                </div>
+                    
+                                {{-- <div class="flex flex-col gap-3">
+                                    <label for="images">Upload Images:</label>
+                                    <input type="file" name="images[]" id="images" multiple accept="image/*" onchange="previewImages(this)">
+                                    <div class="preview-images"></div>
+                                </div> --}}
+                    
+                                <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
+                            </form>
+                            @endif
+                        @elseif($transaction->payment_status == 'PENDING')
+                            <a href="{{route('payment.bill', $transaction->invoice)}}">Bayar sekarang</a>
+                        @elseif($transaction->payment_status == 'CANCELLED')
+                            <p class="mt-5 p-3 rounded-lg bg-red-100 text-red-700 border border-red-700">Transaksi sudah dibatalkan karena Anda telah melewati tenggat waktu yang diberikan.</p>
+                        @endif
+
+                        {{-- @if($transaction->payment_status == 'PAID' && $transaction->checkin_status == 'Belum')
                         <form action="{{route('dashboard.saldo.cancelTransaction', $transaction->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -230,17 +380,32 @@
                             @csrf
                             @method('POST')
                             <div class="rating-container flex flex-col gap-1">
-                                <span class="rating-label">Berikan bintang</span>
-                                <div class="rating">
-                                    <input type="hidden" name="rating" id="selected-rating" value="">
-                                    <input type="hidden" name="rating_text" id="rating-text-input" value="">
-                                    <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
-                                    <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
-                                    <div id="stars-container">
-                                        <!-- Stars will be added by JavaScript -->
+                                <span class="rating-label mb-3">Berikan bintang</span>
+                                <div class="flex flex-wrap gap-3">
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating1" value="1" class="hidden">
+                                        <label for="rating1" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 1 (Buruk)</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating2" value="1" class="hidden">
+                                        <label for="rating2" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 2 (Lumayan)</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating3" value="3" class="hidden">
+                                        <label for="rating3" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 3 (Bagus)</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating1" value="4" class="hidden">
+                                        <label for="rating4" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 4 (Sangat Bagus)</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating5" value="5" class="hidden">
+                                        <label for="rating5" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 5 (Semopurna)</label>
                                     </div>
                                 </div>
-                                <span id="rating-text" style="display: block; margin-top: 5px; color: #666;"></span>
+
+                                <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
+                                <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
                             </div>
                 
                             <div class="flex flex-col gap-3">
@@ -253,12 +418,6 @@
                                 <textarea name="description" id="description" class="form-control" rows="4"></textarea>
                             </div>
                 
-                            {{-- <div class="flex flex-col gap-3">
-                                <label for="images">Upload Images:</label>
-                                <input type="file" name="images[]" id="images" multiple accept="image/*" onchange="previewImages(this)">
-                                <div class="preview-images"></div>
-                            </div> --}}
-                
                             <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
                         </form>
                         @elseif ($transaction->checkin_status == 'Sudah' && $room_review)
@@ -267,20 +426,32 @@
                             @csrf
                             @method('PUT')
                             <div class="rating-container flex flex-col gap-1">
-                                <span class="rating-label">Berikan bintang</span>
-                                <div class="rating">
-                                    <input type="hidden" name="rating" id="selected-rating" value="">
-                                    <input type="hidden" name="rating_text" id="rating-text-input" value="">
-                                    <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
-                                    <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
-                                    <div id="stars-container">
-                                        <!-- Stars will be added by JavaScript -->
+                                <span class="rating-label mb-3">Berikan bintang</span>
+                                <div class="flex flex-wrap gap-3">
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating1" value="1" class="hidden" {{$room_review->rating == 1 ? 'checked' : ''}}>
+                                        <label for="rating1" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 1 (Buruk)</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer" >
+                                        <input type="radio" name="rating" id="rating2" value="2" class="hidden" {{$room_review->rating == 2 ? 'checked' : ''}}>
+                                        <label for="rating2" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 2 (Lumayan)</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating3" value="3" class="hidden" {{$room_review->rating == 3 ? 'checked' : ''}}>
+                                        <label for="rating3" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 3 (Bagus)</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating1" value="4" class="hidden" {{$room_review->rating == 4 ? 'checked' : ''}}>
+                                        <label for="rating4" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 4 (Sangat Bagus)</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                        <input type="radio" name="rating" id="rating5" value="5" class="hidden" {{$room_review->rating == 5 ? 'checked' : ''}}>
+                                        <label for="rating5" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 5 (Semopurna)</label>
                                     </div>
                                 </div>
-                                <span id="rating-text" style="display: block; margin-top: 5px; color: #666;"></span>
-                                @error('rating')
-                                    <p>{{$message}}</p>
-                                @enderror
+
+                                <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
+                                <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
                             </div>
                 
                             <div class="flex flex-col gap-3">
@@ -299,16 +470,10 @@
                                 @enderror
                             </div>
                 
-                            {{-- <div class="flex flex-col gap-3">
-                                <label for="images">Upload Images:</label>
-                                <input type="file" name="images[]" id="images" multiple accept="image/*" onchange="previewImages(this)">
-                                <div class="preview-images"></div>
-                            </div> --}}
-                
                             <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
                         </form>
 
-                        @endif
+                        @endif --}}
 
                     </div>
 
@@ -326,11 +491,7 @@
                         <div class="flex flex-col gap-5">
                             <div class="flex items-center gap-3">
                                 <h3 class="text-xl text-primary-700 ">Ringkasan Tagihan</h3>
-                                @if($transaction->payment_status == 'PAID')
-                                <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-xs w-fit font-medium">{{$transaction->payment_status}}</p>
-                                @elseif($transaction->payment_status == 'PENDING')
-                                <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-xs w-fit font-medium">{{$transaction->payment_status}}</p>
-                                @endif                            </div>
+                            </div>
                             <div class="flex flex-col gap-3 text-sm">
                                 <div class="flex items-center justify-between">
                                     <p>Biaya kamar</p>
@@ -446,91 +607,5 @@
                  console.error(error);
              });
      </script>
-     <script>
-        // Function to preview images
-        function previewImages(input) {
-            const preview = document.querySelector('.preview-images');
-            preview.innerHTML = '';
 
-            if (input.files) {
-                Array.from(input.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        preview.appendChild(img);
-                    }
-                    reader.readAsDataURL(file);
-                });
-            }
-        }
-
-        const starsContainer = document.getElementById('stars-container');
-        const ratingInput = document.getElementById('selected-rating');
-        const ratingText = document.getElementById('rating-text');
-        const ratingTextInput = document.getElementById('rating-text-input');
-        let selectedRating = 0;
-
-        // Create 5 stars
-        for (let i = 1; i <= 5; i++) {
-            const star = document.createElement('span');
-            star.innerHTML = '★';
-            star.className = 'star';
-            star.dataset.value = i;
-            starsContainer.appendChild(star);
-        }
-
-        const stars = document.querySelectorAll('.star');
-
-        // Rating descriptions
-        const ratingDescriptions = {
-            1: 'Buruk',
-            2: 'Lumayan',
-            3: 'Bagus',
-            4: 'Sangat Bagus',
-            5: 'Sempurna'
-        };
-
-        // Handle mouse enter
-        stars.forEach(star => {
-            star.addEventListener('mouseenter', () => {
-                const value = parseInt(star.dataset.value);
-                highlightStars(value, 'hover');
-            });
-        });
-
-        // Handle mouse leave
-        starsContainer.addEventListener('mouseleave', () => {
-            highlightStars(selectedRating, 'active');
-        });
-
-        // Handle click
-        stars.forEach(star => {
-            star.addEventListener('click', () => {
-                selectedRating = parseInt(star.dataset.value);
-                ratingInput.value = selectedRating;
-                highlightStars(selectedRating, 'active');
-                updateRatingText(selectedRating);
-            });
-        });
-
-        function highlightStars(count, className) {
-            stars.forEach(star => {
-                star.classList.remove('hover', 'active');
-            });
-            
-            stars.forEach(star => {
-                if (parseInt(star.dataset.value) <= count) {
-                    star.classList.add(className);
-                }
-            });
-        }
-
-        function updateRatingText(rating) {
-            const text = ratingDescriptions[rating] || '';
-            ratingText.textContent = text;
-            ratingTextInput.value = text; // Update hidden input with rating text
-        }
-
-    </script>
 @endpush

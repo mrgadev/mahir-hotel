@@ -141,7 +141,7 @@
                     <h6 class="mb-0">Keseluruhan Rating</h6>
                     
                     <div class="flex items-center gap-5">
-                        <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{$average_rating}}</p>
+                        <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{round($average_rating,1)}}</p>
                         <div class="flex flex-col">
                             <p class="text-primary-700">Sempurna</p>
                             <p class="text-sm">dari {{$total_reviews->count()}} Pelanggan</p>
@@ -271,8 +271,10 @@
 
         @role('user')
         @php
-            $transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->latest()->first();
+            $user_transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->latest()->first();
+            $user_transactions = App\Models\Transaction::where('user_id', Auth::user()->id)->get();
             $wallet = App\Models\Saldo::where('user_id', Auth::user()->id)->latest()->first();
+            $seconds = Carbon\Carbon::parse($user_transaction->payment_deadline)->diffInSeconds(now());
         @endphp
         {{-- #1 Row for USer --}}
         <div class="grid lg:grid-cols-2 gap-5">
@@ -298,22 +300,56 @@
                 </div>
             </div>
 
-            @if (isset($transaction))
-                @if($transaction->checkin_status == 'Belum')
+            @if (isset($user_transaction))
+                @if($user_transaction->payment_status == 'PENDING')
+                <div class="bg-white rounded-2xl shadow-xl p-5">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-medium text-lg text-primary-700">Menunggu Pembayaran</h3>
+                        <div class="flex flex-col gap-3 ">
+                            <div class="flex items-center gap-1" id="timerContainer">
+                                <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700" id="hours">03</p>
+                                :
+                                <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700" id="minutes">25</p>
+                                :
+                                <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700" id="seconds">01</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-5">
+                        <div class="flex flex-col gap-1">
+                            @php
+                                $nights = date_diff(date_create($user_transaction->check_in), date_create($user_transaction->check_out))->format("%a");
+                            @endphp
+                            <p class="text-sm text-primary-500">Order ID: {{$user_transaction->invoice}}</p>
+                            <p class="font-medium text-primary-700 text-base">{{$user_transaction->room->name}} ({{$nights}} Malam)</p>
+                            <div class="flex items-center gap-3">
+                                <div class="flex items-center gap-0.5 text-sm">
+                                    <span class="material-symbols-rounded scale-75">event</span>
+                                    <p>{{Carbon\Carbon::parse($user_transaction->check_in)->isoFormat('dddd, D MMM YYYY')}} - {{Carbon\Carbon::parse($user_transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <a href="{{route('payment.bill', $user_transaction->invoice)}}" class="flex px-3 py-2 rounded-lg bg-primary-700 text-white">Bayar sekarang</a>
+                    </div>
+                    
+                </div>
+                @else
+                @if($user_transaction->checkin_status == 'Belum' && $user_transaction->payment_status == 'PAID')
                     <div class="bg-white rounded-2xl shadow-xl p-5">
                         <h3 class="font-medium text-lg text-primary-700">Reservasi Berikutnya</h3>
-                        <a href="{{route('dashboard.user.bookings.detail', $transaction->invoice)}}" class="flex gap-5 mt-5">
+                        <a href="{{route('dashboard.user.bookings.detail', $user_transaction->invoice)}}" class="flex gap-5 mt-5">
                             <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="h-24 rounded-lg">
                             <div class="flex flex-col gap-1">
                                 @php
-                                    $nights = date_diff(date_create($transaction->check_in), date_create($transaction->check_out))->format("%a");
+                                    $nights = date_diff(date_create($user_transaction->check_in), date_create($user_transaction->check_out))->format("%a");
                                 @endphp
-                                <p class="text-sm text-primary-500">Order ID: {{$transaction->invoice}}</p>
-                                <p class="font-medium text-primary-700 text-base">{{$transaction->room->name}} ({{$nights}} Malam)</p>
+                                <p class="text-sm text-primary-500">Order ID: {{$user_transaction->invoice}}</p>
+                                <p class="font-medium text-primary-700 text-base">{{$user_transaction->room->name}} ({{$nights}} Malam)</p>
                                 <div class="flex items-center gap-3">
                                     <div class="flex items-center gap-0.5 text-sm">
                                         <span class="material-symbols-rounded scale-75">event</span>
-                                        <p>{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')}} - {{Carbon\Carbon::parse($transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
+                                        <p>{{Carbon\Carbon::parse($user_transaction->check_in)->isoFormat('dddd, D MMM YYYY')}} - {{Carbon\Carbon::parse($user_transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -332,18 +368,84 @@
                         </div>
                     </div>
                 @endif
+
+                @endif
+
             @else
                 <div class="bg-white rounded-2xl shadow-xl p-10">
-                        <div class="flex gap-5">
+                    <div class="flex gap-5">
 
-                            <img src="{{asset('images/undraw_Quitting_time_re_1whp.png')}}" alt="" class="w-24">
-                            <div class="flex flex-col gap-3">
-                                <h3 class="font-medium text-xl text-primary-700">Tidak ada reservasi mendatang</h3>
-                                <a href="{{route('dashboard.user.bookings')}}" class="px-5 py-3 rounded-lg bg-primary-700 text-white w-fit">Lihat riwayat</a>
-                            </div>
+                        <img src="{{asset('images/undraw_Quitting_time_re_1whp.png')}}" alt="" class="w-24">
+                        <div class="flex flex-col gap-3">
+                            <h3 class="font-medium text-xl text-primary-700">Tidak ada reservasi mendatang</h3>
+                            <a href="{{route('dashboard.user.bookings')}}" class="px-5 py-3 rounded-lg bg-primary-700 text-white w-fit">Lihat riwayat</a>
                         </div>
                     </div>
+                </div>
             @endif
+        </div>
+        <div class="grid mt-6 gap-6 -mx-3">
+            <div class=" px-3 mt-0 mb-6 w-full max-w-full">
+                <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl border-black-125 rounded-2xl bg-clip-border">
+                    <div class="py-4 px-6 pb-0 mb-0 rounded-t-4">
+                        <div class="flex justify-between items-center">
+                            <h6 class="">Reservasi Terbaru</h6>
+                            <a href="{{route('dashboard.user.bookings')}}" class="flex items-center px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700  transition-all duration-75 hover:text-[#976033] border border-primary-700 text-base text-center">
+                                <p>Lihat selengkapnya</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto py-5 flex items-center justify-center">
+                        <table class="text-center w-full whitespace-nowrap text-sm items-center font-normal">
+                            <thead>
+                                <tr class="font-semibold">
+                                    <th scope="col" class="p-4 font-normal">Nama</th>
+                                    <th scope="col" class="p-4 font-normal">Invoice</th>
+                                    <th scope="col" class="p-4 font-normal">Tanggal</th>
+                                    <th scope="col" class="p-4 font-normal">Status Pembayaran</th>
+                                    <th scope="col" class="p-4 font-normal">Status Check in</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $i=1 @endphp
+                                @forelse ($user_transactions as $item)
+                                    <tr>
+                                        <td class="p-4">
+                                            <div class="flex flex-col gap-1">
+                                                <h3 class="font-normal">{{$item->name}}</h3>
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col gap-1">
+                                                <h3 class="font-normal">{{$item->invoice}}</h3>
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col gap-1">
+                                                <h3 class="font-normal">{{$item->created_at->isoFormat('dddd, D MMM YYYY')}}</h3>
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col gap-1">
+                                                <h3 class="font-normal">{{$item->payment_status}}</h3>
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col gap-1">
+                                                <h3 class="font-normal">{{$item->checkin_status}}</h3>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="p-4 text-center">No data available</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>   
+                </div>
+            </div>
         </div>
         @endrole
     </div>
@@ -470,5 +572,29 @@
     };
 
     myChart.setOption(option);
+</script>
+
+<script>
+    
+    let timeRemaining = Math.abs({{$seconds}});
+
+    function updateCountdown() {
+        if(timeRemaining <= 0) {
+            document.getElementById('countdown').innerHTML = 'Transaksi telah dibatalkan';
+        }
+
+        const hours = Math.floor((timeRemaining % (24 * 60 * 60)) / (60 * 60));
+        const minutes = Math.floor((timeRemaining % (60 * 60)) / 60);
+        const seconds = Math.floor(timeRemaining % 60);
+
+        document.getElementById('hours').textContent = String(hours).padStart(2,'0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
+
+        timeRemaining--;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown,1000);
 </script>
 @endpush

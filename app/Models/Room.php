@@ -23,4 +23,14 @@ class Room extends Model
     public function room_reviews() {
         return $this->hasMany(RoomReview::class);
     }
+
+    public function decrementAvailableRooms()
+    {
+        $this->decrement('available_rooms');
+    }
+
+    public function incrementAvailableRooms()
+    {
+        $this->increment('available_rooms');
+    }
 }

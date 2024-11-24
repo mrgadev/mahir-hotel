@@ -36,19 +36,25 @@ class FrontpageController extends Controller
 
         $promos = Promo::where('is_all', true)->get();
 
-        $saldo = Saldo::where('user_id', Auth::user()->id)
+        
+        $user = Auth::user();
+        if($user) {
+            if ($request->filled(['check_in', 'check_out'])) {
+                session([
+                    'check_in' => $request->check_in,
+                    'check_out' => $request->check_out,
+                ]);
+                $saldo = Saldo::where('user_id', $user->id)
                         ->latest()
                         ->first();
-
-        if ($request->filled(['check_in', 'check_out'])) {
-            session([
-                'check_in' => $request->check_in,
-                'check_out' => $request->check_out,
-            ]);
-            return view('frontpage.checkout', compact('room', 'accomodation_plans', 'promos', 'saldo'));
+                return view('frontpage.checkout', compact('room', 'accomodation_plans', 'promos', 'saldo'));
+            } else {
+                return redirect()->back()->with('error', 'Tanggal check-in wajib diisi!');
+            }
         } else {
-            return redirect()->back()->with('error', 'Tanggal check-in wajib diisi!');
+            return redirect()->route('login')->with('error', 'Silahkan login untuk melakukan reservasi');
         }
+        
 
     }
     

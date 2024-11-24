@@ -90,9 +90,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transactions as $transaction)    
+                            @foreach ($transactions as $key => $transaction)    
                             <tr class="cursor-pointer">
-                                <td class="font-medium whitespace-nowrap">1</td>
+                                <td class="font-medium whitespace-nowrap">{{$key+1}}</td>
                                 <td class="">
                                     <p>{{$transaction->room->name}}</p>
                                 </td>
@@ -116,6 +116,8 @@
                                     <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->payment_status}}</p>
                                     @elseif($transaction->payment_status == 'PENDING')
                                     <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                                    @elseif($transaction->payment_status == 'Dibatalkan')
+                                    <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">DIBATALKAN</p>
                                     @endif
                                 </td>
 

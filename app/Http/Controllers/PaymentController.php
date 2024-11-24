@@ -53,6 +53,8 @@ class PaymentController extends Controller
         $nights = date_diff(date_create($data['check_in']), date_create($data['check_out']))->format("%a");
         // Buat data transaction baru dengan beberapa data awal
         // Adapun data lain spt, harga total akan diperbarui di akhir
+        // $payment_deadline = now()->addHours(5);
+        // dd($payment_deadline);
         $transaction = new Transaction();
         $transaction->user_id = $data['user_id'];
         $transaction->name = $data['name'];
@@ -63,8 +65,9 @@ class PaymentController extends Controller
         $transaction->check_out = $data['check_out'];
         $transaction->invoice = $data['invoice'];
         $transaction->payment_method = 'Xendit';
+        $transaction->payment_deadline = now()->addMinutes(2);
         $transaction->save();
-        // dd($tran)
+        // dd($transaction);
         // lakukan sinkronisasi data accomodation_plan_id dan promo_id
         $transaction->accomodation_plans()->sync($request->accomodation_plan_id);
         $transaction->promos()->sync($request->promo_id);
@@ -93,10 +96,13 @@ class PaymentController extends Controller
         $total_amount = $base_price + $accomodation_plan_amount - $promo_price;
         // dd($total_amount);
         // dd($transaction->room->name);
+        // $deadline_seconds = Carbon::parse($transaction->payment_deadline)->diffInSeconds();
+        // dd($deadline_seconds);
         $paymentData = [
             'external_id' => $data['invoice'],
             'amount' => $total_amount,
             'description' => 'Pembayaran '.$transaction->room->name.' dari Mahir Hotel selama '.$nights.' malam',
+            'invoice_duration' => 120,
             'customer' => [
                 'given_names' => $transaction->name,
                 'email' => $transaction->email,
@@ -112,6 +118,7 @@ class PaymentController extends Controller
             // ],
             'payment_method' => ["CREDIT_CARD", "BCA", "BNI", "BSI", "BRI", "MANDIRI", "PERMATA", "SAHABAT_SAMPOERNA", "BNC", "ALFAMART", "INDOMARET", "OVO", "DANA", "SHOPEEPAY", "LINKAJA", "JENIUSPAY", "DD_BRI", "DD_BCA_KLIKPAY", "KREDIVO", "AKULAKU", "UANGME", "ATOME", "QRIS"]
         ];
+        $room = Room::where('id', $transaction->room_id)->first();
         $apiInstance = new InvoiceApi();
         $createInvoiceRequest = new CreateInvoiceRequest($paymentData);
         
@@ -125,8 +132,13 @@ class PaymentController extends Controller
             $transaction->payment_status = "PENDING";
             $transaction->payment_url = $result['invoice_url'];
             $transaction->total_price = $total_amount;
+            // $transaction->payment_deadline = Carbon::parse($paymentData['invoice_duration']);
+            // $transaction->payment_deadline = date('Y-m-d H:i:s', $paymentData['invoice_duration']);
+            // $transaction->payment_deadline = $transaction->created_at->addHours(5)->format('Y-m-d H:i:s');
             $transaction->save();
-            return redirect($result['invoice_url']);
+            $room->decrementAvailableRooms();
+            // return redirect($result['invoice_url']);
+            return redirect()->route('payment.bill', $transaction->invoice);
         } catch(\Xendit\XenditSdkException $e) {
 
         }
@@ -266,22 +278,28 @@ class PaymentController extends Controller
         return redirect()->route('payment.success', $transaction->invoice);
     }
 
+    public function bill(Transaction $transaction) {
+        // if()
+        return view('frontpage.payment.bill', compact('transaction'));
+    }
+
     public function success($id)
     {
         $transaction = Transaction::where('invoice',$id)->firstOrFail();
         $room = Room::where('id', $transaction->room_id)->firstOrFail();
-        if($transaction->payment_method == 'Xendit' || $transaction->payment_method == 'Credit') {
+        if(($transaction->payment_method == 'Xendit' || $transaction->payment_method == 'Credit')) {
             $transaction->payment_status = "PAID";
             $transaction->room_number = rand(1,$transaction->room->total_rooms);
+            $transaction->payment_deadline = NULL;
             $transaction->save();
-            $room->available_rooms -= 1;
-            $room->save();
+            // $room->available_rooms -= 1;
+            // $room->save();
         } 
         $pesan = "Halo ".$transaction->user->name."!\nTerimakasih telah melakukan pemesanan kamar di Mahir Hotel\nBerikut ini detail reservasi Anda: \nNomor Kamar: *".$transaction->room_number."*\nTipe Kamar: *".$transaction->room->name."*\nTanggal Check-in: *".Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')."*\n\nSemoga liburan Anda menyenangkan!";
         $this->send_message($transaction->phone, $pesan);
         return view('frontpage.payment.success', compact('transaction'));
         // $apiInstance = new InvoiceApi();
-        // $result = $apiInstance->getInvoices(null,$id);
+        // $result = $apiInstance->getInvo1ices(null,$id);
         // // Get Data
         // $transaction = Transaction::where('invoice', $id)->firstOrFail();
         // if($transaction->payment_status == 'PENDING') {
