@@ -46,7 +46,7 @@
                     <p class="text-sm">{{$nights}} Malam</p>
                 </div>
                 <div class="grid">
-                    <p>Rp. {{number_format($transaction->room->price*3, 0, ',', '.')}}</p>
+                    <p>Rp. {{number_format($transaction->room->price * $nights, 0, ',', '.')}}</p>
                 </div>
                 @foreach ($transaction->accomodation_plans as $accomodation_plan)    
                 <div class="col-span-3 flex flex-col">
@@ -74,7 +74,12 @@
                     <p class="text-red-700 font-medium">- Rp. {{number_format(($promo->amount / 100) * ($transaction->room->price * $nights),0,',','.')}}</p>
                 </div>
                 @endforeach
-                
+                <div class="col-span-3 flex flex-col">
+                    <p>Metode Pembayaran</p>
+                </div>
+                <div class="grid">
+                    <p>{{$transaction->payment_method}}</p>
+                </div>
 
             </div>    
             
@@ -83,6 +88,7 @@
                 <p>Rp. {{number_format($transaction->total_price,0,',','.')}}</p>
             </div>
         </div>
+        @if($transaction->payment_method == 'Xendit')
         <a href="{{$transaction->payment_url}}" class="text-white p-5 bg-primary-700 grid lg:grid-cols-4 rounded-lg items-center active:ring-4 active:ring-primary-700">
             <p class="lg:col-span-3 text-xl text-center lg:text-left">Bayar sekarang</p>
             <div class="hidden lg:flex flex-col gap-1">
@@ -90,6 +96,15 @@
                 <p >Rp. {{number_format($transaction->total_price,0,',','.')}}</p>
             </div>
         </a>
+        @elseif($transaction->payment_method == 'Cash' || $transaction->payment_method == 'Saldo')
+        <a href="{{route('payment.success', $transaction->invoice)}}" class="text-white p-5 bg-primary-700 grid lg:grid-cols-4 rounded-lg items-center active:ring-4 active:ring-primary-700">
+            <p class="lg:col-span-3 text-xl text-center lg:text-left">Bayar sekarang</p>
+            <div class="hidden lg:flex flex-col gap-1">
+                <p class="text-sm">Total</p>
+                <p >Rp. {{number_format($transaction->total_price,0,',','.')}}</p>
+            </div>
+        </a>
+        @endif
     </div>
   </section>
   @php

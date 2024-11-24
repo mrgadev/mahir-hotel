@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class TransactionController extends Controller
 {
     public function index() {
-        $transactions = Transaction::all();
+        $transactions = Transaction::latest()->get();
         return view('dashboard.admin.transaction.index', compact('transactions'));
     }
 

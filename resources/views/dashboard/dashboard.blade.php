@@ -120,7 +120,7 @@
             <div class="px-3 ">
                 <div slider class="bg-white w-full h-full overflow-hidden rounded-2xl shadow-xl">
                     <div class="p-6 flex flex-col gap-5">
-                        <h6>Ketersediaan Kamar</h6>
+                        <h6 class="font-medium text-lg text-primary-700">Ketersediaan Kamar</h6>
                         <div class="flex items-center justify-center gap-2 w-full">
                             <canvas id="roomChart" style="max-height: 300px;"></canvas>
                         </div>
@@ -138,7 +138,7 @@
                 @endphp
                 
                 <div class="p-5 border-black/12.5 shadow-xl relative flex min-w-0 flex-col gap-5 break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
-                    <h6 class="mb-0">Keseluruhan Rating</h6>
+                    <h6 class="font-medium text-lg text-primary-700">Keseluruhan Rating</h6>
                     
                     <div class="flex items-center gap-5">
                         <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{round($average_rating,1)}}</p>
@@ -155,7 +155,7 @@
                 <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl border-black-125 rounded-2xl bg-clip-border">
                     <div class="py-4 px-6 pb-0 mb-0 rounded-t-4">
                         <div class="flex justify-between items-center">
-                            <h6 class="">Reservasi Terbaru</h6>
+                            <h6 class="font-medium text-lg text-primary-700">Reservasi Terbaru</h6>
                             <a href="{{route('dashboard.transaction.index')}}" class="flex items-center px-5 py-2 border-2 rounded-md bg-primary-100 p-2 text-primary-700  transition-all duration-75 hover:text-[#976033] border border-primary-700 text-base text-center">
                                 <p>Lihat selengkapnya</p>
                             </a>
@@ -167,6 +167,8 @@
                                 <tr class="font-semibold">
                                     <th scope="col" class="p-4 font-normal">Id</th>
                                     <th scope="col" class="p-4 font-normal">Nama</th>
+                                    <th scope="col" class="p-4 font-normal">Invoice</th>
+                                    <th scope="col" class="p-4 font-normal">Tanggal</th>
                                     <th scope="col" class="p-4 font-normal">Status Pembayaran</th>
                                     <th scope="col" class="p-4 font-normal">Status Check in</th>
                                 </tr>
@@ -178,17 +180,39 @@
                                         <td class="p-4 font-normal">{{$i++}}</td>
                                         <td class="p-4">
                                             <div class="flex flex-col gap-1">
-                                                <h3 class="font-normal">{{$transaction->name}}</h3>
+                                                <h3 class="font-normal">{{$transaction->user->name}}</h3>
                                             </div>
                                         </td>
                                         <td class="p-4">
                                             <div class="flex flex-col gap-1">
-                                                <h3 class="font-normal">{{$transaction->payment_status}}</h3>
+                                                <h3 class="font-normal">{{$transaction->invoice}}</h3>
                                             </div>
                                         </td>
                                         <td class="p-4">
                                             <div class="flex flex-col gap-1">
-                                                <h3 class="font-normal">{{$transaction->checkin_status}}</h3>
+                                                <h3 class="font-normal">{{$transaction->created_at->isoFormat('dddd, DD MMMM YYYY')}}</h3>
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col items-center gap-1">
+                                                @if($transaction->payment_status == 'PAID')
+                                                <h3 class="font-normal p-2 bg-green-100 border border-green-700 text-green-700 rounded-lg w-fit">LUNAS</h3>
+                                                @elseif($transaction->payment_status == 'PENDING')
+                                                <h3 class="font-normal p-2 bg-yellow-100 border border-yellow-700 text-yellow-700 rounded-lg w-fit">TERTUNDA</h3>
+                                                @elseif($transaction->payment_status == 'CANCELLED')
+                                                <h3 class="font-normal p-2 bg-red-100 border border-red-700 text-red-700 rounded-lg w-fit">DIBATALKAN</h3>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="flex flex-col items-center gap-1">
+                                                @if($transaction->checkin_status == 'Sudah')
+                                                <h3 class="font-normal p-2 bg-green-100 border border-green-700 text-green-700 rounded-lg w-fit">SUDAH</h3>
+                                                @elseif($transaction->checkin_status == 'Belum')
+                                                <h3 class="font-normal p-2 bg-yellow-100 border border-yellow-700 text-yellow-700 rounded-lg w-fit">BELUM</h3>
+                                                @elseif($transaction->checkin_status == 'Dibatalkan')
+                                                <h3 class="font-normal p-2 bg-red-100 border border-red-700 text-red-700 rounded-lg w-fit">DIBATALKAN</h3>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

@@ -21,7 +21,8 @@ class SiteSettingsController extends Controller
             'phone.required' => 'Nomor telepon wajib diisi',
             'phone_text.required' => 'Teks nomor telepon wajib diisi',
             'maps_link' => 'Tautan alamat wajib diisi',
-            'address' => 'Alamat wajib diisi'
+            'address' => 'Alamat wajib diisi',
+            'payment_deadline' => 'Durasi transaksi wajib diisi!'
         ];
         $data = $request->validate([
             'tagline' => 'required',
@@ -29,10 +30,11 @@ class SiteSettingsController extends Controller
             'phone' => 'required', 
             'phone_text' => 'required',
             'maps_link' => 'required', 
-            'address' => 'required'
+            'address' => 'required',
+            'payment_deadline' => 'required'
         ], $message);
         // dd($site_setting);
         $site_setting->update($data);
-        return redirect()->route('dashboard.site.settings.edit', compact('site_setting'))->with('Pengaturan situs berhasil diperbarui!');
+        return redirect()->route('dashboard.site.settings.edit', compact('site_setting'))->with('success','Pengaturan situs berhasil diperbarui!');
     }
 }

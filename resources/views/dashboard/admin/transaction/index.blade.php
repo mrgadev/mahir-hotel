@@ -141,15 +141,15 @@
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Rp. {{number_format($transaction->total_price,0,',','.')}}</td>
                                         @if($transaction->payment_status == 'PAID')
                                         <td>
-                                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">Lunas</p>
                                         </td>
                                         @elseif($transaction->payment_status == 'PENDING')
                                         <td>
-                                            <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                                            <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">Tertunda</p>
                                         </td>
-                                        @elseif($transaction->payment_status == 'UNPAID')
+                                        @elseif($transaction->payment_status == 'CANCELLED')
                                         <td>
-                                            <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">{{$transaction->payment_status}}</p>
+                                            <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">Dibatalkan</p>
                                         </td>
                                         @endif
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->payment_method}}</td>

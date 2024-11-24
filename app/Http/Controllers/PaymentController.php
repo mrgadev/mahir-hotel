@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Saldo;
+use App\Models\SiteSettings;
 use App\Traits\Fonnte;
 use Xendit\Configuration;
 use Xendit\Payout\Payout;
@@ -22,10 +23,12 @@ use Xendit\PaymentRequest\PaymentRequestParameters;
 class PaymentController extends Controller
 {
     use Fonnte;
+    private $site_settings;
     // Buat construct untuk mendapatkan token Xendit
     public function __construct() {
         // Configuration::setXenditKey(env('XENDIT_SECRET_KEY'));
         Configuration::setXenditKey(config('services.xendit.secret_key'));
+        $this->site_settings = SiteSettings::where('id', 1)->first();
         // Configuration::setXenditKey("xnd_development_GXTQuLgR0APNfJKZZg74MoXTrzueUJEKIlRCHb411Jr8H7lgQixMNN7olF9JkVHy");
         // Xendit::setApiKey(env('XENDIT_SECRET_KEY'));
     }
@@ -66,7 +69,9 @@ class PaymentController extends Controller
         $transaction->check_out = $data['check_out'];
         $transaction->invoice = $data['invoice'];
         $transaction->payment_method = 'Xendit';
-        $transaction->payment_deadline = now()->addMinutes(2);
+        // $transaction->payment_deadline = now()->addMinutes(2);
+        $transaction->payment_deadline = now()->addHours($this->site_settings->payment_deadline);
+        
         $transaction->save();
         // dd($transaction);
         // lakukan sinkronisasi data accomodation_plan_id dan promo_id
@@ -178,6 +183,7 @@ class PaymentController extends Controller
         $transaction->check_out = $data['check_out'];
         $transaction->invoice = $data['invoice'];
         $transaction->payment_method = 'Cash';
+        $transaction->payment_deadline = now()->addHours($this->site_settings->payment_deadline);
         $transaction->save();
         // lakukan sinkronisasi data accomodation_plan_id dan promo_id
         $transaction->accomodation_plans()->sync($request->accomodation_plan_id);
@@ -202,7 +208,7 @@ class PaymentController extends Controller
         $transaction->total_price = $total_amount;
         $transaction->save();
 
-        return redirect()->route('payment.success', $transaction->invoice);
+        return redirect()->route('payment.bill', $transaction->invoice);
     }
 
     public function creditPayment(Request $request){
@@ -235,7 +241,7 @@ class PaymentController extends Controller
         $transaction->check_in = $data['check_in'];
         $transaction->check_out = $data['check_out'];
         $transaction->invoice = $data['invoice'];
-        $transaction->payment_method = 'Credit';
+        $transaction->payment_method = 'Saldo';
         $transaction->save();
         // lakukan sinkronisasi data accomodation_plan_id dan promo_id
         $transaction->accomodation_plans()->sync($request->accomodation_plan_id);
@@ -258,26 +264,28 @@ class PaymentController extends Controller
         $transaction->payment_status = "PENDING";
         $transaction->payment_url = '';
         $transaction->total_price = $total_amount;
+        $transaction->payment_deadline = now()->addHours($this->site_settings->payment_deadline);
         $transaction->save();
+        $room = Room::where('id', $transaction->room_id)->first();
+        $room->decrementAvailableRooms();
+        // $lastBalance = Saldo::where('user_id', $transaction->user_id)
+        //                 ->latest()
+        //                 ->first(); // Gunakan first() karena kita akan handle jika null
 
-        $lastBalance = Saldo::where('user_id', $transaction->user_id)
-                        ->latest()
-                        ->first(); // Gunakan first() karena kita akan handle jika null
+        // // Hitung saldo baru
+        // $newAmount = $lastBalance ? $lastBalance->amount - $transaction->total_price : $transaction->total_price;
 
-        // Hitung saldo baru
-        $newAmount = $lastBalance ? $lastBalance->amount - $transaction->total_price : $transaction->total_price;
+        // // Buat record saldo baru
+        // Saldo::create([
+        //     'user_id' => $transaction->user_id,
+        //     'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
+        //     'debit' => 0,
+        //     'credit' => $transaction->total_price,
+        //     'amount' => $newAmount,
+        //     'description' => 'Reservasi Kamar'
+        // ]);
 
-        // Buat record saldo baru
-        Saldo::create([
-            'user_id' => $transaction->user_id,
-            'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
-            'debit' => 0,
-            'credit' => $transaction->total_price,
-            'amount' => $newAmount,
-            'description' => 'Reservasi Kamar'
-        ]);
-
-        return redirect()->route('payment.success', $transaction->invoice);
+        return redirect()->route('payment.bill', $transaction->invoice);
     }
 
     public function bill(Transaction $transaction) {
@@ -285,18 +293,40 @@ class PaymentController extends Controller
         return view('frontpage.payment.bill', compact('transaction'));
     }
 
-    public function success($id)
+    public function success(Transaction $transaction)
     {
-        $transaction = Transaction::where('invoice',$id)->firstOrFail();
+        // $transaction = Transaction::where('invoice',$id)->firstOrFail();
         $room = Room::where('id', $transaction->room_id)->firstOrFail();
-        if(($transaction->payment_method == 'Xendit' || $transaction->payment_method == 'Credit')) {
+        if(($transaction->payment_method == 'Xendit' || $transaction->payment_method == 'Cash')) {
             $transaction->payment_status = "PAID";
             $transaction->room_number = rand(1,$transaction->room->total_rooms);
             $transaction->payment_deadline = NULL;
             $transaction->save();
             // $room->available_rooms -= 1;
             // $room->save();
-        } 
+        } elseif($transaction->payment_method == 'Saldo') {
+            $transaction->payment_status = "PAID";
+            $transaction->room_number = rand(1,$transaction->room->total_rooms);
+            $transaction->payment_deadline = NULL;
+            $transaction->save();
+
+            $lastBalance = Saldo::where('user_id', $transaction->user_id)
+                            ->latest()
+                            ->first(); // Gunakan first() karena kita akan handle jika null
+
+            // Hitung saldo baru
+            $newAmount = $lastBalance ? $lastBalance->amount - $transaction->total_price : $transaction->total_price;
+
+            // Buat record saldo baru
+            Saldo::create([
+                'user_id' => $transaction->user_id,
+                'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
+                'debit' => 0,
+                'credit' => $transaction->total_price,
+                'amount' => $newAmount,
+                'description' => 'Reservasi Kamar'
+            ]);
+        }
         $pesan = "Halo ".$transaction->user->name."!\nTerimakasih telah melakukan pemesanan kamar di Mahir Hotel\nBerikut ini detail reservasi Anda: \nNomor Kamar: *".$transaction->room_number."*\nTipe Kamar: *".$transaction->room->name."*\nTanggal Check-in: *".Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')."*\n\nSemoga liburan Anda menyenangkan!";
         $this->send_message($transaction->phone, $pesan);
         return view('frontpage.payment.success', compact('transaction'));
@@ -316,9 +346,11 @@ class PaymentController extends Controller
     public function failed($id)
     {
         $transaction = Transaction::where('invoice',$id)->firstOrFail();
+        $room = Room::where('id', $transaction->room_id)->firstOrFail();
         if($transaction->payment_status == "PENDING")  {
-            $transaction->payment_status = "FAILED";
+            $transaction->payment_status = "CANCELLED";
             $transaction->save();
+            $room->incrementAvailableRooms();
         }
         return view('frontpage.payment.failed', compact('transaction'));
     }

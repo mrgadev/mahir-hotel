@@ -48,7 +48,7 @@
                             <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">TERTUNDA</p>
                             @endif
                             <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">{{$transaction->invoice}}</span></h2>
-                            <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, d MMMM YYYY, H:M')}}</p>
+                            <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, DD MMMM YYYY, H:M')}}</p>
                         </div>
                         
                         {{-- Body card --}}
@@ -76,6 +76,7 @@
                                         <p class="font-medium text-primary-700" id="checkInStatus">
                                             {{$transaction->checkin_status}}
                                         </p>
+                                        @if($transaction->payment_status == 'PAID')
                                         <button id="editCheckInStatusBtn" class="underline text-primary-700">
                                             Ubah status
                                         </button>
@@ -91,10 +92,13 @@
                                                     <option value="Belum">Belum</option>
                                                     <option value="Dibatalkan">Dibatalkan</option>
                                                 </select>
-                                                <button type="submit">Submit</button>
-                                                <button type="button" id="cancelEditCheckInStatusBtn">Cancel</button>
+                                                <div class="mt-3 flex gap-2">
+                                                    <button type="submit" class="text-primary-700 underline">Ubah</button>
+                                                    <button type="button" id="cancelEditCheckInStatusBtn" class="text-red-700">Batal</button>
+                                                </div>
                                             </form>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -216,6 +220,12 @@
                                 </ul>
                             </div>
 
+                            <div class="flex flex-col gap-1 col-span-3">
+                                <p>Catatan Tambahan</p>
+                                <p class="bg-primary-100 border border-primary-700 text-primary-700 rounded-lg p-2 font-medium w-fit">
+                                    {{$transaction->notes}}
+                                </p>
+                            </div>
                             {{-- <div class="flex flex-col gap-1">
                                 <p>Poin yang Didapatkan</p>
                                 <ul class="flex flex-col gap-1">
@@ -270,7 +280,6 @@
                                     <p class="text-gray-800">Total harga</p>
                                     <p class="bg-primary-100 text-primary-700 font-semibold">Rp. {{number_format($transaction->total_price,0,',','.')}}</p>
                                 </div>
-                                <a href="#" class="px-5 py-2 rounded-lg text-white bg-primary-700 text-center">Check-in</a>
                             </div>
                         </div>
                     </div>
