@@ -297,7 +297,7 @@
                                     <input type="radio" name="payment_method" id="Credit" value="Credit" class="hidden">
                                     {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
                                     {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
-                                    <label for="Credit" class="hover:cursor-pointer">Kredit</label>
+                                    <label for="Credit" class="hover:cursor-pointer">Saldo</label>
                                 </div>
                             @endauth
                         </div>
@@ -306,7 +306,7 @@
                     @auth
                         <div id="credit-description" style="display: none">
                             <dl class="flex items-center justify-between gap-4 py-3">
-                                <dt class="text-base font-normal text-gray-500">Total Saldo Kredit <span></span></dt>
+                                <dt class="text-base font-normal text-gray-500">Total Saldo Anda <span></span></dt>
                                 <dd class="text-base font-medium" data-saldo="{{ $saldo->amount }}">
                                     Rp. {{ number_format($saldo->amount, 0, ',', '.') }}
                                     <small id="saldo-message">
@@ -487,7 +487,7 @@
                 const saldoAmount = parseFloat($('#credit-description dd').data('saldo')); // Ambil dari data attribute
                 
                 if($(this).is(':checked')) {
-                    paymentButton.text('Bayar Menggunakan Kredit');
+                    paymentButton.text('Bayar Menggunakan Saldo');
                     paymentButton.show();
                     creditDescription.show();
                     

@@ -25,7 +25,8 @@ class Transaction extends Model
         'payment_method',
         'total_price',
         'created_at',   
-        'promos_id'
+        'promos_id',
+        'payment_deadline'
     ];
 
     public function user() {

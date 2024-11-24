@@ -20,7 +20,7 @@ class AdminDashboardController extends Controller
         $availableRooms = DB::table('rooms')
             ->sum('available_rooms');
 
-        $transactions = Transaction::paginate(5);
+        $transactions = Transaction::latest()->paginate(5);
         return view('dashboard.dashboard', compact('availableRooms', 'bookedRooms', 'transactions'));
     }
 
