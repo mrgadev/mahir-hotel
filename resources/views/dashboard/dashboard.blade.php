@@ -576,7 +576,7 @@
 
 <script>
     
-    let timeRemaining = Math.abs({{$seconds}});
+    let timeRemaining = Math.abs({{$seconds ?? 0}});
 
     function updateCountdown() {
         if(timeRemaining <= 0) {
