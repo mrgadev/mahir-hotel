@@ -36,9 +36,13 @@ class FrontpageController extends Controller
 
         $promos = Promo::where('is_all', true)->get();
 
-        $saldo = Saldo::where('user_id', Auth::user()->id)
+        if(Auth::user()){
+            $saldo = Saldo::where('user_id', Auth::user()->id)
                         ->latest()
                         ->first();
+        }else{
+            $saldo = null;
+        }
 
         if ($request->filled(['check_in', 'check_out'])) {
             session([

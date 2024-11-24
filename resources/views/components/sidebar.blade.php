@@ -128,18 +128,33 @@
                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Riwayat Transaksi</span>
                     </a>
                 </li>
-                
-                <li class="mt-0.5 w-full">
-                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium transition-all hover:bg-primary-500 hover:text-white" href="{{route('dashboard.report.index')}}">
-                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                            <i class="relative top-0 text-sm leading-normal ni ni-collection"></i>
-                        </div>
-                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Laporan Keuangan</span>
-                    </a>
-                </li>
-                {{-- Menu Feedback --}}
+
                 <li class="mt-0.5 w-full">  
-                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.message.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="feedbackToggle">
+                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.report.*') || Route::is('dashboard.penarikan-saldo.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="reportToggle">
+                        <div class="flex items-center">
+                            <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                <i class="ni ni-collection"></i>
+                            </div>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease capitalize">Laporan Keuangan</span>
+                        </div>
+                        <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                    </a>
+                    <ul id="reportSubmenu" class="px-4 mx-2 flex flex-col my-3 bg-primary-500 rounded-lg hidden">
+                        <li>
+                            <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="{{route('dashboard.report.index')}}">
+                                <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Reservasi Kamar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="{{route('dashboard.penarikan-saldo.index')}}">
+                                <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Request Penarikan Saldo</span>
+                            </a>
+                        </li>
+                    </ul>
+                    </a>
+
+                <li class="mt-0.5 w-full">  
+                    <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.message.*') || Route::is('dashboard.room-review.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="feedbackToggle">
                         <div class="flex items-center">
                             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <i class="bi bi-chat-text-fill"></i>
@@ -271,6 +286,11 @@
         document.getElementById('feedbackToggle').addEventListener('click', function() {
             const feedbacksubmenu = document.getElementById('feedbackSubmenu');
             feedbacksubmenu.classList.toggle('hidden');
+        });
+
+        document.getElementById('reportToggle').addEventListener('click', function() {
+            const reportSubmenu = document.getElementById('reportSubmenu');
+            reportSubmenu.classList.toggle('hidden');
         });
     </script>
 @endpush

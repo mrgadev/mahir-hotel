@@ -41,10 +41,37 @@
                         </form>
                     @endif
                 </div>
-            </div>      
+            </div>   
+            
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
+                        <div class="mb-4">
+                            <form action="{{ route('dashboard.report.index') }}" method="GET" class="flex gap-4">
+                                <div>
+                                    <label for="year" class="block text-sm font-medium text-gray-700">Pilih Tahun:</label>
+                                    <select name="year" onchange="this.form.submit()" class="mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        @foreach($years as $year)
+                                            <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="w-full">
+                            <canvas id="transactionChart" height="100"></canvas>
+                        </div>
+                    </div>
+                </main>
+            </section>  
+            
+            <section class="container mx-auto">
+                <main class="col-span-12 md:pt-0">
+                    <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
+                        <h3 for="" class="mb-3 text-primary-700 text-2xl font-bold">Filter Data Transaksi</h3>
                         <form action="{{ route('dashboard.report.index') }}" method="GET">
                             <div class="flex items-center gap-3">
                                 <div class="grid grid-cols-1 gap-2 w-full">
@@ -83,7 +110,7 @@
                         </form>
                     </div>
                 </main>
-            </section>   
+            </section> 
             
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
@@ -356,6 +383,53 @@
                     Swal.fire('Error', 'Terjadi kesalahan saat menghapus data.', 'error');
                 });
             });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('transactionChart');
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                datasets: [{
+                    label: `Total Transaksi Tahun {{ $selectedYear }}`,
+                    data: @json($monthlyData),
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Grafik Transaksi Bulanan'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return new Intl.NumberFormat('id-ID', {
+                                    style: 'currency',
+                                    currency: 'IDR',
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 0
+                                }).format(value);
+                            }
+                        }
+                    }
+                }
+            }
         });
     </script>
 @endpush

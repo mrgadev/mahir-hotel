@@ -16,34 +16,45 @@ class ReportController extends Controller
             ->orderBy('year', 'desc')
             ->pluck('year');
 
-        // Inisialisasi variabel transaksi dan total
-        $transactions = collect();
-        $totalAmount = 0;
+        // Mengambil tahun terakhir untuk default chart
+        $latestYear = $years->first();
+        
+        // Mengambil tahun yang dipilih atau default ke tahun terakhir
+        $selectedYear = $request->input('year', $latestYear);
 
-        // Jika tahun dan bulan dipilih, ambil data transaksi
-        if ($request->has('year') && $request->has('month')) {
-            $year = $request->input('year');
-            $month = $request->input('month');
-
-            // Mengambil transaksi berdasarkan tahun dan bulan
-            $transactions = Transaction::query();
-
-            if ($year) {
-                $transactions->whereYear('created_at', $year);
-            }
-
-            if ($month) {
-                $monthNumber = date('m', strtotime($month)); // Mengubah nama bulan menjadi angka
-                $transactions->whereMonth('created_at', $monthNumber);
-            }
-
-            $transactions = $transactions->get();
-
-            // Menghitung total jumlah transaksi
-            $totalAmount = $transactions->sum('total_price'); // Ganti 'amount' dengan nama kolom yang sesuai
+        // Data untuk chart
+        $monthlyData = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $total = Transaction::whereYear('created_at', $selectedYear)
+                ->whereMonth('created_at', $month)
+                ->sum('total_price');
+                
+            $monthlyData[] = $total;
         }
 
-        return view('dashboard.admin.report.index', compact('years', 'transactions', 'totalAmount'));
+        // Data untuk tabel
+        $transactions = Transaction::query();
+        
+        // Filter berdasarkan tahun dan bulan jika ada
+        if ($request->filled('year')) {
+            $transactions->whereYear('created_at', $request->year);
+        }
+        
+        if ($request->filled('month')) {
+            $monthNumber = date('m', strtotime($request->month));
+            $transactions->whereMonth('created_at', $monthNumber);
+        }
+
+        $transactions = $transactions->orderBy('created_at', 'desc')->get();
+        $totalAmount = $transactions->sum('total_price');
+
+        return view('dashboard.admin.report.index', compact(
+            'years',
+            'transactions', 
+            'totalAmount',
+            'selectedYear',
+            'monthlyData'
+        ));
     }
 
     public function exportTransactions(Request $request)

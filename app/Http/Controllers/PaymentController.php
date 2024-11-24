@@ -260,7 +260,8 @@ class PaymentController extends Controller
             'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
             'debit' => 0,
             'credit' => $transaction->total_price,
-            'amount' => $newAmount
+            'amount' => $newAmount,
+            'description' => 'Reservasi Kamar'
         ]);
 
         return redirect()->route('payment.success', $transaction->invoice);

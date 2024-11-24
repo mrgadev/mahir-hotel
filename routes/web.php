@@ -23,6 +23,7 @@ use App\Http\Controllers\NearbyLocationController;
 use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\AccomdationPlanController;
 use App\Http\Controllers\HotelFacilitiesController;
+use App\Http\Controllers\PenarikanSaldoController;
 use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\UsersManagementController;
@@ -96,6 +97,10 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     
     Route::resource('/saldo', SaldoController::class);
     Route::put('/saldo/{id}/cancel', [SaldoController::class, 'cancelTransaction'])->name('saldo.cancelTransaction');
+
+    Route::get('/penarikan-saldo/index', [PenarikanSaldoController::class, 'index'])->name('penarikan-saldo.index');
+    Route::get('/penarikan-saldo/{penarikanSaldo}/show', [PenarikanSaldoController::class, 'show'])->name('penarikan-saldo.show');
+    Route::put('/penarikan-saldo/{penarikanSaldo}/update', [PenarikanSaldoController::class, 'update'])->name('penarikan-saldo.update');
 });
 
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle'])->name('auth.google.redirect');
