@@ -232,8 +232,9 @@
                                 </label>
                                 <select name="checkin_status" id="newStatus" class="block w-full px-4 py-2 border rounded" required>
                                     <option value="">--Pilih Status Checkin--</option>
-                                    <option value="Sudah">Sudah</option>
                                     <option value="Belum">Belum</option>
+                                    <option value="Sudah">Sudah Checkin</option>
+                                    <option value="Sudah">Sudah Checkout</option>
                                     <option value="Dibatalkan">Dibatalkan</option>
                                 </select>
                             </div>

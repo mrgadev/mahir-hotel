@@ -75,8 +75,8 @@ class PaymentController extends Controller
         $transaction->check_out = $data['check_out'];
         $transaction->invoice = $data['invoice'];
         $transaction->payment_method = 'Xendit';
-        $transaction->payment_deadline = now()->addMinutes(2);
-        // $transaction->payment_deadline = now()->addHours($this->site_settings->payment_deadline);
+        // $transaction->payment_deadline = now()->addMinutes(2);
+        $transaction->payment_deadline = now()->addHours($this->site_settings->payment_deadline);
         
         $transaction->save();
         // dd($transaction);
@@ -114,7 +114,7 @@ class PaymentController extends Controller
             'external_id' => $data['invoice'],
             'amount' => $total_amount,
             'description' => 'Pembayaran '.$transaction->room->name.' dari Mahir Hotel selama '.$nights.' malam',
-            'invoice_duration' => 120,
+            'invoice_duration' => 60 * 60 * $this->site_settings->payment_deadline,
             'customer' => [
                 'given_names' => $transaction->name,
                 'email' => $transaction->email,

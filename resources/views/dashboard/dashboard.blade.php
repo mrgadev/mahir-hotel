@@ -343,13 +343,13 @@
                             <p class="font-medium text-lg">200</p>
                         </div>
                     </div> --}}
-                    <div class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
+                    <a href="{{route('dashboard.saldo.index')}}" class="bg-primary-100 p-5 border border-primary-700 text-primary-700 flex items-center gap-5 rounded-lg">
                         <span class="material-symbols-rounded scale-150">wallet</span>
                         <div class="flex flex-col">
                             <p class="text-sm">Saldoku</p>
                             <p class="font-medium text-lg">IDR {{number_format($wallet->amount ?? 0,0,',','.')}}</p>
                         </div>
-                    </div>
+                    </a>
 
                 
                 </div>
