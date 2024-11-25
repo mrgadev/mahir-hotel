@@ -208,21 +208,23 @@ class BulkAction extends Controller
 
             // Cek status checkin
             if ($transaction->checkin_status == 'Sudah' || $transaction->checkin_status == 'Belum') {
+                if($checkin_status == 'Dibatalkan'){
+                    // Ambil saldo terakhir user
+                    $lastBalance = Saldo::where('user_id', $transaction->user_id)
+                                    ->latest()
+                                    ->first();
+
+                    // Buat catatan saldo baru
+                    Saldo::create([
+                        'user_id' => $transaction->user_id,
+                        'credit' => $transaction->total_price,
+                        'debit' => 0,
+                        'amount' => $lastBalance ? $lastBalance->amount + $transaction->total_price : $transaction->total_price,
+                        'description' => ''
+                    ]);
+                }
+
                 $transaction->update(['checkin_status' => $checkin_status]);
-
-                // Ambil saldo terakhir user
-                $lastBalance = Saldo::where('user_id', $transaction->user_id)
-                                ->latest()
-                                ->first();
-
-                // Buat catatan saldo baru
-                Saldo::create([
-                    'user_id' => $transaction->user_id,
-                    'credit' => $transaction->total_price,
-                    'debit' => 0,
-                    'amount' => $lastBalance ? $lastBalance->amount + $transaction->total_price : $transaction->total_price,
-                    'description' => ''
-                ]);
             }
         }
 
