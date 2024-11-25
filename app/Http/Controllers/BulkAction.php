@@ -6,6 +6,7 @@ use App\Models\Faq;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Promo;
+use App\Models\Saldo;
 use App\Models\Message;
 use App\Models\Service;
 use App\Models\RoomReview;
@@ -15,7 +16,7 @@ use App\Models\NearbyLocation;
 use App\Models\RoomFacilities;
 use App\Models\AccomdationPlan;
 use App\Models\HotelFacilities;
-use App\Models\Saldo;
+use Illuminate\Support\Facades\Gate;
 
 class BulkAction extends Controller
 {
@@ -207,7 +208,7 @@ class BulkAction extends Controller
             }
 
             // Cek status checkin
-            if ($transaction->checkin_status == 'Sudah' || $transaction->checkin_status == 'Belum') {
+            if ($transaction->checkin_status == 'Sudah Checkin' || $transaction->checkin_status == 'Belum') {
                 $transaction->update(['checkin_status' => $checkin_status]);
 
                 // Ambil saldo terakhir user
@@ -224,6 +225,8 @@ class BulkAction extends Controller
                     'description' => ''
                 ]);
             }
+
+            // if($checkin_status)
         }
 
         return redirect()->route('dashboard.transaction.index')->with('success', 'Data pengguna berhasil diubah');

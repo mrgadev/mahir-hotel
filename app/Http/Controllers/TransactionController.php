@@ -22,20 +22,21 @@ class TransactionController extends Controller
         $data = $request->validate([
             'checkin_status' => 'required'
         ]);
-        if($data['checkin_status'] == 'Sudah Check-In') {
-            $data['checkin_time'] = now();
-        } elseif($data['checkin_status'] == 'Sudah Check-Out') {
-            $data['checkout_time'] = now();
+        if($data['checkin_status'] == 'Sudah Checkin') {
+            $data['checkin_date'] = now();
+        } elseif($data['checkin_status'] == 'Sudah Checkout') {
+            $data['checkout_date'] = now();
+            $transaction->room->incrementAvailableRooms();
         } 
         $transaction->update($data);
         $room = Room::where('id', $transaction->room_id)->first();
-        if($data['checkin_status'] == 'Sudah') {
-            $room->available_rooms -= 1;
-            $room->save();
-        } else {
-            $room->available_rooms += 1;
-            $room->save();
-        }
+        // if($data['checkin_status'] == 'Sudah') {
+        //     $room->available_rooms -= 1;
+        //     $room->save();
+        // } else {
+        //     $room->available_rooms += 1;
+        //     $room->save();
+        // }
 
         return view('dashboard.admin.transaction.detail', compact('transaction'));
     }
