@@ -11,6 +11,9 @@ Route::middleware('auth')->prefix('/payment')->name('payment.')->group(function(
     Route::post('/store/cash', [PaymentController::class, 'cashPayment'])->name('cash');
     Route::post('/store/online', [PaymentController::class, 'onlinePayment'])->name('online');
     Route::post('/store/creditPayment', [PaymentController::class, 'creditPayment'])->name('creditPayment');
+    Route::post('/store/addCash', [PaymentController::class, 'addCash'])->name('addCash');
+    Route::post('/store/addXendit', [PaymentController::class, 'addXendit'])->name('addXendit');
+
     Route::get('/success/{transaction:invoice}', [PaymentController::class, 'success'])->name('success');
     Route::get('/failed/{id}', [PaymentController::class, 'failed'])->name('failed');
     Route::get('/timeout/{transaction:invoice}', [PaymentController::class, 'timeout'])->name('timeout');

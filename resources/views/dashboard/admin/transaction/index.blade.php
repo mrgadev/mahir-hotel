@@ -195,7 +195,7 @@
                                 <select name="payment_status" id="newStatus" class="block w-full px-4 py-2 border rounded" required>
                                     <option value="">--Pilih Status Pembayaran--</option>
                                     <option value="PAID">PAID</option>
-                                    <option value="UNPAID">UNPAID</option>
+                                    <option value="CANCELLED">CANCELLED</option>
                                 </select>
                             </div>
                             <div>

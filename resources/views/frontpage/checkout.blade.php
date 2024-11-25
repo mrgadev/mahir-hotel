@@ -315,6 +315,22 @@
                                 </dd>
                             </dl>
                         </div>
+                        <div class="hidden flex items-center justify-center gap-2" id="add-payment">
+                            <small class="flex items-center justify-center gap-5 mt-5">
+                                <div class="flex items-center gap-2 text-center rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                    <input type="radio" name="payment_method" id="addCash" value="addCash" class="hidden">
+                                    {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                    {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                    <label for="addCash" class="hover:cursor-pointer">Tambah Menggunakan Cash</label>
+                                </div>
+                                <div class="flex items-center gap-2 text-center rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
+                                    <input type="radio" name="payment_method" id="addXendit" value="addXendit" class="hidden">
+                                    {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
+                                    {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
+                                    <label for="addXendit" class="hover:cursor-pointer">Tambah Menggunakan Xendit</label>
+                                </div>
+                            </small>
+                        </div>
                     @endauth
                 </div>
             </div>
@@ -455,9 +471,12 @@
         $(document).ready(function() {
             const paymentForm = $('#payment-form');
             const paymentButton = $('#payment-button');
+            const addPayment = $('#add-payment');
             const creditDescription = $('#credit-description');
             const onlineRoute = "{{route('payment.online')}}";
             const cashRoute = "{{route('payment.cash')}}";
+            const addCashRoute = "{{route('payment.addCash')}}";
+            const addXenditRoute = "{{route('payment.addXendit')}}";
             const creditRoute = "{{route('payment.creditPayment')}}";
 
             $('#Cash').change(function() {
@@ -487,23 +506,48 @@
                 const saldoAmount = parseFloat($('#credit-description dd').data('saldo')); // Ambil dari data attribute
                 
                 if($(this).is(':checked')) {
-                    paymentButton.text('Bayar Menggunakan Saldo');
-                    paymentButton.show();
-                    creditDescription.show();
-                    
+                    creditDescription.show();        
                     // Cek saldo
                     if(saldoAmount < totalPrice) {
-                        $('#saldo-message').html('<p class="text-red-500 text-sm">Saldo Anda tidak cukup</p>');
+                        $('#saldo-message').html(`
+                            <div class="flex gap-2">
+                                <p class="text-red-500 text-sm mb-2">Saldo Anda tidak cukup</p>
+                            </div>
+                        `);
                         $('#credit-description dd').addClass('text-red-500');
-                        paymentButton.prop('disabled', true);
-                        paymentButton.addClass('cursor-not-allowed');
+                        addPayment.show();
+
+                        $('#addCash').change(function() {
+                            if($(this).is(':checked')) {
+                                // Change to Cash payment
+                                paymentButton.text('Tambah Menggunakan tunai');
+                                paymentButton.show();
+                                paymentForm.attr('action', addCashRoute);
+                            } else {
+                                paymentButton.hide();
+                            }
+                        });
+                        
+                        $('#addXendit').change(function() {
+                            if($(this).is(':checked')) {
+                                // Change to Cash payment
+                                paymentButton.text('Tambah Menggunakan xendit');
+                                paymentButton.show();
+                                paymentForm.attr('action', addXenditRoute);
+                            } else {
+                                paymentButton.hide();
+                            }
+                        });
+                        $('#Credit').closest('div').addClass('cursor-not-allowed');
                     } else {
+                        paymentButton.text('Bayar Menggunakan Kredit');
+                        paymentButton.show();
                         $('#saldo-message').html('');
                         $('#credit-description dd').removeClass('text-red-500');
                         paymentButton.prop('disabled', false);
+                        $('#Credit').closest('div').removeClass('cursor-not-allowed');
+                        paymentForm.attr('action', creditRoute);
                     }
-                    
-                    paymentForm.attr('action', creditRoute);
                 } else {
                     paymentButton.hide();
                     creditDescription.hide();

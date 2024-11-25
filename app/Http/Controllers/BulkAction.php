@@ -15,8 +15,7 @@ use App\Models\NearbyLocation;
 use App\Models\RoomFacilities;
 use App\Models\AccomdationPlan;
 use App\Models\HotelFacilities;
-use App\Models\ServiceCategory;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Saldo;
 
 class BulkAction extends Controller
 {
@@ -178,7 +177,7 @@ class BulkAction extends Controller
 
         foreach($transaction_ids as $transaction_id) {
             $transaction = Transaction::find($transaction_id); // Perbaikan disini
-            if($transaction) { // Perbaikan disini
+            if($transaction->payment_status == 'PENDING') { // Perbaikan disini
                 $transaction->update(['payment_status' => $payment_status]);
             }
         }
@@ -186,7 +185,8 @@ class BulkAction extends Controller
         return redirect()->route('dashboard.transaction.index')->with('success', 'Data pengguna berhasil diubah');
     }
 
-    public function updateStatusCheckin(Request $request){
+    public function updateStatusCheckin(Request $request)
+    {
         $transaction_ids = $request->input('transaction_ids', []);
         $checkin_status = $request->input('checkin_status');
         
@@ -195,16 +195,34 @@ class BulkAction extends Controller
         }
 
         if (empty($checkin_status)) {
-            return redirect()->back()->with('error', 'tidak ada status yang dipilih');
+            return redirect()->back()->with('error', 'Tidak ada status yang dipilih');
         }
 
-        foreach($transaction_ids as $transaction_id) {
-            $transaction = Transaction::find($transaction_id); // Perbaikan disini
-            if($transaction) { // Perbaikan disini
+        foreach ($transaction_ids as $transaction_id) {
+            // Ambil data transaksi
+            $transaction = Transaction::find($transaction_id);
+            
+            if (!$transaction) {
+                continue; 
+            }
+
+            // Cek status checkin
+            if ($transaction->checkin_status == 'Sudah' || $transaction->checkin_status == 'Belum') {
                 $transaction->update(['checkin_status' => $checkin_status]);
-                if($checkin_status == 'Sudah') {
-                    $transaction->room->incrementAvailableRooms();
-                }
+
+                // Ambil saldo terakhir user
+                $lastBalance = Saldo::where('user_id', $transaction->user_id)
+                                ->latest()
+                                ->first();
+
+                // Buat catatan saldo baru
+                Saldo::create([
+                    'user_id' => $transaction->user_id,
+                    'credit' => $transaction->total_price,
+                    'debit' => 0,
+                    'amount' => $lastBalance ? $lastBalance->amount + $transaction->total_price : $transaction->total_price,
+                    'description' => ''
+                ]);
             }
         }
 

@@ -103,6 +103,7 @@ class PenarikanSaldoController extends Controller
                 'debit' => 0,
                 'credit' => $penarikanSaldo->amount,
                 'amount' => $newAmount,
+                'description' => 'Penarikan Saldo'
             ]);
         }
 
