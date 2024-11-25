@@ -148,7 +148,7 @@
                     <div class="flex items-center gap-5">
                         <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{round($average_rating ?? 0,1)}}</p>
                         <div class="flex flex-col">
-                            @if($total_reviews == 0)
+                            @if(!isset($total_reviews))
                             <p class="text-primary-700">-</p>
                             @else
                                 @switch($average_rating)
@@ -171,7 +171,7 @@
                                         
                                 @endswitch
                             @endif
-                            @if($total_reviews == 0)
+                            @if(!isset($total_reviews))
                             <p class="text-sm">dari {{$total_reviews}} Pelanggan</p>
                             @else
                             <p class="text-sm">dari {{$total_reviews->count()}} Pelanggan</p>

@@ -407,7 +407,7 @@ class PaymentController extends Controller
         $transaction->check_in = $data['check_in'];
         $transaction->check_out = $data['check_out'];
         $transaction->invoice = $data['invoice'];
-        $transaction->payment_method = 'Credit';
+        $transaction->payment_method = 'Saldo';
         $transaction->save();
         // lakukan sinkronisasi data accomodation_plan_id dan promo_id
         $transaction->accomodation_plans()->sync($request->accomodation_plan_id);
@@ -471,7 +471,7 @@ class PaymentController extends Controller
         $transaction->check_in = $data['check_in'];
         $transaction->check_out = $data['check_out'];
         $transaction->invoice = $data['invoice'];
-        $transaction->payment_method = 'Credit';
+        $transaction->payment_method = 'Saldo';
         $transaction->payment_deadline = now()->addMinutes(2);
         $transaction->save();
         $transaction->accomodation_plans()->sync($request->accomodation_plan_id);
@@ -512,7 +512,7 @@ class PaymentController extends Controller
         $createInvoiceRequest = new CreateInvoiceRequest($paymentData);
         try {
             $result = $apiInstance->createInvoice($createInvoiceRequest);
-            $transaction->payment_status = "PENDING";
+            $transaction->payment_status = "PAID";
             $transaction->payment_url = $result['invoice_url'];
             $transaction->total_price = $total_amount;
             $transaction->save();
