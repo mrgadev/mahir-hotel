@@ -48,6 +48,7 @@ class CancelExpiredTransaction extends Command
         //     $expiredTransactions->notes = 'Transaksi Anda dibatalkan secara otomatis, karena telah melewati tenggat waktu yang disediakan.';
         //     $expiredTransactions->save();
         //     $expiredTransactions->room->incrementAvailableRooms();
+        
         $this->info('Expired bookings cancelled: '. $expiredTransactions->count());
     }
 }

@@ -22,7 +22,9 @@ class SiteSettingsController extends Controller
             'phone_text.required' => 'Teks nomor telepon wajib diisi',
             'maps_link' => 'Tautan alamat wajib diisi',
             'address' => 'Alamat wajib diisi',
-            'payment_deadline' => 'Durasi transaksi wajib diisi!'
+            'payment_deadline' => 'Durasi transaksi wajib diisi!',
+            'checkin_time' => 'Durasi transaksi wajib diisi!',
+            'checkout_time' => 'Durasi transaksi wajib diisi!'
         ];
         $data = $request->validate([
             'tagline' => 'required',
@@ -31,7 +33,9 @@ class SiteSettingsController extends Controller
             'phone_text' => 'required',
             'maps_link' => 'required', 
             'address' => 'required',
-            'payment_deadline' => 'required'
+            'payment_deadline' => 'required',
+            'checkin_time' => 'required',
+            'checkout_time' => 'required'
         ], $message);
         // dd($site_setting);
         $site_setting->update($data);

@@ -14,7 +14,8 @@ class RoomReview extends Model
         'rating_text',
         'user_id',
         'room_id',
-        'transaction_id'
+        'transaction_id',
+        'visibility'
     ];
     public function room() {
         return $this->belongsTo(Room::class);

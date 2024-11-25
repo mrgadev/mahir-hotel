@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Faq;
 use App\Models\Room;
-use App\Models\RoomFacilities;
-use App\Models\Service;
-use App\Models\ServiceCategory;
-use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Promo;
 use App\Models\Message;
+use App\Models\Service;
+use App\Models\RoomReview;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\NearbyLocation;
+use App\Models\RoomFacilities;
 use App\Models\AccomdationPlan;
 use App\Models\HotelFacilities;
+use App\Models\ServiceCategory;
+use Illuminate\Support\Facades\Gate;
 
 class BulkAction extends Controller
 {
@@ -200,9 +202,36 @@ class BulkAction extends Controller
             $transaction = Transaction::find($transaction_id); // Perbaikan disini
             if($transaction) { // Perbaikan disini
                 $transaction->update(['checkin_status' => $checkin_status]);
+                if($checkin_status == 'Sudah') {
+                    $transaction->room->incrementAvailableRooms();
+                }
             }
         }
 
         return redirect()->route('dashboard.transaction.index')->with('success', 'Data pengguna berhasil diubah');
     }
+
+    public function changeReviewVisibility(Request $request){
+        Gate::authorize('changeVisibility', User::class);
+        $review_ids = $request->input('review_ids', []);
+        $visibility = $request->input('visibility');
+        // dd($request->all());
+        if (empty($review_ids)) {
+            return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
+        }
+
+        // if (empty($visibility)) {
+        //     return redirect()->back()->with('error', 'Tidak ada status yang dipilih');
+        // }
+
+        foreach($review_ids as $review_id) {
+            $review = RoomReview::find($review_id); // Perbaikan disini
+            if($review) { // Perbaikan disini
+                $review->update(['visibility' => $visibility]);
+            }
+        }
+
+        return redirect()->route('dashboard.room-review.index')->with('success', 'Visibilitas berhasil diubah');
+    }
+
 }

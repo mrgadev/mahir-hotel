@@ -252,7 +252,7 @@
                                             <label for="rating3" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 3 (Bagus)</label>
                                         </div>
                                         <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
-                                            <input type="radio" name="rating" id="rating1" value="4" class="hidden">
+                                            <input type="radio" name="rating" id="rating4" value="4" class="hidden">
                                             {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
                                             {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
                                             <label for="rating4" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 4 (Sangat Bagus)</label>
@@ -261,7 +261,7 @@
                                             <input type="radio" name="rating" id="rating5" value="5" class="hidden">
                                             {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
                                             {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
-                                            <label for="rating5" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 5 (Semopurna)</label>
+                                            <label for="rating5" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 5 (Sempurna)</label>
                                         </div>
                                     </div>
 
@@ -315,7 +315,7 @@
                                             <label for="rating3" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 3 (Bagus)</label>
                                         </div>
                                         <div class="flex items-center gap-2 rounded-lg bg-primary-100 text-primary-700 w-fit px-5 py-2 has-[:checked]:border-primary-700  has-[:checked]:border-2 transition-all hover:cursor-pointer">
-                                            <input type="radio" name="rating" id="rating1" value="4" class="hidden" {{$room_review->rating == 4 ? 'checked' : ''}}>
+                                            <input type="radio" name="rating" id="rating4" value="4" class="hidden" {{$room_review->rating == 4 ? 'checked' : ''}}>
                                             {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
                                             {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
                                             <label for="rating4" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 4 (Sangat Bagus)</label>
@@ -324,7 +324,7 @@
                                             <input type="radio" name="rating" id="rating5" value="5" class="hidden" {{$room_review->rating == 5 ? 'checked' : ''}}>
                                             {{-- <img src="{{Storage::url($room_facility->icon)}}" class="w-5 h-5" alt=""> --}}
                                             {{-- <span class="material-icons-round">{{$room_facility->icon}}</span> --}}
-                                            <label for="rating5" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 5 (Semopurna)</label>
+                                            <label for="rating5" class="hover:cursor-pointer"><i class="bi bi-star-fill"></i> 5 (Sempurna)</label>
                                         </div>
                                     </div>
 
@@ -521,7 +521,20 @@
                                     <p class="">{{$transaction->payment_method}}</p>
                                 </div>
                                 @if($transaction->checkin_status == 'Belum')
-                                <a href="#" class="px-5 py-2 rounded-lg text-white bg-primary-700 text-center">Check-in</a>
+                                <form action="{{route('dashboard.user.bookings.checkin', $transaction->invoice)}}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="checkin_date" value="{{now()}}">
+                                    <button class="px-5 py-2 rounded-lg text-white bg-primary-700 text-center" type="submit">Check-in</button>
+                                </form>
+                                
+                                @elseif($transaction->checkin_status == 'Sudah Checkin')
+                                <form action="{{route('dashboard.user.bookings.checkout', $transaction->invoice)}}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="checkout_date" value="{{now()}}">
+                                    <button class="px-5 py-2 rounded-lg text-white bg-primary-700 text-center" type="submit">Check-out</button>
+                                </form>
                                 @endif
                             </div>
                         </div>

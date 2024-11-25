@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\RoomReview;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Gate;
+// use Illuminate\Support\Facades\Gate;
 class RoomReviewController extends Controller
 {
     /**
@@ -14,6 +16,7 @@ class RoomReviewController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', User::class);
         $room_reviews = RoomReview::all();
         return view('dashboard.admin.reviews.index', compact('room_reviews'));
     }
@@ -31,6 +34,7 @@ class RoomReviewController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('store', User::class);
         $data = $request->validate([
             'title' => 'string|required',
             'description' => 'required',
@@ -93,6 +97,7 @@ class RoomReviewController extends Controller
      */
     public function show(RoomReview $room_review)
     {
+        Gate::authorize('view', User::class);
         return view('dashboard.admin.reviews.detail', compact('room_review'));
         // return response()->json($room_review);
     }
@@ -110,6 +115,7 @@ class RoomReviewController extends Controller
      */
     public function update(Request $request, RoomReview $room_review)
     {
+        Gate::authorize('update', User::class);
         $data = $request->validate([
             'title' => 'string|required',
             'description' => 'required',
@@ -171,6 +177,6 @@ class RoomReviewController extends Controller
      */
     public function destroy(RoomReview $roomReview)
     {
-        //
+        Gate::authorize('destroy', User::class);
     }
 }

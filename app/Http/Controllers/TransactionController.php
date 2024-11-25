@@ -20,9 +20,13 @@ class TransactionController extends Controller
     
     public function changeCheckInStatus(Request $request, Transaction $transaction) {
         $data = $request->validate([
-            'checkin_status' => 'required|in:Sudah,Belum,Dibatalkan'
+            'checkin_status' => 'required'
         ]);
-
+        if($data['checkin_status'] == 'Sudah Check-In') {
+            $data['checkin_time'] = now();
+        } elseif($data['checkin_status'] == 'Sudah Check-Out') {
+            $data['checkout_time'] = now();
+        } 
         $transaction->update($data);
         $room = Room::where('id', $transaction->room_id)->first();
         if($data['checkin_status'] == 'Sudah') {

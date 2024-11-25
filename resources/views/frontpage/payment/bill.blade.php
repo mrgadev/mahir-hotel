@@ -114,12 +114,16 @@
 @endsection
 @push('addons-script')
     <script>
-        
         let timeRemaining = Math.abs({{$seconds}});
+        function handlePaymentTimeout() {
+            window.location.href = "{{route('payment.timeout', $transaction->invoice)}}";
+        }
+        //setTimeout(handlePaymentTimeout(), timeRemaining)
 
         function updateCountdown() {
             if(timeRemaining <= 0) {
-                document.getElementById('countdown').innerHTML = 'Transaksi telah dibatalkan';
+                handlePaymentTimeout();
+                return;
             }
 
             const hours = Math.floor((timeRemaining % (24 * 60 * 60)) / (60 * 60));
@@ -136,4 +140,43 @@
         updateCountdown();
         setInterval(updateCountdown,1000);
     </script>
+    {{-- <script>
+        let timeRemaining = Math.abs({{$seconds}});
+        // Function to handle redirection when time expires
+        function handlePaymentTimeout() {
+            window.location.href = "{{ route('payment.timeout', $transaction->invoice) }}";
+        }
+
+        // Set timeout for redirection
+        setTimeout(handlePaymentTimeout, timeRemaining);
+
+        // Display countdown timer
+        function updateCountdown() {
+            const deadline = new Date("{{ $transaction->payment_deadline }}").getTime();
+            
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const timeLeft = deadline - now;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    handlePaymentTimeout();
+                    return;
+                }
+
+                // Calculate time units
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                // Update the countdown display
+                document.getElementById('hours').textContent = String(hours).padStart(2,'0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
+            }, 1000);
+        }
+
+        // Start countdown when page loads
+        document.addEventListener('DOMContentLoaded', updateCountdown);
+    </script> --}}
 @endpush

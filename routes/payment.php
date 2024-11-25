@@ -13,5 +13,5 @@ Route::middleware('auth')->prefix('/payment')->name('payment.')->group(function(
     Route::post('/store/creditPayment', [PaymentController::class, 'creditPayment'])->name('creditPayment');
     Route::get('/success/{transaction:invoice}', [PaymentController::class, 'success'])->name('success');
     Route::get('/failed/{id}', [PaymentController::class, 'failed'])->name('failed');
-
+    Route::get('/timeout/{transaction:invoice}', [PaymentController::class, 'timeout'])->name('timeout');
 });
