@@ -128,23 +128,54 @@
                 </div>
             </div>
             <div class="lg:col-span-1 px-3 mt-0 w-full max-w-full">
+                @if(App\Models\RoomReview::all()->count() >= 1)
                 @php
-                    $total_reviews = App\Models\RoomReview::all() ?? 0;
+                    $total_reviews = App\Models\RoomReview::all();
                     $total_rating = 0;
                     foreach($total_reviews as $review) {
                         $total_rating += $review->rating;
                     }
                     $average_rating = $total_rating / $total_reviews->count();
                 @endphp
-                
+                @else
+                @php
+                    $total_reviews = 0;
+                @endphp
+                @endif
                 <div class="p-5 border-black/12.5 shadow-xl relative flex min-w-0 flex-col gap-5 break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
                     <h6 class="font-medium text-lg text-primary-700">Keseluruhan Rating</h6>
                     
                     <div class="flex items-center gap-5">
-                        <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{round($average_rating,1)}}</p>
+                        <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{round($average_rating ?? 0,1)}}</p>
                         <div class="flex flex-col">
-                            <p class="text-primary-700">Sempurna</p>
+                            @if($total_reviews == 0)
+                            <p class="text-primary-700">-</p>
+                            @else
+                                @switch($average_rating)
+                                    @case(1)
+                                        <p class="text-primary-700">Buruk</p>
+                                        @break
+                                    @case(2)
+                                        <p class="text-primary-700">Lumayan</p>
+                                        @break
+                                    @case(3)
+                                        <p class="text-primary-700">Bagus</p>
+                                        @break
+                                    @case(4)
+                                        <p class="text-primary-700">Sangat Bagus</p>
+                                        @break
+                                    @case(5)
+                                        <p class="text-primary-700">Sempurna</p>
+                                        @break
+                                    @default
+                                        
+                                @endswitch
+                            @endif
+                            @if($total_reviews == 0)
+                            <p class="text-sm">dari {{$total_reviews}} Pelanggan</p>
+                            @else
                             <p class="text-sm">dari {{$total_reviews->count()}} Pelanggan</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -298,7 +329,7 @@
             $user_transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->latest()->first();
             $user_transactions = App\Models\Transaction::where('user_id', Auth::user()->id)->get();
             $wallet = App\Models\Saldo::where('user_id', Auth::user()->id)->latest()->first();
-            $seconds = Carbon\Carbon::parse($user_transaction->payment_deadline)->diffInSeconds(now());
+            $seconds = Carbon\Carbon::parse($user_transaction->payment_deadline ?? 0)->diffInSeconds(now());
         @endphp
         {{-- #1 Row for USer --}}
         <div class="grid lg:grid-cols-2 gap-5">
@@ -325,7 +356,7 @@
             </div>
 
             @if (isset($user_transaction))
-                @if($user_transaction->payment_status == 'PENDING')
+                @if($user_transaction->payment_status == 'PENDING' )
                 <div class="bg-white rounded-2xl shadow-xl p-5">
                     <div class="flex items-center justify-between">
                         <h3 class="font-medium text-lg text-primary-700">Menunggu Pembayaran</h3>

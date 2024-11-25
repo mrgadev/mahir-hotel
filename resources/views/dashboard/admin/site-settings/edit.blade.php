@@ -55,14 +55,29 @@
                                     <textarea name="address" id="address" cols="30" rows="10">{!!$site_setting->address!!}</textarea>
                                 </div>
                             </div>
-                            <div class="flex flex-col gap-5 lg:w-1/2">
-                                <h1 class="text-xl font-medium text-primary-700">Pengaturan Lanjutan</h1>
-                                <label for="">Tenggat Waktu Transaksi</label>
-                                <div class="flex items-center gap-3">
-                                    <input type="number" name="payment_deadline" value="{{$site_setting->payment_deadline}}" class="rounded-lg">
-                                    <p>Jam</p>
+                            <h1 class="text-xl font-medium text-primary-700 mt-5">Pengaturan Lanjutan</h1>
+                            <div class="grid lg:grid-cols-3 gap-5 my-5">
+                                <div class="flex flex-col gap-5">
+                                    <label for="">Tenggat Waktu Transaksi</label>
+                                    <div class="flex items-center gap-3">
+                                        <input type="number" name="payment_deadline" value="{{$site_setting->payment_deadline}}" class="rounded-lg">
+                                        <p>Jam</p>
+                                    </div>
                                 </div>
-
+                                <div class="flex flex-col gap-5">   
+                                    <label for="">Waktu Check In</label>
+                                    <div class="flex items-center gap-3">
+                                        <input type="time" name="checkin_time" value="{{$site_setting->checkin_time}}" class="rounded-lg">
+                                        {{-- <p>Jam</p> --}}
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-5">
+                                    <label for="">Waktu Checkout</label>
+                                    <div class="flex items-center gap-3">
+                                        <input type="time" name="checkout_time" value="{{$site_setting->checkout_time}}" class="rounded-lg">
+                                        {{-- <p>Jam</p> --}}
+                                    </div>
+                                </div>
                             </div>
                             {{-- <button type="submit" class="btn btn-primary">Kirim</button> --}}
                             <button type="submit" class="mt-5 px-5 py-3 rounded-lg bg-primary-500 text-white transition-all hover:bg-primary-700">Perbarui data</button>

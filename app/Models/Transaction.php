@@ -26,7 +26,9 @@ class Transaction extends Model
         'total_price',
         'created_at',   
         'promos_id',
-        'payment_deadline'
+        'payment_deadline',
+        'checkin_date',
+        'checkout_date'
     ];
 
     public function user() {

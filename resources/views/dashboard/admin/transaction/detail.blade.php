@@ -88,8 +88,9 @@
                                                 {{-- <input type="text" id="inputField" /> --}}
                                                 <select name="checkin_status" id="checkInStatusField" class="bg-primary-100 rounded border border-primary-700 text-primary-700 p-2">
                                                     
-                                                    <option value="Sudah">Sudah</option>
-                                                    <option value="Belum">Belum</option>
+                                                    <option value="Sudah">Sudah Checkin</option>
+                                                    <option value="Belum">Belum Checkin</option>
+                                                    <option value="Belum">Sudah Checkout</option>
                                                     <option value="Dibatalkan">Dibatalkan</option>
                                                 </select>
                                                 <div class="mt-3 flex gap-2">

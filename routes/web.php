@@ -53,6 +53,8 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::resource('/room_facilities', RoomFacilitiesController::class)->middleware('role:admin|staff');
     Route::post('/room_facilities/bulkDelete', [BulkAction::class, 'roomFacilitiesBulkDelete'])->name('room_facilities.bulkDelete')->middleware('role:admin|staff');
 
+    Route::post('/room-review/bulkChangeVisibility', [BulkAction::class, 'changeReviewVisibility'])->name('room-review.changeVisibility')->middleware('role:admin|staff');
+
     Route::resource('/nearby_location', NearbyLocationController::class)->middleware('role:admin|staff');
     Route::post('/nearby_location/bulkDelete', [BulkAction::class, 'nearbyLocationBulkDelete'])->name('nearby_location.bulkDelete')->middleware('role:admin|staff');
 

@@ -7,15 +7,16 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Saldo;
-use App\Models\SiteSettings;
 use App\Traits\Fonnte;
 use Xendit\Configuration;
 use Xendit\Payout\Payout;
 use App\Models\Transaction;
 use Xendit\Invoice\Invoice;
+use App\Models\SiteSettings;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Xendit\Invoice\InvoiceApi;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\BalanceAndTransaction\TransactionApi;
 use Xendit\PaymentRequest\PaymentRequestParameters;
@@ -59,6 +60,11 @@ class PaymentController extends Controller
         // Adapun data lain spt, harga total akan diperbarui di akhir
         // $payment_deadline = now()->addHours(5);
         // dd($payment_deadline);
+        $checkIn = Carbon::parse($data['check_in']);
+        $checkOut = Carbon::parse($data['check_out']);
+
+        // Check if room is available for the requested dates
+
         $transaction = new Transaction();
         $transaction->user_id = $data['user_id'];
         $transaction->name = $data['name'];
@@ -69,8 +75,8 @@ class PaymentController extends Controller
         $transaction->check_out = $data['check_out'];
         $transaction->invoice = $data['invoice'];
         $transaction->payment_method = 'Xendit';
-        // $transaction->payment_deadline = now()->addMinutes(2);
-        $transaction->payment_deadline = now()->addHours($this->site_settings->payment_deadline);
+        $transaction->payment_deadline = now()->addMinutes(2);
+        // $transaction->payment_deadline = now()->addHours($this->site_settings->payment_deadline);
         
         $transaction->save();
         // dd($transaction);
@@ -208,7 +214,7 @@ class PaymentController extends Controller
         $transaction->total_price = $total_amount;
         $transaction->save();
 
-        return redirect()->route('payment.bill', $transaction->invoice);
+        return redirect()->route('payment.success', $transaction->invoice);
     }
 
     public function creditPayment(Request $request){
@@ -289,8 +295,24 @@ class PaymentController extends Controller
     }
 
     public function bill(Transaction $transaction) {
-        // if()
+        if($transaction->payment_deadline < Carbon::now()) {
+            return redirect()->route('payment.timeout', $transaction->invoice);
+        }
+
         return view('frontpage.payment.bill', compact('transaction'));
+    }
+
+    public function timeout(Transaction $transaction) {
+        // $transaction = Transaction::where('invoice',$id)->firstOrFail();
+        $room = Room::where('id', $transaction->room_id)->firstOrFail();
+        if($transaction->payment_status == "PENDING")  {
+            $transaction->payment_status = "CANCELLED";
+            $transaction->save();
+            $room->incrementAvailableRooms();
+            return view('frontpage.payment.timeout');
+        } elseif($transaction->payment_status == 'PAID') {
+            return redirect()->route('payment.success', $transaction->invoice);
+        }
     }
 
     public function success(Transaction $transaction)
