@@ -16,6 +16,7 @@ use App\Models\NearbyLocation;
 use App\Models\RoomFacilities;
 use App\Models\AccomdationPlan;
 use App\Models\HotelFacilities;
+use App\Models\ServiceCategory;
 use Illuminate\Support\Facades\Gate;
 
 class BulkAction extends Controller

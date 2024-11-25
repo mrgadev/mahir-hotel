@@ -116,8 +116,8 @@
                                     <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->payment_status}}</p>
                                     @elseif($transaction->payment_status == 'PENDING')
                                     <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->payment_status}}</p>
-                                    @elseif($transaction->payment_status == 'Dibatalkan')
-                                    <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">DIBATALKAN</p>
+                                    @elseif($transaction->payment_status == 'CANCELLED')
+                                    <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">CANCELLED</p>
                                     @endif
                                 </td>
 

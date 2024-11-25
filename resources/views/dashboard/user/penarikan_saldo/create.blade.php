@@ -22,14 +22,14 @@
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
                     <a href="{{route('dashboard.service_category.index')}}" class="flex items-center hover:underline">
-                        <p>Kategori Layanan Lainnya</p>
+                        <p>Riwayat Saldo</p>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <p>Buat Baru</p>
+                    <p>Penarikan Saldo</p>
                 </div>
         
                 <h1 class="text-white text-4xl font-medium">
-                    Buat Kategori Layanan Lainnya
+                    Penarikan Saldo
                 </h1>
             </div>
             
