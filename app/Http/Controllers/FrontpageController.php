@@ -35,7 +35,6 @@ class FrontpageController extends Controller
         $accomodation_plans = AccomdationPlan::all();
 
         $promos = Promo::where('is_all', true)->get();
-
         
         $user = Auth::user();
         if($user) {

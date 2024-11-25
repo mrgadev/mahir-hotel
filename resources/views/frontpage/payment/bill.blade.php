@@ -5,7 +5,7 @@
     <div class="mx-auto max-w-2xl p-5 mb-5 bg-primary-100 flex items-center justify-between border border-primary-700 rounded-lg">
         <h1 class="text-lg lg:text-xl font-medium text-primary-700">Mahir Hotel</h1>
         <div class="flex items-center gap-3">
-            <a href="#" class="flex items-center gap-2 text-primary-700 font-medium"><i class="bi bi-file-earmark-pdf"></i> <span class="hidden lg:inline">Simpan PDF</span></a>
+            {{-- <a href="#" class="flex items-center gap-2 text-primary-700 font-medium"><i class="bi bi-file-earmark-pdf"></i> <span class="hidden lg:inline">Simpan PDF</span></a> --}}
             {{-- <a href="#" class="px-3 py-2 rounded-lg bg-primary-700 text-white">Bayar sekarang</a> --}}
         </div>
     </div>
@@ -115,16 +115,21 @@
 @push('addons-script')
     <script>
         let timeRemaining = Math.abs({{$seconds}});
+        // let paymentStatus = {{$transaction->payment_status}};
         function handlePaymentTimeout() {
             window.location.href = "{{route('payment.timeout', $transaction->invoice)}}";
         }
         //setTimeout(handlePaymentTimeout(), timeRemaining)
 
         function updateCountdown() {
-            if(timeRemaining <= 0) {
+            if(timeRemaining <= 0  ) {
                 handlePaymentTimeout();
                 return;
             }
+            // } else if(paymentStatus == 'PAID') {
+            //     window.location.href = "{{route('payment.success', $transaction->invoice)}}";
+            //     return;
+            // }
 
             const hours = Math.floor((timeRemaining % (24 * 60 * 60)) / (60 * 60));
             const minutes = Math.floor((timeRemaining % (60 * 60)) / 60);

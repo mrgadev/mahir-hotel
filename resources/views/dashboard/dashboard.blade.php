@@ -329,7 +329,7 @@
             $user_transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->latest()->first();
             $user_transactions = App\Models\Transaction::where('user_id', Auth::user()->id)->get();
             $wallet = App\Models\Saldo::where('user_id', Auth::user()->id)->latest()->first();
-            $seconds = Carbon\Carbon::parse($user_transaction->payment_deadline)->diffInSeconds(now());
+            $seconds = Carbon\Carbon::parse($user_transaction->payment_deadline ?? 0)->diffInSeconds(now());
         @endphp
         {{-- #1 Row for USer --}}
         <div class="grid lg:grid-cols-2 gap-5">
@@ -356,7 +356,7 @@
             </div>
 
             @if (isset($user_transaction))
-                @if($user_transaction->payment_status == 'PENDING')
+                @if($user_transaction->payment_status == 'PENDING' )
                 <div class="bg-white rounded-2xl shadow-xl p-5">
                     <div class="flex items-center justify-between">
                         <h3 class="font-medium text-lg text-primary-700">Menunggu Pembayaran</h3>

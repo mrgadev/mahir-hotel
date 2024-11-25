@@ -153,8 +153,13 @@
                             </div>
 
                             <div class="flex flex-col gap-1">
-                                <p>Status Check-in</p>
+                                <p>Status Reservasi</p>
                                 <p class="font-medium text-primary-700">{{$transaction->checkin_status}}</p>
+                                @if($transaction->checkin_status == 'Sudah Checkin')
+                                <p class="font-medium text-primary-700">{{Carbon\Carbon::parse($transaction->checkin_date)->isoFormat('ddd, DD MMM YYYY H:M')}}</p>
+                                @elseif($transaction->checkin_status == 'Sudah Checkout')
+                                <p class="font-medium text-primary-700">{{Carbon\Carbon::parse($transaction->checkout_date)->isoFormat('ddd, DD MMM YYYY H:M')}}</p>
+                                @endif
                             </div>
 
                             {{-- <div class="flex flex-col gap-1">
@@ -225,7 +230,7 @@
                             </form>
                             @elseif($transaction->checkin_status == 'Dibatalkan')
                             <p class="mt-5 p-3 rounded-lg bg-red-100 text-red-700 border border-red-700">Transaksi sudah dibatalkan dan dana dikembalikan ke saldo Anda.</p>
-                            @elseif($transaction->checkin_status == 'Sudah' && !$room_review)
+                            @elseif($transaction->checkin_status == 'Sudah Checkout' && !$room_review)
                             <h3 class="text-lg text-primary-700 font-medium my-5">Berikan ulasan untuk "{{$transaction->room->name}}"</h3>
                             <form action="{{route('dashboard.room-review.store')}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
                                 @csrf
@@ -288,7 +293,7 @@
                     
                                 <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
                             </form>
-                            @elseif ($transaction->checkin_status == 'Sudah' && $room_review)
+                            @elseif ($transaction->checkin_status == 'Sudah Checkout' && $room_review)
                             <h3 class="text-lg text-primary-700 font-medium my-5">Ubah ulasan untuk "{{$transaction->room->name}}"</h3>
                             <form action="{{route('dashboard.room-review.update', $room_review->id)}}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5">
                                 @csrf

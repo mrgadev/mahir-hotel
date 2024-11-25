@@ -7,15 +7,16 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Saldo;
-use App\Models\SiteSettings;
 use App\Traits\Fonnte;
 use Xendit\Configuration;
 use Xendit\Payout\Payout;
 use App\Models\Transaction;
 use Xendit\Invoice\Invoice;
+use App\Models\SiteSettings;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Xendit\Invoice\InvoiceApi;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\BalanceAndTransaction\TransactionApi;
 use Xendit\PaymentRequest\PaymentRequestParameters;
@@ -63,19 +64,6 @@ class PaymentController extends Controller
         $checkOut = Carbon::parse($data['check_out']);
 
         // Check if room is available for the requested dates
-        $conflictingTransactions = Transaction::where('room_id', $request->room_id)
-        ->where(function ($query) use ($checkIn, $checkOut) {
-            $query->whereBetween('checkin_date', [$checkIn, $checkOut])
-                ->orWhereBetween('checkout_date', [$checkIn, $checkOut])
-                ->orWhere(function ($q) use ($checkIn, $checkOut) {
-                    $q->where('checkin_date', '<=', $checkIn)
-                        ->where('checkout_date', '>=', $checkOut);
-                });
-        })
-        ->exists();
-        if($conflictingTransactions) {
-            return redirect()->back()->with('error', 'Kamar tidak tersedia untuk tanggal tersebut');
-        }
 
         $transaction = new Transaction();
         $transaction->user_id = $data['user_id'];
@@ -308,7 +296,7 @@ class PaymentController extends Controller
 
     public function bill(Transaction $transaction) {
         if($transaction->payment_deadline < Carbon::now()) {
-            return redirect()->route('payment.timeout');
+            return redirect()->route('payment.timeout', $transaction->invoice);
         }
 
         return view('frontpage.payment.bill', compact('transaction'));
@@ -321,8 +309,10 @@ class PaymentController extends Controller
             $transaction->payment_status = "CANCELLED";
             $transaction->save();
             $room->incrementAvailableRooms();
+            return view('frontpage.payment.timeout');
+        } elseif($transaction->payment_status == 'PAID') {
+            return redirect()->route('payment.success', $transaction->invoice);
         }
-        return view('frontpage.payment.timeout');
     }
 
     public function success(Transaction $transaction)
