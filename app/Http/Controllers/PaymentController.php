@@ -274,22 +274,23 @@ class PaymentController extends Controller
         $transaction->save();
         $room = Room::where('id', $transaction->room_id)->first();
         $room->decrementAvailableRooms();
-        // $lastBalance = Saldo::where('user_id', $transaction->user_id)
-        //                 ->latest()
-        //                 ->first(); // Gunakan first() karena kita akan handle jika null
+        
+        $lastBalance = Saldo::where('user_id', $transaction->user_id)
+                        ->latest()
+                        ->first(); // Gunakan first() karena kita akan handle jika null
 
-        // // Hitung saldo baru
-        // $newAmount = $lastBalance ? $lastBalance->amount - $transaction->total_price : $transaction->total_price;
+        // Hitung saldo baru
+        $newAmount = $lastBalance ? $lastBalance->amount - $transaction->total_price : $transaction->total_price;
 
-        // // Buat record saldo baru
-        // Saldo::create([
-        //     'user_id' => $transaction->user_id,
-        //     'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
-        //     'debit' => 0,
-        //     'credit' => $transaction->total_price,
-        //     'amount' => $newAmount,
-        //     'description' => 'Reservasi Kamar'
-        // ]);
+        // Buat record saldo baru
+        Saldo::create([
+            'user_id' => $transaction->user_id,
+            'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
+            'debit' => 0,
+            'credit' => $transaction->total_price,
+            'amount' => $newAmount,
+            'description' => 'Reservasi Kamar'
+        ]);
 
         return redirect()->route('payment.bill', $transaction->invoice);
     }
@@ -332,22 +333,22 @@ class PaymentController extends Controller
             $transaction->payment_deadline = NULL;
             $transaction->save();
 
-            $lastBalance = Saldo::where('user_id', $transaction->user_id)
-                            ->latest()
-                            ->first(); // Gunakan first() karena kita akan handle jika null
+            // $lastBalance = Saldo::where('user_id', $transaction->user_id)
+            //                 ->latest()
+            //                 ->first(); // Gunakan first() karena kita akan handle jika null
 
-            // Hitung saldo baru
-            $newAmount = $lastBalance ? $lastBalance->amount - $transaction->total_price : $transaction->total_price;
+            // // Hitung saldo baru
+            // $newAmount = $lastBalance ? $lastBalance->amount - $transaction->total_price : $transaction->total_price;
 
-            // Buat record saldo baru
-            Saldo::create([
-                'user_id' => $transaction->user_id,
-                'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
-                'debit' => 0,
-                'credit' => $transaction->total_price,
-                'amount' => $newAmount,
-                'description' => 'Reservasi Kamar'
-            ]);
+            // // Buat record saldo baru
+            // Saldo::create([
+            //     'user_id' => $transaction->user_id,
+            //     'transaction_id' => $transaction->id, // Pastikan ini sesuai dengan kolom di database
+            //     'debit' => 0,
+            //     'credit' => $transaction->total_price,
+            //     'amount' => $newAmount,
+            //     'description' => 'Reservasi Kamar'
+            // ]);
         }
         $pesan = "Halo ".$transaction->user->name."!\nTerimakasih telah melakukan pemesanan kamar di Mahir Hotel\nBerikut ini detail reservasi Anda: \nNomor Kamar: *".$transaction->room_number."*\nTipe Kamar: *".$transaction->room->name."*\nTanggal Check-in: *".Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')."*\n\nSemoga liburan Anda menyenangkan!";
         $this->send_message($transaction->phone, $pesan);
@@ -520,7 +521,7 @@ class PaymentController extends Controller
             Saldo::create([
                 'amount' => 0,
                 'user_id' => Auth::user()->id,
-                'debit' => $saldo->amount,
+                'debit' => $transaction->total_price,
                 'description' => 'Reservasi Kamar',
             ]);
 
