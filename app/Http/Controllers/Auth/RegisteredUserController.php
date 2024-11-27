@@ -71,6 +71,7 @@ class RegisteredUserController extends Controller
             'credit' => 0,
             'debit' => 0,
             'amount' => 0,
+            'description' => 'Saldo Awal',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

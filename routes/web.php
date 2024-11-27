@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\NearbyLocationController;
 use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\AccomdationPlanController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\PenarikanSaldoController;
 use App\Http\Controllers\RoomRuleController;
@@ -98,6 +99,8 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('role:admin|staff');
     Route::post('/export-transactions', [ReportController::class, 'exportTransactions'])->name('export-transactions');
     
+    Route::resource('/bank', BankController::class);
+
     Route::resource('/saldo', SaldoController::class);
     Route::put('/saldo/{id}/cancel', [SaldoController::class, 'cancelTransaction'])->name('saldo.cancelTransaction');
 

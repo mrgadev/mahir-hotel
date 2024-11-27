@@ -88,7 +88,7 @@
                 <p>Rp. {{number_format($transaction->total_price,0,',','.')}}</p>
             </div>
         </div>
-        @if($transaction->payment_method == 'Xendit')
+        @if($transaction->payment_method == 'Xendit' || $transaction->payment_method == 'Split Payment (Saldo & Xendit)')
         <a href="{{$transaction->payment_url}}" class="text-white p-5 bg-primary-700 grid lg:grid-cols-4 rounded-lg items-center active:ring-4 active:ring-primary-700">
             <p class="lg:col-span-3 text-xl text-center lg:text-left">Bayar sekarang</p>
             <div class="hidden lg:flex flex-col gap-1">
@@ -96,7 +96,7 @@
                 <p >Rp. {{number_format($transaction->total_price,0,',','.')}}</p>
             </div>
         </a>
-        @elseif($transaction->payment_method == 'Cash' || $transaction->payment_method == 'Saldo')
+        @elseif($transaction->payment_method == 'Cash' || $transaction->payment_method == 'Saldo' || $transaction->payment_method == 'Split Payment (Saldo & Cash)')
         <a href="{{route('payment.success', $transaction->invoice)}}" class="text-white p-5 bg-primary-700 grid lg:grid-cols-4 rounded-lg items-center active:ring-4 active:ring-primary-700">
             <p class="lg:col-span-3 text-xl text-center lg:text-left">Bayar sekarang</p>
             <div class="hidden lg:flex flex-col gap-1">

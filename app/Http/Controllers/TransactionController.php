@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\Saldo;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,8 +47,51 @@ class TransactionController extends Controller
             'payment_status' => 'required|string'
         ]);
 
-        $transaction->update($data);
-        return view('dashboard.admin.transaction.detail', compact('transaction'));
+        try {
+            // Update status transaksi
+            $transaction->update($data);
+
+            // Cek jika metode pembayaran adalah split payment
+            if($transaction->payment_method == 'Split Payment (Saldo & Cash)'){
+                if($data['PAID']){
+                    // Dapatkan saldo terakhir user
+                    $lastBalance = Saldo::where('user_id', $transaction->user_id)
+                        ->latest()
+                        ->first();
+
+                    // Tentukan saldo saat ini (default 0 jika tidak ada saldo sebelumnya)
+                    $currentAmount = $lastBalance ? $lastBalance->amount : 0;
+
+                    // Buat entri saldo debit (penambahan saldo)
+                    Saldo::create([
+                        'user_id' => $transaction->user_id,
+                        'transaction_id' => $transaction->id,
+                        'debit' => $transaction->total_price,
+                        'credit' => 0,
+                        'amount' => $currentAmount + $transaction->total_price,
+                        'description' => 'Penambahan Saldo dari Cash (Sudah Dibayar)'
+                    ]);
+
+                    // Buat entri saldo kredit (pengurangan saldo)
+                    Saldo::create([
+                        'user_id' => $transaction->user_id,
+                        'transaction_id' => $transaction->id,
+                        'debit' => 0,
+                        'credit' => $transaction->total_price,
+                        'amount' => $currentAmount, // Saldo setelah dikurangi
+                        'description' => 'Reservasi Kamar',
+                    ]);
+                }
+            }
+
+            // Redirect dengan pesan sukses
+            return redirect()->back()
+                ->with('success', 'Status pembayaran berhasil diperbarui');
+
+        } catch (\Exception $e) {
+            // Tangani jika terjadi error
+            return back()->with('error', 'Gagal memperbarui status pembayaran: ' . $e->getMessage());
+        }
     }
 
     public function getMonthlyRevenue()

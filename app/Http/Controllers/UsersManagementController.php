@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -82,7 +83,8 @@ class UsersManagementController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
-        return view('dashboard.admin.users-management.edit', compact('user'));
+        $banks = Bank::all();
+        return view('dashboard.admin.users-management.edit', compact('user', 'banks'));
     }
 
     /**
@@ -96,6 +98,8 @@ class UsersManagementController extends Controller
             'role' => 'required',
             'phone' => 'required',
             'email' => 'required|email',
+            'bank_id' => 'required',
+            'nomor_rekening' => 'required'
         ]);
 
         $user = User::find($id);
