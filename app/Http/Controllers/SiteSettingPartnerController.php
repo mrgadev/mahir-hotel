@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\SiteSettingPartner;
+use Illuminate\Support\Facades\Storage;
 
 class SiteSettingPartnerController extends Controller
 {
@@ -35,7 +36,9 @@ class SiteSettingPartnerController extends Controller
         ]);
 
         if($request->hasFile('logo')){
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            $logo = $request->file('logo');
+            $logo_name = time() . '_' . $logo->getClientOriginalName();
+            $logoPath = $logo->storeAs('logos', $logo_name, 'public');
         }
 
         SiteSettingPartner::create([
@@ -44,7 +47,7 @@ class SiteSettingPartnerController extends Controller
             'link' => $data['link']
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Berhasil menambahkan data');
     }
 
     /**
@@ -75,7 +78,9 @@ class SiteSettingPartnerController extends Controller
         ]);
 
         if($request->hasFile('logo')){
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            $logo = $request->file('logo');
+            $logo_name = time() . '_' . $logo->getClientOriginalName();
+            $logoPath = $logo->storeAs('logos', $logo_name, 'public');
         }else{
             $logoPath = $partner->logo;
         }
@@ -86,7 +91,7 @@ class SiteSettingPartnerController extends Controller
             'link' => $data['link'],
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -94,7 +99,11 @@ class SiteSettingPartnerController extends Controller
      */
     public function destroy(SiteSettingPartner $partner)
     {
+        if($partner->logo && Storage::exists($partner->logo)) {
+        Storage::delete($partner->logo);
+        }
         $partner->delete();
-        return redirect()->back();
+
+        return redirect()->back()->with('success', 'Berhasil menghapus data!');
     }
 }

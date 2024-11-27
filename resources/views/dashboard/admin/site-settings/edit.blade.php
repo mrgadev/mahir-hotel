@@ -183,12 +183,10 @@
                     </svg>
                 </a>
 
-                <h3 class="flex items-center gap-1 text-primary-700 font-bold text-2xl">
+                <h3 class="flex items-center gap-1 text-primary-700 font-medium text-2xl">
                     Buat Partner
                     <br>
                 </h3>
-                <small class=" text-red-700">Silakan pilih peran (role) baru yang ingin Anda terapkan. Pilihan peran ini akan menentukan hak akses dan tanggung jawab pengguna di dalam sistem.</small>
-
                 <form action="{{ route('dashboard.partners.store') }}" class="mt-3" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')

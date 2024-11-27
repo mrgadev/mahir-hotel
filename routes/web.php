@@ -24,6 +24,7 @@ use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\AccomdationPlanController;
 use App\Http\Controllers\HotelFacilitiesController;
 use App\Http\Controllers\PenarikanSaldoController;
+use App\Http\Controllers\RoomRuleController;
 use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\UsersManagementController;
@@ -103,6 +104,8 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::get('/penarikan-saldo/index', [PenarikanSaldoController::class, 'index'])->name('penarikan-saldo.index');
     Route::get('/penarikan-saldo/{penarikanSaldo}/show', [PenarikanSaldoController::class, 'show'])->name('penarikan-saldo.show');
     Route::put('/penarikan-saldo/{penarikanSaldo}/update', [PenarikanSaldoController::class, 'update'])->name('penarikan-saldo.update');
+
+    Route::resource('/room-rules', RoomRuleController::class)->middleware('role:admin|staff');
 });
 
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle'])->name('auth.google.redirect');

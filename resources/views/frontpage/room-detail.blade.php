@@ -1,5 +1,6 @@
 @extends('layouts.frontpage')
 @push('addons-style')
+
 {{-- <style>
     #mainNavbar.scrolled {
         position: fixed;
@@ -168,15 +169,35 @@
 <div class="mx-12 lg:mx-36">
     <div class="flex flex-col gap-2">
         <h1 class="text-2xl text-primary-700">Deskripsi</h1>
-        <div class="text-gray-600 font-light">
+        <div class="text-gray-700 font-light">
             {!!$room->description!!}
+        </div>
+
+        <h1 class="text-2xl text-primary-700 mt-5">Peraturan dan Tata Tertib</h1>
+        <div class="text-gray-700 font-light flex flex-col gap-2">
+            <p><i class="bi bi-calendar2-check"></i> Checkin hanya dibolehkan di hari yang sama diatas jam {{Carbon\Carbon::parse($site_setting->checkin_time)->format('H:i')}}</p>
+            <p><i class="bi bi-calendar2-x"></i> Adapun checkout hanya dibolehkan diatas jam {{Carbon\Carbon::parse($site_setting->checkout_time)->format('H:i')}}</p>
+            @php
+                $global_rules = App\Models\RoomRule::where('room_id', NULL)->get();
+                $specific_rules = App\Models\RoomRule::where('room_id', $room->id)->get();
+                @endphp
+            @foreach ($global_rules as $global_rule)
+            <p><span class="material-icons">{{$global_rule->icon}}</span>{{$global_rule->rule}}</p>
+            @endforeach
+            @if($specific_rules->count() >= 1) 
+            @foreach ($specific_rules as $specific_rule)
+            <p><span class="material-icons">
+                {{$specific_rule->icon}}
+                </span> {{$specific_rule->rule}}</p>
+            @endforeach
+            @endif
         </div>
     </div>
     <div class="my-12 grid lg:grid-cols-3 gap-10">
         <div class="flex flex-col gap-8 col-span-2">
             <div class="flex flex-col gap-3">
                 <h2 class="text-2xl text-primary-700">Ulasan</h2>
-                <p class="flex items-center gap-2 text-gray-800">
+                <p class="flex items-center gap-2 text-gray-700">
                     @php
                         $total_rating = 0;
                         foreach($reviews as $review) {

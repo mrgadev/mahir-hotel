@@ -8,4 +8,5 @@ use Illuminate\Support\Facades\Schedule;
 //     $this->comment(Inspiring::quote());
 // })->purpose('Display an inspiring quote')->hourly();
 Schedule::command('app:cancel-expired-transaction')->everyMinute();
+Schedule::command('app:auto-checkout-command')->everyMinute();
 

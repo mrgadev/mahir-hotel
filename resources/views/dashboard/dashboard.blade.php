@@ -151,7 +151,7 @@
                             @if(!isset($total_reviews))
                             <p class="text-primary-700">-</p>
                             @else
-                                @switch($average_rating)
+                                @switch(round($average_rating ?? 0,0))
                                     @case(1)
                                         <p class="text-primary-700">Buruk</p>
                                         @break
@@ -237,12 +237,14 @@
                                         </td>
                                         <td class="p-4">
                                             <div class="flex flex-col items-center gap-1">
-                                                @if($transaction->checkin_status == 'Sudah')
-                                                <h3 class="font-normal p-2 bg-green-100 border border-green-700 text-green-700 rounded-lg w-fit">SUDAH</h3>
+                                                @if($transaction->checkin_status == 'Sudah Checkin')
+                                                <h3 class="font-normal p-2 bg-green-100 border border-green-700 text-green-700 rounded-lg w-fit">{{$transaction->checkin_status}}</h3>
+                                                @elseif($transaction->checkin_status == 'Sudah Checkout')
+                                                <h3 class="font-normal p-2 bg-green-100 border border-green-700 text-green-700 rounded-lg w-fit">{{$transaction->checkin_status}}</h3>
                                                 @elseif($transaction->checkin_status == 'Belum')
-                                                <h3 class="font-normal p-2 bg-yellow-100 border border-yellow-700 text-yellow-700 rounded-lg w-fit">BELUM</h3>
+                                                <h3 class="font-normal p-2 bg-yellow-100 border border-yellow-700 text-yellow-700 rounded-lg w-fit">{{$transaction->checkin_status}}</h3>
                                                 @elseif($transaction->checkin_status == 'Dibatalkan')
-                                                <h3 class="font-normal p-2 bg-red-100 border border-red-700 text-red-700 rounded-lg w-fit">DIBATALKAN</h3>
+                                                <h3 class="font-normal p-2 bg-red-100 border border-red-700 text-red-700 rounded-lg w-fit">{{$transaction->checkin_status}}</h3>
                                                 @endif
                                             </div>
                                         </td>

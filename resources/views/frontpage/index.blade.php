@@ -167,7 +167,7 @@
             {!!$site_setting->description!!}
         </div>
         
-        <form action="{{route('frontpage.search.rooms')}}" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full" method="GET">
+        <form action="{{route('frontpage.search.rooms')}}" id="reservationForm" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full" method="GET">
             <div class="flex items-center gap-2">
                 <div class="grid grid-cols-1 gap-2">
                     <label for="" class="text-sm px-3">Pilih Kamar</label>
@@ -181,12 +181,12 @@
                     </select>
                 </div>
                 <div class="grid grid-cols-1 gap-2">
-                    <label for="" class="text-sm px-3">Check-in</label>
-                    <input type="date" min="{{now()}}" name="check_in" class="outline-none border-none text-lg px-3">
+                    <label for="checkIn" class="text-sm px-3">Check-in</label>
+                    <input type="date" id="checkIn" name="check_in" class="outline-none border-none text-lg px-3">
                 </div>
                 <div class="grid grid-cols-1 gap-2">
-                    <label for="" class="text-sm px-3">Check-out</label>
-                    <input type="date" name="check_out" class="outline-none border-none text-lg px-3" name="" id="">
+                    <label for="checkOut" class="text-sm px-3">Check-out</label>
+                    <input type="date" id="checkOut" name="check_out" class="outline-none border-none text-lg px-3" name="" id="">
                 </div>
             </div>
             <button class="text-white bg-primary-500 w-fit px-5 me-3 py-3 rounded-full">
@@ -197,7 +197,7 @@
         {{-- Mobile booking form --}}
         <button class="text-white bg-primary-500 w-fit px-5 py-3 rounded-full block xl:hidden" id="openBookingForm">Pesan sekarang</button>
         <div class="inset-0 z-20 bg-gray-500 bg-opacity-65 fixed flex items-center justify-center xl:hidden hidden min-h-screen w-screen " id="bookingForm">
-            <form action="{{route('frontpage.search.rooms')}}" method="GET" class="flex flex-col gap-5 justify-center bg-white w-[90%] rounded-xl p-5">
+            <form action="{{route('frontpage.search.rooms')}}" id="reservationFormMobile" method="GET" class="flex flex-col gap-5 justify-center bg-white w-[90%] rounded-xl p-5">
                 <h2 class="text-2xl font-medium mb-5 text-primary-500">Pesan Kamar</h2>
                 <div class="grid grid-cols-1 gap-2 w-full">
                     <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Pilih Kamar</label>
@@ -214,11 +214,11 @@
                 <div class="flex items-center gap-3">
                     <div class="grid grid-cols-1 gap-2 w-full">
                         <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Check-in</label>
-                        <input type="date" name="start_date" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
+                        <input type="date" name="start_date" id="checkInMobile" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
                     </div>
                     <div class="grid grid-cols-1 gap-2 w-full">
                         <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Check-out</label>
-                        <input type="date" name="end_date" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
+                        <input type="date" name="end_date" id="checkOutMobile" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
                     </div>
                 </div>
 
@@ -452,28 +452,66 @@
 </div>
 
 {{-- Testimonial Section --}}
-<div class="px-12 xl:px-36 my-14">
-    <div class="flex flex-col gap-1 items-center justify-center">
-        <p class="font-medium text-primary-400">Testimonial</p>
-        <h2 class="text-3xl font-medium text-primary-700">Apa Kata Mereka Tentang Kami?</h2> 
+<div class="px-12 xl:px-36 my-16">
+    <div class="flex flex-col lg:flex-row items-center justify-between">
+        <div class="flex flex-col gap-1">
+            <p class="font-medium text-primary-400">Testimonial</p>
+            <h2 class="text-3xl font-medium text-primary-700">Apa Kata Mereka Tentang Kami?</h2> 
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button class="bg-primary-500 text-white px-4 py-3 rounded-full transition" id="prevTestimonial">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="bg-primary-500 text-white px-4 py-3 rounded-full transition " id="nextTestimonial">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
     </div>
 
+    {{-- <!-- Testimonial Content -->
+    <div class="testimonial-content text-center p-8">
+        <div id="testimonialText" class="text-lg text-gray-700 mb-4"></div>
+        <div id="testimonialAuthor" class="font-bold text-blue-600"></div>
+        <div id="testimonialPosition" class="text-gray-500 text-sm"></div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="absolute top-1/2 left-4 transform -translate-y-1/2">
+        <button id="prevTestimonial" class="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition">
+            &#10094;
+        </button>
+    </div>
+    <div class="absolute top-1/2 right-4 transform -translate-y-1/2">
+        <button id="nextTestimonial" class="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition">
+            &#10095;
+        </button>
+    </div>
+
+    <!-- Pagination Dots -->
+    <div id="testimonialDots" class="flex justify-center mt-4 pb-4"></div> --}}
     <div class="mt-10 grid xl:grid-cols-4 gap-5">
-        @foreach ($room_reviews as $room_review)    
-        <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all hover:shadow-xl">
-            {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
-            {{-- <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt=""> --}}
-            <h3 class="font-medium text-primary-700 text-xl">{{$room_review->title}}</h3>
-            <div class="text-sm text-primary-800">{!!$room_review->description!!}</div>
-            <div class="flex items-center gap-3">
-                <img src="{{Storage::url($room_review->user->avatar)}}" class="w-14 h-14 rounded-full object-cover object-center" alt="">
-                <div class="flex flex-col">
-                    <p class="font-medium text-primary-700">{{$room_review->user->name}}</p>
-                    <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>{{$room_review->rating}} ({{$room_review->rating_text}})</p>
-                </div> 
+        <div id="testimonialSlider" class="relative">
+            @foreach ($room_reviews as $room_review)    
+            <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all testimonial-content hover:shadow-xl">
+                {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
+                {{-- <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt=""> --}}
+                <h3 class="font-medium text-primary-700 text-xl">{{$room_review->title}}</h3>
+                <div class="text-sm text-primary-800">{!!$room_review->description!!}</div>
+                <div class="flex items-center gap-3">
+                    <img src="{{Storage::url($room_review->user->avatar)}}" class="w-14 h-14 rounded-full object-cover object-center" alt="">
+                    <div class="flex flex-col">
+                        <p class="font-medium text-primary-700">{{$room_review->user->name}}</p>
+                        <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>{{$room_review->rating}} ({{$room_review->rating_text}})</p>
+                    </div> 
+                </div>
             </div>
+            @endforeach
+        
+            <!-- Pagination Dots -->
+            {{-- <div id="testimonialDots" class="flex justify-center mt-4 pb-4"></div>  --}}
         </div>
-        @endforeach
+        
 
     </div>
 </div>
@@ -568,8 +606,8 @@
         <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
             @foreach ($partners as $partner)
             <li>
-                <a href="{{$partner->link}}">
-                    <img src="{{Storage::url($partner->logo)}}" target="_blank" class="h-10 grayscale hover:grayscale-0" alt="">
+                <a href="{{$partner->link}}" title="{{$partner->name}}">
+                    <img src="{{Storage::url($partner->logo)}}" target="_blank" class="h-14 grayscale hover:grayscale-0" alt="">
                 </a>
             </li>
             @endforeach
@@ -578,8 +616,8 @@
         <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
             @foreach ($partners as $partner)
             <li>
-                <a href="{{$partner->link}}">
-                    <img src="{{Storage::url($partner->logo)}}" target="_blank" class="h-10 grayscale hover:grayscale-0" alt="">
+                <a href="{{$partner->link}}" title="{{$partner->name}}">
+                    <img src="{{Storage::url($partner->logo)}}" target="_blank" class="h-14 grayscale hover:grayscale-0" alt="">
                 </a>
             </li>
             @endforeach
@@ -660,4 +698,104 @@
             userMenu.classList.toggle('hidden');
         })
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkInInput = document.getElementById('checkIn');
+        const checkOutInput = document.getElementById('checkOut');
+        const reservationForm = document.getElementById('reservationForm');
+
+        // Set minimum date for check-in to today
+        const today = new Date().toISOString().split('T')[0];
+        checkInInput.setAttribute('min', today);
+
+        // Enable check-out input and set its min date when check-in is selected
+        checkInInput.addEventListener('change', function() {
+            // Enable check-out input
+            checkOutInput.disabled = false;
+            checkOutInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+            checkOutInput.classList.add('bg-white', 'cursor-default');
+
+            // Set minimum date for check-out to the selected check-in date
+            checkOutInput.setAttribute('min', this.value);
+
+            // Reset check-out input
+            checkOutInput.value = '';
+        });
+
+        // Ensure check-out is after check-in
+        checkOutInput.addEventListener('change', function() {
+            if (new Date(this.value) <= new Date(checkInInput.value)) {
+                alert('Tanggal checkout harus setelah tanggal checkin!');
+                this.value = '';
+            }
+        });
+
+        // Form submission handler
+        // reservationForm.addEventListener('submit', function(e) {
+        //     e.preventDefault();
+            
+        //     const checkInDate = checkInInput.value;
+        //     const checkOutDate = checkOutInput.value;
+
+        //     // Basic validation
+        //     if (!checkInDate || !checkOutDate) {
+        //         alert('Tolong pilih tanggal checkin dan checkout!');
+        //         return;
+        //     }
+
+        //     // You can add more validation or send data to server here
+        //     console.log('Reservation Details:', {
+        //         checkIn: checkInDate,
+        //         checkOut: checkOutDate
+        //     });
+
+        //     alert('Berhasil reservasi kamar!');
+        // });
+    });
+</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkInInputMobile = document.getElementById('checkInMobile');
+            const checkOutInputMobile = document.getElementById('checkOutMobile');
+            const reservationFormMobile = document.getElementById('reservationFormMobile');
+    
+            // Set minimum date for check-in to today
+            const today = new Date().toISOString().split('T')[0];
+            checkInInputMobile.setAttribute('min', today);
+            checkOutInputMobile.setAttribute('min', today);
+    
+            // Dynamically update check-out min date based on check-in date
+            checkInInputMobile.addEventListener('change', function() {
+                checkOutInputMobile.setAttribute('min', this.value);
+                
+                // If current check-out date is before new check-in date, reset it
+                if (new Date(checkOutInputMobile.value) < new Date(this.value)) {
+                    checkOutInputMobile.value = this.value;
+                }
+            });
+    
+            // Form submission handler
+            reservationFormMobile.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const checkInDateMobile = checkInInputMobile.value;
+                const checkOutDateMobile = checkOutInputMobile.value;
+    
+                // Basic validation
+                if (!checkInDateMobile || !checkOutDateMobile) {
+                    alert('Tolong tentukan waktu checkin dan checkout!');
+                    return;
+                }
+    
+                // You can add more validation or send data to server here
+                // console.log('Reservation Details:', {
+                //     checkIn: checkInDate,
+                //     checkOut: checkOutDate
+                // });
+    
+                alert('Room reservation submitted successfully!');
+            });
+        });
+        </script>
 @endpush
