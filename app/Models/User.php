@@ -29,6 +29,7 @@ class User extends Authenticatable
         'avatar',
         'id_number',
         'id_photo',
+        'bank_id',
     ];
 
     /**
@@ -73,5 +74,9 @@ class User extends Authenticatable
 
     public function PenarikanSaldo(){
         return $this->hasMany(PenarikanSaldo::class);
+    }
+
+    public function bank(){
+        return $this->hasMany(Bank::class);
     }
 }

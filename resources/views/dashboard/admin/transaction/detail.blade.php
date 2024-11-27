@@ -107,15 +107,9 @@
                                     <p>Status Pembayaran</p>
                                     @if($transaction->payment_method == 'Xendit')
                                     <p class="font-medium text-primary-700">{{$transaction->payment_status}}</p>
-                                    @elseif($transaction->payment_method == 'Cash')
+                                    @elseif($transaction->payment_method == 'Cash' || $transaction->payment_method == 'Split Payment (Saldo & Cash)')
                                     <div class="flex items-center gap-3">
-                                        <p class="font-medium text-primary-700" id="paymentStatus">
-                                            {{$transaction->payment_status}}
-                                        </p>
-                                        <button id="editpaymentStatusBtn" class="underline text-primary-700">
-                                            Ubah status
-                                        </button>
-                                        <div id="paymentStatusFormContainer" class="hidden">
+                                        <div id="paymentStatusFormContainer" class="">
                                             <form id="editpaymentStatusForm" method="POST" action="{{route('dashboard.transaction.changePaymentStatus', $transaction->id)}}">
                                                 @csrf
                                                 @method('PUT')
@@ -123,9 +117,10 @@
                                                 {{-- <input type="text" id="inputField" /> --}}
                                                 <select name="payment_status" id="paymentStatusField" class="bg-primary-100 rounded border border-primary-700 text-primary-700 p-2">
                                                     
-                                                    <option value="Sudah">Sudah</option>
-                                                    <option value="Belum">Belum</option>
-                                                    <option value="Dibatalkan">Dibatalkan</option>
+                                                    <option value="{{$transaction->payment_status}}">Tidak Diubah ({{$transaction->payment_status}})</option>
+                                                    <option value="PAID">PAID</option>
+                                                    <option value="PENDING">PENDING</option>
+                                                    <option value="CENCELLED">CENCELLED</option>
                                                 </select>
                                                 <button type="submit">Submit</button>
                                                 <button type="button" id="cancelEditpaymentStatusBtn">Cancel</button>

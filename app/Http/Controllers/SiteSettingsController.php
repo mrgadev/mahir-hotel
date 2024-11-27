@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\SiteSettingPartner;
 use App\Models\SiteSettings;
 use Illuminate\Http\Request;
@@ -11,7 +12,8 @@ class SiteSettingsController extends Controller
     public function edit() {
         $site_setting = SiteSettings::where('id',1)->firstOrFail();
         $partners = SiteSettingPartner::all();
-        return view('dashboard.admin.site-settings.edit', compact('site_setting', 'partners'));
+        $banks = Bank::all();
+        return view('dashboard.admin.site-settings.edit', compact('site_setting', 'partners', 'banks'));
     }
 
     public function update(Request $request, SiteSettings $site_setting) {

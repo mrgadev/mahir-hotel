@@ -152,36 +152,27 @@
         <div class="mt-10">
             <h3 class="text-2xl text-primary-700">Pilih Promo</h3>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-3 mt-5">
-                @foreach ($room->promos as $promo)  
-                    <div class="relative">
-                        <input type="checkbox" 
-                            id="promo-{{ $promo->id }}" 
-                            name="promo_id[]"
-                            value="{{ $promo->id }}" 
-                            data-discount="{{ $promo->amount }}"
-                            class="promo-checkbox hidden peer" 
-                            onchange="updateAccommodationPlans()">
-                        <label for="promo-{{ $promo->id }}" class="inline-flex items-center justify-between w-full p-5 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-500 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50">                           
-                            <div class="block">
-                                <p class="w-full text-base text-primary-700">{{ $promo->name }}</p>
-                                <p class="w-full text-sm text-primary-700">Potongan harga: {{ $promo->amount }}%<p>
-                            </div>
-                        </label>
-                    </div>
-                @endforeach
                 @foreach ($promos as $promo)
-                    <div class="relative">
+                    @php
+                        $now = now();
+                        $isExpired = $now > $promo->end_date;
+                    @endphp
+                    <div class="relative {{ $isExpired ? 'opacity-50' : '' }}">
                         <input type="checkbox" 
                             id="promo-{{ $promo->id }}" 
                             name="promo_id[]"
                             value="{{ $promo->id }}" 
                             data-discount="{{ $promo->amount }}"
                             class="promo-checkbox hidden peer" 
+                            {{ $isExpired ? 'disabled' : '' }}
                             onchange="updateAccommodationPlans()">
                         <label for="promo-{{ $promo->id }}" class="inline-flex items-center justify-between w-full p-5 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-500 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50">                           
                             <div class="block">
                                 <p class="w-full text-base text-primary-700">{{ $promo->name }}</p>
-                                <p class="w-full text-sm text-primary-700">Potongan harga: {{ $promo->amount }}%<p>
+                                <p class="w-full text-sm text-primary-700">Potongan harga: {{ $promo->amount }}%</p>
+                                @if($isExpired)
+                                    <span class="absolute top-2 right-2 text-red-500 text-xs">Kadaluarsa</span>
+                                @endif
                             </div>
                         </label>
                     </div>
