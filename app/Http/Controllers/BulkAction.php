@@ -207,7 +207,7 @@ class BulkAction extends Controller
             if (!$transaction) {
                 continue; 
             }
-
+            
             // Cek status checkin
             if ($transaction->checkin_status == 'Sudah' || $transaction->checkin_status == 'Belum') {
                 if($checkin_status == 'Dibatalkan'){

@@ -124,7 +124,11 @@
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->name}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">Kamar Hotel</td>
-                                        @if($transaction->checkin_status == 'Sudah')
+                                        @if($transaction->checkin_status == 'Sudah Checkin')
+                                        <td>
+                                            <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
+                                        </td>
+                                        @elseif($transaction->checkin_status == 'Sudah Checkout')
                                         <td>
                                             <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
                                         </td>
@@ -232,8 +236,9 @@
                                 </label>
                                 <select name="checkin_status" id="newStatus" class="block w-full px-4 py-2 border rounded" required>
                                     <option value="">--Pilih Status Checkin--</option>
-                                    <option value="Sudah">Sudah</option>
                                     <option value="Belum">Belum</option>
+                                    <option value="Sudah">Sudah Checkin</option>
+                                    <option value="Sudah">Sudah Checkout</option>
                                     <option value="Dibatalkan">Dibatalkan</option>
                                 </select>
                             </div>

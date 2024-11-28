@@ -43,7 +43,7 @@ class RoomController extends Controller
             'photos.required' => 'Gambar lainnya wajib diunggah',
             'room_facilities_id.required' => 'Fasilitas kamar wajib dipilih',
             'total_rooms.required' => 'Total kamar wajib diisi',
-            'total_rooms.required' => 'Total kamar harus berupa angka'
+            'total_rooms.integer' => 'Total kamar harus berupa angka'
         ];
         $data = $request->validate([
             'name' => 'required',
@@ -250,17 +250,22 @@ class RoomController extends Controller
         try {
             DB::beginTransaction();
     
-            // 1. Delete images from storage and database
+            // // 1. Delete images from storage and database
             if ($room->photos) {
                 $photos = explode('|', $room->photos);
+                // dd($photos);
                 foreach ($photos as $photo) {
                     // Delete from storage
                     // Storage::delete('public/rooms/' . $photo);
-                    $imagePath = url($photo);
-                    if(file_exists($imagePath)) {
-                        unlink($imagePath);
+                    // $imagePath = url($photo);
+                    if(file_exists($photo)) {
+                        unlink($photo);
                     }
                 }
+            }
+
+            if($room->cover && file_exists($room->cover)) {
+                unlink($room->cover);
             }
     
             // 2. Detach all facilities (remove relationships)

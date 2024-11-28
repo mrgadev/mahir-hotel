@@ -76,9 +76,10 @@ class FrontpageController extends Controller
         // $room = Room::where('slug',$slug)->with('room_facility')->get();
         // dd($room->id);
         // $promo = Promo::where('room_id', $room->id)->get();
+        $site_setting = SiteSettings::where('id', 1)->first();
         $other_room = Room::whereNot('id', $room->id)->get();
         $reviews = RoomReview::where('room_id', $room->id)->where('visibility', 'Tampilkan')->get();
-        return view('frontpage.room-detail', compact('room', 'other_room', 'reviews'));
+        return view('frontpage.room-detail', compact('room', 'other_room', 'reviews', 'site_setting'));
     }
 
 
@@ -128,7 +129,7 @@ class FrontpageController extends Controller
         
             return redirect()->route('frontpage.rooms.detail', $room->slug);
         }else{
-            return redirect()->route('frontpage.rooms');
+            return redirect()->route('frontpage.index')->with('error', 'Kamar atau tanggal reservasi belum dipilih!');
         }
     }
 }

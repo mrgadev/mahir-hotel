@@ -479,7 +479,7 @@
                         </form>
 
                         @endif --}}
-
+                        
                     </div>
 
                     {{-- Room detail card --}}

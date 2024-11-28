@@ -153,6 +153,23 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
+        if ($service->image) {
+            // $decodedImage = json_decode($service->image);
+            $photos = explode('|', $service->image);
+            // dd($photos);
+            foreach ($photos as $photo) {
+                // Delete from storage
+                // Storage::delete('public/services/' . $photo);
+                // $imagePath = url($photo);
+                if(file_exists($photo)) {
+                    unlink($photo);
+                }
+            }
+        }
+
+        if($service->cover && file_exists($service->cover)) {
+            unlink($service->cover);
+        }
         $service->delete();
         return redirect()->route('dashboard.service.index')->with('success', 'Service deleted successfully');
     }

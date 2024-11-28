@@ -46,7 +46,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        Nama kamar
+                                        Nama Kamar
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -54,7 +54,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        check-in
+                                        Check-in
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -62,7 +62,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        check-out
+                                        Check-out
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -70,7 +70,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        Status check-in
+                                        Status Check-in
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -78,7 +78,7 @@
                                 </th>
                                 <th>
                                     <span class="flex items-center">
-                                        Status pembayaran
+                                        Status Pembayaran
                                         <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
                                         </svg>
@@ -103,7 +103,9 @@
                                     <p>{{Carbon\Carbon::parse($transaction->check_out)->isoFormat('d MMM YYYY')}}</p>
                                 </td>
                                 <td class="">
-                                    @if($transaction->checkin_status == 'Sudah')
+                                    @if($transaction->checkin_status == 'Sudah Checkin')
+                                    <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
+                                    @elseif($transaction->checkin_status == 'Sudah Checkout')
                                     <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
                                     @elseif($transaction->checkin_status == 'Belum')
                                     <p class="p-2 rounded-lg bg-yellow-100 border border-yellow-700 text-yellow-700 text-sm w-fit">{{$transaction->checkin_status}}</p>

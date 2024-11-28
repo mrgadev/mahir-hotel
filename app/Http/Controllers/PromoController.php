@@ -154,6 +154,9 @@ class PromoController extends Controller
      */
     public function destroy(Promo $promo)
     {
+        if($promo->cover && file_exists($promo->cover)) {
+            unlink($promo->cover);
+        }
         $promo->delete();
         $promo->rooms()->detach();
         return redirect()->route('dashboard.promo.index')->with('success', 'Promo deleted successfully');

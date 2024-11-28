@@ -150,7 +150,7 @@
             </li>
             {{-- Menu General Settings --}}
             <li class="mt-0.5 w-full">  
-                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.site.settings.edit') ? 'bg-primary-500 text-white' : ''}}" href="#" id="settingsToggle">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{ Route::is('dashboard.site.settings.edit') || Route::is('dashboard.room-rules.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="settingsToggle">
                     <div class="flex items-center">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="bi bi-gear-wide-connected"></i>
@@ -162,7 +162,12 @@
                 <ul id="settingsSubmenu" class="px-4 mx-2 flex flex-col my-3 bg-primary-500 rounded-lg hidden">
                     <li>
                         <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="{{route('dashboard.site.settings.edit')}}">
-                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan umum</span>
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Umum</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="{{route('dashboard.room-rules.index')}}">
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Kamar</span>
                         </a>
                     </li>
                     {{-- Hotel Menu --}}
