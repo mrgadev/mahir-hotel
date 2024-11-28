@@ -477,9 +477,9 @@ class PaymentController extends Controller
         Saldo::create([
             'amount' => 0,
             'user_id' => Auth::user()->id,
-            'credit' => $transaction->total_price,
-            'debit' => $transaction->total_price - $lastBalance->amount,
-            'description' => 'Penambahan Saldo dari Cash (Belum Dibayar)',
+            'credit' => $lastBalance->amount,
+            'debit' => 0,
+            'description' => 'Reservasi Kamar',
         ]);
 
         return redirect()->route('payment.success', $transaction->invoice);
@@ -564,7 +564,7 @@ class PaymentController extends Controller
             Saldo::create([
                 'amount' => $transaction->total_price - $lastBalance->amount,
                 'user_id' => Auth::user()->id,
-                'credit' => $transaction->total_price,
+                'credit' => 0,
                 'debit' => $transaction->total_price - $lastBalance->amount,
                 'description' => 'Penambahan Saldo dari Xendit',
             ]);
