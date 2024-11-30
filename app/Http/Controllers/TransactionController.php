@@ -53,7 +53,7 @@ class TransactionController extends Controller
 
             // Cek jika metode pembayaran adalah split payment
             if($transaction->payment_method == 'Split Payment (Saldo & Cash)'){
-                if($data['PAID']){
+                if($data['payment_status'] == 'CANCELLED'){
                     // Dapatkan saldo terakhir user
                     $lastBalance = Saldo::where('user_id', $transaction->user_id)
                         ->latest()
@@ -62,24 +62,14 @@ class TransactionController extends Controller
                     // Tentukan saldo saat ini (default 0 jika tidak ada saldo sebelumnya)
                     $currentAmount = $lastBalance ? $lastBalance->amount : 0;
 
-                    // Buat entri saldo debit (penambahan saldo)
-                    Saldo::create([
-                        'user_id' => $transaction->user_id,
-                        'transaction_id' => $transaction->id,
-                        'debit' => $transaction->total_price,
-                        'credit' => 0,
-                        'amount' => $currentAmount + $transaction->total_price,
-                        'description' => 'Penambahan Saldo dari Cash (Sudah Dibayar)'
-                    ]);
-
                     // Buat entri saldo kredit (pengurangan saldo)
                     Saldo::create([
                         'user_id' => $transaction->user_id,
                         'transaction_id' => $transaction->id,
                         'debit' => 0,
-                        'credit' => $transaction->total_price,
-                        'amount' => $currentAmount, // Saldo setelah dikurangi
-                        'description' => 'Reservasi Kamar',
+                        'credit' => $lastBalance->credit,
+                        'amount' => 0, // Saldo setelah dikurangi
+                        'description' => 'Reservasi Kamar Dibatalkan',
                     ]);
                 }
             }
