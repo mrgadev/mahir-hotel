@@ -16,7 +16,7 @@ class SaldoController extends Controller
      */
     public function index()
     {
-        $wallets = Saldo::where('user_id', Auth::user()->id)->get();
+        $wallets = Saldo::where('user_id', Auth::user()->id)->latest()->get();
         $withdrawals = PenarikanSaldo::where('user_id', Auth::user()->id)->get();
         $lastBalance = Saldo::where('user_id', Auth::user()->id)
                         ->latest()
@@ -30,7 +30,7 @@ class SaldoController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -75,12 +75,12 @@ class SaldoController extends Controller
 
     public function cancelTransaction(String $id){
         $transaction = Transaction::findOrFail($id);
-        
+
         // Cek apakah transaksi sudah dibatalkan
         if ($transaction->checkin_status === "Dibatalkan") {
             return redirect()->back()->with('error', 'Transaksi sudah dibatalkan sebelumnya');
         }
-        
+
         // Update status transaksi
         $transaction->checkin_status = "Dibatalkan";
         $transaction->room_number = null;

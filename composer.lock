@@ -2790,7 +2790,7 @@
                 "ext-libxml": "*",
                 "ext-xmlreader": "*",
                 "ext-zip": "*",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0"
+                "php": "~8.2.0 || ~8.4.0"
             },
             "require-dev": {
                 "ext-zlib": "*",
