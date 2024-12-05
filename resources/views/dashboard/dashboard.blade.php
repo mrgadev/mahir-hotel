@@ -329,7 +329,7 @@
         @role('user')
         @php
             $user_transaction = App\Models\Transaction::where('user_id', Auth::user()->id)->latest()->first();
-            $user_transactions = App\Models\Transaction::where('user_id', Auth::user()->id)->get();
+            $user_transactions = App\Models\Transaction::where('user_id', Auth::user()->id)->latest()->limit(5)->get();
             $wallet = App\Models\Saldo::where('user_id', Auth::user()->id)->latest()->first();
             $seconds = Carbon\Carbon::parse($user_transaction->payment_deadline ?? 0)->diffInSeconds(now());
         @endphp

@@ -699,61 +699,61 @@
         })
     </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const checkInInput = document.getElementById('checkIn');
-        const checkOutInput = document.getElementById('checkOut');
-        const reservationForm = document.getElementById('reservationForm');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkInInput = document.getElementById('checkIn');
+            const checkOutInput = document.getElementById('checkOut');
+            const reservationForm = document.getElementById('reservationForm');
 
-        // Set minimum date for check-in to today
-        const today = new Date().toISOString().split('T')[0];
-        checkInInput.setAttribute('min', today);
+            // Set minimum date for check-in to today
+            const today = new Date().toISOString().split('T')[0];
+            checkInInput.setAttribute('min', today);
 
-        // Enable check-out input and set its min date when check-in is selected
-        checkInInput.addEventListener('change', function() {
-            // Enable check-out input
-            checkOutInput.disabled = false;
-            checkOutInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
-            checkOutInput.classList.add('bg-white', 'cursor-default');
+            // Enable check-out input and set its min date when check-in is selected
+            checkInInput.addEventListener('change', function() {
+                // Enable check-out input
+                checkOutInput.disabled = false;
+                checkOutInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+                checkOutInput.classList.add('bg-white', 'cursor-default');
 
-            // Set minimum date for check-out to the selected check-in date
-            checkOutInput.setAttribute('min', this.value);
+                // Set minimum date for check-out to the selected check-in date
+                checkOutInput.setAttribute('min', this.value);
 
-            // Reset check-out input
-            checkOutInput.value = '';
+                // Reset check-out input
+                checkOutInput.value = '';
+            });
+
+            // Ensure check-out is after check-in
+            checkOutInput.addEventListener('change', function() {
+                if (new Date(this.value) <= new Date(checkInInput.value)) {
+                    alert('Tanggal checkout harus setelah tanggal checkin!');
+                    this.value = '';
+                }
+            });
+
+            // Form submission handler
+            // reservationForm.addEventListener('submit', function(e) {
+            //     e.preventDefault();
+                
+            //     const checkInDate = checkInInput.value;
+            //     const checkOutDate = checkOutInput.value;
+
+            //     // Basic validation
+            //     if (!checkInDate || !checkOutDate) {
+            //         alert('Tolong pilih tanggal checkin dan checkout!');
+            //         return;
+            //     }
+
+            //     // You can add more validation or send data to server here
+            //     console.log('Reservation Details:', {
+            //         checkIn: checkInDate,
+            //         checkOut: checkOutDate
+            //     });
+
+            //     alert('Berhasil reservasi kamar!');
+            // });
         });
-
-        // Ensure check-out is after check-in
-        checkOutInput.addEventListener('change', function() {
-            if (new Date(this.value) <= new Date(checkInInput.value)) {
-                alert('Tanggal checkout harus setelah tanggal checkin!');
-                this.value = '';
-            }
-        });
-
-        // Form submission handler
-        // reservationForm.addEventListener('submit', function(e) {
-        //     e.preventDefault();
-            
-        //     const checkInDate = checkInInput.value;
-        //     const checkOutDate = checkOutInput.value;
-
-        //     // Basic validation
-        //     if (!checkInDate || !checkOutDate) {
-        //         alert('Tolong pilih tanggal checkin dan checkout!');
-        //         return;
-        //     }
-
-        //     // You can add more validation or send data to server here
-        //     console.log('Reservation Details:', {
-        //         checkIn: checkInDate,
-        //         checkOut: checkOutDate
-        //     });
-
-        //     alert('Berhasil reservasi kamar!');
-        // });
-    });
-</script>
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const checkInInputMobile = document.getElementById('checkInMobile');
