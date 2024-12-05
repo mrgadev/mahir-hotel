@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\Regency;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -15,9 +16,18 @@ class DashboardController extends Controller
     public function editProfile(Request $request): View
     {
         $regencies = Regency::all();
+
+        $user = Auth::user();
+
+        $banks = Bank::all();
+
+        $bankName = Bank::where('id', $user->bank_id)->first();
+
         return view('dashboard.profile.edit', [
             'user' => $request->user(),
-            'regencies' => $regencies
+            'regencies' => $regencies,
+            'bankName' => $bankName,
+            'banks' => $banks,
         ]);
     }
 
@@ -38,6 +48,8 @@ class DashboardController extends Controller
             'id_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'regency_id' => 'nullable|exists:regencies,id',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'nomor_rekening' => 'nullable',
+            'bank_id' => 'nullable',
         ]);
 
             if ($request->hasFile('id_photo')) {

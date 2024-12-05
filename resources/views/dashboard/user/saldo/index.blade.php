@@ -164,9 +164,9 @@
                                         </svg>
                                     </span>
                                 </th>
-                                {{-- <th class="flex items-center">
+                                <th class="flex items-center">
                                     Action
-                                </th> --}}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -192,13 +192,13 @@
                                         <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">{{$withdrawal->status}}</p>
                                     </td>
                                 @endif
-                                {{-- <td class="flex items-center">
+                                <td class="flex items-center">
                                     <div class="mr-2">
-                                        <a href="#" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                        <a href="{{route('dashboard.penarikan-saldo.show', $withdrawal)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                     </div>
-                                </td> --}}
+                                </td>
                             </tr>
                             @endforeach
 

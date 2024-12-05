@@ -95,6 +95,30 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div>
+                                            <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nomor Rekening</label>
+                                            <input placeholder="Nomor Rekening" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
+                                                class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                                value="{{$user->nomor_rekening}}">
+                                            @error('nomor_rekening')
+                                                <p class="text-red-500 text-sm mt-1">{{$message}}</p>
+                                            @enderror
+                                        </div>
+
+                                        <div>
+                                            <label for="bank_id" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
+                                            <select name="bank_id" id="bank_id" 
+                                                class="block w-full py-3 px-5 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                                @if ($user->bank_id)
+                                                    <option value="{{ $user->bank->id }}" class="capitalize">Tidak Diubah ({{ $user->bank->name }})</option>
+                                                @else
+                                                    <option value="">-- Pilih Bank --</option>
+                                                @endif
+                                                @foreach($banks as $bank)
+                                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div class="">
                                             <label for="id_number" class="block mb-3 font-medium text-gray-700 text-md">Nomor KTP</label>
                                             <input placeholder="Your Ktp Number" type="number" name="id_number" id="id_number" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$user->id_number}}">

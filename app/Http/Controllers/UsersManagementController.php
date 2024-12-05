@@ -84,6 +84,7 @@ class UsersManagementController extends Controller
     {
         $user = User::find($id);
         $banks = Bank::all();
+        $bankName = Bank::where('id', $user->bank_id)->first();
         return view('dashboard.admin.users-management.edit', compact('user', 'banks'));
     }
 

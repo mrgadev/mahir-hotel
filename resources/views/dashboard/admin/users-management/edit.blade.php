@@ -89,7 +89,7 @@
                             </div>
 
                             <div>
-                                <label for="bank_id" class="block mb-3 font-medium text-gray-700 text-md">Role</label>
+                                <label for="bank_id" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
                                 <select name="bank_id" id="bank_id" 
                                     class="block w-full py-3 px-5 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                                     @if ($user->bank_id)

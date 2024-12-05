@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\PenarikanSaldo;
 use App\Models\Saldo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +28,9 @@ class PenarikanSaldoController extends Controller
         $saldo = Saldo::where('user_id', Auth::user()->id)
                         ->latest()
                         ->first();
-        return view('dashboard.user.penarikan_saldo.create', compact('saldo'));
+        $user = User::where('id', $saldo->user_id)->first();
+        $banks = Bank::all();
+        return view('dashboard.user.penarikan_saldo.create', compact('saldo', 'user', 'banks'));
     }
 
     /**
@@ -37,12 +41,19 @@ class PenarikanSaldoController extends Controller
         $data = $request->validate([
             'amount' => 'required',
             'notes' => 'required',
+            'nomor_rekening' => 'required',
+            'bank_id' => 'required',
         ]);
 
-        $user_id = Auth::user()->id;
+        $user = Auth::user();
+        
+        $user->update([
+            'bank_id' => $data['bank_id'],
+            'nomor_rekening' => $data['nomor_rekening'],
+        ]);
 
         $penarikanSaldo = PenarikanSaldo::create([
-            'user_id' => $user_id,
+            'user_id' => $user->id,
             'amount' => $data['amount'],
             'notes' => $data['notes'],
             'status' => 'Tertunda'
@@ -71,7 +82,9 @@ class PenarikanSaldoController extends Controller
     public function show(PenarikanSaldo $penarikanSaldo)
     {
         $saldo = Saldo::where('user_id', $penarikanSaldo->user_id)->latest()->first();
-        return view('dashboard.admin.penarikan_saldo.show', compact('penarikanSaldo', 'saldo'));
+        $user = User::where('id', $penarikanSaldo->user_id)->first();
+        $bankName = Bank::where('id', $user->bank_id)->first();
+        return view('dashboard.admin.penarikan_saldo.show', compact('penarikanSaldo', 'saldo', 'user', 'bankName'));
     }
 
     /**
@@ -88,8 +101,21 @@ class PenarikanSaldoController extends Controller
     public function update(Request $request, PenarikanSaldo $penarikanSaldo)
     {
         $data = $request->validate([
-            'status' => 'required'
+            'status' => 'required',
+            'image' => 'required',
         ]);
+
+        if($request->file('image')) {
+            $image_name = 'IMAGE-'.$penarikanSaldo->id.'-'.rand(000,999);
+            $ext = strtolower($request->file('image')->getClientOriginalExtension());
+            $image_full_name = $image_name.'.'.$ext;
+            $upload_path ='storage/penarikanSaldo/';
+            $image_url = $upload_path.$image_full_name;
+            $request->file('image')->move($upload_path, $image_full_name);
+            $data['image']= $image_url;
+        } else {
+            $data['image'] = $penarikanSaldo->image;
+        }
 
         $lastBalance = Saldo::where('user_id', $penarikanSaldo->user_id)
                         ->latest()
@@ -108,7 +134,8 @@ class PenarikanSaldoController extends Controller
         }
 
         $penarikanSaldo->update([
-            'status' => $data['status']
+            'status' => $data['status'],
+            'image' => $data['image']
         ]);
 
         return redirect()->route('dashboard.penarikan-saldo.index');

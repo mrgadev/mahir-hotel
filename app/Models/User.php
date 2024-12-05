@@ -30,6 +30,7 @@ class User extends Authenticatable
         'id_number',
         'id_photo',
         'bank_id',
+        'nomor_rekening'
     ];
 
     /**
@@ -77,6 +78,6 @@ class User extends Authenticatable
     }
 
     public function bank(){
-        return $this->hasMany(Bank::class);
+        return $this->belongsTo(Bank::class);
     }
 }
