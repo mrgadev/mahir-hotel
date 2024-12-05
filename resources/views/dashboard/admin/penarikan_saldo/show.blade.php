@@ -124,79 +124,72 @@
                 </form>
             </section>
         @endrole
-        <section class="container px-6 mx-auto">
-            <main class="col-span-12 md:pt-0">
-                <div class="p-2 mt-2 bg-white rounded-xl shadow-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="">
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                <div>
-                                    <label for="" class="block mb-3 font-medium text-gray-700 text-md">Tanggal</label>
-                                    <input placeholder="Nama Layanan Lainnya" type="text" name="" id="" autocomplete="off" class="block cursor-not-allowed w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{Carbon\Carbon::parse($penarikanSaldo->created_at)->isoFormat('dddd, D MMM YYYY')}}">
-                                </div>
-
-                                <div>
-                                    <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nominal</label>
-                                    <input placeholder="Nama Layanan Lainnya" type="text" name="" id="" autocomplete="off" disabled class="block cursor-not-allowed w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="Rp. {{number_format($penarikanSaldo->amount,0,',','.')}}">
-                                </div>
-
-                                <div>
-                                    <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nomor Rekening</label>
-                                    <input disabled placeholder="Nomor Rekening belum diTambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                        class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
-                                        value="{{$penarikanSaldo->user->nomor_rekening}}">
-                                    @error('nomor_rekening')
-                                        <p class="text-red-500 text-sm mt-1">{{$message}}</p>
-                                    @enderror
-                                </div>
-
-                                @if ($user->bank_id)
+        @role('user')
+            <section class="container px-6 mx-auto">
+                <main class="col-span-12 md:pt-0">
+                    <div class="p-2 mt-2 bg-white rounded-xl shadow-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="">
+                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                     <div>
-                                        <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
-                                        <input disabled placeholder="{{ $bankName->name }}" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                            class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
-                                            value="{{ $bankName->name }}">
+                                        <label for="" class="block mb-3 font-medium text-gray-700 text-md">Tanggal</label>
+                                        <input placeholder="Nama Layanan Lainnya" type="text" name="" id="" autocomplete="off" class="block cursor-not-allowed w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{Carbon\Carbon::parse($penarikanSaldo->created_at)->isoFormat('dddd, D MMM YYYY')}}">
                                     </div>
-                                @else
-                                    <div>
-                                        <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
-                                        <input disabled placeholder="Nama Bank Belum di Tambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                            class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
-                                            value="">
-                                    </div>
-                                @endif
 
-                                <div>
-                                    <label for="image" class="block mb-3 font-medium text-gray-700 text-md">Bukti Transfer</label>
-                                    <div class="relative flex h-52 w-auto cursor-pointer">
-                                        <a href="#image-modal" class="block w-full">
-                                            <img
-                                            class="h-full w-full object-cover object-center rounded-xl"
-                                            src="{{asset($penarikanSaldo->image)}}"
-                                            />
-                                        </a>
+                                    <div>
+                                        <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nominal</label>
+                                        <input placeholder="Nama Layanan Lainnya" type="text" name="" id="" autocomplete="off" disabled class="block cursor-not-allowed w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="Rp. {{number_format($penarikanSaldo->amount,0,',','.')}}">
+                                    </div>
+
+                                    <div>
+                                        <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nomor Rekening</label>
+                                        <input disabled placeholder="Nomor Rekening belum diTambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
+                                            class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                            value="{{$penarikanSaldo->user->nomor_rekening}}">
+                                        @error('nomor_rekening')
+                                            <p class="text-red-500 text-sm mt-1">{{$message}}</p>
+                                        @enderror
+                                    </div>
+
+                                    @if ($user->bank_id)
+                                        <div>
+                                            <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
+                                            <input disabled placeholder="{{ $bankName->name }}" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
+                                                class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                                value="{{ $bankName->name }}">
+                                        </div>
+                                    @else
+                                        <div>
+                                            <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
+                                            <input disabled placeholder="Nama Bank Belum di Tambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
+                                                class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                                value="">
+                                        </div>
+                                    @endif
+
+                                    <div>
+                                        <label for="image" class="block mb-3 font-medium text-gray-700 text-md">Bukti Transfer</label>
+                                        <div class="relative flex h-52 w-auto cursor-pointer">
+                                            <a href="#image-modal" class="block w-full">
+                                                <img
+                                                class="h-full w-full object-cover object-center rounded-xl"
+                                                src="{{asset($penarikanSaldo->image)}}"
+                                                />
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="px-4 py-3 text-right sm:px-6">
-                            @php
-                                $phoneNumber = $penarikanSaldo->user->phone;
-                                if (substr($phoneNumber, 0, 1) === '0') {
-                                    $phoneNumber = '62' . substr($phoneNumber, 1);
-                                }
-                            @endphp
-                            <a href="https://wa.me/{{$phoneNumber}}" target="_blank" class="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-green-700 bg-white border border-green-600 rounded-lg shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300">
-                                Hubungi Whatsapp
-                            </a>
-                            <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
-                                Save Changes
-                            </button>
+                            <div class="px-4 py-3 text-right sm:px-6">
+                                <a href="{{route('dashboard.saldo.index')}}" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                    Kembali
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </main>
-        </section>
+                </main>
+            </section>
+        @endrole
     </main>
 <div id="image-modal" class="fixed inset-0 z-100 bg-black bg-opacity-60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 target:opacity-100 target:pointer-events-auto">
     <!-- Link pembungkus untuk close saat klik anywhere -->
