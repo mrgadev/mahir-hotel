@@ -180,18 +180,9 @@
                             </div>
                         </div>
                         <div class="px-4 py-3 text-right sm:px-6">
-                            @php
-                                $phoneNumber = $penarikanSaldo->user->phone;
-                                if (substr($phoneNumber, 0, 1) === '0') {
-                                    $phoneNumber = '62' . substr($phoneNumber, 1);
-                                }
-                            @endphp
-                            <a href="https://wa.me/{{$phoneNumber}}" target="_blank" class="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-green-700 bg-white border border-green-600 rounded-lg shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300">
-                                Hubungi Whatsapp
+                            <a href="{{route('dashboard.saldo.index')}}" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
+                                Kembali
                             </a>
-                            <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
-                                Save Changes
-                            </button>
                         </div>
                     </div>
                 </div>
