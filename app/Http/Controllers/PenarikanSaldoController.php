@@ -46,7 +46,7 @@ class PenarikanSaldoController extends Controller
         ]);
 
         $user = Auth::user();
-        
+
         $user->update([
             'bank_id' => $data['bank_id'],
             'nomor_rekening' => $data['nomor_rekening'],
@@ -100,10 +100,14 @@ class PenarikanSaldoController extends Controller
      */
     public function update(Request $request, PenarikanSaldo $penarikanSaldo)
     {
+        $message = [
+            'image.image' => 'File yang diupload harus berupa gambar',
+            'image.mimes' => 'Format gambar tidak sesuai!'
+        ];
         $data = $request->validate([
-            'status' => 'required',
-            'image' => 'required',
-        ]);
+            'status' => 'nullable',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp,avif',
+        ], $message);
 
         if($request->file('image')) {
             $image_name = 'IMAGE-'.$penarikanSaldo->id.'-'.rand(000,999);
@@ -115,6 +119,12 @@ class PenarikanSaldoController extends Controller
             $data['image']= $image_url;
         } else {
             $data['image'] = $penarikanSaldo->image;
+        }
+
+        if($request->has('status')) {
+            $data['status'] = $request->status;
+        } else {
+            $data['status'] = $penarikanSaldo->status;
         }
 
         $lastBalance = Saldo::where('user_id', $penarikanSaldo->user_id)
@@ -138,7 +148,7 @@ class PenarikanSaldoController extends Controller
             'image' => $data['image']
         ]);
 
-        return redirect()->route('dashboard.penarikan-saldo.index');
+        return redirect()->route('dashboard.penarikan-saldo.index')->with('success', 'Data berhasi diperbarui');
     }
 
     /**

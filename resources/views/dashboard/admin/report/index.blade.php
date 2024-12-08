@@ -41,8 +41,8 @@
                         </form>
                     @endif
                 </div>
-            </div>   
-            
+            </div>
+
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -66,8 +66,8 @@
                         </div>
                     </div>
                 </main>
-            </section>  
-            
+            </section>
+
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -110,8 +110,8 @@
                         </form>
                     </div>
                 </main>
-            </section> 
-            
+            </section>
+
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -194,13 +194,13 @@
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$transaction->payment_method}}</td>
                                     </tr>
                                 @empty
-                                    
+
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
                 </main>
-            </section>  
+            </section>
 
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
@@ -209,7 +209,7 @@
                         <p class="font-bold text-primary-700 whitespace-nowrap">Rp. {{number_format($totalAmount,0,',','.')}}</p>
                     </div>
                 </main>
-            </section>  
+            </section>
         </main>
     </div>
 @endsection
@@ -244,7 +244,7 @@
                 const updateMasterCheckboxState = () => {
                     const masterCheckbox = document.querySelector('thead input[type="checkbox"]');
                     const childCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-                    
+
                     if (masterCheckbox && childCheckboxes.length > 0) {
                         const checkedCount = Array.from(childCheckboxes).filter(cb => cb.checked).length;
                         masterCheckbox.checked = checkedCount === childCheckboxes.length;
@@ -305,11 +305,11 @@
             const quickActionButton = document.getElementById('quickActionButton');
             const masterCheckbox = document.getElementById('masterCheckbox');
             const childCheckboxes = document.querySelectorAll('.child-checkbox');
-            
+
             // Check if any checkbox is selected (either master or any child)
-            const isAnyCheckboxSelected = masterCheckbox.checked || 
+            const isAnyCheckboxSelected = masterCheckbox.checked ||
                 Array.from(childCheckboxes).some(checkbox => checkbox.checked);
-            
+
             // Show/hide quick action button based on selection
             if (isAnyCheckboxSelected) {
                 quickActionButton.style.display = 'flex';
@@ -389,11 +389,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('transactionChart');
-        
+
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                         'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
                 datasets: [{
                     label: `Total Transaksi Tahun {{ $selectedYear }}`,

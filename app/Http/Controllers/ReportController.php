@@ -18,7 +18,7 @@ class ReportController extends Controller
 
         // Mengambil tahun terakhir untuk default chart
         $latestYear = $years->first();
-        
+
         // Mengambil tahun yang dipilih atau default ke tahun terakhir
         $selectedYear = $request->input('year', $latestYear);
 
@@ -28,18 +28,18 @@ class ReportController extends Controller
             $total = Transaction::whereYear('created_at', $selectedYear)
                 ->whereMonth('created_at', $month)
                 ->sum('total_price');
-                
+
             $monthlyData[] = $total;
         }
 
         // Data untuk tabel
         $transactions = Transaction::query();
-        
+
         // Filter berdasarkan tahun dan bulan jika ada
         if ($request->filled('year')) {
             $transactions->whereYear('created_at', $request->year);
         }
-        
+
         if ($request->filled('month')) {
             $monthNumber = date('m', strtotime($request->month));
             $transactions->whereMonth('created_at', $monthNumber);
@@ -50,7 +50,7 @@ class ReportController extends Controller
 
         return view('dashboard.admin.report.index', compact(
             'years',
-            'transactions', 
+            'transactions',
             'totalAmount',
             'selectedYear',
             'monthlyData'
@@ -64,18 +64,18 @@ class ReportController extends Controller
 
         // Pemetaan nama bulan (huruf kecil) ke angka
         $monthsMapping = [
-            'januari' => 1,
-            'februari' => 2,
-            'maret' => 3,
+            'january' => 1,
+            'february' => 2,
+            'march' => 3,
             'april' => 4,
-            'mei' => 5,
-            'juni' => 6,
-            'juli' => 7,
-            'agustus' => 8,
+            'may' => 5,
+            'june' => 6,
+            'july' => 7,
+            'august' => 8,
             'september' => 9,
-            'oktober' => 10,
+            'october' => 10,
             'november' => 11,
-            'desember' => 12,
+            'december' => 12,
         ];
 
         // Ambil bulan dari request dan konversi ke angka

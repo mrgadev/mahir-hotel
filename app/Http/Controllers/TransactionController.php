@@ -18,7 +18,7 @@ class TransactionController extends Controller
     public function show(Transaction $transaction) {
         return view('dashboard.admin.transaction.detail', compact('transaction'));
     }
-    
+
     public function changeCheckInStatus(Request $request, Transaction $transaction) {
         $data = $request->validate([
             'checkin_status' => 'required'
@@ -28,7 +28,7 @@ class TransactionController extends Controller
         } elseif($data['checkin_status'] == 'Sudah Checkout') {
             $data['checkout_date'] = now();
             $transaction->room->incrementAvailableRooms();
-        } 
+        }
         $transaction->update($data);
         $room = Room::where('id', $transaction->room_id)->first();
         // if($data['checkin_status'] == 'Sudah') {

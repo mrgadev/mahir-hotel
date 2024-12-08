@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
 @section('title', 'Kategori Layanan Lainnya')
-{{-- 
+{{--
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -25,12 +25,12 @@
                         <p>Permintaan Penarikan Uang</p>
                     </a>
                 </div>
-        
+
                 <h1 class="text-white text-4xl font-medium">
                     Detail Permintaan Penarikan Uang
                 </h1>
             </div>
-            
+
         </div>
         @role('admin')
             <section class="container px-6 mx-auto">
@@ -59,8 +59,8 @@
 
                                         <div>
                                             <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nomor Rekening</label>
-                                            <input disabled placeholder="Nomor Rekening belum diTambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                                class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                            <input disabled placeholder="Nomor Rekening belum diTambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off"
+                                                class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                                 value="{{$penarikanSaldo->user->nomor_rekening}}">
                                             @error('nomor_rekening')
                                                 <p class="text-red-500 text-sm mt-1">{{$message}}</p>
@@ -70,15 +70,15 @@
                                         @if ($user->bank_id)
                                             <div>
                                                 <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
-                                                <input disabled placeholder="{{ $bankName->name }}" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                                    class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                                <input disabled placeholder="{{ $bankName->name }}" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off"
+                                                    class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                                     value="{{ $bankName->name }}">
                                             </div>
                                         @else
                                             <div>
                                                 <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
-                                                <input disabled placeholder="Nama Bank Belum di Tambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                                    class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                                <input disabled placeholder="Nama Bank Belum di Tambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off"
+                                                    class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                                     value="">
                                             </div>
                                         @endif
@@ -92,15 +92,22 @@
                                             </select>
 
                                             @if ($errors->has('status'))
-                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('price')}}</p>
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('status')}}</p>
                                             @endif
                                         </div>
 
                                         <div>
                                             <label for="image" class="block mb-3 font-medium text-gray-700 text-md">Bukti Transfer</label>
-                                            <input type="file" name="image" id="image" autocomplete="off" 
-                                                class=" block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                            @if($penarikanSaldo->image)
+                                            <img src="{{url($penarikanSaldo->image)}}" alt="">
+                                            @else
+                                            <input type="file" name="image" id="image" autocomplete="off"
+                                                class=" block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                                 value="">
+                                            @endif
+                                            @if ($errors->has('image'))
+                                                <p class="text-red-500 mb-3 text-sm">{{$errors->first('image')}}</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -143,8 +150,8 @@
 
                                     <div>
                                         <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nomor Rekening</label>
-                                        <input disabled placeholder="Nomor Rekening belum diTambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                            class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                        <input disabled placeholder="Nomor Rekening belum diTambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off"
+                                            class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                             value="{{$penarikanSaldo->user->nomor_rekening}}">
                                         @error('nomor_rekening')
                                             <p class="text-red-500 text-sm mt-1">{{$message}}</p>
@@ -154,15 +161,15 @@
                                     @if ($user->bank_id)
                                         <div>
                                             <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
-                                            <input disabled placeholder="{{ $bankName->name }}" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                                class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                            <input disabled placeholder="{{ $bankName->name }}" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off"
+                                                class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                                 value="{{ $bankName->name }}">
                                         </div>
                                     @else
                                         <div>
                                             <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
-                                            <input disabled placeholder="Nama Bank Belum di Tambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                                class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                            <input disabled placeholder="Nama Bank Belum di Tambahkan" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off"
+                                                class="cursor-not-allowed block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                                 value="">
                                         </div>
                                     @endif
