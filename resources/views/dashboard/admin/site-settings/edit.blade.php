@@ -22,11 +22,11 @@
             <div class="container px-6 mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
-                        <h1 class="text-xl font-medium text-primary-700">Pengaturan Dasar</h1>
+                        {{-- <h1 class="text-xl font-medium text-primary-700">Pengaturan Dasar</h1> --}}
                         <form action="{{route('dashboard.site.settings.update', $site_setting->id)}}" method="POST">
                             @csrf
                         @method('PUT')
-                            <div class="grid lg:grid-cols-2 gap-5 my-5">
+                            {{-- <div class="grid lg:grid-cols-2 gap-5 my-5">
                                 <div class="flex flex-col gap-5">
                                     <h2>Tagline Situs</h2>
                                 <textarea name="tagline" id="tagline" cols="30" rows="10">{!!$site_setting->tagline!!}</textarea>
@@ -43,7 +43,7 @@
                                     <label for="phone">Teks Nomor Telepon</label>
                                     <input type="text" name="phone_text" value="{{$site_setting->phone_text}}" class="rounded-lg">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="flex flex-col gap-5">
                                 <h1 class="text-xl font-medium text-primary-700">Alamat</h1>
                                 <label for="">Tautan Google Maps</label>
@@ -64,7 +64,7 @@
                                         <p>Jam</p>
                                     </div>
                                 </div>
-                                <div class="flex flex-col gap-5">   
+                                <div class="flex flex-col gap-5">
                                     <label for="">Waktu Check In</label>
                                     <div class="flex items-center gap-3">
                                         <input type="time" name="checkin_time" value="{{$site_setting->checkin_time}}" class="rounded-lg">
@@ -151,20 +151,20 @@
                                                 <a href="{{route('dashboard.partners.edit', $partner)}}" class="editItemButton py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white" data-id="{{ $partner->id }}" data-name="{{ $partner->name }}" data-link="{{$partner->link}}" data-logo="{{$partner->logo}}">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
-                                                
+
                                             </div>
                                             <form action="{{route('dashboard.partners.destroy', $partner)}}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="deleteItemButton p-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white">
                                             </form>
-                                                
+
                                         <i class="bi bi-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
                                 @empty
-                                    
+
                                 @endforelse
                             </tbody>
                         </table>
@@ -203,7 +203,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($banks as $key => $bank)
-                                    
+
                                 <tr class="cursor-pointer">
                                     <td>
                                         {{$key + 1}}
@@ -216,19 +216,19 @@
                                             <a href="{{route('dashboard.bank.edit', $bank)}}" class="editItemButton py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white" data-id="{{ $partner->id }}" data-name="{{ $partner->name }}" data-link="{{$partner->link}}" data-logo="{{$partner->logo}}">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            
+
                                         </div>
                                         <form action="{{route('dashboard.bank.destroy', $bank)}}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('DELETE')
                                             <button class="deleteItemButton p-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white">
                                         </form>
-                                            
+
                                         <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
-                                @endforeach                  
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -341,7 +341,7 @@
     <script>
         $(document).ready(function() {
             $('#icon').iconpicker();
-            
+
             $('#iconPickerBtn').on('click', function() {
                 $('#icon').iconpicker('show');
             });
@@ -377,7 +377,7 @@
                 const updateMasterCheckboxState = () => {
                     const masterCheckbox = document.querySelector('thead input[type="checkbox"]');
                     const childCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-                    
+
                     if (masterCheckbox && childCheckboxes.length > 0) {
                         const checkedCount = Array.from(childCheckboxes).filter(cb => cb.checked).length;
                         masterCheckbox.checked = checkedCount === childCheckboxes.length;
@@ -438,11 +438,11 @@
             const quickActionButton = document.getElementById('quickActionButton');
             const masterCheckbox = document.getElementById('masterCheckbox');
             const childCheckboxes = document.querySelectorAll('.child-checkbox');
-            
+
             // Check if any checkbox is selected (either master or any child)
-            const isAnyCheckboxSelected = masterCheckbox.checked || 
+            const isAnyCheckboxSelected = masterCheckbox.checked ||
                 Array.from(childCheckboxes).some(checkbox => checkbox.checked);
-            
+
             // Show/hide quick action button based on selection
             if (isAnyCheckboxSelected) {
                 quickActionButton.style.display = 'flex';

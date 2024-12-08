@@ -34,7 +34,7 @@
                 </div>
                 <a href="{{route('dashboard.user.bookings.export', $transaction->invoice)}}" class="px-5 py-3 rounded-lg bg-red-100 text-red-700 border-2 border-red-700"><i class="bi bi-file-earmark-pdf"></i> Simpan ke PDF</a>
             </div>
-        </div>       
+        </div>
         <section class="container mx-auto">
             <main class="col-span-12 md:pt-0">
                 <div class="grid lg:grid-cols-3 gap-5">
@@ -50,7 +50,7 @@
                             <h2 class="font-light text-primary-700 text-xl">Booking ID: <span class="font-medium">{{$transaction->invoice}}</span></h2>
                             <p class="flex items-center text-sm gap-1"><span class="material-symbols-rounded">schedule</span> {{$transaction->created_at->isoFormat('dddd, DD MMMM YYYY, H:M')}}</p>
                         </div>
-                        
+
                         {{-- Body card --}}
                         <div class="my-10">
                             <h1 class="text-lg font-medium text-primary-700 mb-5">Data Pemesan</h1>
@@ -59,12 +59,12 @@
                                     <p>Nama Lengkap</p>
                                     <p class="font-medium text-primary-700">{{$transaction->name}}</p>
                                 </div>
-    
+
                                 <div class="flex flex-col gap-1">
                                     <p>Nomor Telepon</p>
                                     <p class="font-medium text-primary-700">{{$transaction->phone}}</p>
                                 </div>
-    
+
                                 <div class="flex flex-col gap-1">
                                     <p>Email</p>
                                     <p class="font-medium text-primary-700">{{$transaction->email}}</p>
@@ -73,10 +73,16 @@
                                 <div class="flex flex-col gap-1">
                                     <p>Status Check-in</p>
                                     <div class="flex items-center gap-3">
+                                        @if($transaction->checkin_status == 'Dibatalkan')
+                                        <p class="font-medium text-red-700" id="checkInStatus">
+                                            {{$transaction->checkin_status}}
+                                        </p>
+                                        @else
                                         <p class="font-medium text-primary-700" id="checkInStatus">
                                             {{$transaction->checkin_status}}
                                         </p>
-                                        @if($transaction->payment_status == 'PAID')
+                                        @endif
+                                        @if($transaction->payment_status == 'PAID' && $transaction->checkin_status == 'Sudah Checkin')
                                         <button id="editCheckInStatusBtn" class="underline text-primary-700">
                                             Ubah status
                                         </button>
@@ -87,7 +93,7 @@
                                                 {{-- <input type="hidden" name="id"> --}}
                                                 {{-- <input type="text" id="inputField" /> --}}
                                                 <select name="checkin_status" id="checkInStatusField" class="bg-primary-100 rounded border border-primary-700 text-primary-700 p-2">
-                                                    
+
                                                     <option value="Sudah">Sudah Checkin</option>
                                                     <option value="Belum">Belum Checkin</option>
                                                     <option value="Belum">Sudah Checkout</option>
@@ -116,7 +122,7 @@
                                                     {{-- <input type="hidden" name="id"> --}}
                                                     {{-- <input type="text" id="inputField" /> --}}
                                                     <select name="payment_status" id="paymentStatusField" class="bg-primary-100 rounded border border-primary-700 text-primary-700 p-2">
-                                                        
+
                                                         <option value="{{$transaction->payment_status}}">Tidak Diubah ({{$transaction->payment_status}})</option>
                                                         <option value="PAID">PAID</option>
                                                         <option value="PENDING">PENDING</option>
@@ -138,29 +144,29 @@
                                     <p>Tipe Kamar</p>
                                     <p class="font-medium text-primary-700">{{$transaction->room->name}}</p>
                                 </div>
-    
+
                                 <div class="flex flex-col gap-1">
                                     <p>Nomor Kamar</p>
                                     <p class="font-medium text-primary-700">{{$transaction->room_number}}</p>
                                 </div>
-    
+
                                 <div class="flex flex-col gap-1">
                                     <p>Harga per Malam</p>
                                     <p class="font-medium text-primary-700">Rp. {{number_format($transaction->room->price,0,',','.')}}</p>
                                 </div>
-    
+
                                 <div class="flex flex-col gap-1">
                                     <p>Check-in</p>
                                     <p class="font-medium text-primary-700">{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('dddd, D MMM YYYY')}}</p>
                                     {{-- <p>09:00</p> --}}
                                 </div>
-    
+
                                 <div class="flex flex-col gap-1">
                                     <p>Check-out</p>
                                     <p class="font-medium text-primary-700">{{Carbon\Carbon::parse($transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
                                     {{-- <p>07:30</p> --}}
                                 </div>
-    
+
                                 <div class="flex flex-col gap-1">
                                     <p>Durasi</p>
                                     @php
@@ -168,14 +174,14 @@
                                     @endphp
                                     <p class="font-medium text-primary-700">{{$nights}} Malam</p>
                                 </div>
-    
+
                                 {{-- <div class="flex flex-col gap-1 col-span-3">
                                     <p>Catatan</p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quae odio adipisci aperiam dolorem odit facilis quo esse blanditiis, illum vel, voluptates earum labore? Maiores, tempore. </p>
                                 </div> --}}
                             </div>
                         </div>
-    
+
                         <hr class="h-0.5 my-8 bg-gray-700 border-0">
                         {{-- Footer card --}}
                         <div class="grid lg:grid-cols-3 gap-6 text-sm">
@@ -193,7 +199,7 @@
                             <div class="flex flex-col gap-1">
                                 <p>Tambahan</p>
                                 <ul class="flex flex-col gap-1">
-                                    @foreach ($transaction->accomodation_plans as $accomodation_plan)                                        
+                                    @foreach ($transaction->accomodation_plans as $accomodation_plan)
                                     <li class="flex items-center gap-1 text-primary-700">{{$accomodation_plan->name}} (Rp. {{number_format($accomodation_plan->price,0,',','.')}})</li>
                                     @endforeach
                                 </ul>
@@ -209,7 +215,7 @@
                             <div class="flex flex-col gap-1">
                                 <p>Promo yang Dipakai</p>
                                 <ul class="flex flex-col gap-1">
-                                    @foreach ($transaction->promos as $promo)                                        
+                                    @foreach ($transaction->promos as $promo)
                                     <li class="flex items-center gap-1 text-primary-700">{{$promo->name}} ({{$promo->amount}}%)</li>
                                     <li class="flex items-center gap-1 text-red-700 text-sm font-medium">-Rp. {{number_format(($promo->amount / 100) * ($transaction->room->price * $nights),0,',','.')}}</li>
                                     @endforeach
@@ -263,7 +269,7 @@
                                     <p>Biaya tambahan</p>
                                     <p class="text-primary-700">Rp. {{number_format($accomodation_plan_amount,0,',','.')}}</p>
                                 </div>
-                                
+
                                 <div class="flex items-center justify-between">
                                     <p>Potongan harga</p>
                                     <p class="text-red-700">-Rp. {{number_format($discounted_price,0,',','.')}}</p>
@@ -281,7 +287,7 @@
                     </div>
                 </div>
             </main>
-        </section>    
+        </section>
     </main>
 @endsection
 @push('addon-script')
@@ -365,7 +371,7 @@
 
             // Set the input field value to the current text
             checkInStatusField.value = currentCheckInStatus;
-            
+
             // Hide the <p> element and show the form
             checkInStatus.style.display = 'none';
             editCheckInStatusBtn.classList.add('hidden');
@@ -392,7 +398,7 @@
 
             // Set the input field value to the current text
             paymentStatusField.value = currentPaymentStatus;
-            
+
             // Hide the <p> element and show the form
             paymentStatus.style.display = 'none';
             editPaymentStatusBtn.classList.add('hidden');

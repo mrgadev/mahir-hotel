@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'Kategori Layanan Lainnya')
-{{-- 
+@section('title', 'Ubah Data Partner')
+{{--
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -21,18 +21,18 @@
                         <span class="material-symbols-rounded scale-75">home</span>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <a href="{{route('dashboard.service_category.index')}}" class="flex items-center hover:underline">
-                        <p>Kategori Layanan Lainnya</p>
+                    <a href="{{route('dashboard.site.settings.edit')}}" class="flex items-center hover:underline">
+                        <p>Pengaturan Situs</p>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <p>Buat Baru</p>
+                    <p>Ubah Data</p>
                 </div>
-        
+
                 <h1 class="text-white text-4xl font-medium">
-                    Buat Kategori Layanan Lainnya
+                   Ubah Data Partner
                 </h1>
             </div>
-            
+
         </div>
         <section class="container px-6 mx-auto">
             <main class="col-span-12 md:pt-0">
@@ -45,7 +45,7 @@
                                 <div class="mt-">
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center my-5">
                                         <div>
-                                            <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Kamar</label>
+                                            <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Partner</label>
                                             <input placeholder="Nama Kamar" type="text" name="name" id="name" value="{{$partner->name}}" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                             @if ($errors->has('name'))
@@ -54,13 +54,13 @@
                                         </div>
 
                                         <div>
-                                            <label for="link" class="block mb-3 font-medium text-gray-700 text-md">Harga per Malam</label>
+                                            <label for="link" class="block mb-3 font-medium text-gray-700 text-md">Tautan</label>
                                             <input placeholder="Link Partner" type="text" name="link" value="{{$partner->link}}" id="link" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                             @if ($errors->has('link'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('link')}}</p>
                                             @endif
-                                        </div>                                      
+                                        </div>
                                     </div>
 
                                     <div class="mt-10">
@@ -71,7 +71,7 @@
                                                         <a href="#image-modal-{{$partner->logo}}" class="block h-full w-full">
                                                             <img
                                                                 class="h-full w-full object-cover object-center rounded-xl"
-                                                                src="{{Storage::url($partner->logo)}}"
+                                                                src="{{url($partner->logo)}}"
                                                             />
                                                         </a>
                                                     </div>
@@ -83,7 +83,7 @@
                                                     <input type="file" id="logo" name="logo" hidden>
                                                 </div>
                                             </div>
-    
+
                                             @if ($errors->has('logo'))
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('logo')}}</p>
                                             @endif
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="px-4 py-3 text-right sm:px-6">
                                 <a href="" type="button" class="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-white border border-gray-600 rounded-lg shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300" onclick="return confirm('are you want to cancel?')">
                                     Cancel

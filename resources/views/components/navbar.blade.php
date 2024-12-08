@@ -12,27 +12,27 @@
                 <!-- <li class="flex items-center">
                 <a class="inline-block px-8 py-2 mb-0 mr-4 text-xs font-bold text-center text-blue-500 uppercase align-middle transition-all ease-in bg-transparent border border-blue-500 border-solid rounded-lg shadow-none cursor-pointer leading-pro hover:-translate-y-px active:shadow-xs hover:border-blue-500 active:bg-blue-500 active:hover:text-blue-500 hover:text-blue-500 tracking-tight-rem hover:bg-transparent hover:opacity-75 hover:shadow-none active:text-white active:hover:bg-transparent" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard&amp;_ga=2.76518741.1192788655.1647724933-1242940210.1644448053">Online Builder</a>
                 </li> -->
-                <li class="flex items-center">                    
+                <li class="flex items-center">
                     <div class="relative">
-                        <button onclick="document.getElementById('dropdownAvatar').classList.toggle('hidden')" 
-                                class="flex items-center gap-3 px-3 py-1.5 text-sm bg-primary-100 text-primary-700 font-medium rounded-full focus:ring-4 focus:ring-gray-300" 
+                        <button onclick="document.getElementById('dropdownAvatar').classList.toggle('hidden')"
+                                class="flex items-center gap-3 px-3 py-1.5 text-sm bg-primary-100 text-primary-700 font-medium rounded-full focus:ring-4 focus:ring-gray-300"
                                 type="button">
                             <span class="sr-only">Open user menu</span>
                             <div class="w-8 h-8 rounded-full overflow-hidden">
-                                <img src="{{ Storage::url(Auth::user()->avatar) }}" class="w-12 h-12 rounded-full object-center object-cover" alt="User avatar">
+                                <img src="{{ url(Auth::user()->avatar) }}" class="w-12 h-12 rounded-full object-cover" alt="User avatar">
                             </div>
                             <span class="text-gray-700 pe-2">{{Auth::user()->name}}</span>
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div id="dropdownAvatar" 
+                        <div id="dropdownAvatar"
                             class="absolute right-0 mt-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                             <div class="px-4 py-3 text-sm text-gray-900 flex flex-col gap-2">
                                 <div class="font-medium truncate">{{Auth::user()->email}}</div>
                                 <div class="text-xs px-2 py-1 rounded-md bg-primary-500 text-white w-fit">{{ucfirst(Auth::user()->roles->first()->name)}}</div>
                             </div>
                             <ul class="py-2 text-sm text-gray-700">
-                     
+
                                 <li>
                                     <a href="{{route('dashboard.profile.edit')}}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
                                 </li>

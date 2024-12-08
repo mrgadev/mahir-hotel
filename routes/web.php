@@ -23,7 +23,9 @@ use App\Http\Controllers\NearbyLocationController;
 use App\Http\Controllers\RoomFacilitiesController;
 use App\Http\Controllers\AccomdationPlanController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\HotelAwardController;
 use App\Http\Controllers\HotelFacilitiesController;
+use App\Http\Controllers\HotelServiceController;
 use App\Http\Controllers\PenarikanSaldoController;
 use App\Http\Controllers\RoomRuleController;
 use App\Http\Controllers\SaldoController;
@@ -35,7 +37,7 @@ use App\Models\Saldo;
 Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::get('/', [AdminDashboardController::class, 'index'])->name('home');
     Route::get('/monthly-revenue', [TransactionController::class, 'getMonthlyRevenue'])->name('monthly-revenue');
-    
+
 
     Route::get('/profile', [DashboardController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
@@ -44,6 +46,12 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
 
     Route::resource('/hotel_facilities', HotelFacilitiesController::class)->names('hotel_facilities')->middleware(middleware: 'role:admin|staff');
     Route::post('/fasilitas-hotel/bulkDelete', [BulkAction::class, 'hotelFacilitiesBulkDelete'])->name('hotel-facilities.bulkDelete')->middleware('role:admin|staff');
+
+    Route::resource('/hotel_services', HotelServiceController::class)->names('hotel_services')->middleware(middleware: 'role:admin|staff');
+    Route::post('/layanan-hotel/bulkDelete', [BulkAction::class, 'hotelServicesBulkDelete'])->name('hotel-services.bulkDelete')->middleware('role:admin|staff');
+
+    Route::resource('/hotel_awards', HotelAwardController::class)->names('hotel_awards')->middleware(middleware: 'role:admin|staff');
+    Route::post('/penghargaan-hotel/bulkDelete', [BulkAction::class, 'hotelAwardsBulkDelete'])->name('hotel-awards.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/users_management', UsersManagementController::class)->middleware('role:admin');
     Route::put('/users_management/{users_management}/password', [UsersManagementController::class, 'updatePassword'])->name('users_management.updatePassword')->middleware('role:admin');
@@ -71,7 +79,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
 
     Route::resource('/service', ServiceController::class)->middleware('role:admin|staff');
     Route::post('/service/bulkDelete', [BulkAction::class,'serviceBulkDelete'])->name('service.bulkDelete')->middleware('role:admin|staff');
-    
+
     Route::resource('/service_category', ServiceCategoryController::class)->middleware('role:admin|staff');
     Route::post('/service_category/bulkDelete', [BulkAction::class,'serviceCategoryBulkDelete'])->name('service_category.bulkDelete')->middleware('role:admin|staff');
 
@@ -91,14 +99,16 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
 
     Route::delete('/pesan/{message}', [MessageController::class, 'destroy'])->name('message.delete')->middleware('role:admin|staff');
 
-    Route::get('/site-settings', [SiteSettingsController::class, 'edit'])->name('site.settings.edit')->middleware('role:admin');
-    Route::put('/site-settings/{site_setting}', [SiteSettingsController::class, 'update'])->name('site.settings.update')->middleware('role:admin');
-    
+    Route::get('/site-settings', [SiteSettingsController::class, 'edit'])->name('site.settings.edit')->middleware('role:admin|staff');
+    Route::put('/site-settings/{site_setting}', [SiteSettingsController::class, 'update'])->name('site.settings.update')->middleware('role:admin|staff');
+    Route::get('/site-settings/frontpage', [SiteSettingsController::class, 'frontpageEdit'])->name('site.settings.frontpage.edit')->middleware('role:admin|staff');
+    Route::put('/site-settings/frontpage/{site_setting}', [SiteSettingsController::class, 'frontpageUpdate'])->name('site.settings.frontpage.update')->middleware('role:admin|staff');
+
     Route::resource('/partners', SiteSettingPartnerController::class)->middleware('role:admin');
-    
+
     Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('role:admin|staff');
     Route::post('/export-transactions', [ReportController::class, 'exportTransactions'])->name('export-transactions');
-    
+
     Route::resource('/bank', BankController::class);
 
     Route::resource('/saldo', SaldoController::class);

@@ -15,7 +15,9 @@ use Illuminate\Http\Request;
 use App\Models\NearbyLocation;
 use App\Models\RoomFacilities;
 use App\Models\AccomdationPlan;
+use App\Models\HotelAward;
 use App\Models\HotelFacilities;
+use App\Models\HotelService;
 use App\Models\ServiceCategory;
 use Illuminate\Support\Facades\Gate;
 
@@ -23,7 +25,7 @@ class BulkAction extends Controller
 {
     public function hotelFacilitiesBulkDelete(Request $request) {
         $facilities_ids = $request->input('facilities_ids', []);
-        
+
         if (empty($facilities_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -36,7 +38,7 @@ class BulkAction extends Controller
     public function nearbyLocationBulkDelete(Request $request)
     {
         $location_ids = $request->input('location_ids', []);
-        
+
         if (empty($location_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -48,7 +50,7 @@ class BulkAction extends Controller
 
     public function faqBulkDelete(Request $request){
         $faq_ids = $request->input('faq_ids', []);
-        
+
         if (empty($faq_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -60,7 +62,7 @@ class BulkAction extends Controller
 
     public function roomBulkDelete(Request $request){
         $room_ids = $request->input('room_ids', []);
-        
+
         if (empty($room_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -72,7 +74,7 @@ class BulkAction extends Controller
 
     public function roomFacilitiesBulkDelete(Request $request){
         $facilities_ids = $request->input('facilities_ids', []);
-        
+
         if (empty($facilities_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -82,9 +84,33 @@ class BulkAction extends Controller
         return response()->json(['success' => true, 'message' => 'Data fasilitas kamar berhasil dihapus']);
     }
 
+    public function hotelAwardsBulkDelete(Request $request){
+        $hotel_awards_ids = $request->input('awards_ids', []);
+
+        if (empty($hotel_awards_ids)) {
+            return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
+        }
+
+        HotelAward::whereIn('id', $hotel_awards_ids)->delete();
+
+        return response()->json(['success' => true, 'message' => 'Data penghargaan hotel berhasil dihapus']);
+    }
+
+    public function hotelServicesBulkDelete(Request $request){
+        $hotel_services_ids = $request->input('hotel_services_ids', []);
+
+        if (empty($hotel_services_ids)) {
+            return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
+        }
+
+        HotelService::whereIn('id', $hotel_services_ids)->delete();
+
+        return response()->json(['success' => true, 'message' => 'Data layanan hotel berhasil dihapus']);
+    }
+
     public function accomodationPlanBulkDelete(Request $request){
         $plan_ids = $request->input('plan_ids', []);
-        
+
         if (empty($plan_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -96,7 +122,7 @@ class BulkAction extends Controller
 
     public function serviceBulkDelete(Request $request){
         $service_ids = $request->input('service_ids', []);
-        
+
         if (empty($service_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -108,7 +134,7 @@ class BulkAction extends Controller
 
     public function serviceCategoryBulkDelete(Request $request){
         $service_category_ids = $request->input('service_category_ids', []);
-        
+
         if (empty($service_category_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -120,7 +146,7 @@ class BulkAction extends Controller
 
     public function promoBulkDelete(Request $request){
         $promo_ids = $request->input('promo_ids', []);
-        
+
         if (empty($promo_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -132,7 +158,7 @@ class BulkAction extends Controller
 
     public function pesanBulkDelete(Request $request){
         $message_ids = $request->input('message_ids', []);
-        
+
         if (empty($message_ids)) {
             return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
         }
@@ -146,7 +172,7 @@ class BulkAction extends Controller
     {
         $user_ids = $request->input('user_ids', []);
         $role_id = $request->input('role_id');
-        
+
         if (empty($user_ids)) {
             return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
         }
@@ -168,7 +194,7 @@ class BulkAction extends Controller
     public function updateStatus(Request $request){
         $transaction_ids = $request->input('transaction_ids', []);
         $payment_status = $request->input('payment_status');
-        
+
         if (empty($transaction_ids)) {
             return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
         }
@@ -191,7 +217,7 @@ class BulkAction extends Controller
     {
         $transaction_ids = $request->input('transaction_ids', []);
         $checkin_status = $request->input('checkin_status');
-        
+
         if (empty($transaction_ids)) {
             return redirect()->back()->with('error', 'Tidak ada data yang dipilih');
         }
@@ -203,11 +229,11 @@ class BulkAction extends Controller
         foreach ($transaction_ids as $transaction_id) {
             // Ambil data transaksi
             $transaction = Transaction::find($transaction_id);
-            
+
             if (!$transaction) {
-                continue; 
+                continue;
             }
-            
+
             // Cek status checkin
             if ($transaction->checkin_status == 'Sudah' || $transaction->checkin_status == 'Belum') {
                 if($checkin_status == 'Dibatalkan'){

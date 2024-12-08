@@ -22,7 +22,7 @@
             $total_rooms = App\Models\Room::count();
             $total_reservations = App\Models\Transaction::count();
             $total_check_in = App\Models\Transaction::whereIn('checkin_status', ['Sudah'])->count();
-            $total_revenue = App\Models\Transaction::where('payment_status', 'PAID')->sum('total_price');
+            $total_revenue = App\Models\Transaction::where('checkin_status', 'Sudah Checkin')->sum('total_price');
         @endphp
         <!-- row 1 -->
         <div class="grid lg:grid-cols-4 gap-6 -mx-3">
@@ -144,7 +144,7 @@
                 @endif
                 <div class="p-5 border-black/12.5 shadow-xl relative flex min-w-0 flex-col gap-5 break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
                     <h6 class="font-medium text-lg text-primary-700">Keseluruhan Rating</h6>
-                    
+
                     <div class="flex items-center gap-5">
                         <p class="text-2xl p-5 rounded-lg bg-primary-100 text-primary-700 font-medium">{{round($average_rating ?? 0,1)}}</p>
                         <div class="flex flex-col">
@@ -168,10 +168,10 @@
                                         <p class="text-primary-700">Sempurna</p>
                                         @break
                                     @default
-                                        
+
                                 @endswitch
                             @endif
-                            @if(!isset($total_reviews))
+                            @if($total_reviews == 0)
                             <p class="text-sm">dari {{$total_reviews}} Pelanggan</p>
                             @else
                             <p class="text-sm">dari {{$total_reviews->count()}} Pelanggan</p>
@@ -256,11 +256,11 @@
                                 @endforelse
                             </tbody>
                         </table>
-                    </div>   
+                    </div>
                 </div>
             </div>
         </div>
-        
+
         {{-- Card Row #4 --}}
         {{-- <div class="flex flex-wrap mt-6 -mx-3">
             <div class="w-full px-3 mt-0 mb-6 lg:mb-0">
@@ -321,7 +321,7 @@
                                 </tr>
                         </tbody>
                     </table>
-                </div>                    
+                </div>
             </div>
         </div> --}}
         @endrole
@@ -353,7 +353,7 @@
                         </div>
                     </a>
 
-                
+
                 </div>
             </div>
 
@@ -385,11 +385,11 @@
                                     <p>{{Carbon\Carbon::parse($user_transaction->check_in)->isoFormat('dddd, D MMM YYYY')}} - {{Carbon\Carbon::parse($user_transaction->check_out)->isoFormat('dddd, D MMM YYYY')}}</p>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <a href="{{route('payment.bill', $user_transaction->invoice)}}" class="flex px-3 py-2 rounded-lg bg-primary-700 text-white">Bayar sekarang</a>
                     </div>
-                    
+
                 </div>
                 @else
                 @if($user_transaction->checkin_status == 'Belum' && $user_transaction->payment_status == 'PAID')
@@ -411,7 +411,7 @@
                                 </div>
                             </div>
                         </a>
-                        
+
                     </div>
                 @else
                     <div class="bg-white rounded-2xl shadow-xl p-10">
@@ -500,7 +500,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                    </div>   
+                    </div>
                 </div>
             </div>
         </div>
@@ -632,7 +632,7 @@
 </script>
 
 <script>
-    
+
     let timeRemaining = Math.abs({{$seconds ?? 0}});
 
     function updateCountdown() {

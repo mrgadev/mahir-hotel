@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
 @section('title', 'My Account')
-{{-- 
+{{--
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -40,7 +40,7 @@
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 items-cente">
                                         <div class="">
                                             <div class="flex items-center mt-1">
-                                                <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="photo profile" class="rounded-full w-16 h-16 object-cover object-center">
+                                                <img src="{{ url(Auth::user()->avatar) }}" alt="photo profile" class="rounded-full w-16 h-16 object-cover object-center">
 
                                                 <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Pilih Berkas</label>
 
@@ -89,7 +89,7 @@
                                             <label for="regency_id" class="block mb-3 font-medium text-gray-700 text-md">Tempat Lahir</label>
                                             <select name="regency_id" id="regency_id" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                                                 <option value="{{$user->regency->id ?? ''}}">{{$user->regency->name ?? ''}} (Selected)</option>
-                                                
+
                                                 @foreach ($regencies as $regency)
                                                     <option value="{{$regency->id}}">{{$regency->name}}</option>
                                                 @endforeach
@@ -97,8 +97,8 @@
                                         </div>
                                         <div>
                                             <label for="nomor_rekening" class="block mb-3 font-medium text-gray-700 text-md">Nomor Rekening</label>
-                                            <input placeholder="Nomor Rekening" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off" 
-                                                class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" 
+                                            <input placeholder="Nomor Rekening" type="number" name="nomor_rekening" id="nomor_rekening" autocomplete="off"
+                                                class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                                 value="{{$user->nomor_rekening}}">
                                             @error('nomor_rekening')
                                                 <p class="text-red-500 text-sm mt-1">{{$message}}</p>
@@ -107,7 +107,7 @@
 
                                         <div>
                                             <label for="bank_id" class="block mb-3 font-medium text-gray-700 text-md">Nama Bank</label>
-                                            <select name="bank_id" id="bank_id" 
+                                            <select name="bank_id" id="bank_id"
                                                 class="block w-full py-3 px-5 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                                                 @if ($user->bank_id)
                                                     <option value="{{ $user->bank->id }}" class="capitalize">Tidak Diubah ({{ $user->bank->name }})</option>

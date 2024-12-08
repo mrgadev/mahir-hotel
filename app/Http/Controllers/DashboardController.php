@@ -38,7 +38,7 @@ class DashboardController extends Controller
     {
         // Get current authenticated user
         $user = Auth::user();
-        
+
         $data = $request->validate([
             'name' => 'nullable|string|max:255',
             'email' => 'nullable|email',
@@ -60,7 +60,7 @@ class DashboardController extends Controller
                         unlink($oldPath);
                     }
                 }
-                
+
                 // Upload new photo
                 $fileName = time() . '_' . $request->file('id_photo')->getClientOriginalName();
                 $request->file('id_photo')->move(public_path('id_photo'), $fileName);
@@ -69,8 +69,9 @@ class DashboardController extends Controller
 
             // Handle avatar upload
             if ($request->hasFile('avatar')) {
-                $avatarPath = $request->file('avatar')->store('avatars', 'public');
-                $data['avatar'] = $avatarPath;
+                $fileName = time() . '_' . $request->file('avatar')->getClientOriginalName();
+                $request->file('avatar')->move(public_path('avatar'), $fileName);
+                $data['avatar'] = 'avatar/' . $fileName;
             } else {
                 $data['avatar'] = $user->avatar ?? 'images/user.png';
             }

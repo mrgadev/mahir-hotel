@@ -29,7 +29,7 @@
                 </a>
             </li>
             {{-- Laporan Keuangan --}}
-            <li class="mt-0.5 w-full">  
+            <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.report.*') || Route::is('dashboard.penarikan-saldo.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="reportToggle">
                     <div class="flex items-center">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -54,8 +54,8 @@
                 </a>
             </li>
             {{-- Menu Kamar --}}
-            <li class="mt-0.5 w-full">  
-                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.room_facilities.*') || Route::is('dashboard.room.*') || Route::is('dashboard.accomodation_plan.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="roomToggle">
+            <li class="mt-0.5 w-full">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.room_facilities.*') || Route::is('dashboard.room.*') || Route::is('dashboard.accomodation_plan.*') || Route::is('dashboard.room-rules.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="roomToggle">
                     <div class="flex items-center">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
@@ -66,27 +66,32 @@
                 </a>
                 <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="roomSubmenu">
                     <li>
-                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.room.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room.index')}}">
+                        <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.room.*')  ? 'font-medium' : ''}}" href="{{route('dashboard.room.index')}}">
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lihat Semua</span>
                         </a>
                     </li>
                     <li>
                         <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.room_facilities.*') ? 'font-medium' : ''}}" href="{{route('dashboard.room_facilities.index')}}">
-                            
+
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Fasilitas Kamar</span>
                         </a>
                     </li>
                     <li>
                         <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium  transition-all text-white {{Route::is('dashboard.accomodation_plan.*') ? 'font-medium' : ''}}" href="{{route('dashboard.accomodation_plan.index')}}">
-                            
+
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Rencana Penginapan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="{{route('dashboard.room-rules.index')}}">
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Kamar</span>
                         </a>
                     </li>
                 </ul>
 
             </li>
 
-            <li class="mt-0.5 w-full">  
+            <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.promo.*') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.promo.index')}}">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="relative top-0 text-base leading-normal bi bi-percent"></i>
@@ -96,7 +101,7 @@
             </li>
 
             {{-- Menu Layanan Lainnya --}}
-            <li class="mt-0.5 w-full">  
+            <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.service.*') || Route::is('dashboard.service_category.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="serviceToggle">
                     <div class="flex items-center">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -109,22 +114,22 @@
                 <ul class="px-4 mx-2 flex flex-col  my-3 bg-primary-500 rounded-lg hidden" id="serviceSubmenu">
                     <li>
                         <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.service.*') ? 'font-medium' : ''}}" href="{{route('dashboard.service.index')}}">
-                            
+
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lihat Semua</span>
                         </a>
                     </li>
                     <li>
                         <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.service_category.*') ? 'font-medium' : ''}}" href="{{route('dashboard.service_category.index')}}">
-                            
+
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Kategori Layanan Lainnya</span>
                         </a>
                     </li>
                 </ul>
             </li>
-            
-                
+
+
             {{-- Menu Feedback --}}
-            <li class="mt-0.5 w-full">  
+            <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.message.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="feedbackToggle">
                     <div class="flex items-center">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -136,7 +141,7 @@
                 </a>
                 <ul id="feedbackSubmenu" class="px-4 mx-2 flex flex-col my-3 bg-primary-500 rounded-lg hidden">
                     <li>
-                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{ Route::is('dashboard.message') ? 'font-medium' : '' }}" href="{{ route('dashboard.message') }}">        
+                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{ Route::is('dashboard.message') ? 'font-medium' : '' }}" href="{{ route('dashboard.message') }}">
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pesan</span>
                         </a>
                     </li>
@@ -149,8 +154,8 @@
                 </a>
             </li>
             {{-- Menu General Settings --}}
-            <li class="mt-0.5 w-full">  
-                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{ Route::is('dashboard.site.settings.edit') || Route::is('dashboard.room-rules.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="settingsToggle">
+            <li class="mt-0.5 w-full">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{ Route::is('dashboard.site.settings.*') || Route::is('dashboard.hotel_services.*') || Route::is('dashboard.hotel_facilities.*') || Route::is('dashboard.hotel_awards.*') || Route::is('dashboard.nearby_location.*') || Route::is('dashboard.faq.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="settingsToggle">
                     <div class="flex items-center">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="bi bi-gear-wide-connected"></i>
@@ -165,19 +170,20 @@
                             <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Umum</span>
                         </a>
                     </li>
+
                     <li>
-                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="{{route('dashboard.room-rules.index')}}">
-                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Pengaturan Kamar</span>
+                        <a class="py-2.7 text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white" href="{{route('dashboard.site.settings.frontpage.edit')}}">
+                            <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Halaman Depan</span>
                         </a>
                     </li>
                     {{-- Hotel Menu --}}
-                    <li class=" w-full">  
+                    <li class=" w-full">
                         <a class="py-2.7 px-3.5  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium justify-between transition-all bg-primary-500 text-white {{Route::is('dashboard.hotel_facilities.*') || Route::is('dashboard.nearby_location.*') || Route::is('dashboard.faq.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="hotelToggle">
                             <div class="flex items-center">
                                 {{-- <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                     <i class="bi bi-buildings-fill"></i>
                                 </div> --}}
-                                <span class="duration-300 opacity-100 pointer-events-none ease">Halaman Depan</span>
+                                <span class="duration-300 opacity-100 pointer-events-none ease">Pengaturan Lainnya</span>
                             </div>
                             <span class="material-symbols-rounded">keyboard_arrow_down</span>
                         </a>
@@ -188,8 +194,18 @@
                                 </a>
                             </li>
                             <li>
+                                <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.hotel_services.*') ? 'font-medium' : ''}}" href="{{route('dashboard.hotel_services.index')}}">
+                                    <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Layanan Hotel</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.hotel_awards.*') ? 'font-medium' : ''}}" href="{{route('dashboard.hotel_awards.index')}}">
+                                    <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Penghargaan Hotel</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a class="py-2.7  text-sm ease-nav-brand my-0 flex items-center whitespace-nowrap rounded-lg font-medium transition-all text-white {{Route::is('dashboard.nearby_location.*') ? 'font-medium' : ''}}" href="{{route('dashboard.nearby_location.index')}}">
-                                    
+
                                     <span class="px-2.5 ml-1 duration-300 opacity-100 pointer-events-none ease">Lokasi Terdekat</span>
                                 </a>
                             </li>
@@ -205,7 +221,7 @@
             </li>
             @endrole
             @role('admin')
-            <li class="mt-0.5 w-full">  
+            <li class="mt-0.5 w-full">
                 <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.users_management.*') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.users_management.index')}}">
                     <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                         <i class="bi bi-person-fill-gear scale-110"></i>
@@ -219,7 +235,7 @@
             @endrole
 
             @role('user')
-                <li class="mt-0.5 w-full">  
+                <li class="mt-0.5 w-full">
                     <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.user.bookings') || Route::is('dashboard.user.bookings.detail') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.user.bookings')}}">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="relative top-0 text-base leading-normal bi bi-door-open"></i>
@@ -228,7 +244,7 @@
                     </a>
                 </li>
 
-                <li class="mt-0.5 w-full">  
+                <li class="mt-0.5 w-full">
                     <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.saldo.index') ? 'bg-primary-500 text-white' : ''}}" href="{{route('dashboard.saldo.index')}}">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="relative top-0 text-base leading-normal bi bi-clock-history"></i>

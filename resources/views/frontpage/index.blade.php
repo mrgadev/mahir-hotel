@@ -43,19 +43,23 @@
         background-color: #976033;
         color: #fff;
         transition: all 0.4s ease;
-    } 
+    }
 
-    #mainNavbar.scrolled p.user-role { 
+    #mainNavbar.scrolled p.user-role {
         background: #976033;
         color: white;
     }
-    
+
     option {
         padding: 2rem;
     }
 
+    header {
+        background: url({{url($site_setting->hero_cover)}});
+    }
+
     .cta-card {
-        background: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        background: url({{url($site_setting->cta_cover)}});
         background-position: center;
         background-size: cover;
     }
@@ -73,7 +77,7 @@
 @endpush
 @section('title', 'Beranda')
 @section('main')
-<header class="xl:px-36 px-12 bg-hero-bg bg-fixed bg-cover relative w-screen h-screen">
+<header class="xl:px-36 px-12 bg-fixed relative w-screen h-screen">
     {{-- <div class="absolute h-screen w-full bg-[#162034] opacity-70 z-10"></div> --}}
     <nav class=" duration-500 transition-all flex items-center justify-between py-6 text-white" id="mainNavbar">
         <a href="{{route('frontpage.index')}}"  class="text-lg font-medium">Mahir Hotel</a>
@@ -87,8 +91,8 @@
         <ion-icon name="menu-outline" class="xl:hidden text-4xl" id="openMobileMenu"></ion-icon>
         @auth
             <div class="hidden xl:flex items-center gap-2">
-                @if(Storage::url(Auth::user()->avatar))
-                <img src="{{Storage::url(Auth::user()->avatar)}}" class="w-12 h-12 object-cover object-center rounded-full" alt="">
+                @if(url(Auth::user()->avatar))
+                <img src="{{url(Auth::user()->avatar)}}" class="w-12 h-12 object-cover object-center rounded-full" alt="">
                 @else
                 <span class="material-symbols-rounded">account_circle</span>
                 @endif
@@ -111,9 +115,9 @@
 
         @endauth
         @guest
-            
+
         <div class=" items-center gap-3 auth-button hidden xl:flex">
-            @auth    
+            @auth
                 <a href="{{route('admin.dashboard')}}" class="px-5 py-2 border border-white text-white rounded-full hover:bg-white hover:text-primary-500 transition-all">Dashboard</a>
             @endauth
             @guest
@@ -122,7 +126,7 @@
             @endguest
         </div>
         @endguest
-        
+
     </nav>
     <nav class="duration-500 bg-white w-screen h-screen fixed hidden top-0 left-0 right-0 z-10 px-12" id="mobileMenu">
         <div class="flex items-center justify-between py-6 text-primary-500">
@@ -139,8 +143,8 @@
             <a href="{{route('login')}}" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
         </div>
     </nav>
-    
-  
+
+
     <div class="hidden bg-white absolute w-screen h-screen top-0 left-0 z-20 px-11">
         {{-- <div class="flex items-center justify-between py-6">
             <p class="text-primary-500">Mahir Hotel</p>
@@ -166,7 +170,7 @@
         <div class="text-white">
             {!!$site_setting->description!!}
         </div>
-        
+
         <form action="{{route('frontpage.search.rooms')}}" id="reservationForm" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full" method="GET">
             <div class="flex items-center gap-2">
                 <div class="grid grid-cols-1 gap-2">
@@ -176,7 +180,7 @@
                         @forelse ($rooms as $room)
                             <option value="{{$room->id}}">{{$room->name}}</option>
                         @empty
-                            
+
                         @endforelse
                     </select>
                 </div>
@@ -201,13 +205,13 @@
                 <h2 class="text-2xl font-medium mb-5 text-primary-500">Pesan Kamar</h2>
                 <div class="grid grid-cols-1 gap-2 w-full">
                     <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Pilih Kamar</label>
-                    
+
                     <select name="rooms" id="rooms" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700">
                         <option value="Pilih kamar">Pilih kamar</option>
                         @foreach ($rooms as $room)
                         <option value="{{$room->name}}">{{$room->name}}</option>
                         @endforeach
-                        
+
                     </select>
                 </div>
 
@@ -360,42 +364,20 @@
 <div class="px-12 xl:px-36 py-12">
     <div class="flex flex-col gap-1 justify-center items-center">
         <p class="font-medium text-primary-400">Kenali</p>
-        <h2 class="text-3xl font-medium text-primary-700">Layanan Kami</h2>
+        <h2 class="text-3xl font-medium text-primary-700">{{$site_setting->our_service_title}}</h2>
     </div>
     <div class="grid xl:grid-cols-2 gap-5 my-11">
-        <img src="{{asset('images/services.png')}}" alt="">
+        <img src="{{url($site_setting->service_image)}}" alt="">
         <div class="flex flex-col gap-8">
+            @foreach ($hotel_services as $hotel_service)
             <div class="flex flex-col xl:flex-row gap-8 sm:items-start xl:items-center">
-                <span class="material-symbols-rounded text-primary-400 scale-[200%]">local_taxi</span>
+                <span class="material-icons-round text-primary-400 scale-[200%]">{{$hotel_service->icon}}</span>
                 <div class="flex flex-col gap-1">
-                    <h2 class="text-2xl">Layanan Antar Jemput</h2>
-                    <p class="font-light">Nikmati layanan antar-jemput 24 jam kami untuk perjalanan aman dan nyaman dari/ke bandara dan destinasi populer. Armada terawat dan sopir profesional memastikan perjalanan bebas stres. Pesan saat reservasi atau hubungi resepsionis.</p>
+                    <h2 class="text-2xl">{{$hotel_service->name}}</h2>
+                    <p class="font-light">{!!$hotel_service->description!!}</p>
                 </div>
             </div>
-
-            <div class="flex flex-col xl:flex-row gap-8 sm:items-start xl:items-center">
-                <span class="material-symbols-rounded text-primary-400 scale-[200%]">spa</span>
-                <div class="flex flex-col gap-1">
-                    <h2 class="text-2xl">Spa dan Kecantikan</h2>
-                    <p class="font-light">Rasakan relaksasi total dengan layanan spa kami. Pijat, perawatan wajah, dan body scrub tersedia untuk memanjakan tubuh dan pikiran Anda</p>
-                </div>
-            </div>
-            
-            <div class="flex flex-col xl:flex-row gap-8 sm:items-start xl:items-center">
-                <span class="material-symbols-rounded text-primary-400 scale-[200%]">fitness_center</span>
-                <div class="flex flex-col gap-1">
-                    <h2 class="text-2xl">Pusat Olahraga</h2>
-                    <p class="font-light">Tetap bugar selama menginap dengan pusat kebugaran kami. Dilengkapi peralatan modern dan tersedia 24 jam untuk memenuhi kebutuhan olahraga Anda.</p>
-                </div>
-            </div>
-
-            <div class="flex flex-col xl:flex-row gap-8 sm:items-start xl:items-center">
-                <span class="material-symbols-rounded text-primary-400 scale-[200%]">local_laundry_service</span>
-                <div class="flex flex-col gap-1">
-                    <h2 class="text-2xl">Layanan Laundry</h2>
-                    <p class="font-light">Kami menawarkan jasa laundry untuk pakaian Anda dengan standar kebersihan tertinggi. Dengan teknologi modern dan deterjen berkualitas, kami memastikan pakaian Anda selalu bersih dan segar. </p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
@@ -404,13 +386,12 @@
 <div class="px-12 xl:px-36 my-10">
     <div class="flex flex-col gap-1">
         <p class="font-medium text-primary-400">Lokasi Kami</p>
-        <h2 class="text-3xl font-medium text-primary-700">Strategis di Jantung Kota</h2>
+        <h2 class="text-3xl font-medium text-primary-700">{{$site_setting->our_location_title}}</h2>
     </div>
 
     <div class="grid xl:grid-cols-2 gap-5">
         <div class="flex flex-col gap-3">
-            <p class="my-5">Mahir Hotel menawarkan akses mudah ke destinasi wisata utama 
-                dan pusat perbelanjaan. Nikmati kenyamanan dan kemudahan selama menginap bersama kami!</p>
+            <p class="my-5">{!!$site_setting->our_location_desc!!}</p>
             <div class="grid xl:grid-cols-2 gap-8">
                 @foreach ($nearby_locations as $nearby_location)
                 <div class="flex items-center gap-5">
@@ -422,7 +403,7 @@
                 </div>
                 @endforeach
 
-                
+
             </div>
         </div>
         {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1187.875311872304!2d106.82119754241114!3d-6.201478784166075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f41e140f587f%3A0xc354e589ba37fb1!2sAll%20Seasons%20Thamrin!5e1!3m2!1sid!2sid!4v1732107745936!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
@@ -437,14 +418,14 @@
 <div class="px-12 xl:px-36 my-14">
     <div class="flex flex-col gap-1 items-center justify-center">
         <p class="font-medium text-primary-400">Fasilitas Kami</p>
-        <h2 class="text-3xl font-medium text-primary-700">Siap Memanjakan Anda</h2>
+        <h2 class="text-3xl font-medium text-primary-700">{{$site_setting->our_facilities_title}}</h2>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 my-10">
-        @foreach ($hotel_facilities as $hotel_facility)    
+        @foreach ($hotel_facilities as $hotel_facility)
         <div class="flex items-center justify-center px-5 py-2 rounded-xl border border-primary-500 gap-5 bg-primary-100 text-primary-500">
-            <span class="material-icons-round text-primary-700">{{$hotel_facility->icon}}</span> 
-           
+            <span class="material-icons-round text-primary-700">{{$hotel_facility->icon}}</span>
+
             <p>{{$hotel_facility->name}}</p>
         </div>
         @endforeach
@@ -456,7 +437,7 @@
     <div class="flex flex-col lg:flex-row items-center justify-between">
         <div class="flex flex-col gap-1">
             <p class="font-medium text-primary-400">Testimonial</p>
-            <h2 class="text-3xl font-medium text-primary-700">Apa Kata Mereka Tentang Kami?</h2> 
+            <h2 class="text-3xl font-medium text-primary-700">{{$site_setting->testimonial_title}}</h2>
         </div>
 
         <div class="flex items-center gap-3">
@@ -492,68 +473,45 @@
     <div id="testimonialDots" class="flex justify-center mt-4 pb-4"></div> --}}
     <div class="mt-10 grid xl:grid-cols-4 gap-5">
         <div id="testimonialSlider" class="relative">
-            @foreach ($room_reviews as $room_review)    
+            @foreach ($room_reviews as $room_review)
             <div class="flex flex-col gap-5 rounded-lg border border-primary-500 p-5 transition-all testimonial-content hover:shadow-xl">
                 {{-- <object data="{{asset('images/traveloka-brown.svg')}}" type="image/svg+xml"></object> --}}
                 {{-- <img src="{{asset('images/traveloka-brown.svg')}}" class="w-24" alt=""> --}}
                 <h3 class="font-medium text-primary-700 text-xl">{{$room_review->title}}</h3>
                 <div class="text-sm text-primary-800">{!!$room_review->description!!}</div>
                 <div class="flex items-center gap-3">
-                    <img src="{{Storage::url($room_review->user->avatar)}}" class="w-14 h-14 rounded-full object-cover object-center" alt="">
+                    <img src="{{url($room_review->user->avatar)}}" class="w-14 h-14 rounded-full object-cover object-center" alt="">
                     <div class="flex flex-col">
                         <p class="font-medium text-primary-700">{{$room_review->user->name}}</p>
                         <p class="text-sm flex items-center gap-1 text-primary-500"><i class="bi bi-star-fill"></i>{{$room_review->rating}} ({{$room_review->rating_text}})</p>
-                    </div> 
+                    </div>
                 </div>
             </div>
             @endforeach
-        
+
             <!-- Pagination Dots -->
             {{-- <div id="testimonialDots" class="flex justify-center mt-4 pb-4"></div>  --}}
         </div>
-        
+
 
     </div>
 </div>
 
 <div class="px-12 xl:px-36 my-28">
     <div class="flex flex-col gap-1 items-center justify-center">
-        <h2 class="text-3xl font-medium text-center text-primary-700">Terimakasih atas Kepercayaan Anda</h2> 
-        <p class=" text-primary-800">Kepercayaan Anda telah menghantarkan kami untuk mendapatkan berbagai penghargaan.</p>
+        <h2 class="text-3xl font-medium text-center text-primary-700">{{$site_setting->award_title}}</h2>
+        <p class=" text-primary-800">{!!$site_setting->award_desc!!}</p>
     </div>
 
     <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8 my-10">
+        @foreach ($hotel_awards as $hotel_award)
         <div class="flex items-center gap-3">
-            <img src="{{asset('images/2017_COE_Logos_white-bkg_translations_en-US-UK.png')}}" class="w-24" alt="">
+            <img src="{{url($hotel_award->badge)}}" class="w-24" alt="">
             <div class="flex flex-col gap-1">
-                <p>Trip Advisor</p>
-                <p>Certificate of Excellence (2017)</p>
+                <p>{{$hotel_award->name}}</p>
             </div>
         </div>
-
-        <div class="flex items-center gap-3">
-            <img src="{{asset('images/6539a819440457af5afd1282_badge tripadvisor best of the best 2023.png')}}" class="w-24" alt="">
-            <div class="flex flex-col gap-1">
-                <p>Trip Advisor</p>
-                <p>Best of the Best (2023)</p>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-3">
-            <img src="{{asset('images/agoda_2022.png')}}" class="w-24" alt="">
-            <div class="flex flex-col gap-1">
-                <p>Agoda</p>
-                <p>Best Review Awards (2022)</p>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-3">
-            <img src="{{asset('images/TC_green_winner-gif_LL_2024.gif')}}" class="w-24" alt="">
-            <div class="flex flex-col gap-1">
-                <p>Trip Advisor</p>
-                <p>Travellers' Choice Awards (2024)</p>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
 
@@ -565,7 +523,7 @@
     </div>
 
     <div class="grid xl:grid-cols-2 gap-5 mt-10">
-        <img src="{{asset('images/Questions-bro 1.png')}}" alt="">
+        <img src="{{url($site_setting->faq_illustration)}}" alt="">
         <div>
             @foreach($faqs as $faq)
                 <x-faq-item :faq="$faq" :isFirst="$loop->first" />
@@ -574,22 +532,22 @@
         {{-- <div class="space-y-4"> --}}
             {{-- @foreach($faqs as $faq)
                 <div x-data="{ open: false }" class="bg-white rounded-lg shadow">
-                    <button 
-                        @click="open = !open" 
+                    <button
+                        @click="open = !open"
                         class="w-full px-6 py-4 text-left flex justify-between items-center">
                         <span class="font-semibold text-gray-900">{{ $faq->question }}</span>
-                        <svg 
-                            class="w-5 h-5 transform transition-transform" 
+                        <svg
+                            class="w-5 h-5 transform transition-transform"
                             :class="{ 'rotate-180': open }"
-                            fill="none" 
-                            stroke="currentColor" 
+                            fill="none"
+                            stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div 
-                        x-show="open" 
-                        x-cloak 
+                    <div
+                        x-show="open"
+                        x-cloak
                         class="px-6 pb-4">
                         <p class="text-gray-600">{{ $faq->answer }}</p>
                     </div>
@@ -607,17 +565,17 @@
             @foreach ($partners as $partner)
             <li>
                 <a href="{{$partner->link}}" title="{{$partner->name}}">
-                    <img src="{{Storage::url($partner->logo)}}" target="_blank" class="h-14 grayscale hover:grayscale-0" alt="">
+                    <img src="{{url($partner->logo)}}" target="_blank" class="h-14 grayscale hover:grayscale-0" alt="">
                 </a>
             </li>
             @endforeach
         </ul>
-    
+
         <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
             @foreach ($partners as $partner)
             <li>
                 <a href="{{$partner->link}}" title="{{$partner->name}}">
-                    <img src="{{Storage::url($partner->logo)}}" target="_blank" class="h-14 grayscale hover:grayscale-0" alt="">
+                    <img src="{{url($partner->logo)}}" target="_blank" class="h-14 grayscale hover:grayscale-0" alt="">
                 </a>
             </li>
             @endforeach
@@ -631,8 +589,8 @@
 
         </div>
         <div class="flex flex-col gap-5 z-10">
-            <h1 class="text-3xl text-white">Rasakan pengalaman menginap terbaik bersama kami</h1>
-            <a href="#" class="text-lg px-8 rounded-full bg-white text-primary-500 py-4 w-fit">Pesan sekarang!</a>
+            <h1 class="text-3xl text-white">{{$site_setting->cta_text}}</h1>
+            <a href="{{$site_setting->cta_button_link}}" class="text-lg px-8 rounded-full bg-white text-primary-500 py-4 w-fit">{{$site_setting->cta_button_text}}</a>
         </div>
     </div>
 </div>
@@ -685,7 +643,7 @@
         //     roomsContainer.scrollLeft -= 250;
         //     roomsContainer.style.transition = 'all 0.4s ease';
         // });
-        
+
         // roomButtonRight.addEventListener('click', function() {
         //     roomsContainer.scrollLeft += 250;
         //     roomsContainer.style.transition = 'all 0.4s ease';
@@ -734,7 +692,7 @@
             // Form submission handler
             // reservationForm.addEventListener('submit', function(e) {
             //     e.preventDefault();
-                
+
             //     const checkInDate = checkInInput.value;
             //     const checkOutDate = checkOutInput.value;
 
@@ -759,41 +717,41 @@
             const checkInInputMobile = document.getElementById('checkInMobile');
             const checkOutInputMobile = document.getElementById('checkOutMobile');
             const reservationFormMobile = document.getElementById('reservationFormMobile');
-    
+
             // Set minimum date for check-in to today
             const today = new Date().toISOString().split('T')[0];
             checkInInputMobile.setAttribute('min', today);
             checkOutInputMobile.setAttribute('min', today);
-    
+
             // Dynamically update check-out min date based on check-in date
             checkInInputMobile.addEventListener('change', function() {
                 checkOutInputMobile.setAttribute('min', this.value);
-                
+
                 // If current check-out date is before new check-in date, reset it
                 if (new Date(checkOutInputMobile.value) < new Date(this.value)) {
                     checkOutInputMobile.value = this.value;
                 }
             });
-    
+
             // Form submission handler
             reservationFormMobile.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+
                 const checkInDateMobile = checkInInputMobile.value;
                 const checkOutDateMobile = checkOutInputMobile.value;
-    
+
                 // Basic validation
                 if (!checkInDateMobile || !checkOutDateMobile) {
                     alert('Tolong tentukan waktu checkin dan checkout!');
                     return;
                 }
-    
+
                 // You can add more validation or send data to server here
                 // console.log('Reservation Details:', {
                 //     checkIn: checkInDate,
                 //     checkOut: checkOutDate
                 // });
-    
+
                 alert('Room reservation submitted successfully!');
             });
         });

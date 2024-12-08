@@ -81,7 +81,7 @@ class HotelFacilitiesController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'icon' => 'nullable',
-            'description' => 'required',
+            'description' => 'nullable',
         ], $message);
 
         $hotel_facility->update([

@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
 @section('title', 'Ubah Peraturan Kamar')
-{{-- 
+{{--
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -27,16 +27,16 @@
                     <span class="material-symbols-rounded">chevron_right</span>
                     <p>Ubah Data</p>
                 </div>
-        
+
                 <h1 class="text-white text-4xl font-medium">
                     Ubah Data
                 </h1>
             </div>
-            
+
         </div>
         <section class="container px-6 mx-auto">
             <main class="col-span-12 md:pt-0">
-                <div class="p-2 mt-2 bg-white rounded-xl shadow-lg">
+                <div class="p-5 mt-2 bg-white rounded-xl shadow-lg">
                     <form action="{{route('dashboard.room-rules.update', $room_rule->id)}}" method="POST" class="flex flex-col gap-5">
                         @csrf
                         @method('PUT')
