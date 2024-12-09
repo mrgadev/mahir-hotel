@@ -43,7 +43,7 @@
                         <p class="whitespace-nowrap">Delete All</p>
                     </button>
                 </div>
-            </div>       
+            </div>
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -120,12 +120,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse ($room_rules as $room_rule)
+                            @forelse ($room_rules as $key => $room_rule)
                                 <tr class="cursor-pointer">
                                     <td scope="row" class="px-4 pe-0 py-4 font-medium text-gray-900 whitespace-nowrap">
                                         <input type="checkbox" name="room_rule_ids[]" class="cursor-pointer child-checkbox w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600" value="{{ $room_rule->id }}">
                                     </td>
-                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$room_rule->id}}</td>
+                                    <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
                                     <td class="font-medium text-gray-900 whitespace-nowrap"><span class="material-icons">
                                         {{$room_rule->icon}}
                                         </span></td>
@@ -147,13 +147,13 @@
                                     </td>
                                 </tr>
                             @empty
-                                
+
                             @endforelse
                             </tbody>
                     </table>
                     </div>
                 </main>
-            </section>    
+            </section>
         </main>
     </div>
 @endsection
@@ -188,7 +188,7 @@
                 const updateMasterCheckboxState = () => {
                     const masterCheckbox = document.querySelector('thead input[type="checkbox"]');
                     const childCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-                    
+
                     if (masterCheckbox && childCheckboxes.length > 0) {
                         const checkedCount = Array.from(childCheckboxes).filter(cb => cb.checked).length;
                         masterCheckbox.checked = checkedCount === childCheckboxes.length;
@@ -249,11 +249,11 @@
             const quickActionButton = document.getElementById('quickActionButton');
             const masterCheckbox = document.getElementById('masterCheckbox');
             const childCheckboxes = document.querySelectorAll('.child-checkbox');
-            
+
             // Check if any checkbox is selected (either master or any child)
-            const isAnyCheckboxSelected = masterCheckbox.checked || 
+            const isAnyCheckboxSelected = masterCheckbox.checked ||
                 Array.from(childCheckboxes).some(checkbox => checkbox.checked);
-            
+
             // Show/hide quick action button based on selection
             if (isAnyCheckboxSelected) {
                 quickActionButton.style.display = 'flex';
@@ -275,13 +275,13 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const deleteButton = document.getElementById('quickActionButton');
-            const actionUrl = "{{ route('dashboard.faq.bulkDelete') }}";
+            const actionUrl = "{{ route('dashboard.room-rules.bulkDelete') }}";
 
             deleteButton.addEventListener('click', function () {
-                const faqIds = Array.from(document.querySelectorAll('input[name="faq_ids[]"]:checked'))
+                const roomRuleIds = Array.from(document.querySelectorAll('input[name="room_rule_ids[]"]:checked'))
                     .map(checkbox => checkbox.value);
 
-                if (faqIds.length === 0) {
+                if (roomRuleIds.length === 0) {
                     Swal.fire({
                         icon: "error",
                         title: "Tidak ada data yang dipilih",
@@ -303,7 +303,7 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken
                     },
-                    body: JSON.stringify({ faq_ids: faqIds })
+                    body: JSON.stringify({ room_rule_ids: roomRuleIds })
                 })
                 .then(response => response.json())
                 .then(data => {

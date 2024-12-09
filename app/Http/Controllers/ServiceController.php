@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
-use App\Models\ServiceCategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ServiceCategory;
 
 class ServiceController extends Controller
 {
@@ -54,13 +55,26 @@ class ServiceController extends Controller
 
         $imagePaths = [];
         if($request->hasFile('image')){
-            foreach ($request->file('image') as $image) {
-                $imagePaths[] = $image->store('images', 'public');
+            foreach ($request->file('image') as $key => $image) {
+                $image_name = 'LAYANAN-'.$key.'-'.Str::slug($request->name).rand(000,999);
+                $ext = strtolower($image->getClientOriginalExtension());
+                $image_full_name = $image_name.'.'.$ext;
+                $upload_path ='storage/services/';
+                $image_url = $upload_path.$image_full_name;
+                $image->move($upload_path, $image_full_name);
+                $imagePaths[] = $image_url;
             }
         }
 
-        if($request->hasFile('cover')){
-            $coverPath = $request->file('cover')->store('covers', 'public');
+        if($request->file('cover')) {
+            $cover_name = 'SAMPUL-LAYANAN-'.Str::slug($request->name).rand(000,999);
+            $ext = strtolower($request->file('cover')->getClientOriginalExtension());
+            $cover_full_name = $cover_name.'.'.$ext;
+            $upload_path ='storage/services/';
+            $cover_url = $upload_path.$cover_full_name;
+            $request->file('cover')->move($upload_path, $cover_full_name);
+
+            $coverPath = $cover_url;
         }
 
         Service::create([
@@ -72,7 +86,7 @@ class ServiceController extends Controller
             'price' => $data['price'],
         ]);
 
-        return redirect()->route('dashboard.service.index')->with('success', 'Service created successfully!');
+        return redirect()->route('dashboard.service.index')->with('success', 'Berhasil mengubah data!');
 
     }
 
@@ -120,18 +134,34 @@ class ServiceController extends Controller
         $imagePaths = [];
 
         if($request->hasFile('image')) {
-            foreach ($request->file('image') as $image) {
-                $imagePath = $image->store('images', 'public');
-                $imagePaths[] = $imagePath; // Menambahkan path gambar ke array
+            foreach ($request->file('image') as $key => $image) {
+                // $imagePath = $image->store('images', 'public');
+                // $imagePaths[] = $imagePath; // Menambahkan path gambar ke array
+                $image_name = 'LAYANAN-'.$key.'-'.Str::slug($request->name).rand(000,999);
+                $ext = strtolower($image->getClientOriginalExtension());
+                $image_full_name = $image_name.'.'.$ext;
+                $upload_path ='storage/services/';
+                $image_url = $upload_path.$image_full_name;
+                $image->move($upload_path, $image_full_name);
+                $imagePaths[] = $image_url;
             }
         }else{
             $imagePaths = json_decode($service->image); // Mengambil array gambar yang ada di database
         }
 
-        if($request->hasFile('cover')){
-            $coverPath = $request->file('cover')->store('covers', 'public');
-        }else{
-            $coverPath = $service->cover;
+        if($request->file('cover')) {
+            $cover_name = 'SAMPUL-LAYANAN-'.Str::slug($request->name).rand(000,999);
+            $ext = strtolower($request->file('cover')->getClientOriginalExtension());
+            $cover_full_name = $cover_name.'.'.$ext;
+            $upload_path ='storage/services/';
+            $cover_url = $upload_path.$cover_full_name;
+            $request->file('cover')->move($upload_path, $cover_full_name);
+            if($service->cover && file_exists($service->cover)) {
+                unlink($service->cover);
+            }
+            $coverPath = $cover_url;
+        } else {
+            $coverPath  = $service->cover;
         }
 
         // Memperbarui model Service dengan data yang baru
@@ -144,7 +174,7 @@ class ServiceController extends Controller
             'image' => json_encode($imagePaths) // Mengubah array menjadi JSON
         ]);
 
-        return redirect()->route('dashboard.service.index')->with('success', 'Service updated successfully');
+        return redirect()->route('dashboard.service.index')->with('success', 'Berhasil mengubah data');
     }
 
 

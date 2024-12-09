@@ -18,6 +18,7 @@ use App\Models\AccomdationPlan;
 use App\Models\HotelAward;
 use App\Models\HotelFacilities;
 use App\Models\HotelService;
+use App\Models\RoomRule;
 use App\Models\ServiceCategory;
 use Illuminate\Support\Facades\Gate;
 
@@ -154,6 +155,18 @@ class BulkAction extends Controller
         Promo::whereIn('id', $promo_ids)->delete();
 
         return response()->json(['success' => true, 'message' => 'Data promo berhasil dihapus']);
+    }
+
+    public function roomRuleBulkDelete(Request $request){
+        $room_rule_ids = $request->input('room_rule_ids', []);
+
+        if (empty($room_rule_ids)) {
+            return response()->json(['success' => false, 'message' => 'Tidak ada data yang dipilih']);
+        }
+
+        RoomRule::whereIn('id', $room_rule_ids)->delete();
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
     }
 
     public function pesanBulkDelete(Request $request){

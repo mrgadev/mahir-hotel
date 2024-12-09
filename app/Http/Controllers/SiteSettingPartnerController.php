@@ -13,7 +13,7 @@ class SiteSettingPartnerController extends Controller
      * Display a listing of the resource.
      */
     public function index() {
-    
+
     }
 
     /**
@@ -35,10 +35,14 @@ class SiteSettingPartnerController extends Controller
             'link' => 'required',
         ]);
 
-        if($request->hasFile('logo')){
-            $logo = $request->file('logo');
-            $logo_name = time() . '_' . $logo->getClientOriginalName();
-            $logoPath = $logo->storeAs('logos', $logo_name, 'public');
+        if($request->file('logo')) {
+            $logo_name = 'PARTNER-'.Str::slug($data['name']).'-'.rand(000,999);
+            $ext = strtolower($request->file('logo')->getClientOriginalExtension());
+            $logo_full_name = $logo_name.'.'.$ext;
+            $upload_path ='storage/partners/';
+            $logo_url = $upload_path.$logo_full_name;
+            $request->file('logo')->move($upload_path, $logo_full_name);
+            $logoPath = $logo_url;
         }
 
         SiteSettingPartner::create([
@@ -77,11 +81,18 @@ class SiteSettingPartnerController extends Controller
             'link' => 'required',
         ]);
 
-        if($request->hasFile('logo')){
-            $logo = $request->file('logo');
-            $logo_name = time() . '_' . $logo->getClientOriginalName();
-            $logoPath = $logo->storeAs('logos', $logo_name, 'public');
-        }else{
+        if($request->file('logo')) {
+            $logo_name = 'PARTNER-'.Str::slug($data['name']).'-'.rand(000,999);
+            $ext = strtolower($request->file('logo')->getClientOriginalExtension());
+            $logo_full_name = $logo_name.'.'.$ext;
+            $upload_path ='storage/partners/';
+            $logo_url = $upload_path.$logo_full_name;
+            $request->file('logo')->move($upload_path, $logo_full_name);
+            if($partner->logo && file_exists($partner->logo)) {
+                unlink($partner->logo);
+            }
+            $logoPath= $logo_url;
+        } else {
             $logoPath = $partner->logo;
         }
 
@@ -91,7 +102,7 @@ class SiteSettingPartnerController extends Controller
             'link' => $data['link'],
         ]);
 
-        return redirect()->back()->with('success', 'Berhasil mengubah data');
+        return redirect()->route('dashboard.site.settings.edit')->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -99,8 +110,8 @@ class SiteSettingPartnerController extends Controller
      */
     public function destroy(SiteSettingPartner $partner)
     {
-        if($partner->logo && Storage::exists($partner->logo)) {
-        Storage::delete($partner->logo);
+        if($partner->logo && file_exists($partner->logo)) {
+            unlink($partner->logo);
         }
         $partner->delete();
 

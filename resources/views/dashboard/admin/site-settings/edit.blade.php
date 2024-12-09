@@ -45,14 +45,41 @@
                                 </div>
                             </div> --}}
                             <div class="flex flex-col gap-5">
-                                <h1 class="text-xl font-medium text-primary-700">Alamat</h1>
-                                <label for="">Tautan Google Maps</label>
-                                <div class="flex flex-col gap-5">
-                                    <input type="text" name="maps_link" value="{{$site_setting->maps_link}}" class="rounded-lg">
+                                <h1 class="text-xl font-medium text-primary-700">Kontak dan Alamat</h1>
+                                <div class="grid lg:grid-cols-2 gap-3">
+                                    <div class="flex flex-col gap-5">
+                                        <label for="">Nomor Telepon</label>
+                                        <input type="text" name="phone" value="{{$site_setting->phone}}" class="rounded-lg">
+
+                                        @if ($errors->has('phone'))
+                                        <p  class="text-red-500 mt-3 text-sm">{{$errors->first('phone')}}</p>
+                                        @endif
+                                    </div>
+                                    <div class="flex flex-col gap-5">
+                                        <label for="">Teks Nomor Telepon</label>
+                                        <input type="text" name="phone_text" value="{{$site_setting->phone_text}}" class="rounded-lg">
+
+                                        @if ($errors->has('phone_text'))
+                                        <p  class="text-red-500 mt-3 text-sm">{{$errors->first('phone_text')}}</p>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="flex flex-col gap-5">
-                                    <label for="">Alamat Lengkap</label>
-                                    <textarea name="address" id="address" cols="30" rows="10">{!!$site_setting->address!!}</textarea>
+
+                                <div class="flex flex-col gap-3">
+                                    <label for="">Tautan Google Maps</label>
+                                    <div class="flex flex-col gap-5">
+                                        <input type="text" name="maps_link" value="{{$site_setting->maps_link}}" class="rounded-lg">
+                                        @if ($errors->has('maps_link'))
+                                        <p  class="text-red-500 mt-3 text-sm">{{$errors->first('maps_link')}}</p>
+                                        @endif
+                                    </div>
+                                    <div class="flex flex-col gap-5">
+                                        <label for="">Alamat Lengkap</label>
+                                        <textarea name="address" id="address" cols="30" rows="10">{!!$site_setting->address!!}</textarea>
+                                        @if ($errors->has('address'))
+                                        <p  class="text-red-500 mt-3 text-sm">{{$errors->first('address')}}</p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                             <h1 class="text-xl font-medium text-primary-700 mt-5">Pengaturan Lanjutan</h1>
@@ -63,12 +90,18 @@
                                         <input type="number" name="payment_deadline" value="{{$site_setting->payment_deadline}}" class="rounded-lg">
                                         <p>Jam</p>
                                     </div>
+                                    @if ($errors->has('payment_deadline'))
+                                    <p  class="text-red-500 mt-3 text-sm">{{$errors->first('payment_deadline')}}</p>
+                                    @endif
                                 </div>
                                 <div class="flex flex-col gap-5">
                                     <label for="">Waktu Check In</label>
                                     <div class="flex items-center gap-3">
                                         <input type="time" name="checkin_time" value="{{$site_setting->checkin_time}}" class="rounded-lg">
                                         {{-- <p>Jam</p> --}}
+                                        @if ($errors->has('checkin_time'))
+                                        <p  class="text-red-500 mt-3 text-sm">{{$errors->first('checkin_time')}}</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="flex flex-col gap-5">
@@ -76,6 +109,9 @@
                                     <div class="flex items-center gap-3">
                                         <input type="time" name="checkout_time" value="{{$site_setting->checkout_time}}" class="rounded-lg">
                                         {{-- <p>Jam</p> --}}
+                                        @if ($errors->has('checkout_time'))
+                                        <p  class="text-red-500 mt-3 text-sm">{{$errors->first('checkout_time')}}</p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -94,9 +130,6 @@
                         <table id="selection-table" class="">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="px-4 py-3">
-                                        <input type="checkbox" id="masterCheckbox" class="cursor-pointer w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
-                                    </th>
                                     <th>
                                         <span class="flex items-center">
                                             No
@@ -137,12 +170,9 @@
                             <tbody>
                                 @forelse ($partners as $key => $partner)
                                     <tr class="cursor-pointer">
-                                        <td scope="row" class="px-4 pe-0 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                            <input type="checkbox" name="partner_ids[]" class="cursor-pointer child-checkbox w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600" value="{{ $partner->id }}">
-                                        </td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
                                         <td class="">
-                                            <img src="{{Storage::url($partner->logo)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
+                                            <img src="{{url($partner->logo)}}" alt="" class=" w-10 object-cover object-top transition duration-500 mb-2">
                                         </td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$partner->name}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$partner->link}}</td>
@@ -213,7 +243,7 @@
                                     </td>
                                     <td class="flex items-center">
                                         <div class="mr-2">
-                                            <a href="{{route('dashboard.bank.edit', $bank)}}" class="editItemButton py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white" data-id="{{ $partner->id }}" data-name="{{ $partner->name }}" data-link="{{$partner->link}}" data-logo="{{$partner->logo}}">
+                                            <a href="{{route('dashboard.bank.edit', $bank)}}" class="editItemButton py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white" data-id="{{ $bank->id }}" data-name="{{ $bank->name }}" data-link="{{$bank->link}}" data-logo="{{$bank->logo}}">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
 

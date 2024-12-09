@@ -44,7 +44,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::put('/profile/password', [DashboardController::class, 'updatePassword'])->name('profile.updatePassword');
     Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('/hotel_facilities', HotelFacilitiesController::class)->names('hotel_facilities')->middleware(middleware: 'role:admin|staff');
+    Route::resource('/hotel_facility', HotelFacilitiesController::class)->names('hotel_facilities')->middleware(middleware: 'role:admin|staff');
     Route::post('/fasilitas-hotel/bulkDelete', [BulkAction::class, 'hotelFacilitiesBulkDelete'])->name('hotel-facilities.bulkDelete')->middleware('role:admin|staff');
 
     Route::resource('/hotel_services', HotelServiceController::class)->names('hotel_services')->middleware(middleware: 'role:admin|staff');
@@ -102,7 +102,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::get('/site-settings', [SiteSettingsController::class, 'edit'])->name('site.settings.edit')->middleware('role:admin|staff');
     Route::put('/site-settings/{site_setting}', [SiteSettingsController::class, 'update'])->name('site.settings.update')->middleware('role:admin|staff');
     Route::get('/site-settings/frontpage', [SiteSettingsController::class, 'frontpageEdit'])->name('site.settings.frontpage.edit')->middleware('role:admin|staff');
-    Route::put('/site-settings/frontpage/{site_setting}', [SiteSettingsController::class, 'frontpageUpdate'])->name('site.settings.frontpage.update')->middleware('role:admin|staff');
+    Route::put('/site-settings/frontpage/{frontpage_site_setting}', [SiteSettingsController::class, 'frontpageUpdate'])->name('site.settings.frontpage.update')->middleware('role:admin|staff');
 
     Route::resource('/partners', SiteSettingPartnerController::class)->middleware('role:admin');
 
@@ -119,6 +119,7 @@ Route::middleware('auth')->prefix('/dashboard')->name('dashboard.')->group(funct
     Route::put('/penarikan-saldo/{penarikanSaldo}/update', [PenarikanSaldoController::class, 'update'])->name('penarikan-saldo.update');
 
     Route::resource('/room-rules', RoomRuleController::class)->middleware('role:admin|staff');
+    Route::post('/room-rules/bulkDelete', [BulkAction::class,'roomRuleBulkDelete'])->name('room-rules.bulkDelete')->middleware('role:admin|staff');
 });
 
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle'])->name('auth.google.redirect');

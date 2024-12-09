@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\FrontpageSiteSetting;
 use App\Models\SiteSettingPartner;
 use App\Models\SiteSettings;
 use Illuminate\Http\Request;
@@ -17,10 +18,10 @@ class SiteSettingsController extends Controller
     }
 
     public function frontpageEdit() {
-        $site_setting = SiteSettings::where('id',1)->firstOrFail();
+        $frontpage_site_setting = FrontpageSiteSetting::where('id',1)->firstOrFail();
         $partners = SiteSettingPartner::all();
         $banks = Bank::all();
-        return view('dashboard.admin.site-settings.frontpage', compact('site_setting', 'partners', 'banks'));
+        return view('dashboard.admin.site-settings.frontpage', compact('frontpage_site_setting', 'partners', 'banks'));
     }
 
     public function update(Request $request, SiteSettings $site_setting) {
@@ -47,7 +48,7 @@ class SiteSettingsController extends Controller
         return redirect()->route('dashboard.site.settings.edit', compact('site_setting'))->with('success','Pengaturan situs berhasil diperbarui!');
     }
 
-    public function frontpageUpdate(Request $request, SiteSettings $site_setting) {
+    public function frontpageUpdate(Request $request, FrontpageSiteSetting $frontpage_site_setting) {
         $message = [
             'tagline.required' => 'Tagline wajib diisi',
             'description.required' => 'Deskripsi wajib diisi',
@@ -98,12 +99,12 @@ class SiteSettingsController extends Controller
             $upload_path ='storage/site-settings/';
             $hero_cover_url = $upload_path.$hero_cover_full_name;
             $request->file('hero_cover')->move($upload_path, $hero_cover_full_name);
-            if($site_setting->hero_cover && file_exists($site_setting->hero_cover)) {
-                unlink($site_setting->hero_cover);
+            if($frontpage_site_setting->hero_cover && file_exists($frontpage_site_setting->hero_cover)) {
+                unlink($frontpage_site_setting->hero_cover);
             }
             $data['hero_cover']= $hero_cover_url;
         } else {
-            $data['hero_cover'] = $site_setting->hero_cover;
+            $data['hero_cover'] = $frontpage_site_setting->hero_cover;
         }
         // dd($data['hero_cover']);
 
@@ -114,12 +115,12 @@ class SiteSettingsController extends Controller
             $upload_path ='storage/site-settings/';
             $service_image_url = $upload_path.$service_image_full_name;
             $request->file('service_image')->move($upload_path, $service_image_full_name);
-            if($site_setting->service_image && file_exists($site_setting->service_image)) {
-                unlink($site_setting->service_image);
+            if($frontpage_site_setting->service_image && file_exists($frontpage_site_setting->service_image)) {
+                unlink($frontpage_site_setting->service_image);
             }
             $data['service_image']= $service_image_url;
         } else {
-            $data['service_image'] = $site_setting->service_image;
+            $data['service_image'] = $frontpage_site_setting->service_image;
         }
 
         if($request->file('faq_illustration')) {
@@ -129,12 +130,12 @@ class SiteSettingsController extends Controller
             $upload_path ='storage/site-settings/';
             $faq_illustration_url = $upload_path.$faq_illustration_full_name;
             $request->file('faq_illustration')->move($upload_path, $faq_illustration_full_name);
-            if($site_setting->faq_illustration && file_exists($site_setting->faq_illustration)) {
-                unlink($site_setting->faq_illustration);
+            if($frontpage_site_setting->faq_illustration && file_exists($frontpage_site_setting->faq_illustration)) {
+                unlink($frontpage_site_setting->faq_illustration);
             }
             $data['faq_illustration']= $faq_illustration_url;
         } else {
-            $data['faq_illustration'] = $site_setting->faq_illustration;
+            $data['faq_illustration'] = $frontpage_site_setting->faq_illustration;
         }
 
         if($request->file('cta_cover')) {
@@ -144,17 +145,17 @@ class SiteSettingsController extends Controller
             $upload_path ='storage/site-settings/';
             $cta_cover_url = $upload_path.$cta_cover_full_name;
             $request->file('cta_cover')->move($upload_path, $cta_cover_full_name);
-            if($site_setting->cta_cover && file_exists($site_setting->cta_cover)) {
-                unlink($site_setting->cta_cover);
+            if($frontpage_site_setting->cta_cover && file_exists($frontpage_site_setting->cta_cover)) {
+                unlink($frontpage_site_setting->cta_cover);
             }
             $data['cta_cover']= $cta_cover_url;
         } else {
-            $data['cta_cover'] = $site_setting->cta_cover;
+            $data['cta_cover'] = $frontpage_site_setting->cta_cover;
         }
 
         // dd($data);
-        $site_setting->update($data);
-        return redirect()->route('dashboard.site.settings.frontpage.edit', compact('site_setting'))->with('success', 'Data berhasil diperbarui');
+        $frontpage_site_setting->update($data);
+        return redirect()->route('dashboard.site.settings.frontpage.edit', compact('frontpage_site_setting'))->with('success', 'Data berhasil diperbarui');
     }
 }
 

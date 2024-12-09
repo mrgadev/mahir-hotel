@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AccomdationPlan;
 use App\Models\Faq;
+use App\Models\FrontpageSiteSetting;
 use App\Models\HotelAward;
 use App\Models\Room;
 use App\Models\Promo;
@@ -27,11 +28,12 @@ class FrontpageController extends Controller
         $hotel_facilities = HotelFacilities::all();
         $rooms = Room::all();
         $site_setting = SiteSettings::where('id', 1)->firstOrFail();
+        $frontpage_site_setting = FrontpageSiteSetting::where('id',1)->first();
         $partners = SiteSettingPartner::all();
         $room_reviews = RoomReview::where('visibility', 'Tampilkan')->get();
         $hotel_services = HotelService::limit(4)->get();
         $hotel_awards = HotelAward::limit(4)->get();
-        return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms', 'site_setting', 'partners', 'room_reviews', 'hotel_services', 'hotel_awards'));
+        return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms', 'site_setting', 'partners', 'room_reviews', 'hotel_services', 'hotel_awards', 'frontpage_site_setting'));
     }
     public function checkout(String $id, Request $request){
         $room = Room::find($id);

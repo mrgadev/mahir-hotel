@@ -43,7 +43,7 @@
                         <p class="whitespace-nowrap">Delete All</p>
                     </button>
                 </div>
-            </div>       
+            </div>
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -95,11 +95,11 @@
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$hotel_facility->name}}</td>
                                         <td class="flex items-center">
                                             <div class="mr-2">
-                                                <a href="{{route('dashboard.hotel_facilities.edit', $hotel_facility)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                                <a href="{{route('dashboard.hotel_facilities.edit', $hotel_facility->id)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
                                             </div>
-                                            <form action="{{route('dashboard.hotel_facilities.destroy', $hotel_facility)}}" class="" method="POST">
+                                            <form action="{{route('dashboard.hotel_facilities.destroy', $hotel_facility->id)}}" class="" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button tyoe="submit" class="py-1 px-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white">
@@ -109,13 +109,13 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    
+
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
                 </main>
-            </section>    
+            </section>
         </main>
     </div>
 @endsection
@@ -150,7 +150,7 @@
                 const updateMasterCheckboxState = () => {
                     const masterCheckbox = document.querySelector('thead input[type="checkbox"]');
                     const childCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-                    
+
                     if (masterCheckbox && childCheckboxes.length > 0) {
                         const checkedCount = Array.from(childCheckboxes).filter(cb => cb.checked).length;
                         masterCheckbox.checked = checkedCount === childCheckboxes.length;
@@ -211,11 +211,11 @@
             const quickActionButton = document.getElementById('quickActionButton');
             const masterCheckbox = document.getElementById('masterCheckbox');
             const childCheckboxes = document.querySelectorAll('.child-checkbox');
-            
+
             // Check if any checkbox is selected (either master or any child)
-            const isAnyCheckboxSelected = masterCheckbox.checked || 
+            const isAnyCheckboxSelected = masterCheckbox.checked ||
                 Array.from(childCheckboxes).some(checkbox => checkbox.checked);
-            
+
             // Show/hide quick action button based on selection
             if (isAnyCheckboxSelected) {
                 quickActionButton.style.display = 'flex';

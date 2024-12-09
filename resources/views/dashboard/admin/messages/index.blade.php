@@ -39,7 +39,7 @@
                         <p class="whitespace-nowrap">Delete All</p>
                     </button>
                 </div>
-            </div>       
+            </div>
             <section class="container mx-auto">
                 <main class="col-span-12 md:pt-0">
                     <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -103,12 +103,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($messages as $message)
+                                @forelse ($messages as $key => $message)
                                     <tr class="cursor-pointer">
                                         <td scope="row" class="px-4 pe-0 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             <input type="checkbox" name="message_ids[]" class="cursor-pointer child-checkbox w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600" value="{{ $message->id }}">
                                         </td>
-                                        <td class="font-medium text-gray-900 whitespace-nowrap">{{$message->id}}</td>
+                                        <td class="font-medium text-gray-900 whitespace-nowrap">{{$key + 1}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$message->title}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$message->name}}</td>
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$message->email}}</td>
@@ -130,13 +130,13 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    
+
                                 @endforelse
                             </tbody>
                     </table>
                     </div>
                 </main>
-            </section>    
+            </section>
         </main>
     </div>
 @endsection
@@ -171,7 +171,7 @@
                 const updateMasterCheckboxState = () => {
                     const masterCheckbox = document.querySelector('thead input[type="checkbox"]');
                     const childCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-                    
+
                     if (masterCheckbox && childCheckboxes.length > 0) {
                         const checkedCount = Array.from(childCheckboxes).filter(cb => cb.checked).length;
                         masterCheckbox.checked = checkedCount === childCheckboxes.length;
@@ -232,11 +232,11 @@
             const quickActionButton = document.getElementById('quickActionButton');
             const masterCheckbox = document.getElementById('masterCheckbox');
             const childCheckboxes = document.querySelectorAll('.child-checkbox');
-            
+
             // Check if any checkbox is selected (either master or any child)
-            const isAnyCheckboxSelected = masterCheckbox.checked || 
+            const isAnyCheckboxSelected = masterCheckbox.checked ||
                 Array.from(childCheckboxes).some(checkbox => checkbox.checked);
-            
+
             // Show/hide quick action button based on selection
             if (isAnyCheckboxSelected) {
                 quickActionButton.style.display = 'flex';

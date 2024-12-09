@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'My Account')
-{{-- 
+@section('title', 'Rencana Penginapan')
+{{--
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -21,14 +21,14 @@
                         <span class="material-symbols-rounded scale-75">home</span>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <a href="{{route('dashboard.users_management.index')}}" class="flex items-center hover:underline">
-                        <p>Management Users</p>
+                    <a href="{{route('dashboard.accomodation_plan.index')}}" class="flex items-center hover:underline">
+                        <p>Rencana Penginapan</p>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <p>Edit Akun</p>
+                    <p>Edit Data</p>
                 </div>
                 <h1 class="text-white text-4xl font-medium">
-                    Edit Akun
+                    Edit Data
                 </h1>
             </div>
         </div>
@@ -52,8 +52,8 @@
                                                 @endif
                                             </div>
                                             <div class="md:col-span-6 lg:col-span-3">
-                                                <label for="price" class="block mb-3 font-medium text-gray-700 text-md"> Password Baru</label>
-                                                <input placeholder="Harga" type="number" name="price" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$accomodation_plan->price}}">
+                                                <label for="price" class="block mb-3 font-medium text-gray-700 text-md"> Harga</label>
+                                                <input placeholder="Harga" type="number" name="price" id="price" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" value="{{$accomodation_plan->price}}">
                                                 @if ($errors->has('price'))
                                                     <p class="text-red-500 mb-3 text-sm">{{$errors->first('price')}}</p>
                                                 @endif

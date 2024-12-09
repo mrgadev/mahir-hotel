@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Promo;
 use App\Models\Room;
+use App\Models\Promo;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PromoController extends Controller
@@ -47,13 +48,20 @@ class PromoController extends Controller
             'amount' => 'required|integer|max:95',
             'start_date' => 'required',
             'end_date' => 'required',
-            'is_all' => 'required',
-            'room_id' => 'required|array',
+            'is_all' => 'nullable',
+            'room_id' => 'nullable|array',
             'room_id.*' => 'exists:rooms,id',
         ], $message);
 
-        if($request->hasFile('cover')){
-            $coverPath = $request->file('cover')->store('cover', 'public');
+        if($request->file('cover')) {
+            $cover_name = 'PROMO-'.Str::slug($request->name).rand(000,999);
+            $ext = strtolower($request->file('cover')->getClientOriginalExtension());
+            $cover_full_name = $cover_name.'.'.$ext;
+            $upload_path ='storage/promo/';
+            $cover_url = $upload_path.$cover_full_name;
+            $request->file('cover')->move($upload_path, $cover_full_name);
+
+            $coverPath = $cover_url;
         }
 
         // Promo::create([
@@ -115,10 +123,19 @@ class PromoController extends Controller
             'room_id.*' => 'exists:rooms,id',
         ]);
 
-        if($request->hasFile('cover')){
-            $coverPath = $request->file('cover')->store('cover', 'public');
+        if($request->file('cover')) {
+            $cover_name = 'PROMO-'.Str::slug($request->name).rand(000,999);
+            $ext = strtolower($request->file('cover')->getClientOriginalExtension());
+            $cover_full_name = $cover_name.'.'.$ext;
+            $upload_path ='storage/promo/';
+            $cover_url = $upload_path.$cover_full_name;
+            $request->file('cover')->move($upload_path, $cover_full_name);
+            if($promo->cover && file_exists($promo->cover)) {
+                unlink($promo->cover);
+            }
+            $coverPath = $cover_url;
         } else {
-            $coverPath = $promo->cover;
+            $coverPath  = $promo->cover;
         }
 
         // Ubah pengecekan is_all nya gini

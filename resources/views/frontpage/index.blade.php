@@ -55,11 +55,11 @@
     }
 
     header {
-        background: url({{url($site_setting->hero_cover)}});
+        background: url({{url($frontpage_site_setting->hero_cover) ?? ''}});
     }
 
     .cta-card {
-        background: url({{url($site_setting->cta_cover)}});
+        background: url({{url($frontpage_site_setting->cta_cover) ?? ''}});
         background-position: center;
         background-size: cover;
     }
@@ -166,9 +166,9 @@
     </div>
 
     <section class="main h-[90%] flex flex-col justify-center gap-3 relative">
-        <h1 class="text-4xl xl:text-6xl text-white">{!!$site_setting->tagline!!}</h1>
+        <h1 class="text-4xl xl:text-6xl text-white">{!!$frontpage_site_setting->tagline!!}</h1>
         <div class="text-white">
-            {!!$site_setting->description!!}
+            {!!$frontpage_site_setting->description!!}
         </div>
 
         <form action="{{route('frontpage.search.rooms')}}" id="reservationForm" class="hidden mt-5 bg-white py-5 ps-10 pe-5 xl:flex items-center justify-between w-3/5 rounded-full" method="GET">
@@ -364,10 +364,10 @@
 <div class="px-12 xl:px-36 py-12">
     <div class="flex flex-col gap-1 justify-center items-center">
         <p class="font-medium text-primary-400">Kenali</p>
-        <h2 class="text-3xl font-medium text-primary-700">{{$site_setting->our_service_title}}</h2>
+        <h2 class="text-3xl font-medium text-primary-700">{{$frontpage_site_setting->our_service_title}}</h2>
     </div>
     <div class="grid xl:grid-cols-2 gap-5 my-11">
-        <img src="{{url($site_setting->service_image)}}" alt="">
+        <img src="{{url($frontpage_site_setting->service_image)}}" alt="">
         <div class="flex flex-col gap-8">
             @foreach ($hotel_services as $hotel_service)
             <div class="flex flex-col xl:flex-row gap-8 sm:items-start xl:items-center">
@@ -386,12 +386,12 @@
 <div class="px-12 xl:px-36 my-10">
     <div class="flex flex-col gap-1">
         <p class="font-medium text-primary-400">Lokasi Kami</p>
-        <h2 class="text-3xl font-medium text-primary-700">{{$site_setting->our_location_title}}</h2>
+        <h2 class="text-3xl font-medium text-primary-700">{{$frontpage_site_setting->our_location_title}}</h2>
     </div>
 
     <div class="grid xl:grid-cols-2 gap-5">
         <div class="flex flex-col gap-3">
-            <p class="my-5">{!!$site_setting->our_location_desc!!}</p>
+            <p class="my-5">{!!$frontpage_site_setting->our_location_desc!!}</p>
             <div class="grid xl:grid-cols-2 gap-8">
                 @foreach ($nearby_locations as $nearby_location)
                 <div class="flex items-center gap-5">
@@ -407,10 +407,10 @@
             </div>
         </div>
         {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1187.875311872304!2d106.82119754241114!3d-6.201478784166075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f41e140f587f%3A0xc354e589ba37fb1!2sAll%20Seasons%20Thamrin!5e1!3m2!1sid!2sid!4v1732107745936!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
-        @php
+        {{-- @php
             $site_settings = App\Models\SiteSettings::where('id',1)->first();
-        @endphp
-        <iframe width="600" height="450" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q={{ urlencode($site_settings->address) }}&zoom=15&maptype=roadmap"></iframe>
+        @endphp --}}
+        <iframe width="600" height="450" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q={{ urlencode($site_setting->address) }}&zoom=15&maptype=roadmap"></iframe>
     </div>
 </div>
 
@@ -418,7 +418,7 @@
 <div class="px-12 xl:px-36 my-14">
     <div class="flex flex-col gap-1 items-center justify-center">
         <p class="font-medium text-primary-400">Fasilitas Kami</p>
-        <h2 class="text-3xl font-medium text-primary-700">{{$site_setting->our_facilities_title}}</h2>
+        <h2 class="text-3xl font-medium text-primary-700">{{$frontpage_site_setting->our_facilities_title}}</h2>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 my-10">
@@ -437,7 +437,7 @@
     <div class="flex flex-col lg:flex-row items-center justify-between">
         <div class="flex flex-col gap-1">
             <p class="font-medium text-primary-400">Testimonial</p>
-            <h2 class="text-3xl font-medium text-primary-700">{{$site_setting->testimonial_title}}</h2>
+            <h2 class="text-3xl font-medium text-primary-700">{{$frontpage_site_setting->testimonial_title}}</h2>
         </div>
 
         <div class="flex items-center gap-3">
@@ -499,8 +499,8 @@
 
 <div class="px-12 xl:px-36 my-28">
     <div class="flex flex-col gap-1 items-center justify-center">
-        <h2 class="text-3xl font-medium text-center text-primary-700">{{$site_setting->award_title}}</h2>
-        <p class=" text-primary-800">{!!$site_setting->award_desc!!}</p>
+        <h2 class="text-3xl font-medium text-center text-primary-700">{{$frontpage_site_setting->award_title}}</h2>
+        <p class=" text-primary-800">{!!$frontpage_site_setting->award_desc!!}</p>
     </div>
 
     <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8 my-10">
@@ -523,7 +523,7 @@
     </div>
 
     <div class="grid xl:grid-cols-2 gap-5 mt-10">
-        <img src="{{url($site_setting->faq_illustration)}}" alt="">
+        <img src="{{url($frontpage_site_setting->faq_illustration ?? '')}}" alt="">
         <div>
             @foreach($faqs as $faq)
                 <x-faq-item :faq="$faq" :isFirst="$loop->first" />
@@ -589,8 +589,8 @@
 
         </div>
         <div class="flex flex-col gap-5 z-10">
-            <h1 class="text-3xl text-white">{{$site_setting->cta_text}}</h1>
-            <a href="{{$site_setting->cta_button_link}}" class="text-lg px-8 rounded-full bg-white text-primary-500 py-4 w-fit">{{$site_setting->cta_button_text}}</a>
+            <h1 class="text-3xl text-white">{{$frontpage_site_setting->cta_text}}</h1>
+            <a href="{{$frontpage_site_setting->cta_button_link}}" class="text-lg px-8 rounded-full bg-white text-primary-500 py-4 w-fit">{{$frontpage_site_setting->cta_button_text}}</a>
         </div>
     </div>
 </div>

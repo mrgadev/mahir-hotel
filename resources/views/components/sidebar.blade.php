@@ -130,7 +130,7 @@
 
             {{-- Menu Feedback --}}
             <li class="mt-0.5 w-full">
-                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.message.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="feedbackToggle">
+                <a class="py-2.7 text-primary-700  text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-medium justify-between transition-all hover:bg-primary-500 hover:text-white {{Route::is('dashboard.message.*') || Route::is('dashboard.room-review.*') ? 'bg-primary-500 text-white' : ''}}" href="#" id="feedbackToggle">
                     <div class="flex items-center">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="bi bi-chat-text-fill"></i>

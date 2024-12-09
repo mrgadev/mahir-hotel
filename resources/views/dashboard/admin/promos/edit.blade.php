@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'My Account')
-{{-- 
+@section('title', 'Ubah Promo')
+{{--
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -21,18 +21,18 @@
                         <span class="material-symbols-rounded scale-75">home</span>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <a href="{{route('dashboard.hotel_facilities.index')}}" class="flex items-center hover:underline">
+                    <a href="{{route('dashboard.promo.index')}}" class="flex items-center hover:underline">
                         <p>Promo</p>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
                     <p>Ubah Promo</p>
                 </div>
-        
+
                 <h1 class="text-white text-4xl font-medium">
                     Ubah Promo
                 </h1>
             </div>
-            
+
         </div>
         <section class="container px-6 mx-auto">
             <main class="col-span-12 md:pt-0">
@@ -52,19 +52,19 @@
                                                 <p class="text-red-500 mb-3 text-sm">{{$errors->first('name')}}</p>
                                             @endif
                                         </div>
-                                        
+
                                         <div class="">
                                             <label for="cover" class="mt-5 block mb-3 font-medium text-gray-700 text-md">Cover Promo</label>
                                             <div class="relative flex h-20 w-[20] cursor-pointer">
                                                 <a href="#image-modal" class="block h-20 w-[20]">
                                                     <img
                                                     class="h-full w-full object-cover object-center rounded-xl"
-                                                    src="{{Storage::url($promo->cover)}}"
+                                                    src="{{url($promo->cover)}}"
                                                     />
                                                 </a>
                                                 <div class="block">
                                                     <label for="choose" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 cursor-pointer">Pilih Berkas</label>
-                                                    
+
                                                     <input type="file" id="choose" name="cover" hidden>
                                                 </div>
                                             </div>
@@ -116,12 +116,12 @@
                                             <label for="is_all" class="block mb-3 font-medium text-gray-700 text-md">Kategori Promo</label>
                                             <div class="flex items-center space-x-4">
                                                 <label class="flex items-center">
-                                                    <input type="radio" name="is_all" value="Yes" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2" 
+                                                    <input type="radio" name="is_all" value="Yes" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2"
                                                         {{ $promo->is_all === 1 ? 'checked' : '' }}>
                                                     <span class="ml-2">Semua</span>
                                                 </label>
                                                 <label class="flex items-center">
-                                                    <input type="radio" name="is_all" value="No" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2" 
+                                                    <input type="radio" name="is_all" value="No" class="form-radio h-4 w-4 text-primary-500 focus:ring-primary-500 focus:ring-2"
                                                         {{ $promo->is_all === 0 ? 'checked' : '' }}>
                                                     <span class="ml-2">Per Kamar</span>
                                                 </label>

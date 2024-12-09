@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
 @section('title', 'Layanan Lainnya')
-{{-- 
+{{--
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -27,12 +27,12 @@
                     <span class="material-symbols-rounded">chevron_right</span>
                     <p>Buat Layanan Lainnya</p>
                 </div>
-        
+
                 <h1 class="text-white text-4xl font-medium">
                     Buat Layanan Lainnya
                 </h1>
             </div>
-            
+
         </div>
         <section class="container px-6 mx-auto">
             <main class="col-span-12 md:pt-0">
@@ -82,7 +82,7 @@
                                                 <a href="#cover-modal" class="block w-full">
                                                     <img
                                                     class="h-full w-full object-cover object-center rounded-xl"
-                                                    src="{{Storage::url($service->cover)}}"
+                                                    src="{{url($service->cover)}}"
                                                     />
                                                 </a>
                                             </div>
@@ -107,7 +107,7 @@
                                                             <a href="#image-modal-{{$image}}" class="block h-full w-full">
                                                                 <img
                                                                     class="h-full w-full object-cover object-center rounded-xl"
-                                                                    src="{{ Storage::url($image) }}"
+                                                                    src="{{ url($image) }}"
                                                                 />
                                                             </a>
                                                         </div>

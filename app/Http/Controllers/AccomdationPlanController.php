@@ -35,7 +35,7 @@ class AccomdationPlanController extends Controller
         ]);
 
         AccomdationPlan::create($data);
-        return redirect()->route('dashboard.accomodation_plan.index')->with('success', 'Accommodation Plan created successfully.');
+        return redirect()->route('dashboard.accomodation_plan.index')->with('success', 'Berhasil menambah data');
     }
 
     /**
@@ -65,7 +65,7 @@ class AccomdationPlanController extends Controller
         ]);
 
         $accomodation_plan->update($data);
-        return redirect()->route('dashboard.accomodation_plan.index')->with('success', 'Accommodation Plan updated successfully.');
+        return redirect()->route('dashboard.accomodation_plan.index')->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -74,6 +74,6 @@ class AccomdationPlanController extends Controller
     public function destroy(AccomdationPlan $accomodation_plan)
     {
         $accomodation_plan->delete();
-        return redirect()->route('dashboard.accomodation_plan.index')->with('success', 'Accommodation Plan deleted successfully.');
+        return redirect()->route('dashboard.accomodation_plan.index')->with('success', 'Berhasil menghapus data');
     }
 }

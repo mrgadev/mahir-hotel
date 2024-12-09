@@ -1,7 +1,7 @@
 @extends('layouts.dahboard_layout')
 
-@section('title', 'My Account')
-{{-- 
+@section('title', 'Rencana Penginapan')
+{{--
 @section('breadcrumb')
     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li class="text-sm leading-normal">
@@ -21,14 +21,14 @@
                         <span class="material-symbols-rounded scale-75">home</span>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <a href="{{route('dashboard.users_management.index')}}" class="flex items-center hover:underline">
-                        <p>Management Users</p>
+                    <a href="{{route('dashboard.accomodation_plan.index')}}" class="flex items-center hover:underline">
+                        <p>Rencana Penginapan</p>
                     </a>
                     <span class="material-symbols-rounded">chevron_right</span>
-                    <p>Edit Akun</p>
+                    <p>Tambah Data</p>
                 </div>
                 <h1 class="text-white text-4xl font-medium">
-                    Edit Akun
+                    Tambah Data
                 </h1>
             </div>
         </div>
@@ -44,7 +44,7 @@
                                     <div class="mt-10">
                                         <div class="grid grid-cols-6 gap-6">
                                             <div class="md:col-span-6 lg:col-span-3">
-                                                <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama Rencana</label>
+                                                <label for="name" class="block mb-3 font-medium text-gray-700 text-md">Nama</label>
                                                 <input placeholder="Nama Rencana" type="text" name="name" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
 
                                                 @if ($errors->has('name'))
@@ -52,8 +52,8 @@
                                                 @endif
                                             </div>
                                             <div class="md:col-span-6 lg:col-span-3">
-                                                <label for="price" class="block mb-3 font-medium text-gray-700 text-md"> Password Baru</label>
-                                                <input placeholder="Harga" type="number" name="price" id="password" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                                <label for="price" class="block mb-3 font-medium text-gray-700 text-md"> Harga</label>
+                                                <input placeholder="Harga" type="number" name="price" id="price" autocomplete="off" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                                                 @if ($errors->has('price'))
                                                     <p class="text-red-500 mb-3 text-sm">{{$errors->first('price')}}</p>
                                                 @endif
@@ -63,10 +63,10 @@
                                 </div>
                                 <div class="px-4 py-3 text-right sm:px-6">
                                     <a href="" type="button" class="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-white border border-gray-600 rounded-lg shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300" onclick="return confirm('are you want to cancel?')">
-                                        Cancel
+                                        Batal
                                     </a>
                                     <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-lg shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" onclick="return confirm('are you want to submit this data?')">
-                                        Save Changes
+                                        Simpan
                                     </button>
                                 </div>
                             </div>
