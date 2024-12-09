@@ -140,7 +140,15 @@
             <a href="{{route('frontpage.promo')}}" class="hover:font-medium {{(Route::is('frontpage.promo') ? 'font-medium' : '')}}">Promo</a>
             <a href="{{route('frontpage.services')}}" class="hover:font-medium {{(Route::is('frontpage.services') ? 'font-medium' : '')}}">Layanan Lainnya </a>
             <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
+            @guest
             <a href="{{route('login')}}" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Masuk / Daftar</a>
+            @endguest
+            @auth
+            <a href="{{route('dashboard.home')}}" class="px-5 py-3 rounded-full bg-primary-500 text-white w-fit">Dashboard</a>
+            <form action="{{route('logout')}}" method="POST">
+                <button type="submit" class="text-red-500 font-medium">Keluar</button>
+            </form>
+            @endauth
         </div>
     </nav>
 
@@ -206,10 +214,10 @@
                 <div class="grid grid-cols-1 gap-2 w-full">
                     <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Pilih Kamar</label>
 
-                    <select name="rooms" id="rooms" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700">
+                    <select name="room_id" id="rooms" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700">
                         <option value="Pilih kamar">Pilih kamar</option>
                         @foreach ($rooms as $room)
-                        <option value="{{$room->name}}">{{$room->name}}</option>
+                        <option value="{{$room->id}}">{{$room->name}}</option>
                         @endforeach
 
                     </select>
@@ -218,11 +226,11 @@
                 <div class="flex items-center gap-3">
                     <div class="grid grid-cols-1 gap-2 w-full">
                         <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Check-in</label>
-                        <input type="date" name="start_date" id="checkInMobile" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
+                        <input type="date" name="check_in" id="checkInMobile" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
                     </div>
                     <div class="grid grid-cols-1 gap-2 w-full">
                         <label for="#rooms" class="flex items-center gap-1 text-primary-700 font-light text-sm"><span class="material-symbols-rounded scale-75">meeting_room</span> Check-out</label>
-                        <input type="date" name="end_date" id="checkOutMobile" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
+                        <input type="date" name="check_out" id="checkOutMobile" class="p-2 bg-primary-100 border border-primary-700 rounded-lg text-primary-700" id="">
                     </div>
                 </div>
 
@@ -735,7 +743,7 @@
 
             // Form submission handler
             reservationFormMobile.addEventListener('submit', function(e) {
-                e.preventDefault();
+                // e.preventDefault();
 
                 const checkInDateMobile = checkInInputMobile.value;
                 const checkOutDateMobile = checkOutInputMobile.value;
@@ -752,7 +760,7 @@
                 //     checkOut: checkOutDate
                 // });
 
-                alert('Room reservation submitted successfully!');
+                // alert('Room reservation submitted successfully!');
             });
         });
         </script>

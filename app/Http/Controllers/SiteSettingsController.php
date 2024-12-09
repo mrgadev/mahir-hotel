@@ -157,5 +157,13 @@ class SiteSettingsController extends Controller
         $frontpage_site_setting->update($data);
         return redirect()->route('dashboard.site.settings.frontpage.edit', compact('frontpage_site_setting'))->with('success', 'Data berhasil diperbarui');
     }
+
+    public function editBank(Bank $bank) {
+        
+    }
+
+    public function updateBank(Request $request, Bank $bank) {
+
+    }
 }
 

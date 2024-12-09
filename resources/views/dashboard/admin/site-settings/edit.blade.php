@@ -322,8 +322,6 @@
                     Tambahkan Bank
                     <br>
                 </h3>
-                <small class=" text-red-700">Silakan pilih peran (role) baru yang ingin Anda terapkan. Pilihan peran ini akan menentukan hak akses dan tanggung jawab pengguna di dalam sistem.</small>
-
                 <form action="{{ route('dashboard.bank.store') }}" class="mt-3" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')

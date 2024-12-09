@@ -8,17 +8,17 @@
         <a href="{{route('frontpage.about')}}" class="hover:font-medium {{(Route::is('frontpage.about') ? 'font-medium' : '')}}">Tentang Kami</a>
     </div>
     <ion-icon name="menu-outline" class="lg:hidden text-4xl" id="openMobileMenu"></ion-icon>
-    @guest    
+    @guest
     <div class=" items-center gap-3 auth-button hidden lg:flex">
         <a href="{{route('register')}}" class="bg-primary-500 text-white px-5 py-2 rounded-full hover:bg-white transition-all">Daftar</a>
         <a href="{{route('login')}}" class="px-5 py-2 border border-primary-500 text-primary-500 rounded-full hover:bg-primary-500 hover:text-white transition-all">Masuk</a>
     </div>
     @endguest
-    
+
     @auth
             <div class="hidden lg:flex items-center gap-2">
-                @if(Storage::url(Auth::user()->avatar))
-                <img src="{{Auth::user()->avatar}}" alt="">
+                @if(url(Auth::user()->avatar))
+                <img src="{{url(Auth::user()->avatar)}}" class="w-14 h-14 object-cover rounded-full" alt="">
                 @else
                 <span class="material-symbols-rounded">account_circle</span>
                 @endif

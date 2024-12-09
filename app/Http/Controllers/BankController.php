@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\SiteSettings;
 use Illuminate\Http\Request;
 
 class BankController extends Controller
@@ -50,7 +51,8 @@ class BankController extends Controller
      */
     public function edit(Bank $bank)
     {
-        //
+        $site_setting = SiteSettings::where('id',1)->firstOrFail();
+        return view('dashboard.admin.site-settings.bank-edit', compact('bank', 'site_setting'));
     }
 
     /**
@@ -58,7 +60,12 @@ class BankController extends Controller
      */
     public function update(Request $request, Bank $bank)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required'
+        ]);
+        $site_setting = SiteSettings::where('id',1)->firstOrFail();
+        $bank->update($data);
+        return redirect()->route('dashboard.site.settings.edit', compact('site_setting'))->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -69,5 +76,5 @@ class BankController extends Controller
         $bank->delete();
 
         return redirect()->route('dashboard.site.settings.edit')->with('success', 'Bank deleted successfully.');
-    }   
+    }
 }
