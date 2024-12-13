@@ -43,9 +43,9 @@
         background-color: #976033;
         color: #fff;
         transition: all 0.4s ease;
-    } 
-    
-    
+    }
+
+
 
     @media (max-width: 1024px) {
         #mainNavbar.scrolled {
@@ -93,7 +93,7 @@
                             @php
                                 $photos = explode('|',$room->photos);
                             @endphp
-                            @foreach ($photos as $photo)    
+                            @foreach ($photos as $photo)
                             <img src="{{url($photo)}}" class="rounded-xl img" alt="">
                             {{-- <span class="material-icons-round">{{</span> --}}
                             @endforeach
@@ -115,7 +115,7 @@
             <div class="flex flex-col gap-1.5">
                 <div class="flex items-center gap-1 font-light text-gray-700">
                     <i class="bi bi-star-fill text-primary-500"></i>
-                    4.6 (120 Ulasan)
+                    5 ({{$reviews->count()}} Ulasan)
                 </div>
                 <h1 class="text-4xl text-primary-700">{{$room->name}}</h1>
                 <p class="text-2xl text-primary-500">Rp. {{number_format($room->price,0,',','.')}} <span class="text-sm">/malam</span>
@@ -125,7 +125,7 @@
         </p>
         {{-- <p class="text-lg text-primary-700">Fasilitas Kamar</p> --}}
         <div class="flex flex-col lg:flex-row lg:items-center gap-5 font-light text-primary-700">
-            @foreach ($room->room_facility as $facility)    
+            @foreach ($room->room_facility as $facility)
             <p class="flex flex-col gap-1">
                 {{-- <img src="{{Storage::url($facility->icon)}}" class="w-7 h-7" alt=""> --}}
                 <span class="material-icons-round">{{$facility->icon}}</span>
@@ -134,7 +134,7 @@
             @endforeach
         </div>
         {{-- <p class="font-light text-gray-700">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis harum provident ratione odit hic sequi. Libero nostrum necessitatibus eos nobis eaque quisquam minus omnis commodi, sint laborum! 
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis harum provident ratione odit hic sequi. Libero nostrum necessitatibus eos nobis eaque quisquam minus omnis commodi, sint laborum!
         </p> --}}
         @if ($room->available_rooms == 0)
             <p class="font-medium p-2 rounded-lg bg-red-100 w-fit text-red-700 border border-red-700">SOLD OUT</p>
@@ -184,7 +184,7 @@
             @foreach ($global_rules as $global_rule)
             <p><span class="material-icons">{{$global_rule->icon}}</span>{{$global_rule->rule}}</p>
             @endforeach
-            @if($specific_rules->count() >= 1) 
+            @if($specific_rules->count() >= 1)
             @foreach ($specific_rules as $specific_rule)
             <p><span class="material-icons">
                 {{$specific_rule->icon}}
@@ -204,10 +204,10 @@
                             $total_rating += $review->rating;
                         }
                     @endphp
-                    @if ($reviews->count() >= 1) 
+                    @if ($reviews->count() >= 1)
                     <ion-icon name="star" class="text-primary-500"></ion-icon>
 
-                    {{$total_rating/$reviews->count()}} ({{$reviews->count()}} pelanggan)                    
+                    {{$total_rating/$reviews->count()}} ({{$reviews->count()}} pelanggan)
                     @endif
                 </p>
             </div>
@@ -217,7 +217,7 @@
             @foreach ($reviews as $review)
             <div class="flex flex-col gap-5 bg-primary-100 lg:w-1/2 p-5 rounded-xl border border-primary-700">
                 <div class="flex items-center gap-5">
-                    <img src="{{Storage::url($review->user->avatar)}}" class="w-14 h-14 rounded-full" alt="">
+                    <img src="{{url($review->user->avatar)}}" class="w-14 h-14 rounded-full" alt="">
                     <div class="flex flex-col ">
                         {{-- <p>{{$review->rating}} ({{$review->rating_text}})</p> --}}
                         <p class="text-lg text-primary-700 font-medium">{{$review->user->name}}</p>
@@ -244,7 +244,7 @@
             <div class="flex flex-col gap-3">
                 <h2 class="text-2xl text-primary-700">Kamar Lainnya</h2>
             </div>
-            @foreach ($other_room as $item)    
+            @foreach ($other_room as $item)
             <a href="{{route('frontpage.rooms.detail',$item->slug)}}" class="flex flex-col gap-3">
                 <img src="{{url($item->cover)}}" class="h-56 w-full object-cover rounded-lg" alt="">
                 <div class="flex items-center justify-between">
@@ -269,7 +269,7 @@
         </div> --}}
     </div>
 
-   
+
 </div>
 
 @include('components.frontpage-footer')
@@ -303,7 +303,7 @@
             gallery.scrollLeft -= 672;
             // gallery.style.transition = 'all 0.4s ease';
         });
-        
+
         galleryForward.addEventListener('click', function() {
             gallery.scrollLeft += 672;
             // gallery.style.transition = 'all 0.4s ease';
@@ -363,7 +363,7 @@
             // Form submission handler
             // reservationForm.addEventListener('submit', function(e) {
             //     e.preventDefault();
-                
+
             //     const checkInDate = checkInInput.value;
             //     const checkOutDate = checkOutInput.value;
 

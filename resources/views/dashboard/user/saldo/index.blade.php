@@ -33,7 +33,7 @@
                     <p class="whitespace-nowrap">Tarik Saldo</p>
                 </a>
             </div>
-        </div>       
+        </div>
         <section class="container mx-auto">
             <main class="col-span-12 md:pt-0">
                 <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -90,9 +90,9 @@
                         </thead>
                         <tbody>
                             @foreach ($wallets as $wallet)
-                                
+
                             <tr class="cursor-pointer">
-                                
+
                                 <td class="">
                                     <p>{{Carbon\Carbon::parse($wallet->created_at)->isoFormat('dddd, D MMM YYYY')}}</p>
                                 </td>
@@ -104,7 +104,7 @@
                                 </td>
                                 <td class="">
                                     <p><p class="text-red-700">- {{number_format($wallet->credit,0,',','.')}}</p></p>
-                                </td> 
+                                </td>
                                 <td class="">
                                     <p >Rp. {{number_format($wallet->amount,0,',','.')}}</p>
                                 </td>
@@ -125,12 +125,12 @@
                             </tr>
                             @endforeach
 
-                            
+
                         </tbody>
                     </table>
                 </div>
             </main>
-        </section>    
+        </section>
         <section class="container mx-auto">
             <main class="col-span-12 md:pt-0">
                 <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -171,7 +171,7 @@
                         </thead>
                         <tbody>
                             @foreach ($withdrawals as $withdrawal)
-                                
+
                             <tr class="cursor-pointer">
                                 <td class="">
                                     <p>{{Carbon\Carbon::parse($withdrawal->created_at)->isoFormat('dddd, D MMM YYYY')}}</p>
@@ -202,12 +202,12 @@
                             </tr>
                             @endforeach
 
-                            
+
                         </tbody>
                     </table>
                 </div>
             </main>
-        </section>    
+        </section>
     </main>
 @endsection
 @push('addon-script')

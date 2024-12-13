@@ -21,7 +21,7 @@
         @php
             $total_rooms = App\Models\Room::count();
             $total_reservations = App\Models\Transaction::count();
-            $total_check_in = App\Models\Transaction::whereIn('checkin_status', ['Sudah'])->count();
+            $total_check_in = App\Models\Transaction::where('checkin_status', 'Sudah Checkin')->count();
             $total_revenue = App\Models\Transaction::where('checkin_status', 'Sudah Checkin')->sum('total_price');
         @endphp
         <!-- row 1 -->
@@ -171,8 +171,8 @@
 
                                 @endswitch
                             @endif
-                            @if($total_reviews == 0)
-                            <p class="text-sm">dari {{$total_reviews}} Pelanggan</p>
+                            @if($total_reviews->count() == 0)
+                            <p class="text-sm">dari 0 Pelanggan</p>
                             @else
                             <p class="text-sm">dari {{$total_reviews->count()}} Pelanggan</p>
                             @endif
