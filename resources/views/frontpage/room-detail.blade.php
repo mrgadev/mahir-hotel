@@ -237,6 +237,7 @@
             @else
             <p>Belum ada ulasan</p>
             @endif
+            {{$reviews->links()}}
         </div>
 
         <div class="col-span-1 flex flex-col gap-10 order-first lg:order-last">
