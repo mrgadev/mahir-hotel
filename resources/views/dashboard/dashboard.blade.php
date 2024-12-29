@@ -171,7 +171,7 @@
 
                                 @endswitch
                             @endif
-                            @if($total_reviews == 0)
+                            @if(!$total_reviews)
                             <p class="text-sm">dari {{$total_reviews}} Pelanggan</p>
                             @else
                             <p class="text-sm">dari {{$total_reviews->count()}} Pelanggan</p>

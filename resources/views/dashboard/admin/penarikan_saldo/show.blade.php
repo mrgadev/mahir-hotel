@@ -99,7 +99,7 @@
                                         <div>
                                             <label for="image" class="block mb-3 font-medium text-gray-700 text-md">Bukti Transfer</label>
                                             @if($penarikanSaldo->image)
-                                            <img src="{{url($penarikanSaldo->image)}}" alt="">
+                                                <img src="{{url($penarikanSaldo->image)}}" alt="">
                                             @else
                                             <input type="file" name="image" id="image" autocomplete="off"
                                                 class=" block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
@@ -174,17 +174,19 @@
                                         </div>
                                     @endif
 
-                                    <div>
-                                        <label for="image" class="block mb-3 font-medium text-gray-700 text-md">Bukti Transfer</label>
-                                        <div class="relative flex h-52 w-auto cursor-pointer">
-                                            <a href="#image-modal" class="block w-full">
-                                                <img
-                                                class="h-full w-full object-cover object-center rounded-xl"
-                                                src="{{asset($penarikanSaldo->image)}}"
-                                                />
-                                            </a>
+                                    @if($penarikanSaldo->image)
+                                        <div>
+                                            <label for="image" class="block mb-3 font-medium text-gray-700 text-md">Bukti Transfer</label>
+                                            <div class="relative flex h-52 w-auto cursor-pointer">
+                                                <a href="#image-modal" class="block w-full">
+                                                    <img
+                                                    class="h-full w-full object-cover object-center rounded-xl"
+                                                    src="{{asset($penarikanSaldo->image)}}"
+                                                    />
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="px-4 py-3 text-right sm:px-6">

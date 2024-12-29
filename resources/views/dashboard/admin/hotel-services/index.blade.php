@@ -95,11 +95,11 @@
                                         <td class="font-medium text-gray-900 whitespace-nowrap">{{$hotel_service->name}}</td>
                                         <td class="flex items-center">
                                             <div class="mr-2">
-                                                <a href="{{route('dashboard.hotel_facilities.edit', $hotel_service)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
+                                                <a href="{{route('dashboard.hotel_service.edit', $hotel_service)}}" class="py-2 px-2 border-2 rounded-md border-primary-600 text-primary-500 text-center transition-all hover:bg-primary-500 hover:text-white">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
                                             </div>
-                                            <form action="{{route('dashboard.hotel_facilities.destroy', $hotel_service)}}" class="" method="POST">
+                                            <form action="{{route('dashboard.hotel_service.destroy', $hotel_service)}}" class="" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button tyoe="submit" class="py-1 px-2 border-2 rounded-md border-red-600 text-red-600 text-center transition-all hover:bg-red-600 hover:text-white">
