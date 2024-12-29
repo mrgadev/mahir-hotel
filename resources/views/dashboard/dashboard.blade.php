@@ -21,7 +21,7 @@
         @php
             $total_rooms = App\Models\Room::count();
             $total_reservations = App\Models\Transaction::count();
-            $total_check_in = App\Models\Transaction::whereIn('checkin_status', ['Sudah'])->count();
+            $total_check_in = App\Models\Transaction::where('checkin_status', 'Sudah Checkin')->count();
             $total_revenue = App\Models\Transaction::where('checkin_status', 'Sudah Checkin')->sum('total_price');
         @endphp
         <!-- row 1 -->

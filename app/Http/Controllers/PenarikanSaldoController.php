@@ -16,7 +16,7 @@ class PenarikanSaldoController extends Controller
      */
     public function index()
     {
-        $withdrawals = PenarikanSaldo::all();
+        $withdrawals = PenarikanSaldo::latest()->get();
         return view('dashboard.admin.penarikan_saldo.index', compact('withdrawals'));
     }
 

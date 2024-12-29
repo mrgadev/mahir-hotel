@@ -61,7 +61,7 @@
         margin: 0;
         padding-left: 20px;
     }
-    
+
 </style>
 @endpush
 {{-- @section('breadcrumb')
@@ -96,7 +96,7 @@
                 </div>
                 <a href="{{route('dashboard.user.bookings.export', $transaction->invoice)}}" class="px-5 py-3 rounded-lg bg-red-100 text-red-700 border-2 border-red-700"><i class="bi bi-file-earmark-pdf"></i> Simpan ke PDF</a>
             </div>
-        </div>       
+        </div>
         <section class="container mx-auto">
             <main class="col-span-12 md:pt-0">
                 <div class="grid lg:grid-cols-3 gap-5">
@@ -172,7 +172,7 @@
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quae odio adipisci aperiam dolorem odit facilis quo esse blanditiis, illum vel, voluptates earum labore? Maiores, tempore. </p>
                             </div> --}}
                         </div>
-    
+
                         <hr class="h-0.5 my-8 bg-gray-700 border-0">
                         {{-- Footer card --}}
                         <div class="grid lg:grid-cols-3 gap-6 text-sm">
@@ -190,7 +190,7 @@
                             <div class="flex flex-col gap-1">
                                 <p>Tambahan</p>
                                 <ul class="flex flex-col gap-1">
-                                    @foreach ($transaction->accomodation_plans as $accomodation_plan)                                        
+                                    @foreach ($transaction->accomodation_plans as $accomodation_plan)
                                     <li class="flex items-center gap-1 text-primary-700">{{$accomodation_plan->name}} (Rp. {{number_format($accomodation_plan->price,0,',','.')}})</li>
                                     @endforeach
                                 </ul>
@@ -206,7 +206,7 @@
                             <div class="flex flex-col gap-1">
                                 <p>Promo yang Dipakai</p>
                                 <ul class="flex flex-col gap-1">
-                                    @foreach ($transaction->promos as $promo)                                        
+                                    @foreach ($transaction->promos as $promo)
                                     <li class="flex items-center gap-1 text-primary-700">{{$promo->name}} ({{$promo->amount}}%)</li>
                                     <li class="flex items-center gap-1 text-red-700 text-sm font-medium">-Rp. {{number_format(($promo->amount / 100) * ($transaction->room->price * $nights),0,',','.')}}</li>
                                     @endforeach
@@ -220,7 +220,7 @@
                                 </ul>
                             </div> --}}
                         </div>
-                        
+
                         @if($transaction->payment_status == 'PAID')
                             @if($transaction->checkin_status == 'Belum')
                             <form action="{{route('dashboard.saldo.cancelTransaction', $transaction->id)}}" method="POST" enctype="multipart/form-data">
@@ -274,7 +274,7 @@
                                     <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
                                     <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
                                 </div>
-                    
+
                                 <div class="flex flex-col gap-3">
                                     <label for="title">Judul</label>
                                     <input type="text" name="title" class="rounded-lg ">
@@ -284,13 +284,13 @@
                                     <label for="description">Ulasan Anda</label>
                                     <textarea name="description" id="description" class="form-control" rows="4"></textarea>
                                 </div>
-                    
+
                                 {{-- <div class="flex flex-col gap-3">
                                     <label for="images">Upload Images:</label>
                                     <input type="file" name="images[]" id="images" multiple accept="image/*" onchange="previewImages(this)">
                                     <div class="preview-images"></div>
                                 </div> --}}
-                    
+
                                 <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
                             </form>
                             @elseif ($transaction->checkin_status == 'Sudah Checkout' && $room_review)
@@ -337,7 +337,7 @@
                                     <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
                                     <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
                                 </div>
-                    
+
                                 <div class="flex flex-col gap-3">
                                     <label for="title">Judul</label>
                                     <input type="text" name="title" class="rounded-lg " value="{{$room_review->title}}">
@@ -353,18 +353,16 @@
                                         <p>{{$message}}</p>
                                     @enderror
                                 </div>
-                    
+
                                 {{-- <div class="flex flex-col gap-3">
                                     <label for="images">Upload Images:</label>
                                     <input type="file" name="images[]" id="images" multiple accept="image/*" onchange="previewImages(this)">
                                     <div class="preview-images"></div>
                                 </div> --}}
-                    
+
                                 <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
                             </form>
                             @endif
-                        @elseif($transaction->payment_status == 'PENDING')
-                            <a href="{{route('payment.bill', $transaction->invoice)}}">Bayar sekarang</a>
                         @elseif($transaction->payment_status == 'CANCELLED')
                             <p class="mt-5 p-3 rounded-lg bg-red-100 text-red-700 border border-red-700">Transaksi sudah dibatalkan karena Anda telah melewati tenggat waktu yang diberikan.</p>
                         @endif
@@ -412,7 +410,7 @@
                                 <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
                                 <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
                             </div>
-                
+
                             <div class="flex flex-col gap-3">
                                 <label for="title">Judul</label>
                                 <input type="text" name="title" class="rounded-lg ">
@@ -422,7 +420,7 @@
                                 <label for="description">Ulasan Anda</label>
                                 <textarea name="description" id="description" class="form-control" rows="4"></textarea>
                             </div>
-                
+
                             <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
                         </form>
                         @elseif ($transaction->checkin_status == 'Sudah' && $room_review)
@@ -458,7 +456,7 @@
                                 <input type="hidden" name="room_id" value="{{$transaction->room->id}}">
                                 <input type="hidden" name="transaction_id" value="{{$transaction->id}}">
                             </div>
-                
+
                             <div class="flex flex-col gap-3">
                                 <label for="title">Judul</label>
                                 <input type="text" name="title" class="rounded-lg " value="{{$room_review->title}}">
@@ -474,12 +472,12 @@
                                     <p>{{$message}}</p>
                                 @enderror
                             </div>
-                
+
                             <button type="submit" class="bg-primary-700 w-fit text-white px-5 py-3 rounded-lg">Submit Review</button>
                         </form>
 
                         @endif --}}
-                        
+
                     </div>
 
                     {{-- Room detail card --}}
@@ -512,7 +510,7 @@
                                     <p>Biaya tambahan</p>
                                     <p class="text-primary-700">Rp. {{number_format($accomodation_plan_amount,0,',','.')}}</p>
                                 </div>
-                                
+
                                 <div class="flex items-center justify-between">
                                     <p>Potongan harga</p>
                                     <p class="text-red-700">-Rp. {{number_format($discounted_price,0,',','.')}}</p>
@@ -525,14 +523,14 @@
                                     <p>Metode pembayaran</p>
                                     <p class="">{{$transaction->payment_method}}</p>
                                 </div>
-                                @if($transaction->checkin_status == 'Belum')
+                                @if($transaction->checkin_status == 'Belum' && $transaction->payment_status == 'PAID')
                                 <form action="{{route('dashboard.user.bookings.checkin', $transaction->invoice)}}" method="POST">
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" name="checkin_date" value="{{now()}}">
                                     <button class="px-5 py-2 rounded-lg text-white bg-primary-700 text-center" type="submit">Check-in</button>
                                 </form>
-                                
+
                                 @elseif($transaction->checkin_status == 'Sudah Checkin')
                                 <form action="{{route('dashboard.user.bookings.checkout', $transaction->invoice)}}" method="POST">
                                     @csrf
@@ -546,7 +544,7 @@
                     </div>
                 </div>
             </main>
-        </section>    
+        </section>
     </main>
 @endsection
 @push('addon-script')

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class BookingUserController extends Controller
 {
     public function index() {
-        $transactions = Transaction::where('user_id', Auth::user()->id)->get();
+        $transactions = Transaction::where('user_id', Auth::user()->id)->latest()->get();
         return view('dashboard.user.bookings.index', compact('transactions'));
     }
 

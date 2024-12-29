@@ -270,7 +270,7 @@
             <div class="flex flex-col gap-2 p-5">
                 <div class="flex items-center justify-between">
                     <h3 class="text-2xl text-primary-700 hover:underline">{{$room->name}}</h3>
-                    <p class="bg-primary-100 text-primary-600 text-xs rounded-full px-3 py-1 border border-primary-600"><i class="bi bi-star-fill"></i> 4.5 (120)</p>
+                    {{-- <p class="bg-primary-100 text-primary-600 text-xs r    ounded-full px-3 py-1 border border-primary-600"><i class="bi bi-star-fill"></i> 4.5 (120)</p> --}}
                 </div>
                 <div class="text-sm flex items-center gap-1 text-primary-500">
                     @foreach ($room->room_facility as $facility)
@@ -448,14 +448,6 @@
             <h2 class="text-3xl font-medium text-primary-700">{{$frontpage_site_setting->testimonial_title}}</h2>
         </div>
 
-        <div class="flex items-center gap-3">
-            <button class="bg-primary-500 text-white px-4 py-3 rounded-full transition" id="prevTestimonial">
-                <i class="bi bi-chevron-left"></i>
-            </button>
-            <button class="bg-primary-500 text-white px-4 py-3 rounded-full transition " id="nextTestimonial">
-                <i class="bi bi-chevron-right"></i>
-            </button>
-        </div>
     </div>
 
     {{-- <!-- Testimonial Content -->
@@ -514,7 +506,7 @@
     <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8 my-10">
         @foreach ($hotel_awards as $hotel_award)
         <div class="flex items-center gap-3">
-            <img src="{{url($hotel_award->badge)}}" class="w-24" alt="">
+            <img src="{{url($hotel_award->badge)}}" class="w-24 h-24 rounded-full" alt="">
             <div class="flex flex-col gap-1">
                 <p>{{$hotel_award->name}}</p>
             </div>

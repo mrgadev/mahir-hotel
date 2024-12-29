@@ -30,7 +30,7 @@ class FrontpageController extends Controller
         $site_setting = SiteSettings::where('id', 1)->firstOrFail();
         $frontpage_site_setting = FrontpageSiteSetting::where('id',1)->first();
         $partners = SiteSettingPartner::all();
-        $room_reviews = RoomReview::where('visibility', 'Tampilkan')->get();
+        $room_reviews = RoomReview::where('visibility', 'Tampilkan')->limit(4)->get();
         $hotel_services = HotelService::limit(4)->get();
         $hotel_awards = HotelAward::limit(4)->get();
         return view('frontpage.index', compact('faqs', 'nearby_locations', 'hotel_facilities', 'rooms', 'site_setting', 'partners', 'room_reviews', 'hotel_services', 'hotel_awards', 'frontpage_site_setting'));
@@ -84,7 +84,7 @@ class FrontpageController extends Controller
         // $promo = Promo::where('room_id', $room->id)->get();
         $site_setting = SiteSettings::where('id', 1)->first();
         $other_room = Room::whereNot('id', $room->id)->get();
-        $reviews = RoomReview::where('room_id', $room->id)->where('visibility', 'Tampilkan')->get();
+        $reviews = RoomReview::where('room_id', $room->id)->where('visibility', 'Tampilkan')->paginate(5);
         return view('frontpage.room-detail', compact('room', 'other_room', 'reviews', 'site_setting'));
     }
 

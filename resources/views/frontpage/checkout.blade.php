@@ -44,9 +44,9 @@
         background-color: #976033;
         color: #fff;
         transition: all 0.4s ease;
-    } 
-    
-    
+    }
+
+
 
     @media (max-width: 1024px) {
         #mainNavbar.scrolled {
@@ -102,7 +102,7 @@
                   <input type="email" id="your_email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required autocomplete="off" name="email" value="{{Auth::user()->email}}"  />
               @endauth
               @guest
-                <input type="email" id="your_email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required autocomplete="off" name="email" />  
+                <input type="email" id="your_email" class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm" required autocomplete="off" name="email" />
               @endguest
             </div>
 
@@ -126,13 +126,13 @@
                     <div class="rounded-lg border border-gray-200 p-4 ps-4 w-auto">
                         <div class="flex items-start">
                             <div class="flex h-5 items-center w-auto">
-                                <input 
-                                    id="spa_{{$accomodation_plan->id}}" 
-                                    type="checkbox" 
-                                    name="accomodation_plan_id[]" 
-                                    value="{{ $accomodation_plan->id }}" 
+                                <input
+                                    id="spa_{{$accomodation_plan->id}}"
+                                    type="checkbox"
+                                    name="accomodation_plan_id[]"
+                                    value="{{ $accomodation_plan->id }}"
                                     class="h-4 w-4 border-gray-300 bg-white text-primary-600 rounded-md focus:ring-2 focus:ring-primary-600"
-                                    data-price="{{ $accomodation_plan->price }}" 
+                                    data-price="{{ $accomodation_plan->price }}"
                                     onchange="updateAccommodationPlans()"/>
                             </div>
 
@@ -158,15 +158,15 @@
                         $isExpired = $now > $promo->end_date;
                     @endphp
                     <div class="relative {{ $isExpired ? 'opacity-50' : '' }}">
-                        <input type="checkbox" 
-                            id="promo-{{ $promo->id }}" 
+                        <input type="checkbox"
+                            id="promo-{{ $promo->id }}"
                             name="promo_id[]"
-                            value="{{ $promo->id }}" 
+                            value="{{ $promo->id }}"
                             data-discount="{{ $promo->amount }}"
-                            class="promo-checkbox hidden peer" 
+                            class="promo-checkbox hidden peer"
                             {{ $isExpired ? 'disabled' : '' }}
                             onchange="updateAccommodationPlans()">
-                        <label for="promo-{{ $promo->id }}" class="inline-flex items-center justify-between w-full p-5 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-500 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50">                           
+                        <label for="promo-{{ $promo->id }}" class="inline-flex items-center justify-between w-full p-5 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-500 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50">
                             <div class="block">
                                 <p class="w-full text-base text-primary-700">{{ $promo->name }}</p>
                                 <p class="w-full text-sm text-primary-700">Potongan harga: {{ $promo->amount }}%</p>
@@ -207,12 +207,12 @@
                             <input type="date" name="check_in" value="{{session('check_in')}}" hidden>
                             <input type="date" name="check_out" value="{{session('check_out')}}" hidden>
                             <input type="text" name="room_id" value="{{$room->id}}" hidden>
-                            {{\Carbon\Carbon::parse(session('check_in'))->isoFormat('dddd, D MMM Y')}} - 
+                            {{\Carbon\Carbon::parse(session('check_in'))->isoFormat('dddd, D MMM Y')}} -
                             {{\Carbon\Carbon::parse(session('check_out'))->isoFormat('dddd, D MMM YYYY')}}
                             @php
                                 $totalDays = date_diff(date_create(session('check_in')), date_create(session('check_out')));
                             @endphp
-                            
+
                             {{-- {{ \Carbon\Carbon::parse(session('check_in'))->format('D, M d, Y') }} -  --}}
                             {{-- {{ \Carbon\Carbon::parse(session('check_out'))->format('D, M d, Y') }} --}}
                         </p>
@@ -331,7 +331,7 @@
                     Proceed to Payment
                 </button>
                 <p class="text-sm font-normal text-gray-500 pb-5">
-                    One or more items in your cart require an account. 
+                    One or more items in your cart require an account.
                     <a href="#" title="" class="font-medium text-primary-700 underline hover:no-underline">Sign in or create an account now.</a>.
                 </p>
             </div>
@@ -388,7 +388,7 @@
             roomsContainer.scrollLeft -= 250;
             roomsContainer.style.transition = 'all 0.4s ease';
         });
-        
+
         roomButtonRight.addEventListener('click', function() {
             roomsContainer.scrollLeft += 250;
             roomsContainer.style.transition = 'all 0.4s ease';
@@ -440,7 +440,7 @@
             // Hitung total diskon
             const roomTotal = calculateRoomTotal();
             let discountTotal = 0;
-            
+
             document.querySelectorAll('input[name="promo_id[]"]:checked').forEach((checkbox) => {
                 const discountPercentage = parseFloat(checkbox.getAttribute("data-discount") || "0");
                 discountTotal += (roomTotal * (discountPercentage / 100));
@@ -495,9 +495,9 @@
             $('#Credit').change(function() {
                 const totalPrice = parseFloat($('#total-price').text().replace('Rp. ', '').replace(/\./g, ''));
                 const saldoAmount = parseFloat($('#credit-description dd').data('saldo')); // Ambil dari data attribute
-                
+
                 if($(this).is(':checked')) {
-                    creditDescription.show();        
+                    creditDescription.show();
                     // Cek saldo
                     if(saldoAmount < totalPrice) {
                         $('#saldo-message').html(`
@@ -518,7 +518,7 @@
                                 paymentButton.hide();
                             }
                         });
-                        
+
                         $('#addXendit').change(function() {
                             if($(this).is(':checked')) {
                                 // Change to Cash payment
@@ -531,7 +531,7 @@
                         });
                         $('#Credit').closest('div').addClass('cursor-not-allowed');
                     } else {
-                        paymentButton.text('Bayar Menggunakan Kredit');
+                        paymentButton.text('Bayar Menggunakan Saldo');
                         paymentButton.show();
                         $('#saldo-message').html('');
                         $('#credit-description dd').removeClass('text-red-500');

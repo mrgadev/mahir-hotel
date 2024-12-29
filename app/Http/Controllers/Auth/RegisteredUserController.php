@@ -131,6 +131,6 @@ class RegisteredUserController extends Controller
         $pesan1 = $this->send_message($request->phone, $pesan);
         $random_url = Str::random(64);
 
-        return redirect()->route('verify', compact('phone', 'random_url'));
+        return redirect()->route('verify', compact('phone', 'random_url'))->with('success', 'Kode OTP berhasil dikirim ulang!');
     }
 }

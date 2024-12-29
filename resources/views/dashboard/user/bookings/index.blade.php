@@ -29,7 +29,7 @@
                     </h1>
                 </div>
             </div>
-        </div>       
+        </div>
         <section class="container mx-auto">
             <main class="col-span-12 md:pt-0">
                 <div class="p-10 mt-2 bg-white rounded-xl shadow-lg">
@@ -90,17 +90,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transactions as $key => $transaction)    
+                            @foreach ($transactions as $key => $transaction)
                             <tr class="cursor-pointer">
                                 <td class="font-medium whitespace-nowrap">{{$key+1}}</td>
                                 <td class="">
                                     <p>{{$transaction->room->name}}</p>
                                 </td>
                                 <td class="">
-                                    <p>{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('d MMM YYYY')}}</p>
+                                    <p>{{Carbon\Carbon::parse($transaction->check_in)->isoFormat('D MMM YYYY')}}</p>
                                 </td>
                                 <td class="">
-                                    <p>{{Carbon\Carbon::parse($transaction->check_out)->isoFormat('d MMM YYYY')}}</p>
+                                    <p>{{Carbon\Carbon::parse($transaction->check_out)->isoFormat('D MMM YYYY')}}</p>
                                 </td>
                                 <td class="">
                                     @if($transaction->checkin_status == 'Sudah Checkin')
@@ -112,7 +112,7 @@
                                     @elseif($transaction->checkin_status == 'Dibatalkan')
                                     <p class="p-2 rounded-lg bg-red-100 border border-red-700 text-red-700 text-sm w-fit">{{$transaction->checkin_status}}</p>
                                     @endif
-                                </td> 
+                                </td>
                                 <td class="">
                                     @if($transaction->payment_status == 'PAID')
                                     <p class="p-2 rounded-lg bg-green-100 border border-green-700 text-green-700 text-sm w-fit">{{$transaction->payment_status}}</p>
@@ -136,7 +136,7 @@
                     </table>
                 </div>
             </main>
-        </section>    
+        </section>
     </main>
 @endsection
 @push('addon-script')
